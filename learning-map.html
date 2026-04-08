@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學習地圖 — 臺中市民團協會</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #003764;
+  --navy-d:    #002548;
+  --navy-l:    #0a4a7c;
+  --orange:    #FF6921;
+  --orange-d:  #e05510;
+  --teal:      #2CD5C4;
+  --teal-d:    #1aada0;
+  --white:     #ffffff;
+  --off-white: #f7f6f3;
+  --ink:       #0d1f33;
+  --muted:     #5a6b7d;
+  --rule:      rgba(0,55,100,.1);
+  --px: 40px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+/* NOTICE */
+.notice-bar { background: var(--teal); color: var(--navy-d); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-align: center; padding: 8px; }
+
+/* NAV */
+nav { background: var(--navy); display: flex; align-items: center; padding: 0 var(--px); height: 58px; gap: 32px; position: sticky; top: 0; z-index: 100; }
+.nav-logo { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+.nav-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 700; color: var(--white); flex-shrink: 0; }
+.nav-links { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+.nav-link { color: rgba(255,255,255,.6); font-size: 13px; padding: 6px 12px; border-radius: 4px; cursor: pointer; white-space: nowrap; text-decoration: none; transition: color .15s, background .15s; }
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
+.nav-link.active { color: var(--white); }
+
+/* 漢堡（mobile） */
+.nav-hamburger { display: none; margin-left: auto; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.7); border-radius: 2px; transition: transform .25s, opacity .25s; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-drawer { display: none; position: fixed; top: 58px; left: 0; right: 0; background: var(--navy-d); z-index: 99; flex-direction: column; padding: 12px 0 20px; border-bottom: 2px solid var(--orange); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+.nav-drawer.open { display: flex; }
+.nav-drawer .nav-link { padding: 12px var(--px); border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.05); }
+
+/* PAGE HEADER */
+.page-header { background: var(--navy); padding: 52px var(--px) 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.bc-link { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; }
+.bc-sep { font-size: 11px; color: rgba(255,255,255,.2); }
+.bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
+.page-h1 { font-family: 'Oswald', sans-serif; font-size: 52px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 12px; }
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; }
+
+/* 學習地圖 SECTION */
+.map-section { background: var(--navy-d); padding: 64px var(--px) 72px; position: relative; overflow: hidden; }
+.map-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(44,213,196,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(44,213,196,.04) 1px,transparent 1px); background-size: 40px 40px; pointer-events: none; }
+.map-sec-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; position: relative; gap: 16px; }
+.map-h2 { font-family: 'Oswald', sans-serif; font-size: 34px; font-weight: 600; color: var(--white); line-height: 1; }
+.gitmind-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1px solid rgba(44,213,196,.4); border-radius: 4px; color: var(--teal); font-size: 13px; font-weight: 700; text-decoration: none; transition: border-color .15s, background .15s; white-space: nowrap; flex-shrink: 0; }
+.gitmind-btn:hover { background: rgba(44,213,196,.08); border-color: var(--teal); }
+.gitmind-btn .arr { transition: transform .2s; }
+.gitmind-btn:hover .arr { transform: translateX(3px); }
+.map-images { display: flex; flex-direction: column; gap: 16px; }
+.map-img-wrap { border: 1px solid rgba(255,255,255,.08); border-radius: 8px; overflow: hidden; }
+.map-img-wrap img { width: 100%; display: block; }
+.map-placeholder { width: 100%; height: 280px; background: rgba(0,55,100,.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.map-placeholder-icon { font-size: 36px; opacity: .5; }
+.map-placeholder-text { font-size: 13px; color: rgba(255,255,255,.4); }
+.map-placeholder-sub { font-size: 11px; color: rgba(255,255,255,.2); }
+.map-footer-row { margin-top: 18px; }
+.map-note { display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,.3); }
+.map-note-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* 全台自訓地圖 CTA */
+.nationwide-section { background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); padding: 56px var(--px); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; position: relative; overflow: hidden; }
+.nationwide-section::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--teal); }
+.nw-title { font-family: 'Oswald', sans-serif; font-size: 28px; font-weight: 600; color: var(--white); line-height: 1.2; margin-bottom: 10px; }
+.nw-desc { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 560px; }
+.nw-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: var(--navy-d); font-size: 14px; font-weight: 700; padding: 14px 24px; border-radius: 4px; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; font-family: 'Noto Sans TC', sans-serif; transition: background .15s; flex-shrink: 0; }
+.nw-btn:hover { background: var(--teal-d); color: var(--white); }
+
+/* 推薦資源 SECTION */
+.resources-section { background: var(--off-white); padding: 72px 0 80px; }
+.res-section-header { padding: 0 var(--px); margin-bottom: 52px; }
+.res-h2 { font-family: 'Oswald', sans-serif; font-size: 34px; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 10px; }
+.res-sub { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 520px; }
+.res-row { margin-bottom: 52px; }
+.res-row:last-child { margin-bottom: 0; }
+.res-row-header { display: flex; align-items: center; justify-content: space-between; padding: 0 var(--px); margin-bottom: 20px; }
+.row-cat { display: flex; align-items: center; gap: 12px; }
+.row-cat-name { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.row-cat-line { flex: 0 0 40px; height: 1px; background: var(--rule); }
+.row-count { font-size: 11px; color: var(--muted); }
+.row-controls { display: flex; gap: 6px; }
+.scroll-btn { width: 32px; height: 32px; border-radius: 4px; border: 1px solid var(--rule); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; color: var(--muted); transition: background .15s, border-color .15s, color .15s; user-select: none; }
+.scroll-btn:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.res-scroll-track { display: flex; gap: 14px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 4px var(--px) 16px; }
+.res-scroll-track::-webkit-scrollbar { display: none; }
+
+/* Cards */
+.res-card { flex: 0 0 calc(50% - 47px); min-width: 280px; background: var(--white); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.res-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,55,100,.09); border-color: rgba(0,55,100,.2); }
+.res-card:hover .card-top-bar { transform: scaleX(1); }
+.card-top-bar { height: 3px; transform: scaleX(0); transform-origin: left; transition: transform .3s; flex-shrink: 0; }
+.bar-stream { background: var(--orange); }
+.bar-youtube { background: #ff0000; }
+.bar-default { background: var(--teal); }
+.bar-book { background: var(--teal); }
+.card-cover-area { width: 100%; aspect-ratio: 16/9; background: var(--off-white); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+.card-cover-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cover-ph-icon { font-size: 28px; opacity: .4; }
+.yt-cover { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; flex-shrink: 0; position: relative; }
+.yt-cover iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.book-card-body { display: flex; flex-direction: row; flex: 1; overflow: hidden; }
+.book-thumb { width: 90px; flex-shrink: 0; background: linear-gradient(160deg,var(--navy-l),var(--navy-d)); display: flex; align-items: center; justify-content: center; font-size: 32px; padding: 16px; }
+.book-text { flex: 1; padding: 18px 16px; display: flex; flex-direction: column; overflow: hidden; }
+.card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+.platform-badge { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 99px; font-size: 10px; font-weight: 700; letter-spacing: .05em; margin-bottom: 10px; align-self: flex-start; flex-shrink: 0; }
+.badge-stream { background: var(--navy-l); color: #fff; }
+.badge-youtube { background: #ff0000; color: #fff; }
+.badge-default { background: rgba(0,55,100,.12); color: var(--navy); }
+.badge-book { background: rgba(0,55,100,.1); color: var(--navy); }
+.badge-spotify { background: #1db954; color: #fff; }
+.badge-apple { background: #fc3c44; color: #fff; }
+.badge-soundon { background: #ff6b35; color: #fff; }
+.badge-podcast { background: #7c3aed; color: #fff; }
+.card-title { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 8px; }
+.book-text .card-title { font-size: 14px; }
+.card-desc { font-size: 12px; color: var(--muted); line-height: 1.75; flex: 1; margin-bottom: 16px; }
+.card-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; border-radius: 4px; font-size: 13px; font-weight: 700; font-family: 'Noto Sans TC', sans-serif; text-decoration: none; border: none; cursor: pointer; transition: background .15s, gap .2s; }
+.card-btn:hover { gap: 10px; }
+.btn-stream { background: var(--orange); color: var(--white); }
+.btn-stream:hover { background: var(--orange-d); }
+.btn-default { background: var(--navy); color: var(--white); }
+.btn-default:hover { background: var(--navy-l); }
+.btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid rgba(0,55,100,.2); }
+.btn-ghost:hover { border-color: var(--navy); background: rgba(0,55,100,.05); }
+
+/* Podcast card */
+.podcast-card { flex: 0 0 calc(50% - 47px); min-width: 280px; background: var(--white); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; display: flex; align-items: stretch; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.podcast-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,55,100,.09); border-color: rgba(0,55,100,.2); }
+.podcast-thumb { width: 80px; flex-shrink: 0; background: linear-gradient(135deg,#7c3aed,#4c1d95); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.podcast-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.podcast-info { flex: 1; padding: 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.podcast-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.podcast-host { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.podcast-meta { font-size: 11px; color: var(--muted); }
+.podcast-link-btn { flex-shrink: 0; padding: 0 18px; font-size: 12px; font-weight: 700; color: var(--orange); text-decoration: none; white-space: nowrap; border-left: 1px solid var(--rule); display: flex; align-items: center; transition: background .15s, color .15s; }
+.podcast-link-btn:hover { background: var(--orange); color: var(--white); }
+
+/* FOOTER CTA */
+.footer-cta { background: var(--orange); padding: 56px var(--px); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
+.fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
+.fcta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.fcta-btn-w { background: var(--white); color: var(--orange); font-size: 14px; font-weight: 700; padding: 13px 26px; border-radius: 4px; border: none; cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: background .15s; }
+.fcta-btn-w:hover { background: var(--off-white); }
+.fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
+.fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+footer { background: var(--navy-d); padding: 28px var(--px); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-reg { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); cursor: pointer; transition: background .15s; }
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+
+.fade-in { opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+.fade-in.show { opacity: 1; transform: none; }
+
+/* =============================================
+   RWD — TABLET ≤ 768px
+   ============================================= */
+@media (max-width: 768px) {
+  :root { --px: 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .page-h1 { font-size: 38px; }
+  .page-sub { font-size: 13px; }
+  .map-section { padding: 48px var(--px) 56px; }
+  .map-sec-header { flex-direction: column; align-items: flex-start; }
+  .map-h2 { font-size: 28px; }
+  .nationwide-section { grid-template-columns: 1fr; gap: 24px; padding: 40px var(--px); }
+  .nw-title { font-size: 22px; }
+  .nw-btn { width: 100%; justify-content: center; }
+  .resources-section { padding: 48px 0 60px; }
+  .res-section-header { margin-bottom: 36px; }
+  .res-h2 { font-size: 28px; }
+  .res-card, .podcast-card { flex: 0 0 calc(100vw - 40px); min-width: 0; }
+  .row-controls { display: none; }
+  .footer-cta { padding: 40px var(--px); flex-direction: column; align-items: flex-start; }
+  .fcta-title { font-size: 28px; }
+  footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+/* =============================================
+   RWD — MOBILE ≤ 480px
+   ============================================= */
+@media (max-width: 480px) {
+  .page-h1 { font-size: 32px; }
+  .map-h2 { font-size: 24px; }
+  .res-h2 { font-size: 24px; }
+  .nw-title { font-size: 20px; }
+  .book-thumb { width: 70px; font-size: 26px; }
+  .res-card, .podcast-card { flex: 0 0 calc(100vw - 40px); }
+}
+</style>
+</head>
+<body>
+
+<div class="notice-bar">▲ 改版設計稿 v3 — 子分頁：學習地圖（真實資料 · RWD 完成）</div>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-mark">民</div>
+    社團法人臺中市民團協會
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#">關於我們</a>
+    <a class="nav-link" href="#">加入我們</a>
+    <a class="nav-link" href="#">課程與活動</a>
+    <a class="nav-link active" href="#">學習地圖</a>
+    <a class="nav-link" href="#">媒體報導</a>
+    <a class="nav-link" href="#">聯絡我們</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a class="nav-link" href="#" onclick="toggleMenu()">關於我們</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">加入我們</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">課程與活動</a>
+  <a class="nav-link active" href="#" onclick="toggleMenu()">學習地圖</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">媒體報導</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">聯絡我們</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb">
+    <a class="bc-link" href="#">首頁</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">學習地圖</span>
+  </div>
+  <h1 class="page-h1">學習地圖</h1>
+  <p class="page-sub">民防知識從哪裡開始學？這裡整理了架構地圖、推薦影集、書單與 Podcast，陪你持續深化防災視野。</p>
+</div>
+
+<!-- 學習地圖 SECTION -->
+<section class="map-section">
+  <div class="map-sec-header fade-in">
+    <div class="map-h2">民防相關 — 學習地圖</div>
+    <a class="gitmind-btn" href="https://gitmind.com/app/docs/m72jdib6?lang=en" target="_blank">
+      🌐 前往 gitmind 樹狀圖 <span class="arr">↗</span>
+    </a>
+  </div>
+  <div class="map-images fade-in" style="transition-delay:.08s">
+    <div class="map-img-wrap">
+      <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SRE5091F-4Koy6zxrt1WPzN5Mervi4SKCjcishjuQlcpn5Eqmlgg4bGRSys1rPcnlz8Z1hzoVGtBTxBa9lVgk5mswRs0c_zMoQvVInQAfUYInR1HZ3N1-zR-7DE1qimNPgKZ9soDNaHSOHPAIKlC6-SI3sC9vAMOzxL5BX902pMY2xVm_UH-f3EjLU_7LSKXMOen2Fy6j8nqBKTkrIsdwFSs1NkpeqbIqBF=w1280"
+           alt="民防學習地圖 第一張"
+           onerror="this.parentElement.innerHTML='<div class=\'map-placeholder\'><div class=\'map-placeholder-icon\'>🗺️</div><div class=\'map-placeholder-text\'>學習地圖截圖 — 第一張</div><div class=\'map-placeholder-sub\'>請替換成 Google Drive 公開連結</div></div>'">
+    </div>
+    <div class="map-img-wrap">
+      <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SQSBume5Wx-DYpC8_138U04UE_Q6_OfKJ0ApDnAqw22t8xkl7id0H9l0HZgqEhdJBs1-NJ1kiVqSRj_WVakSrTJj02gRfvl2zR7NQh7SyUldxQVSxEOSskU8wtFs5AVreHxsDQ_ULV5CsU3UKRtWMXj5Oct7-pCK-c0usttpbThoL7snqDLnQ9vFF90NrkMHK6R7ARB_R8E4laj1ptrh3S7PY-OwHpOYkaU=w1280"
+           alt="民防學習地圖 第二張"
+           onerror="this.parentElement.innerHTML='<div class=\'map-placeholder\'><div class=\'map-placeholder-icon\'>📊</div><div class=\'map-placeholder-text\'>學習地圖截圖 — 第二張</div><div class=\'map-placeholder-sub\'>請替換成 Google Drive 公開連結</div></div>'">
+    </div>
+  </div>
+  <div class="map-footer-row fade-in" style="transition-delay:.12s">
+    <div class="map-note">
+      <span class="map-note-dot"></span>
+      以上為靜態截圖預覽；點擊右上角按鈕可前往 gitmind 查看完整互動版本
+    </div>
+  </div>
+</section>
+
+<!-- 全台自訓地圖 CTA -->
+<div class="nationwide-section fade-in">
+  <div>
+    <div class="nw-title">不在台中？找到你所在地的自訓社群</div>
+    <p class="nw-desc">這份表單由各地自訓社群共同維護，收錄全台灣的自訓團體資訊。無論你在哪個縣市，都能找到離你最近的訓練夥伴。</p>
+  </div>
+  <a class="nw-btn" href="#" target="_blank">🗾 前往全台自訓地圖 →</a>
+</div>
+
+<!-- 推薦資源 SECTION -->
+<section class="resources-section">
+  <div class="res-section-header fade-in">
+    <div class="res-h2">民防相關 — 推薦資源</div>
+    <p class="res-sub">影集、書籍、YouTube 與 Podcast，從不同角度切入民防與災難應對，適合自主延伸學習。</p>
+  </div>
+  <div class="res-row fade-in">
+    <div class="res-row-header">
+      <div class="row-cat">
+        <span style="font-size:16px">🎬</span>
+        <span class="row-cat-name">影片推薦</span>
+        <span class="row-cat-line"></span>
+        <span class="row-count" id="film-count"></span>
+      </div>
+      <div class="row-controls">
+        <button class="scroll-btn" onclick="scrollRow('film-track',-1)">←</button>
+        <button class="scroll-btn" onclick="scrollRow('film-track',1)">→</button>
+      </div>
+    </div>
+    <div class="res-scroll-track" id="film-track"></div>
+  </div>
+  <div class="res-row fade-in" style="transition-delay:.06s">
+    <div class="res-row-header">
+      <div class="row-cat">
+        <span style="font-size:16px">📚</span>
+        <span class="row-cat-name">書籍推薦</span>
+        <span class="row-cat-line"></span>
+        <span class="row-count" id="book-count"></span>
+      </div>
+      <div class="row-controls">
+        <button class="scroll-btn" onclick="scrollRow('book-track',-1)">←</button>
+        <button class="scroll-btn" onclick="scrollRow('book-track',1)">→</button>
+      </div>
+    </div>
+    <div class="res-scroll-track" id="book-track"></div>
+  </div>
+  <div class="res-row fade-in" style="transition-delay:.08s">
+    <div class="res-row-header">
+      <div class="row-cat">
+        <span style="font-size:16px">🎙</span>
+        <span class="row-cat-name">Podcast 推薦</span>
+        <span class="row-cat-line"></span>
+        <span class="row-count" id="pod-count"></span>
+      </div>
+      <div class="row-controls">
+        <button class="scroll-btn" onclick="scrollRow('pod-track',-1)">←</button>
+        <button class="scroll-btn" onclick="scrollRow('pod-track',1)">→</button>
+      </div>
+    </div>
+    <div class="res-scroll-track" id="pod-track"></div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div>
+    <div class="fcta-label">加入我們</div>
+    <div class="fcta-title">下週五，我們在中央公園等你</div>
+  </div>
+  <div class="fcta-btns">
+    <button class="fcta-btn-w">填寫體驗表單</button>
+    <button class="fcta-btn-o">訂閱活動行事曆</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">社團法人臺中市民團協會 Taichung City Citizen Corps Association</div>
+  <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+  <div class="footer-social">
+    <div class="social-btn">f</div>
+    <div class="social-btn">ig</div>
+    <div class="social-btn">p</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+  ★★★ 資料區 — 只需要編輯這裡，版型完全不用動 ★★★
+
+  【影片推薦】VIDEOS
+  - type       : "stream"（串流影集）或 "youtube"
+  - platform   : 平台名稱（badge 樣式自動對應，不用填 class）
+  - title / desc
+  - coverUrl   : 封面圖（stream 用；留空顯示 emoji）
+  - coverEmoji : coverUrl 為空時顯示（預設 🎬）
+  - youtubeId  : YouTube 影片 ID（youtube 型才填）
+  - link       : 平台連結（stream 型才填）
+  - linkText   : 按鈕文字（留空 → 自動「前往 {platform} 觀看 ↗」）
+  - sortOrder / visible
+  ============================================================ */
+const VIDEOS = [
+  {
+    type:"stream", platform:"Netflix",
+    title:"THE DAYS",
+    desc:"以福島核災為背景，真實還原災難應對的層層決策困境。理解複合式災害最震撼的入門影集。",
+    coverUrl:"", coverEmoji:"☢️", youtubeId:"",
+    link:"https://www.netflix.com/title/81233755", linkText:"",
+    sortOrder:1, visible:true,
+  },
+  {
+    type:"stream", platform:"Disney+",
+    title:"火速救援最前線 9-1-1",
+    desc:"模擬緊急救援現場，展示消防、救護與調度系統的高壓運作，了解第一線應變文化。",
+    coverUrl:"", coverEmoji:"🚒", youtubeId:"",
+    link:"https://www.disneyplus.com/zh-hant/series/9-1-1/2m7rY4gecjQw", linkText:"",
+    sortOrder:2, visible:true,
+  },
+];
+
+/* ============================================================
+  【書籍推薦】BOOKS
+  - title / author / publisher（選填，自動接在 author 後）
+  - desc / coverUrl / coverEmoji / link
+  - sortOrder / visible
+  ============================================================ */
+const BOOKS = [
+  {
+    title:"（書目待補充）", author:"作者待填入", publisher:"",
+    desc:"請提供民防、災難應對或公民社會相關書籍，我們會持續更新這份書單。",
+    coverUrl:"", coverEmoji:"📖", link:"#",
+    sortOrder:1, visible:true,
+  },
+];
+
+/* ============================================================
+  【Podcast 推薦】PODCASTS
+  - title / host（選填）/ meta
+  - platform : Spotify / Apple Podcasts / SoundOn / YouTube（驅動 badge）
+  - coverUrl / emoji / link
+  - sortOrder / visible
+  ============================================================ */
+const PODCASTS = [
+  {
+    title:"法客電台", host:"法律白話文運動 × 楊貴智、劉珞亦、白廷奕",
+    meta:"新聞評論・法律知識・社會議題 · 每週更新兩次",
+    platform:"Spotify", coverUrl:"", emoji:"⚖️",
+    link:"https://open.spotify.com/show/2JJ9ignOhpcR5UUeAEcoGI",
+    sortOrder:1, visible:true,
+  },
+  {
+    title:"法客電台", host:"法律白話文運動",
+    meta:"同步收聽版 · Apple Podcasts",
+    platform:"Apple Podcasts", coverUrl:"", emoji:"⚖️",
+    link:"https://podcasts.apple.com/podcast/id1482463498",
+    sortOrder:2, visible:true,
+  },
+];
+
+/* ============================================================
+  版型渲染（請勿修改）
+  ============================================================ */
+const PLATFORM_STYLE = {
+  stream:  {bar:'bar-stream',  badge:'badge-stream',  btn:'btn-stream' },
+  youtube: {bar:'bar-youtube', badge:'badge-youtube', btn:''           },
+  default: {bar:'bar-default', badge:'badge-default', btn:'btn-default'},
+};
+const POD_BADGE = {'Spotify':'badge-spotify','Apple Podcasts':'badge-apple','SoundOn':'badge-soundon','YouTube':'badge-youtube'};
+const getStyle = t => PLATFORM_STYLE[t] || PLATFORM_STYLE['default'];
+const sorted = arr => arr.filter(x=>x.visible).sort((a,b)=>a.sortOrder-b.sortOrder);
+
+function renderVideos() {
+  const data = sorted(VIDEOS);
+  document.getElementById('film-count').textContent = data.length+' 筆';
+  document.getElementById('film-track').innerHTML = data.map(v => {
+    const st = getStyle(v.type);
+    const btnTxt = v.linkText || `前往 ${v.platform} 觀看 ↗`;
+    if (v.type==='youtube') return `
+      <div class="res-card"><div class="card-top-bar ${st.bar}"></div>
+        <div class="yt-cover"><iframe src="https://www.youtube.com/embed/${v.youtubeId}" title="${v.title}"
+          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+        <div class="card-body"><span class="platform-badge ${st.badge}">${v.platform}</span>
+          <div class="card-title">${v.title}</div><div class="card-desc">${v.desc}</div></div></div>`;
+    const cover = v.coverUrl
+      ? `<img class="card-cover-area" src="${v.coverUrl}" alt="${v.title}">`
+      : `<div class="card-cover-area"><div class="cover-ph-icon">${v.coverEmoji||'🎬'}</div></div>`;
+    return `
+      <div class="res-card"><div class="card-top-bar ${st.bar}"></div>${cover}
+        <div class="card-body"><span class="platform-badge ${st.badge}">${v.platform}</span>
+          <div class="card-title">${v.title}</div><div class="card-desc">${v.desc}</div>
+          <a class="card-btn ${st.btn}" href="${v.link}" target="_blank">${btnTxt}</a></div></div>`;
+  }).join('');
+}
+
+function renderBooks() {
+  const data = sorted(BOOKS);
+  document.getElementById('book-count').textContent = data.length+' 筆';
+  document.getElementById('book-track').innerHTML = data.map(b => {
+    const al = [b.author,b.publisher].filter(Boolean).join(' · ');
+    const thumb = b.coverUrl
+      ? `<img src="${b.coverUrl}" alt="${b.title}" style="width:90px;height:100%;object-fit:cover;flex-shrink:0">`
+      : `<div class="book-thumb">${b.coverEmoji||'📖'}</div>`;
+    const btn = (b.link&&b.link!=='#') ? `<a class="card-btn btn-ghost" style="font-size:12px;padding:8px 14px" href="${b.link}" target="_blank">購書連結 ↗</a>` : '';
+    return `
+      <div class="res-card"><div class="card-top-bar bar-book"></div>
+        <div class="book-card-body">${thumb}
+          <div class="book-text"><span class="platform-badge badge-book">書籍</span>
+            <div class="card-title">${b.title}</div>
+            <div class="card-desc">${al?al+'<br>':''}${b.desc}</div>${btn}</div></div></div>`;
+  }).join('');
+}
+
+function renderPodcasts() {
+  const data = sorted(PODCASTS);
+  document.getElementById('pod-count').textContent = data.length+' 筆';
+  document.getElementById('pod-track').innerHTML = data.map(p => {
+    const bc = POD_BADGE[p.platform]||'badge-podcast';
+    const thumb = p.coverUrl
+      ? `<div class="podcast-thumb"><img src="${p.coverUrl}" alt="${p.title}"></div>`
+      : `<div class="podcast-thumb">${p.emoji||'🎙'}</div>`;
+    const host = p.host ? `<div class="podcast-host">${p.host}</div>` : '';
+    return `
+      <div class="podcast-card">${thumb}
+        <div class="podcast-info">
+          <span class="platform-badge ${bc}" style="margin-bottom:6px">${p.platform}</span>
+          <div class="podcast-title">${p.title}</div>${host}
+          <div class="podcast-meta">${p.meta}</div></div>
+        <a class="podcast-link-btn" href="${p.link}" target="_blank">收聽 ↗</a></div>`;
+  }).join('');
+}
+
+renderVideos(); renderBooks(); renderPodcasts();
+
+function scrollRow(id,dir) {
+  const t = document.getElementById(id);
+  const c = t.querySelector('.res-card,.podcast-card');
+  if(c) t.scrollBy({left:dir*(c.offsetWidth+14),behavior:'smooth'});
+}
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('navDrawer').classList.toggle('open');
+}
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target);}});
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

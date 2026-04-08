@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>媒體報導 — 臺中市民團協會</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #003764;
+  --navy-d:  #002548;
+  --navy-l:  #0a4a7c;
+  --orange:  #FF6921;
+  --orange-d:#e05510;
+  --teal:    #2CD5C4;
+  --teal-d:  #1aada0;
+  --white:   #ffffff;
+  --off-white: #f7f6f3;
+  --light:   #eef1f5;
+  --ink:     #0d1f33;
+  --muted:   #5a6b7d;
+  --rule:    rgba(0,55,100,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* NOTICE */
+.notice-bar {
+  background: var(--teal);
+  color: var(--navy-d);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-align: center;
+  padding: 8px;
+}
+
+/* NAV */
+nav {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  height: 58px;
+  gap: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-mark {
+  width: 30px; height: 30px;
+  background: var(--orange);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--white);
+}
+.nav-links {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  align-items: center;
+}
+.nav-link {
+  color: rgba(255,255,255,.6);
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, background .15s;
+  text-decoration: none;
+}
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
+.nav-link.active { color: var(--white); }
+.nav-cta {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background .15s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--orange-d); }
+
+/* PAGE HEADER */
+.page-header {
+  background: var(--navy);
+  padding: 52px 40px 44px;
+  border-bottom: 3px solid var(--orange);
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: 'MEDIA';
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 140px;
+  font-weight: 700;
+  color: rgba(255,255,255,.03);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.bc-link {
+  font-size: 12px;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  transition: color .15s;
+}
+.bc-link:hover { color: rgba(255,255,255,.7); }
+.bc-sep {
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+}
+.bc-current {
+  font-size: 12px;
+  color: var(--teal);
+  font-weight: 500;
+}
+.page-title-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.label-bar { width: 24px; height: 2px; background: var(--teal); }
+.page-h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.page-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.8;
+  max-width: 500px;
+}
+
+/* FEATURED SECTION */
+.featured-section {
+  padding: 64px 40px 48px;
+  background: var(--white);
+}
+.sec-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.sec-label-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sec-label-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+
+/* Featured cards */
+.feat-card {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  background: var(--white);
+}
+.feat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0,55,100,.1);
+  border-color: rgba(0,55,100,.2);
+}
+.feat-card.main-card {
+  grid-row: 1 / 3;
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+/* Video embed area */
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  background: #000;
+  overflow: hidden;
+}
+.video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.feat-body {
+  padding: 24px 26px 26px;
+}
+.feat-card.main-card .feat-body { padding: 28px 28px 28px; }
+
+.media-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.badge-intl  { background: rgba(255,105,33,.12); color: var(--orange-d); }
+.badge-video { background: rgba(44,213,196,.12); color: var(--teal-d); }
+.badge-text  { background: rgba(0,55,100,.08); color: var(--navy); }
+.feat-card.main-card .badge-intl  { background: rgba(255,105,33,.2); color: var(--orange); }
+.feat-card.main-card .badge-video { background: rgba(44,213,196,.15); color: var(--teal); }
+
+.feat-outlet {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--teal-d);
+  margin-bottom: 6px;
+}
+.feat-card.main-card .feat-outlet { color: var(--teal); }
+
+.feat-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+.feat-card.main-card .feat-title { color: var(--white); font-size: 17px; }
+
+.feat-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.feat-card.main-card .feat-desc { color: rgba(255,255,255,.45); }
+
+.feat-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.feat-date {
+  font-size: 11px;
+  color: var(--muted);
+}
+.feat-card.main-card .feat-date { color: rgba(255,255,255,.3); }
+.feat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  cursor: pointer;
+  transition: gap .2s;
+  text-decoration: none;
+}
+.feat-link:hover { gap: 9px; }
+
+/* DIVIDER */
+.section-divider {
+  margin: 0 40px;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ALL REPORTS SECTION */
+.all-section {
+  padding: 56px 40px 80px;
+  background: var(--off-white);
+}
+
+.tl-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.tl-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.tl-title small {
+  display: block;
+  font-size: 11px;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.tl-count {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Year group */
+.year-group {
+  margin-bottom: 36px;
+}
+.year-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.year-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+.year-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* Row items — desktop: 4 欄 grid（accent 為 absolute，flow 子元素共 4 個） */
+.report-row {
+  display: grid;
+  grid-template-columns: 88px 130px 1fr auto;
+  gap: 0 20px;
+  align-items: start;
+  padding: 16px 20px 16px 16px;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background .15s;
+  border-radius: 4px;
+  position: relative;
+}
+.report-row:hover { background: rgba(0,55,100,.03); }
+.report-row:last-child { border-bottom: none; }
+
+.row-accent {
+  width: 3px;
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: 4px 0 0 4px;
+}
+.accent-orange { background: var(--orange); }
+.accent-teal   { background: var(--teal); }
+.accent-navy   { background: var(--navy-l); }
+
+.row-date {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .04em;
+  padding-top: 3px;
+}
+.row-outlet {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+  letter-spacing: .02em;
+}
+.row-country {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .05em;
+}
+.row-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+.row-excerpt {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.row-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  padding-top: 2px;
+}
+.type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.pill-video { background: rgba(44,213,196,.12); color: var(--teal-d); }
+.pill-text  { background: rgba(0,55,100,.08); color: var(--navy); }
+.row-link {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  text-decoration: none;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.row-link:hover { opacity: .7; }
+
+/* ── RWD ── */
+
+/* 平板（860px 以下）：精選區改單欄、outlet 欄縮窄 */
+@media (max-width: 860px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .feat-card.main-card { grid-row: auto; }
+  nav { padding: 0 20px; gap: 16px; }
+  .nav-link { display: none; }
+  .featured-section, .all-section { padding-left: 24px; padding-right: 24px; }
+  .page-header { padding: 36px 24px 32px; }
+  .section-divider { margin: 0 24px; }
+  .footer-cta { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  footer { padding: 24px; flex-direction: column; gap: 12px; }
+  .report-row { grid-template-columns: 72px 110px 1fr auto; gap: 0 14px; }
+}
+
+/* 手機（540px 以下）：條列區改區塊堆疊 */
+@media (max-width: 540px) {
+  .report-row {
+    display: block;
+    padding: 14px 16px 14px 16px;
+  }
+  .row-date {
+    display: inline;
+    margin-right: 8px;
+    font-size: 10px;
+  }
+  .row-outlet-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .row-country { display: none; }
+  .row-title { font-size: 13px; margin-bottom: 4px; }
+  .row-excerpt { display: none; }
+  .row-right {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .page-h1 { font-size: 34px; }
+  .tl-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .tl-title { font-size: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; text-align: center; }
+  .all-section { padding-left: 16px; padding-right: 16px; }
+  .featured-section { padding-left: 16px; padding-right: 16px; }
+  .page-header { padding: 28px 16px 24px; }
+}
+
+/* FOOTER CTA */
+.footer-cta {
+  background: var(--orange);
+  padding: 56px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.fcta-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  margin-bottom: 10px;
+}
+.fcta-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.1;
+}
+.fcta-btns { display: flex; gap: 12px; flex-shrink: 0; }
+.fcta-btn-w {
+  background: var(--white);
+  color: var(--orange);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 13px 26px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Noto Sans TC', sans-serif;
+  transition: background .15s;
+}
+.fcta-btn-w:hover { background: var(--off-white); }
+.fcta-btn-o {
+  background: transparent;
+  color: rgba(255,255,255,.8);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 13px 22px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,.4);
+  cursor: pointer;
+  font-family: 'Noto Sans TC', sans-serif;
+  transition: border-color .15s, color .15s;
+}
+.fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+
+footer {
+  background: var(--navy-d);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-reg { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn {
+  width: 30px; height: 30px;
+  border-radius: 4px;
+  background: rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: rgba(255,255,255,.5);
+  cursor: pointer;
+  transition: background .15s;
+}
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+
+.fade-in { opacity: 0; transform: translateY(12px); transition: opacity .45s, transform .45s; }
+.fade-in.show { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="notice-bar">▲ 改版設計稿 — 子分頁：媒體報導（資料驅動版）</div>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-mark">民</div>
+    社團法人臺中市民團協會
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#">關於我們</a>
+    <a class="nav-link" href="#">加入我們</a>
+    <a class="nav-link" href="#">課程與活動</a>
+    <a class="nav-link" href="#">學習資源</a>
+    <a class="nav-link active" href="#">媒體報導</a>
+    <a class="nav-link" href="#">聯絡我們</a>
+    <div class="nav-cta">立即參加 →</div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">
+    <span class="bc-link">首頁</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">媒體報導</span>
+  </div>
+  <div class="page-title-label">
+    <span class="label-bar"></span>
+    Media Coverage
+  </div>
+  <h1 class="page-h1">媒體報導</h1>
+  <p class="page-sub">從台中在地到國際視野，記錄民間自訓運動走過的每一步。</p>
+</div>
+
+<section class="featured-section">
+  <div class="sec-label">
+    <span class="sec-label-text">精選報導</span>
+    <span class="sec-label-line"></span>
+  </div>
+  <div class="featured-grid" id="featured-grid"></div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="all-section">
+  <div class="tl-head">
+    <div class="tl-title">
+      <small>所有報導</small>
+      完整報導列表
+    </div>
+    <div class="tl-count" id="tl-count"></div>
+  </div>
+  <div id="reports-list"></div>
+</section>
+
+<div class="footer-cta">
+  <div>
+    <div class="fcta-label">加入我們</div>
+    <div class="fcta-title">下週五，我們在中央公園等你</div>
+  </div>
+  <div class="fcta-btns">
+    <button class="fcta-btn-w">填寫體驗表單</button>
+    <button class="fcta-btn-o">訂閱活動行事曆</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">社團法人臺中市民團協會 Taichung City Citizen Corps Association</div>
+  <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+  <div class="footer-social">
+    <div class="social-btn">f</div>
+    <div class="social-btn">ig</div>
+    <div class="social-btn">p</div>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   ★ 媒體報導資料區 ★
+   所有報導集中在這裡管理，版型程式碼在下方，請勿修改。
+
+   【欄位說明】共 13 欄
+
+   id             : 唯一識別碼，流水號格式，例如 "media-001"
+   date           : 報導年月，格式 "YYYY-MM"，例如 "2025-03"
+                    → 系統自動排序（新到舊）並依年份分組顯示
+   outlet         : 媒體名稱，例如 "Al Jazeera"
+   country        : 國家或地區，例如 "澳洲"、"台灣"、"卡達／國際"
+   region         : 填 "international"（國際媒體）或 "domestic"（台灣媒體）
+                    → 自動決定條列區左側色條：
+                       international          → 橘紅
+                       domestic + type=video  → 青綠
+                       domestic + type=text   → 深藍
+   title          : 報導大標題
+   excerpt        : 條列區短描述（1–2 句），精選卡無 featured_desc 時也沿用此欄
+   featured_desc  : 精選卡專屬導讀（較長），非精選或不需要額外說明時留空 ""
+   type           : 填 "video"（影片）或 "text"（文字報導）
+   link           : 報導原始網址，點擊後開新分頁
+   youtubeId      : 影片類才填，YouTube 影片 ID（網址 ?v= 後面那串）
+                    文字報導請填 ""
+   featured       : true  → 進入精選報導區（最多同時 3 筆 featured=true）
+                    false → 只出現在完整條列區
+   featured_order : 精選卡排序，1 = 左側主卡，2 = 右側上卡，3 = 右側下卡
+                    非精選筆數請填 0
+
+   【新增報導 SOP】
+   1. 在下方陣列最前面新增一個 {} 物件（最新的排最前面）
+   2. id 流水號接續最大號 +1
+   3. 如要替換精選，把舊精選的 featured 改為 false、featured_order 改為 0
+      再把新筆數的 featured 改為 true、設定 featured_order 1/2/3
+   4. 存檔，重新整理網頁即可
+   ================================================================ */
+
+const REPORTS = [
+
+  /* ---------- 2025 ---------- */
+  {
+    id:             "media-001",
+    date:           "2025-03",
+    outlet:         "AU SBS Dateline",
+    country:        "澳洲",
+    region:         "international",
+    title:          "Taiwan's civilian army preparing for the worst",
+    excerpt:        "澳洲 SBS 新聞深入台灣，記錄民間自發防災訓練現況。",
+    featured_desc:  "",
+    type:           "video",
+    link:           "https://www.sbs.com.au/news/dateline/",
+    youtubeId:      "",
+    featured:       false,
+    featured_order: 0
+  },
+  {
+    id:             "media-002",
+    date:           "2025-01",
+    outlet:         "自由時報",
+    country:        "台灣",
+    region:         "domestic",
+    title:          "台中民間防災自訓社群持續壯大，年度總結出爐",
+    excerpt:        "報導協會 2024 年全年訓練成果與 2025 年方向。",
+    featured_desc:  "",
+    type:           "text",
+    link:           "https://www.ltn.com.tw/",
+    youtubeId:      "",
+    featured:       false,
+    featured_order: 0
+  },
+
+  /* ---------- 2024 ---------- */
+  {
+    id:             "media-003",
+    date:           "2024-06",
+    outlet:         "UK Channel 4",
+    country:        "英國",
+    region:         "international",
+    title:          "The Taiwanese civilians learning to fight",
+    excerpt:        "英國第四頻道實地採訪台中訓練現場。",
+    featured_desc:  "",
+    type:           "video",
+    link:           "https://www.channel4.com/",
+    youtubeId:      "dQw4w9WgXcQ",
+    featured:       true,
+    featured_order: 2
+  },
+  {
+    id:             "media-004",
+    date:           "2024-05",
+    outlet:         "Al Jazeera",
+    country:        "卡達／國際",
+    region:         "international",
+    title:          "Taiwan civilians train for war as China tensions rise",
+    excerpt:        "半島電視台深度報導台灣公民自訓運動。",
+    featured_desc:  "半島電視台深入採訪台中民間自訓社群，報導台灣公民如何在週五夜間的公園裡，自發練習急救與戰時應對技能。",
+    type:           "video",
+    link:           "https://www.aljazeera.com/",
+    youtubeId:      "dQw4w9WgXcQ",
+    featured:       true,
+    featured_order: 1
+  },
+  {
+    id:             "media-005",
+    date:           "2024-04",
+    outlet:         "沃草 Watchout",
+    country:        "台灣",
+    region:         "domestic",
+    title:          "公民自組防災訓練，台中這群人每週五不缺席",
+    excerpt:        "沃草公民媒體深度採訪訓練現場與核心成員。",
+    featured_desc:  "",
+    type:           "text",
+    link:           "https://watchout.tw/",
+    youtubeId:      "",
+    featured:       false,
+    featured_order: 0
+  },
+  {
+    id:             "media-006",
+    date:           "2024-01",
+    outlet:         "報導者 The Reporter",
+    country:        "台灣",
+    region:         "domestic",
+    title:          "下班後的社區守護者：台中這群市民每週五都在練什麼？",
+    excerpt:        "深度長文報導，民團創立背景與成員故事。",
+    featured_desc:  "深度文字報導，記錄民團從零開始、到累積數百人次參與的完整歷程。",
+    type:           "text",
+    link:           "https://www.twreporter.org/",
+    youtubeId:      "",
+    featured:       true,
+    featured_order: 3
+  },
+
+  /* ---------- 2023 ---------- */
+  {
+    id:             "media-007",
+    date:           "2023-12",
+    outlet:         "自由時報",
+    country:        "台灣",
+    region:         "domestic",
+    title:          "台中市民自組防災訓練團，每週五晚練習急救包紮",
+    excerpt:        "成立半年後首度獲主流媒體報導。",
+    featured_desc:  "",
+    type:           "text",
+    link:           "https://www.ltn.com.tw/",
+    youtubeId:      "",
+    featured:       false,
+    featured_order: 0
+  },
+  {
+    id:             "media-008",
+    date:           "2023-10",
+    outlet:         "民視新聞",
+    country:        "台灣",
+    region:         "domestic",
+    title:          "苗栗通霄演訓直擊，民間防災意識抬頭",
+    excerpt:        "首次大型演訓獲電視媒體現場採訪。",
+    featured_desc:  "",
+    type:           "video",
+    link:           "https://www.ftvnews.com.tw/",
+    youtubeId:      "",
+    featured:       false,
+    featured_order: 0
+  }
+
+];
+
+/* ================================================================
+   以下為版型程式碼，請勿修改
+   ================================================================ */
+
+/* ── 工具函式 ── */
+function accentClass(item) {
+  if (item.region === 'international') return 'accent-orange';
+  return item.type === 'video' ? 'accent-teal' : 'accent-navy';
+}
+
+function formatDateDisplay(dateStr) {
+  // "2024-05" → "2024.05"
+  return dateStr.replace('-', '.');
+}
+
+function formatDateFeatured(dateStr) {
+  // "2024-05" → "2024 年 5 月"
+  const [y, m] = dateStr.split('-');
+  return `${y} 年 ${parseInt(m)} 月`;
+}
+
+/* ── 精選報導區 ── */
+function buildFeatCard(item, isMain, delay) {
+  const isVideo = item.type === 'video';
+  const isIntl  = item.region === 'international';
+
+  let badgeHtml;
+  if (isMain) {
+    badgeHtml = isIntl
+      ? `<div class="media-badge badge-intl">🌍 國際</div>`
+      : isVideo
+        ? `<div class="media-badge badge-video">▶ 影片</div>`
+        : `<div class="media-badge badge-text">📄 文字</div>`;
+  } else {
+    badgeHtml = isIntl
+      ? `<div class="media-badge badge-intl">🌍 國際</div>`
+      : isVideo
+        ? `<div class="media-badge badge-video">▶ 影片</div>`
+        : `<div class="media-badge badge-text">📄 文字</div>`;
+  }
+
+  const videoHtml = isVideo && item.youtubeId
+    ? `<div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/${item.youtubeId}"
+          title="${item.outlet} 報導"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>` : '';
+
+  const desc = item.featured_desc || item.excerpt;
+  const descHtml = desc ? `<div class="feat-desc">${desc}</div>` : '';
+  const linkText = isVideo ? '觀看報導 ↗' : '閱讀全文 ↗';
+
+  return `
+    <div class="feat-card ${isMain ? 'main-card' : ''} fade-in" style="transition-delay:${delay}s">
+      ${videoHtml}
+      <div class="feat-body">
+        ${badgeHtml}
+        <div class="feat-outlet">${item.outlet}</div>
+        <div class="feat-title">${item.title}</div>
+        ${descHtml}
+        <div class="feat-footer">
+          <span class="feat-date">${formatDateFeatured(item.date)}</span>
+          <a class="feat-link" href="${item.link}" target="_blank">${linkText}</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+const featured = REPORTS
+  .filter(r => r.featured)
+  .sort((a, b) => a.featured_order - b.featured_order);
+
+const grid = document.getElementById('featured-grid');
+featured.forEach((item, i) => {
+  grid.innerHTML += buildFeatCard(item, i === 0, i * 0.08);
+});
+
+/* ── 完整報導條列區 ── */
+function buildReportRow(item) {
+  const isVideo  = item.type === 'video';
+  const pillHtml = isVideo
+    ? `<span class="type-pill pill-video">▶ 影片</span>`
+    : `<span class="type-pill pill-text">📄 文字</span>`;
+  const linkText = isVideo ? '觀看 ↗' : '閱讀 ↗';
+
+  return `
+    <div class="report-row">
+      <div class="row-accent ${accentClass(item)}"></div>
+      <div class="row-date">${formatDateDisplay(item.date)}</div>
+      <div class="row-outlet-wrap">
+        <div class="row-outlet">${item.outlet}</div>
+        <div class="row-country">${item.country}</div>
+      </div>
+      <div class="row-content">
+        <div class="row-title">${item.title}</div>
+        <div class="row-excerpt">${item.excerpt}</div>
+      </div>
+      <div class="row-right">
+        ${pillHtml}
+        <a class="row-link" href="${item.link}" target="_blank">${linkText}</a>
+      </div>
+    </div>`;
+}
+
+// 排序：新到舊
+const sorted = [...REPORTS].sort((a, b) => b.date.localeCompare(a.date));
+
+// 依年份分組
+const byYear = {};
+sorted.forEach(item => {
+  const year = item.date.split('-')[0];
+  if (!byYear[year]) byYear[year] = [];
+  byYear[year].push(item);
+});
+
+// 渲染
+const listEl = document.getElementById('reports-list');
+Object.keys(byYear).sort((a, b) => b - a).forEach((year, yi) => {
+  const rows = byYear[year].map(buildReportRow).join('');
+  listEl.innerHTML += `
+    <div class="year-group fade-in" style="transition-delay:${yi * 0.05}s">
+      <div class="year-label">
+        <span class="year-num">${year}</span>
+        <span class="year-line"></span>
+      </div>
+      ${rows}
+    </div>`;
+});
+
+// 總筆數
+document.getElementById('tl-count').textContent = `共 ${REPORTS.length} 筆`;
+
+/* ── Intersection Observer（淡入動畫） ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('show');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

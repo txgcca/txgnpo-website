@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>過往活動 — 臺中市民團協會</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #003764;
+  --navy-d:    #002548;
+  --navy-l:    #0a4a7c;
+  --orange:    #FF6921;
+  --orange-d:  #e05510;
+  --teal:      #2CD5C4;
+  --teal-d:    #1aada0;
+  --white:     #ffffff;
+  --off-white: #f7f6f3;
+  --ink:       #0d1f33;
+  --muted:     #5a6b7d;
+  --rule:      rgba(0,55,100,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav { background: var(--navy); display: flex; align-items: center; padding: 0 40px; height: 58px; gap: 32px; position: sticky; top: 0; z-index: 100; }
+.nav-logo { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.nav-mark  { height: 32px; width: auto; object-fit: contain; }
+.nav-links { display: flex; gap: 2px; margin-left: auto; }
+.nav-link  { color: rgba(255,255,255,.72); font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 4px; text-decoration: none; transition: background .15s, color .15s; }
+.nav-link:hover { background: rgba(255,255,255,.1); color: var(--white); }
+
+/* ── PAGE HERO ── */
+.page-hero { background: var(--navy-d); padding: 48px 40px 44px; position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(44,213,196,.1) 0%, transparent 65%); pointer-events: none; }
+.page-hero::after  { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 100%); }
+.breadcrumb { font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: .08em; margin-bottom: 18px; }
+.breadcrumb a { color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+.breadcrumb a:hover { color: rgba(255,255,255,.8); }
+.breadcrumb span { margin: 0 6px; }
+.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.hero-title { font-family: 'Oswald', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 14px; }
+.hero-sub  { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.75; max-width: 540px; }
+
+/* ═══════════════════════════════════════
+   ① 關鍵記事 — 圖卡區
+═══════════════════════════════════════ */
+.key-section { padding: 60px 40px 52px; background: var(--white); }
+.section-hd  { margin-bottom: 32px; }
+.section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--teal-d); margin-bottom: 6px; }
+.section-title { font-family: 'Oswald', sans-serif; font-size: 26px; font-weight: 600; color: var(--ink); }
+.section-rule  { height: 3px; width: 40px; background: var(--orange); margin-top: 10px; border-radius: 99px; }
+
+.key-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* ── 卡片 ── */
+.act-card { background: var(--white); border-radius: 6px; overflow: hidden; border: 1px solid var(--rule); box-shadow: 0 2px 8px rgba(0,55,100,.04); transition: transform .2s, box-shadow .2s; opacity: 0; transform: translateY(16px); }
+.act-card.show { opacity: 1; transform: none; }
+.act-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,55,100,.1); }
+.act-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform .4s; }
+.act-card:hover .act-img { transform: scale(1.04); }
+.act-img-wrap { overflow: hidden; position: relative; background: var(--navy); }
+.act-img-fallback { aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-l) 100%); font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: .1em; color: rgba(255,255,255,.18); }
+.act-body { padding: 18px 20px 20px; }
+.act-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.act-date { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+.act-badge { font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 2px 9px; border-radius: 99px; }
+.b-teal   { background: rgba(44,213,196,.15);  color: var(--teal-d); }
+.b-orange { background: rgba(255,105,33,.15);  color: var(--orange-d); }
+.b-navy   { background: rgba(0,55,100,.1);     color: var(--navy); }
+.act-title { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 8px; }
+.act-desc  { font-size: 13px; color: var(--muted); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ═══════════════════════════════════════
+   ② 編年記錄 — Accordion 區
+═══════════════════════════════════════ */
+.chron-section { padding: 0 40px 72px; background: var(--white); }
+.chron-divider { border: none; border-top: 1px solid var(--rule); margin-bottom: 48px; }
+
+/* 年份 Accordion */
+.year-block { margin-bottom: 10px; border: 1px solid rgba(0,55,100,.12); border-radius: 8px; overflow: hidden; }
+.year-hd {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 20px; background: var(--white);
+  cursor: pointer; user-select: none;
+  transition: background .15s;
+}
+.year-hd:hover { background: var(--off-white); }
+.year-block.open .year-hd { background: var(--navy); }
+
+.year-badge {
+  font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 700;
+  color: var(--navy); min-width: 52px;
+  transition: color .2s;
+}
+.year-block.open .year-badge { color: var(--white); }
+
+.year-count {
+  font-size: 11px; color: var(--muted);
+  background: rgba(0,55,100,.07); border-radius: 99px;
+  padding: 2px 10px; transition: all .2s;
+}
+.year-block.open .year-count { background: rgba(255,255,255,.12); color: rgba(255,255,255,.55); }
+
+.year-arrow {
+  margin-left: auto; width: 18px; height: 18px;
+  color: var(--muted); flex-shrink: 0;
+  transition: transform .25s, color .2s;
+}
+.year-block.open .year-arrow { transform: rotate(180deg); color: rgba(255,255,255,.5); }
+
+/* 展開內容 */
+.year-content { display: none; background: var(--white); border-top: 1px solid var(--rule); }
+.year-block.open .year-content { display: block; }
+
+/* 記錄列 */
+.chron-list { padding: 8px 0 0; }
+.chron-row {
+  display: grid;
+  grid-template-columns: 100px auto 1fr;
+  align-items: baseline;
+  gap: 0 20px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(0,55,100,.05);
+  transition: background .1s;
+}
+.chron-row:last-child { border-bottom: none; }
+.chron-row:hover { background: var(--off-white); }
+.chron-date-cell { font-size: 12px; color: var(--muted); white-space: nowrap; font-weight: 500; }
+.chron-cat {
+  font-size: 10px; font-weight: 700; letter-spacing: .04em;
+  padding: 2px 10px; border-radius: 4px;
+  white-space: nowrap; flex-shrink: 0; text-align: center;
+  /* width 由 JS equalizeChronBadges() 統一設定 */
+}
+.chron-title-cell { font-size: 14px; color: var(--ink); line-height: 1.5; }
+.chron-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* 更多按鈕 */
+.show-more-wrap { padding: 12px 20px 16px; border-top: 1px solid var(--rule); }
+.show-more-btn {
+  background: none; border: 1px solid var(--rule); border-radius: 4px;
+  padding: 8px 18px; font-size: 12px; font-weight: 500;
+  color: var(--muted); cursor: pointer; width: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.show-more-btn:hover { border-color: var(--navy-l); color: var(--navy); background: rgba(0,55,100,.03); }
+
+/* ── BACK + FOOTER ── */
+.back-bar { background: var(--off-white); border-top: 1px solid var(--rule); padding: 28px 40px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
+.back-link:hover { color: var(--navy); }
+.back-link .arrow { transition: transform .15s; display: inline-block; }
+.back-link:hover .arrow { transform: translateX(-3px); }
+
+.footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
+.fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
+.fcta-btns { display: flex; gap: 12px; flex-shrink: 0; }
+.fcta-btn-w { background: var(--white); color: var(--orange); font-size: 14px; font-weight: 700; padding: 13px 26px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: background .15s; }
+.fcta-btn-w:hover { background: var(--off-white); }
+.fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
+.fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+
+footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-reg   { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-decoration: none; transition: background .15s; }
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+
+/* Fade-in animation */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity .45s, transform .45s; }
+.fade-in.show { opacity: 1; transform: none; }
+
+/* ── RWD ── */
+@media (max-width: 960px) {
+  .key-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .page-hero, .key-section, .chron-section, .back-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
+  .key-grid { grid-template-columns: 1fr; }
+  .chron-row { grid-template-columns: 80px 1fr; }
+  .chron-cat { display: none; }
+  .footer-cta { flex-direction: column; gap: 20px; }
+  .fcta-btns  { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+  ★★★  資料區 — 只需要編輯這裡，版型完全不用動  ★★★
+
+  【頁面文字】PAGE_INFO 物件：修改標題、說明短文、區塊名稱、按鈕文字與連結
+
+  【① 關鍵記事卡片】KEY_EVENTS 陣列（最多 6 筆，對應大事紀 Sheet show_on_past = 是）
+  每筆欄位：
+    date        : 顯示日期（如 "2023 年 7 月"）
+    title       : 活動標題
+    description : 說明文字（建議 60 字以內）
+    badge       : 標籤文字（如 "里程碑"，可空字串）
+    badge_color : "teal" | "orange" | "navy"
+    image_url   : 圖片網址（Google Drive 公開連結，空字串則顯示佔位）
+
+  【② 編年記錄 Accordion】CHRON_RECORDS 陣列
+  每筆欄位：
+    year         : 年份數字（如 2024）
+    date_display : 顯示用日期（如 "11 月"）
+    title        : 活動標題
+    category     : 類型標籤（"里程碑" | "媒體" | "課程" | "公益" | "推廣" | "訓練" | "演習" | "外部合作"）
+    note         : 備註（可空字串）
+
+  ★ 修改頁面標題／說明文字 → 改 PAGE_INFO 對應欄位
+  ★ 新增關鍵記事 → 在 KEY_EVENTS 陣列加一筆（勿超過 6 筆）
+  ★ 新增編年記錄 → 在 CHRON_RECORDS 陣列加一筆，年份會自動分組
+  ★ 新的一年開始 → 直接加新筆資料，year 填新年份即可，不需額外設定
+════════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* ══ 頁面文字 ══════════════════════════════════════════════════ */
+const PAGE_INFO = {
+  page_title:     "過往活動",
+  page_subtitle:  "從 2023 年的自主訓練小群體，到獲得政府立案的社團法人，每一場活動都是我們推廣民防自救理念的足跡。",
+  section_key:    "關鍵記事",
+  section_chron:  "完整編年記錄",
+  back_text:      "返回「關於我們」",
+  back_url:       "https://www.txgcca.org.tw/關於臺中民團",
+};
+
+/* ══ 全站共用（來自主控表單，所有子頁一致）══════════════════════
+   對應主控表單欄位：
+     cta_join_label     → 橘色條帶主按鈕文字
+     url_cta_join       → 橘色條帶主按鈕連結
+     cta_calendar_label → 橘色條帶次按鈕文字
+     url_cta_calendar   → 橘色條帶次按鈕連結
+   ★ 這裡的值請與主控表單保持同步，勿單獨修改
+══════════════════════════════════════════════════════════════ */
+const SITE_CONFIG = {
+  cta_join_label:     "報名週五自訓",
+  url_cta_join:       "[url_cta_join]",
+  cta_calendar_label: "訂閱行事曆",
+  url_cta_calendar:   "[url_cta_calendar]",
+};
+
+/* ══ ① 關鍵記事 ══════════════════════════════════════════════ */
+const KEY_EVENTS = [
+  {
+    date:        "2023 年 7 月",
+    title:       "台中自訓團成立",
+    description: "一群來自各行各業、有共同理念的市民自發組成，每週五開始常態自訓，專注體能與急救技能。",
+    badge:       "起點",
+    badge_color: "teal",
+    image_url:   "https://placehold.co/640x360/003764/2CD5C4?text=2023.07+成立"
+  },
+  {
+    date:        "2023 年 10 月",
+    title:       "苗栗通霄海灘演訓",
+    description: "民團自辦戰時民防演訓，模擬空襲與急救後送情境，為期兩天一夜，高強度實戰化訓練。",
+    badge:       "特別演訓",
+    badge_color: "orange",
+    image_url:   "https://placehold.co/640x360/1a3d5c/FF6921?text=2023.10+海灘演訓"
+  },
+  {
+    date:        "2024 年 5 月",
+    title:       "Al Jazeera 國際媒體報導",
+    description: "台灣民防自訓運動獲半島電視台採訪報導，播出後受到國際廣泛關注，引發海外媒體詢問。",
+    badge:       "國際",
+    badge_color: "orange",
+    image_url:   "https://placehold.co/640x360/0a4a7c/ffffff?text=2024.05+AJE+報導"
+  },
+  {
+    date:        "2024 年 9 月",
+    title:       "正式立案社團法人",
+    description: "臺中市民團協會通過政府核備，取得社團法人資格，中市社團字第1130158795號，進入組織化運作。",
+    badge:       "里程碑",
+    badge_color: "teal",
+    image_url:   "https://placehold.co/640x360/002548/2CD5C4?text=2024.09+正式立案"
+  },
+  {
+    date:        "2024 年 11 月",
+    title:       "台中市民防聯合演練",
+    description: "協同台中市其他民間團體舉辦聯合演練，累計超過 80 名市民參與，強化跨組織應急協作。",
+    badge:       "聯合演練",
+    badge_color: "orange",
+    image_url:   "https://placehold.co/640x360/1a3d5c/ffffff?text=2024.11+聯合演練"
+  },
+  {
+    date:        "2025 年 3 月",
+    title:       "首屆會員大會暨理監事改選",
+    description: "第一屆會員大會順利召開，完成理監事改選，確立協會長期治理架構，凝聚組織共識。",
+    badge:       "里程碑",
+    badge_color: "teal",
+    image_url:   ""
+  },
+];
+
+/* ══ ② 編年記錄（完整流水帳）══════════════════════════════════
+   依 year 升序排列（舊→新），同年內依 sort 排列
+   JS 會自動依 year 分組，並以最新年份預設展開
+══════════════════════════════════════════════════════════════ */
+const CHRON_RECORDS = [
+  /* ── 2023 ── */
+  { year: 2023, date_display: "7 月",  title: "台中自訓團成立，開始週五常態自訓",       category: "里程碑" },
+  { year: 2023, date_display: "8 月",  title: "首次急救課程（基礎止血包紮）",           category: "課程"   },
+  { year: 2023, date_display: "9 月",  title: "防災演練：大里區震災情境模擬",           category: "演習"   },
+  { year: 2023, date_display: "10 月", title: "苗栗通霄海灘演訓（兩天一夜）",           category: "演習"   },
+  { year: 2023, date_display: "11 月", title: "消防署協同訓練：滅火器操作實習",         category: "訓練"   },
+  { year: 2023, date_display: "12 月", title: "年終成果回顧暨新成員招募說明會",         category: "對外合作" },
+
+  /* ── 2024 ── */
+  { year: 2024, date_display: "1 月",  title: "首次 TCCC 戰術創傷急救認證課程（30 名）", category: "課程"   },
+  { year: 2024, date_display: "2 月",  title: "夜間情境訓練：低光源搜救模擬",           category: "訓練"   },
+  { year: 2024, date_display: "3 月",  title: "社區防災說明會（南屯區）",               category: "對外合作" },
+  { year: 2024, date_display: "4 月",  title: "進階急救課程：骨折固定與後送技術",       category: "課程"   },
+  { year: 2024, date_display: "5 月",  title: "Al Jazeera 半島電視台採訪報導",         category: "媒體",  note: "國際媒體" },
+  { year: 2024, date_display: "6 月",  title: "跨縣市交流：桃園自訓社群來訪觀摩",       category: "對外合作" },
+  { year: 2024, date_display: "7 月",  title: "TRX 戰術體能課程（12 週計畫啟動）",     category: "訓練"   },
+  { year: 2024, date_display: "8 月",  title: "協會立案申請送件",                       category: "里程碑" },
+  { year: 2024, date_display: "9 月",  title: "正式取得社團法人資格，完成政府立案",     category: "里程碑", note: "中市社團字第1130158795號" },
+  { year: 2024, date_display: "10 月", title: "台中電視台專題採訪播出",                 category: "媒體"   },
+  { year: 2024, date_display: "11 月", title: "台中市民防聯合演練（8 組織、80+ 人）",   category: "演習"   },
+  { year: 2024, date_display: "12 月", title: "年度訓練回顧暨第 1 屆會員大會籌備",     category: "里程碑" },
+
+  /* ── 2025 ── */
+  { year: 2025, date_display: "1 月",  title: "2025 訓練計畫公告，開放第一季報名",     category: "訓練"   },
+  { year: 2025, date_display: "2 月",  title: "海外媒體跟拍（英語系記者）",             category: "媒體"   },
+  { year: 2025, date_display: "3 月",  title: "首屆會員大會暨理監事改選",               category: "里程碑" },
+];
+
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+  以下為版型區，請勿修改
+════════════════════════════════════════════════════════════ -->
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://www.txgcca.org.tw/home">
+    <img class="nav-mark" src="https://placehold.co/120x32/FF6921/ffffff?text=TXGCCA" alt="臺中市民團協會 LOGO">
+    社團法人臺中市民團協會
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#">關於我們</a>
+    <a class="nav-link" href="#">課程與活動</a>
+    <a class="nav-link" href="#">學習地圖</a>
+    <a class="nav-link" href="#">媒體報導</a>
+    <a class="nav-link" href="#">聯絡我們</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="breadcrumb">
+    <a href="https://www.txgcca.org.tw/home">首頁</a>
+    <span>›</span>
+    <a href="#">關於我們</a>
+    <span>›</span>
+    <span id="pi-breadcrumb"></span>
+  </div>
+  <h1 class="hero-title" id="pi-title"></h1>
+  <p class="hero-sub" id="pi-subtitle"></p>
+</section>
+
+<!-- ① 關鍵記事 -->
+<section class="key-section" id="key-section">
+  <div class="section-hd">
+    <div class="section-title" id="pi-section-key"></div>
+    <div class="section-rule"></div>
+  </div>
+  <div class="key-grid" id="key-grid"></div>
+</section>
+
+<!-- ② 編年記錄 -->
+<section class="chron-section" id="chron-section">
+  <hr class="chron-divider">
+  <div class="section-hd fade-in">
+    <div class="section-title" id="pi-section-chron"></div>
+    <div class="section-rule"></div>
+  </div>
+  <div id="chron-accordion"></div>
+</section>
+
+<!-- 返回 -->
+<div class="back-bar">
+  <a class="back-link" id="pi-back-link">
+    <span class="arrow">←</span> <span id="pi-back-text"></span>
+  </a>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div>
+    <div class="fcta-label">加入我們</div>
+    <div class="fcta-title">下週五，我們在中央公園等你</div>
+  </div>
+  <div class="fcta-btns">
+    <a class="fcta-btn-w" id="pi-cta-primary"></a>
+    <a class="fcta-btn-o" id="pi-cta-secondary"></a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">社團法人臺中市民團協會 Taichung City Citizen Corps Association</div>
+  <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+  <div class="footer-social">
+    <a class="social-btn" href="https://www.facebook.com/txgcca" target="_blank">f</a>
+    <a class="social-btn" href="https://www.instagram.com/txgcca" target="_blank">ig</a>
+    <a class="social-btn" href="https://www.plurk.com/TXGcca"    target="_blank">p</a>
+  </div>
+</footer>
+
+<!-- ════ 版型 JS ════════════════════════════════════════════════ -->
+<script>
+
+const ROWS_PER_YEAR = 5;   /* 每年初始顯示列數上限 */
+
+/* ── 標籤色對照 ── */
+const BADGE_CLASS = { teal: 'b-teal', orange: 'b-orange', navy: 'b-navy' };
+const CAT_CLASS   = {
+  '里程碑':   'b-teal',
+  '演習':     'b-orange',
+  '訓練':     'b-navy',
+  '課程':     'b-navy',
+  '媒體':     'b-orange',
+  '對外合作': 'b-navy',
+};
+
+/* ═══════════════════════════════
+   頁面文字填入
+═══════════════════════════════ */
+function renderPageInfo(p) {
+  document.getElementById('pi-breadcrumb').textContent    = p.page_title;
+  document.getElementById('pi-title').textContent         = p.page_title;
+  document.getElementById('pi-subtitle').textContent      = p.page_subtitle;
+  document.getElementById('pi-section-key').textContent   = p.section_key;
+  document.getElementById('pi-section-chron').textContent = p.section_chron;
+  document.getElementById('pi-back-text').textContent     = p.back_text;
+  document.getElementById('pi-back-link').href            = p.back_url;
+}
+
+function renderSiteConfig(s) {
+  const btnP = document.getElementById('pi-cta-primary');
+  btnP.textContent = s.cta_join_label;
+  btnP.href        = s.url_cta_join;
+  const btnS = document.getElementById('pi-cta-secondary');
+  btnS.textContent = s.cta_calendar_label;
+  btnS.href        = s.url_cta_calendar;
+}
+
+/* ═══════════════════════════════
+   ① 渲染關鍵記事卡片
+═══════════════════════════════ */
+function renderKeyEvents(events) {
+  const grid = document.getElementById('key-grid');
+  grid.innerHTML = events.map((e, i) => `
+    <div class="act-card" style="transition-delay:${(i % 3) * 0.07}s">
+      <div class="act-img-wrap">
+        ${e.image_url
+          ? `<img class="act-img" src="${e.image_url}" alt="${e.title}" loading="lazy">`
+          : `<div class="act-img-fallback">TXGCCA</div>`}
+      </div>
+      <div class="act-body">
+        <div class="act-meta">
+          <span class="act-date">${e.date}</span>
+          ${e.badge ? `<span class="act-badge ${BADGE_CLASS[e.badge_color] || 'b-navy'}">${e.badge}</span>` : ''}
+        </div>
+        <div class="act-title">${e.title}</div>
+        <div class="act-desc">${e.description}</div>
+      </div>
+    </div>
+  `).join('');
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); } });
+  }, { threshold: 0.1 });
+  grid.querySelectorAll('.act-card').forEach(el => io.observe(el));
+}
+
+/* ═══════════════════════════════
+   ② 渲染編年 Accordion
+═══════════════════════════════ */
+function groupByYear(records) {
+  const map = {};
+  records.forEach(r => {
+    if (!map[r.year]) map[r.year] = [];
+    map[r.year].push(r);
+  });
+  return map;
+}
+
+function renderChronRow(r) {
+  return `
+    <div class="chron-row">
+      <div class="chron-date-cell">${r.date_display}</div>
+      <span class="chron-cat ${CAT_CLASS[r.category] || 'b-navy'}">${r.category}</span>
+      <div>
+        <div class="chron-title-cell">${r.title}</div>
+        ${r.note ? `<div class="chron-note">${r.note}</div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+/* badge 等寬：量測前先暫時顯示所有收合區塊，避免 display:none 導致 offsetWidth=0 */
+function equalizeChronBadges() {
+  const allContent = document.querySelectorAll('#chron-accordion .year-content');
+
+  /* 1. 暫時顯示（visibility:hidden 不閃爍） */
+  allContent.forEach(el => {
+    if (el.style.display === 'none' || el.style.display === '') {
+      el.dataset.wasHidden = '1';
+      el.style.display = 'block';
+      el.style.visibility = 'hidden';
+    }
+  });
+
+  /* 2. 量最大寬度並統一套用 */
+  const badges = document.querySelectorAll('#chron-accordion .chron-cat');
+  let maxW = 0;
+  badges.forEach(b => { b.style.width = ''; maxW = Math.max(maxW, b.offsetWidth); });
+  badges.forEach(b => { b.style.width = maxW + 'px'; });
+
+  /* 3. 還原收合狀態 */
+  allContent.forEach(el => {
+    if (el.dataset.wasHidden) {
+      el.style.display = '';
+      el.style.visibility = '';
+      delete el.dataset.wasHidden;
+    }
+  });
+}
+
+function renderAccordion(records) {
+  const map   = groupByYear(records);
+  const years = Object.keys(map).map(Number).sort((a, b) => b - a);  /* 新→舊 */
+  const wrap  = document.getElementById('chron-accordion');
+
+  years.forEach((yr, idx) => {
+    const rows    = map[yr];
+    const total   = rows.length;
+    const visible = rows.slice(0, ROWS_PER_YEAR);
+    const hidden  = rows.slice(ROWS_PER_YEAR);
+    const isOpen  = idx === 0;  /* 最新年份預設展開 */
+
+    const block = document.createElement('div');
+    block.className = 'year-block' + (isOpen ? ' open' : '');
+    block.innerHTML = `
+      <div class="year-hd">
+        <span class="year-badge">${yr}</span>
+        <span class="year-count">${total} 筆</span>
+        <svg class="year-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+      <div class="year-content">
+        <div class="chron-list" id="list-${yr}">
+          ${visible.map(renderChronRow).join('')}
+        </div>
+        ${hidden.length > 0 ? `
+        <div class="show-more-wrap" id="more-wrap-${yr}">
+          <button class="show-more-btn" data-year="${yr}">＋ 查看其餘 ${hidden.length} 筆</button>
+        </div>` : ''}
+      </div>
+    `;
+
+    /* 開合 toggle */
+    block.querySelector('.year-hd').addEventListener('click', () => {
+      block.classList.toggle('open');
+    });
+
+    /* 展開更多 */
+    const moreBtn = block.querySelector('.show-more-btn');
+    if (moreBtn) {
+      moreBtn.addEventListener('click', () => {
+        const list = block.querySelector(`#list-${yr}`);
+        list.insertAdjacentHTML('beforeend', hidden.map(renderChronRow).join(''));
+        block.querySelector(`#more-wrap-${yr}`).remove();
+        requestAnimationFrame(equalizeChronBadges);  /* 新列補齊寬度 */
+      });
+    }
+
+    wrap.appendChild(block);
+  });
+}
+
+/* ── fade-in general ── */
+const fadeIo = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); fadeIo.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => fadeIo.observe(el));
+
+/* ── 啟動 ── */
+renderPageInfo(PAGE_INFO);
+renderSiteConfig(SITE_CONFIG);
+renderKeyEvents(KEY_EVENTS);
+renderAccordion(CHRON_RECORDS);
+requestAnimationFrame(equalizeChronBadges);
+
+/*
+  ══ 上線版：改從兩張 Google Sheet CSV 抓資料 ══════════════════
+
+  async function loadFromSheets() {
+    const KEY_CSV   = 'https://docs.google.com/spreadsheets/d/YOUR_ID/pub?gid=SHEET1_GID&output=csv';
+    const CHRON_CSV = 'https://docs.google.com/spreadsheets/d/YOUR_ID/pub?gid=SHEET2_GID&output=csv';
+
+    function parseCSV(text) {
+      const [header, ...lines] = text.trim().split('\n');
+      const keys = header.split(',').map(k => k.trim().replace(/"/g,''));
+      return lines.map(line => {
+        const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,))/g) || [];
+        return Object.fromEntries(keys.map((k, i) => [k, (vals[i] || '').replace(/"/g,'').trim()]));
+      });
+    }
+
+    const [keyData, chronData] = await Promise.all([
+      fetch(KEY_CSV).then(r => r.text()).then(parseCSV),
+      fetch(CHRON_CSV).then(r => r.text()).then(parseCSV),
+    ]);
+
+    const keyFiltered = keyData
+      .filter(r => r.show_on_about === '是')
+      .slice(0, 6);
+
+    const chronMapped = chronData.map(r => ({
+      ...r,
+      year: parseInt(r.year),
+    }));
+
+    renderKeyEvents(keyFiltered);
+    renderAccordion(chronMapped);
+  }
+
+  loadFromSheets();
+  ══════════════════════════════════════════════════════════ */
+</script>
+</body>
+</html>

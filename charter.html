@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>協會章程 — 臺中市民團協會</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   版型樣式區 — 請勿修改
+   ════════════════════════════════════════ */
+:root {
+  --navy:      #003764;
+  --navy-d:    #002548;
+  --navy-l:    #0a4a7c;
+  --orange:    #FF6921;
+  --orange-d:  #e05510;
+  --teal:      #2CD5C4;
+  --teal-d:    #1aada0;
+  --white:     #ffffff;
+  --off-white: #f7f6f3;
+  --ink:       #0d1f33;
+  --muted:     #5a6b7d;
+  --rule:      rgba(0,55,100,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+nav { background: var(--navy); display: flex; align-items: center; padding: 0 40px; height: 58px; gap: 32px; position: sticky; top: 0; z-index: 100; }
+.nav-logo { color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; font-family: 'Oswald', sans-serif; letter-spacing: .05em; }
+.nav-links { display: flex; gap: 2px; margin-left: auto; }
+.nav-links a { color: rgba(255,255,255,.7); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: all .2s; }
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
+.breadcrumb { background: var(--navy); border-top: 1px solid rgba(255,255,255,.08); padding: 10px 40px; }
+.breadcrumb-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.breadcrumb-inner a { color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+.breadcrumb-inner a:hover { color: var(--teal); }
+.breadcrumb-inner .sep { color: rgba(255,255,255,.2); font-size: 10px; }
+.breadcrumb-inner .current { color: rgba(255,255,255,.7); }
+.page-hero { background: var(--navy-d); color: var(--white); padding: 48px 40px 44px; position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(44,213,196,.1) 0%, transparent 65%); pointer-events: none; }
+.page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 100%); }
+.hero-inner { max-width: 860px; margin: 0 auto; }
+.hero-kicker { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.hero-title { font-family: 'Oswald', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 700; line-height: 1.15; color: var(--white); }
+.charter-body { padding: 52px 40px 72px; max-width: 860px; margin: 0 auto; }
+.intro-card { background: linear-gradient(135deg, rgba(0,55,100,.04) 0%, rgba(44,213,196,.05) 100%); border: 1px solid rgba(0,55,100,.1); border-left: 4px solid var(--teal); border-radius: 8px; padding: 20px 22px; margin-bottom: 44px; display: flex; align-items: flex-start; gap: 12px; }
+.intro-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.intro-text { font-size: 14px; line-height: 1.85; color: var(--muted); }
+.intro-text strong { color: var(--navy); }
+.chapter-block { margin-bottom: 10px; border: 1px solid rgba(0,55,100,.12); border-radius: 8px; overflow: hidden; }
+.chapter-hd { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--white); cursor: pointer; user-select: none; transition: background .15s; }
+.chapter-hd:hover { background: var(--off-white); }
+.chapter-block.open .chapter-hd { background: var(--navy); }
+.ch-badge { font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 700; color: var(--navy); background: rgba(0,55,100,.09); border-radius: 4px; padding: 4px 10px; flex-shrink: 0; transition: all .2s; white-space: nowrap; }
+.chapter-block.open .ch-badge { background: var(--orange); color: var(--white); }
+.chapter-name { font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 600; color: var(--ink); flex: 1; transition: color .2s; }
+.chapter-block.open .chapter-name { color: var(--white); }
+.chapter-sub { font-size: 11px; color: var(--muted); margin-top: 2px; transition: color .2s; }
+.chapter-block.open .chapter-sub { color: rgba(255,255,255,.42); }
+.ch-arrow { width: 18px; height: 18px; color: var(--muted); flex-shrink: 0; transition: transform .25s, color .2s; margin-left: auto; }
+.chapter-block.open .ch-arrow { transform: rotate(180deg); color: rgba(255,255,255,.55); }
+.chapter-content { display: none; background: var(--white); }
+.chapter-block.open .chapter-content { display: block; }
+.chapter-content-inner { padding: 24px 20px 20px; border-top: 1px solid var(--rule); }
+.article { display: grid; grid-template-columns: 52px 1fr; gap: 0 12px; padding: 13px 0; border-bottom: 1px solid rgba(0,55,100,.05); align-items: start; }
+.article:last-child { border-bottom: none; padding-bottom: 0; }
+.article-num { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 700; color: var(--orange); padding-top: 2px; white-space: nowrap; }
+.article-body { font-size: 14px; line-height: 1.9; color: var(--ink); }
+.sub-items { margin-top: 8px; padding-left: 16px; border-left: 2px solid rgba(0,55,100,.1); display: flex; flex-direction: column; gap: 4px; }
+.sub-item { font-size: 13px; line-height: 1.8; color: var(--muted); }
+.sub-item.fee { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 3px 0; border-bottom: 1px dashed rgba(0,55,100,.07); color: var(--ink); font-size: 13px; }
+.sub-item.fee:last-child { border-bottom: none; }
+.sub-item.fee .fee-val { font-family: 'Oswald', sans-serif; font-size: 13px; color: var(--orange); white-space: nowrap; }
+.back-bar { background: var(--navy); padding: 20px 40px; }
+.back-inner { max-width: 860px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; transition: color .15s; }
+.back-link:hover { color: var(--white); }
+.footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
+.fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
+.fcta-btns { display: flex; gap: 12px; flex-shrink: 0; }
+.fcta-btn-w { background: var(--white); color: var(--orange); font-size: 14px; font-weight: 700; padding: 13px 26px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: background .15s; }
+.fcta-btn-w:hover { background: var(--off-white); }
+.fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
+footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-reg { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-decoration: none; transition: background .15s; }
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+@media (max-width: 720px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .breadcrumb, .charter-body, .back-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
+  .footer-cta { flex-direction: column; gap: 20px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { justify-content: center; }
+  .article { grid-template-columns: 44px 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+  ★★★  資料區 — 只需要編輯這裡，版型完全不用動  ★★★
+
+  【頁面基本資訊】
+  PAGE_INFO 物件：修改頁面標題、小標、簡介段落文字
+
+  【六章法條】
+  CHARTER 陣列：每一章是一個物件，包含：
+  - chapter  : 章序（如「第一章」）
+  - title    : 章名（如「總則」）
+  - range    : 條號範圍（如「第 1 條 — 第 6 條」）
+  - articles : 法條陣列，每筆包含：
+      - num   : 條號（如「第 1 條」）
+      - text  : 條文本文（主要文字）
+      - items : 子項目陣列（款、項、目）
+                沒有子項目請填空陣列 []
+                子項目若為費用表，請加 fee: true
+
+  ★ 新增一條  → 在對應章節的 articles 陣列加一筆 {}
+  ★ 修改文字  → 找到對應條號，直接改 text 或 items 的文字
+  ★ 新增一章  → 在 CHARTER 陣列最後加一個章節物件 {}
+  ════════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* ── 頁面基本資訊 ── */
+const PAGE_INFO = {
+  kicker:     "法規文件",
+  pageTitle:  "臺中市民團協會章程",
+  intro:      "臺中市民團協會章程係依相關法令設立，規範協會之組織架構、會員權利義務、財務管理及各項運作規則。本章程經 113 年 9 月 15 日第 1 屆第 1 次會員大會通過，報請臺中市政府社會局以中市社團字第 1130158795 號函核備後施行，法人登記號 113 法登 證社字第 000117 號。",
+  backLink:   "#",   /* 返回「關於我們」頁面的網址 */
+  joinLink:   "#",   /* 報名週五自訓的網址 */
+  calLink:    "#",   /* 訂閱行事曆的網址 */
+};
+
+/* ── 六章法條 ── */
+const CHARTER = [
+
+  /* ════ 第一章 ════ */
+  {
+    chapter: "第一章",
+    title:   "總則",
+    range:   "第 1 條 — 第 6 條",
+    articles: [
+      {
+        num:  "第 1 條",
+        text: "本會名稱為臺中市民團協會（以下簡稱本會）。本會英文名稱為 Taichung City Citizen Corps Association。本會日文名稱為臺中市自主防災協会（たいちゅうしじしゅぼうさいきょうかい）。本會之臺羅名稱為 Tâi-tiong-tshī Bîn-thuân Hia̍p-huē。",
+        items: [],
+      },
+      {
+        num:  "第 2 條",
+        text: "本會為依法設立、非以營利為目的之社會團體，以促進臺中市民民防意識、強化自救互救知識與技能、提升災難應變能力，並依國家各級機關徵召或社會需求提供社會救助、急難救助與國際人道援助為宗旨。",
+        items: [],
+      },
+      {
+        num:  "第 3 條",
+        text: "本會以臺中市行政區域為組織區域。",
+        items: [],
+      },
+      {
+        num:  "第 4 條",
+        text: "本會會址設於臺中市，並得報經主管機關核准設分支機構。前項分支機構應擬具組織簡則，經會員大會決議通過後，報請主管機關核准後實施。",
+        items: [],
+      },
+      {
+        num:  "第 5 條",
+        text: "本會之任務如下，並依相關法令規定推動及執行：",
+        items: [
+          "一、促進民防技能之研究與發展。",
+          "二、與切合本會宗旨之關聯單位合作。",
+          "三、舉辦民防技術之交流活動。",
+          "四、積極參與各式公益活動。",
+          "五、倡議民防法規及全民防衛動員制度之改良。",
+          "六、推行其他關於臺灣民防、防災、災害防救等相關事項及活動。",
+        ],
+      },
+      {
+        num:  "第 6 條",
+        text: "本會之主管機關為臺中市政府社會局，本會之目的事業應受各該事業主管機關之指導、監督。",
+        items: [],
+      },
+    ],
+  },
+
+  /* ════ 第二章 ════ */
+  {
+    chapter: "第二章",
+    title:   "會員",
+    range:   "第 7 條 — 第 13 條",
+    articles: [
+      {
+        num:  "第 7 條",
+        text: "本會會員分類如下：",
+        items: [
+          "一、個人會員：贊同本會宗旨，設籍、工作地於本市、成年且具行為能力者，填具申請書，經理事會審查通過並繳納會費後為個人會員。",
+          "二、團體會員：經政府登記有案之本市公私立機構或團體，贊同本會宗旨，填具申請書，審查通過並繳納會費後為團體會員，得推派代表 3 人行使會員權利。",
+          "三、贊助會員：每年贊助本會經費 5,000 元以上或同等資源之團體或個人，填具申請書，經理事會審查並決議會員期限。",
+          "四、學生會員：具教育部認可有效學籍之學生，願意協助推廣本會任務，未成年者需由法定代理人繳交同意書。",
+          "五、榮譽會員：經理事提名，其經驗、技術或技能對本會會務推展有重大貢獻或潛力者，理事會審查通過。",
+          "六、麻薏會員：非設籍、工作於本市，成年且具行為能力者，填具申請書，經理事會審查通過並繳納會費後為麻薏會員。",
+        ],
+      },
+      {
+        num:  "第 8 條",
+        text: "會員（會員代表）有表決權、選舉權、被選舉權與罷免權，每一會員為一權。學生會員、贊助會員、榮譽會員及麻薏會員無前項權利。",
+        items: [],
+      },
+      {
+        num:  "第 9 條",
+        text: "會員有遵守本會章程、決議及繳納會費之義務。會員未繳納會費者，不得享有會員權利。連續二年未繳納會費者，視為自動退會。",
+        items: [],
+      },
+      {
+        num:  "第 10 條",
+        text: "會員（會員代表）有違反法令、章程或不遵守會員大會決議時，得經理事會決議予以警告或停權處分；其危害團體情節重大者，得經會員大會決議予以除名。",
+        items: [],
+      },
+      {
+        num:  "第 11 條",
+        text: "會員有下列情事之一者，為出會：",
+        items: [
+          "一、死亡。",
+          "二、喪失會員資格者。",
+          "三、經會員大會決議除名者。",
+        ],
+      },
+      {
+        num:  "第 12 條",
+        text: "會員得以書面敘明理由向本會聲明退會。",
+        items: [],
+      },
+      {
+        num:  "第 13 條",
+        text: "會員經出會或退會，已繳納之各項費用不予退還。",
+        items: [],
+      },
+    ],
+  },
+
+  /* ════ 第三章 ════ */
+  {
+    chapter: "第三章",
+    title:   "組織及職權",
+    range:   "第 14 條 — 第 25 條",
+    articles: [
+      {
+        num:  "第 14 條",
+        text: "本會以會員（會員代表）大會為最高權力機構，理事會為執行機構，監事會為監察機構。",
+        items: [],
+      },
+      {
+        num:  "第 15 條",
+        text: "會員大會之職權如下：",
+        items: [
+          "一、訂定與變更章程。",
+          "二、選舉及罷免理事、監事。",
+          "三、議決入會費、常年會費、事業費及會員捐款之數額及方式。",
+          "四、議決年度工作計畫、報告及預算、決算。",
+          "五、議決會員（會員代表）之除名處分。",
+          "六、議決財產之買賣、轉讓或他項權利設定等處分。",
+          "七、議決本會之解散。",
+          "八、議決與會員權利義務有關之其他重大事項。",
+        ],
+      },
+      {
+        num:  "第 16 條",
+        text: "本會置理事 9 人、監事 3 人，由會員（會員代表）選舉之，分別成立理事會、監事會。同時選出候補理事 2 人、候補監事 1 人，遇缺時依序遞補。",
+        items: [],
+      },
+      {
+        num:  "第 17 條",
+        text: "理事會置常務理事 3 人，由全體理事互選之。理事長及副理事長，由全體理事就常務理事中選舉 2 人擔任之。理事長連任以 1 次為限。",
+        items: [],
+      },
+      {
+        num:  "第 18 條",
+        text: "理事會之職權如下：",
+        items: [
+          "一、議決會員大會之召開事項。",
+          "二、審定會員（會員代表）之資格。",
+          "三、選舉及罷免常務理事、理事長。",
+          "四、議決理事（常務理事）及理事長之辭職。",
+          "五、聘免工作人員。",
+          "六、擬訂年度工作計畫、報告及預算、決算。",
+          "七、其他應執行事項。",
+        ],
+      },
+      {
+        num:  "第 19 條",
+        text: "監事會置常務監事 1 人，由監事互選之，監察日常會務，並擔任監事會主席。",
+        items: [],
+      },
+      {
+        num:  "第 20 條",
+        text: "監事會之職權如下：",
+        items: [
+          "一、監察理事會工作之執行。",
+          "二、審核年度決算。",
+          "三、選舉及罷免常務監事。",
+          "四、議決監事及常務監事之辭職。",
+          "五、其他應監察事項。",
+        ],
+      },
+      {
+        num:  "第 21 條",
+        text: "理事、監事均為無給職，任期 3 年，連選得連任。理事長之連任，以 1 次為限。",
+        items: [],
+      },
+      {
+        num:  "第 22 條",
+        text: "理事、監事有下列情事之一者，應即解任：",
+        items: [
+          "一、喪失會員（會員代表）資格者。",
+          "二、因故辭職經理事會或監事會決議通過者。",
+          "三、被罷免或撤免者。",
+          "四、受停權處分期間逾任期二分之一者。",
+        ],
+      },
+      {
+        num:  "第 23 條",
+        text: "本會得置總幹事 1 人，承理事長之命處理本會事務；其他工作人員若干人，由理事長提名經理事會通過聘免之。工作人員不得由理事監事擔任。",
+        items: [],
+      },
+      {
+        num:  "第 24 條",
+        text: "本會得設各種委員會、小組或其他內部作業組織，其組織簡則經理事會通過後施行。",
+        items: [],
+      },
+      {
+        num:  "第 25 條",
+        text: "本會得由理事會聘請名譽理事長 1 人，名譽理事、顧問若干人，其聘期與理事、監事之任期同。",
+        items: [],
+      },
+    ],
+  },
+
+  /* ════ 第四章 ════ */
+  {
+    chapter: "第四章",
+    title:   "會議",
+    range:   "第 26 條 — 第 30 條",
+    articles: [
+      {
+        num:  "第 26 條",
+        text: "會員大會分定期會議與臨時會議 2 種，由理事長召集，除緊急事故外，應於 15 日前通知全體應出席人員。定期會議每年召開 1 次。會議得以視訊方式為之，但涉及選舉、補選、罷免事項，不得採行視訊會議。",
+        items: [],
+      },
+      {
+        num:  "第 27 條",
+        text: "會員（會員代表）不能親自出席會員大會時，得以書面委託其他會員代理，每 1 會員以代理 1 人為限。",
+        items: [],
+      },
+      {
+        num:  "第 28 條",
+        text: "會員大會之決議，以出席過半數同意行之。但下列事項以出席人數三分之二以上同意行之：",
+        items: [
+          "一、章程之訂定與變更。",
+          "二、會員（會員代表）之除名。",
+          "三、理事、監事之罷免。",
+          "四、財產之處分。",
+          "五、本會之解散。",
+          "六、其他與會員權利義務有關之重大事項。",
+        ],
+      },
+      {
+        num:  "第 29 條",
+        text: "理事會每 6 個月至少舉行會議 1 次，監事會每 6 個月至少舉行會議 1 次，必要時得召開聯席會議或臨時會議。",
+        items: [],
+      },
+      {
+        num:  "第 30 條",
+        text: "理事應出席理事會議，監事應出席監事會議，不得委託出席。理事、監事連續 2 次無故缺席者，視同辭職。",
+        items: [],
+      },
+    ],
+  },
+
+  /* ════ 第五章 ════ */
+  {
+    chapter: "第五章",
+    title:   "經費及會計",
+    range:   "第 31 條 — 第 34 條",
+    articles: [
+      {
+        num:  "第 31 條",
+        text: "本會經費來源包括入會費、常年會費、事業費、捐款、委託收益、基金及其孳息等。費用標準如下：",
+        items: [
+          { fee: true, label: "個人會員 / 麻薏會員", val: "入會費 NT$1,500　常年費 NT$2,400" },
+          { fee: true, label: "團體會員",            val: "入會費 NT$3,000　常年費 NT$4,800" },
+          { fee: true, label: "學生會員",            val: "入會費 NT$500　常年費 NT$1,200"   },
+          { fee: true, label: "贊助會員",            val: "每年贊助 NT$5,000 以上"           },
+        ],
+      },
+      {
+        num:  "第 32 條",
+        text: "本會會計年度以曆年為準，自每年 1 月 1 日起至 12 月 31 日止。",
+        items: [],
+      },
+      {
+        num:  "第 33 條",
+        text: "本會於會計年度開始前由理事會編造年度工作計畫及收支預算表，並於年度終了後 3 個月內編造上年度工作報告、會計報告，提經會員大會通過後，報請主管機關備查。",
+        items: [],
+      },
+      {
+        num:  "第 34 條",
+        text: "本會解散後，剩餘財產歸屬所在地之地方自治團體或主管機關指定之機關團體所有。",
+        items: [],
+      },
+    ],
+  },
+
+  /* ════ 第六章 ════ */
+  {
+    chapter: "第六章",
+    title:   "附則",
+    range:   "第 35 條 — 第 36 條",
+    articles: [
+      {
+        num:  "第 35 條",
+        text: "本章程未規定事項，悉依有關法令規定辦理。",
+        items: [],
+      },
+      {
+        num:  "第 36 條",
+        text: "本章程經會員 113 年 9 月 15 日第 1 屆第 1 次會員大會通過，並報主管機關臺中市社會局以中華民國 113 年 11 月 8 日中市社團字第 1130158795 號函核備後施行，變更時亦同。",
+        items: [],
+      },
+    ],
+  },
+
+]; /* ← CHARTER 陣列結束 */
+
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+  以下為 HTML 結構與渲染程式碼 — 請勿修改
+  ════════════════════════════════════════════════════════════ -->
+
+<nav>
+  <a class="nav-logo" href="#">臺中市民團協會</a>
+  <div class="nav-links">
+    <a href="#">首頁</a>
+    <a href="#">關於我們</a>
+    <a href="#">自訓與課程活動</a>
+    <a href="#">學習資源</a>
+    <a href="#">媒體報導</a>
+    <a href="#">聯絡我們</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="#">首頁</a>
+    <span class="sep">›</span>
+    <a href="#">關於我們</a>
+    <span class="sep">›</span>
+    <span class="current">協會章程</span>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="hero-kicker" id="r-kicker"></div>
+    <h1 class="hero-title" id="r-title"></h1>
+  </div>
+</div>
+
+<div class="charter-body">
+  <div class="intro-card">
+    <div class="intro-icon">📋</div>
+    <p class="intro-text" id="r-intro"></p>
+  </div>
+  <div id="r-chapters"></div>
+</div>
+
+<div class="back-bar">
+  <div class="back-inner">
+    <a class="back-link" id="r-back" href="#">← 返回關於我們</a>
+  </div>
+</div>
+
+<div class="footer-cta">
+  <div>
+    <div class="fcta-label">加入我們</div>
+    <div class="fcta-title">下週五，我們在中央公園等你</div>
+  </div>
+  <div class="fcta-btns">
+    <a class="fcta-btn-w" id="r-join" href="#">報名週五自訓</a>
+    <a class="fcta-btn-o" id="r-cal"  href="#">訂閱行事曆</a>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">社團法人臺中市民團協會 Taichung City Citizen Corps Association</div>
+    <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+  </div>
+  <div class="footer-social">
+    <a class="social-btn" href="#" target="_blank">f</a>
+    <a class="social-btn" href="#" target="_blank">T</a>
+    <a class="social-btn" href="#" target="_blank">p</a>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════
+   渲染引擎 — 請勿修改
+   ════════════════════════════════════════ */
+
+/* 注入頁面基本資訊 */
+document.getElementById('r-kicker').textContent = PAGE_INFO.kicker;
+document.getElementById('r-title').textContent  = PAGE_INFO.pageTitle;
+document.getElementById('r-intro').innerHTML    = '<strong>' + PAGE_INFO.pageTitle + '</strong>' + PAGE_INFO.intro.replace(/^臺中市民團協會章程/, '');
+document.getElementById('r-back').href  = PAGE_INFO.backLink;
+document.getElementById('r-join').href  = PAGE_INFO.joinLink;
+document.getElementById('r-cal').href   = PAGE_INFO.calLink;
+
+/* 渲染章節與法條 */
+const container = document.getElementById('r-chapters');
+
+CHARTER.forEach((ch, idx) => {
+  /* 子項目 HTML */
+  const buildItems = (items) => {
+    if (!items || items.length === 0) return '';
+    const rows = items.map(item => {
+      if (typeof item === 'object' && item.fee) {
+        return `<span class="sub-item fee"><span>${item.label}</span><span class="fee-val">${item.val}</span></span>`;
+      }
+      return `<span class="sub-item">${item}</span>`;
+    }).join('');
+    return `<div class="sub-items">${rows}</div>`;
+  };
+
+  /* 法條 HTML */
+  const articlesHTML = ch.articles.map(a => `
+    <div class="article">
+      <span class="article-num">${a.num}</span>
+      <div class="article-body">${a.text}${buildItems(a.items)}</div>
+    </div>`).join('');
+
+  /* 章節區塊 HTML（第一章預設展開） */
+  const isOpen = idx === 0 ? 'open' : '';
+  const block = document.createElement('div');
+  block.className = `chapter-block ${isOpen}`;
+  block.id = `ch${idx + 1}`;
+  block.innerHTML = `
+    <div class="chapter-hd" onclick="toggleChapter(this)">
+      <span class="ch-badge">${ch.chapter}</span>
+      <div>
+        <div class="chapter-name">${ch.title}</div>
+        <div class="chapter-sub">${ch.range}</div>
+      </div>
+      <svg class="ch-arrow" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+      </svg>
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-content-inner">${articlesHTML}</div>
+    </div>`;
+  container.appendChild(block);
+});
+
+/* 折疊互動 */
+function toggleChapter(hd) {
+  const block = hd.closest('.chapter-block');
+  const isOpen = block.classList.contains('open');
+  document.querySelectorAll('.chapter-block').forEach(b => b.classList.remove('open'));
+  if (!isOpen) block.classList.add('open');
+}
+</script>
+</body>
+</html>

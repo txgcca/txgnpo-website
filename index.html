@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>臺中市民團協會 — 首頁改版稿 v3.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #003764;
+  --navy-d:    #002548;
+  --navy-l:    #0a4a7c;
+  --orange:    #FF6921;
+  --orange-d:  #e05510;
+  --teal:      #2CD5C4;
+  --teal-d:    #1aada0;
+  --white:     #ffffff;
+  --off-white: #f7f6f3;
+  --ink:       #0d1f33;
+  --muted:     #5a6b7d;
+  --rule:      rgba(0,55,100,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── NOTICE BAR ── */
+.notice-bar {
+  background: var(--teal);
+  color: var(--navy-d);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-align: center;
+  padding: 8px;
+}
+
+/* ══════════════════════════════════════════
+   NAV（立即參加 CTA 已移除）
+══════════════════════════════════════════ */
+nav {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  height: 58px;
+  gap: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-mark {
+  height: 40px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.nav-links {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.nav-link {
+  color: rgba(255,255,255,.6);
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color .15s, background .15s;
+}
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
+
+/* ── 漢堡選單 ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,.08); }
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  background: rgba(255,255,255,.7);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 52px;
+  left: 0; right: 0;
+  background: var(--navy-d);
+  border-top: 1px solid rgba(255,255,255,.08);
+  z-index: 99;
+  padding: 8px 0 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.3);
+}
+.nav-drawer.open { display: block; }
+.nav-drawer .nav-link {
+  display: block;
+  padding: 13px 24px;
+  font-size: 15px;
+  border-radius: 0;
+}
+.nav-drawer .nav-link:hover { background: rgba(255,255,255,.06); }
+
+/* 遮罩層 */
+.nav-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 98;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.nav-backdrop.open { display: block; }
+
+/* ══════════════════════════════════════════
+   HERO — 桌機（> 1100px）
+   兩欄並排，右側 560px，外凸弧
+══════════════════════════════════════════ */
+.hero {
+  background: var(--navy);
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr 510px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  padding: 88px 80px 80px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.label-bar { width: 24px; height: 2px; background: var(--teal); }
+
+.hero-h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -.01em;
+}
+.hero-h1 .accent { color: var(--orange); }
+
+/* 手機版專用：大標下方圖片（桌機隱藏）*/
+.hero-img-mobile {
+  display: none;
+}
+
+.hero-h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 36px;
+  line-height: 1.2;
+}
+
+.hero-body {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(255,255,255,.6);
+  max-width: 480px;
+  margin-bottom: 40px;
+  padding-left: 16px;
+  border-left: 2px solid var(--teal);
+  text-wrap: pretty;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.btn-orange {
+  background: var(--orange);
+  color: var(--white);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background .15s, transform .1s;
+}
+.btn-orange:hover { background: var(--orange-d); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  color: rgba(255,255,255,.65);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,.2);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color .15s, color .15s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: var(--white); }
+
+/* Hero 標籤（左側，按鈕下方）*/
+.hero-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hero-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,.5);
+  font-size: 13px;
+}
+.tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+/* ── 右側圖片區（桌機）──
+   560px 寬、左側外凸弧（clip-path 11 點正弦插值）
+   margin-left: -50px で左に突出
+*/
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  margin-left: -50px;
+  clip-path: polygon(
+    8.9% 0%,
+    6.2% 10%,
+    3.6% 20%,
+    1.7% 30%,
+    0.4% 40%,
+    0%   50%,
+    0.4% 60%,
+    1.7% 70%,
+    3.6% 80%,
+    6.2% 90%,
+    8.9% 100%,
+    100% 100%,
+    100% 0%
+  );
+}
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--navy-d);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 40px;
+}
+.hero-img-placeholder-icon { font-size: 40px; opacity: .4; }
+.hero-img-placeholder-text {
+  font-size: 13px;
+  color: rgba(255,255,255,.35);
+  text-align: center;
+  line-height: 1.7;
+}
+.hero-img-placeholder-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  text-align: center;
+}
+.hero-accent-line {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--orange);
+}
+
+/* ══════════════════════════════════════════
+   RWD ① 中螢幕（768px ~ 1100px）
+   筆電開雙頁面的情境
+   右側改為 40%，字級縮小，弧形突出量縮小
+══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: 1fr 40%;
+    min-height: 80vh;
+  }
+  .hero-left {
+    padding: 64px 48px 64px 32px;
+  }
+  .hero-h1 {
+    font-size: 56px;
+  }
+  .hero-h2 {
+    font-size: 28px;
+    margin-bottom: 28px;
+  }
+  .hero-body {
+    font-size: 14px;
+    margin-bottom: 32px;
+    max-width: 100%;
+  }
+  .hero-right {
+    margin-left: -30px; /* 弧形突出量縮小 */
+    clip-path: polygon(
+      6%   0%,
+      4.2% 10%,
+      2.4% 20%,
+      1.1% 30%,
+      0.3% 40%,
+      0%   50%,
+      0.3% 60%,
+      1.1% 70%,
+      2.4% 80%,
+      4.2% 90%,
+      6%   100%,
+      100% 100%,
+      100% 0%
+    );
+  }
+  .nav-link { font-size: 12px; padding: 6px 8px; }
+}
+
+/* ══════════════════════════════════════════
+   RWD ② 手機（< 768px）
+   單欄垂直堆疊
+   圖片插在大標下方、副標上方
+══════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Nav */
+  nav { padding: 0 20px; height: 52px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero 結構：單欄 */
+  .hero {
+    display: block;
+    min-height: auto;
+    padding-bottom: 48px;
+  }
+
+  .hero-left {
+    padding: 48px 24px 0;
+  }
+
+  /* 小標 */
+  .hero-label {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* 大標：第一眼衝擊，字級縮小但保持份量 */
+  .hero-h1 {
+    font-size: 48px;
+    margin-bottom: 24px; /* 大標和圖片之間留空間 */
+  }
+
+  /* 手機版圖片：大標下方插入，16:9 橫幅，無弧形 */
+  .hero-img-mobile {
+    display: block;
+    width: calc(100% + 48px); /* 左右突破 padding 滿版 */
+    margin-left: -24px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin-bottom: 28px;
+    margin-top: 0;
+  }
+  .hero-img-mobile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-img-mobile-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--navy-d);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    min-height: 200px;
+  }
+  .hero-img-mobile-placeholder .ph-icon { font-size: 28px; opacity: .4; }
+  .hero-img-mobile-placeholder .ph-text { font-size: 12px; color: rgba(255,255,255,.3); }
+
+  /* 桌機右側面板在手機版隱藏 */
+  .hero-right { display: none; }
+
+  /* 副標 */
+  .hero-h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  /* 說明短文 */
+  .hero-body {
+    font-size: 14px;
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+
+  /* 按鈕：垂直堆疊，全寬 */
+  .hero-btns {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .btn-orange,
+  .btn-ghost {
+    justify-content: center;
+    width: 100%;
+    padding: 15px 20px;
+  }
+
+  /* 標籤 */
+  .hero-tags { gap: 8px; }
+  .hero-tag  { font-size: 12px; }
+
+  /* Stats */
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item { padding: 20px 24px; }
+  .stat-num  { font-size: 36px; }
+
+  /* Media strip */
+  .media-strip { padding: 14px 20px; gap: 16px; overflow-x: auto; }
+  .media-logos { flex-wrap: nowrap; gap: 20px; }
+
+  /* CTA cards：單欄堆疊 */
+  .cta-section { padding: 48px 20px; }
+  .cta-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Timeline */
+  .timeline-section { padding: 48px 20px; }
+  .tl-item { width: 200px; }
+
+  /* Footer CTA */
+  .footer-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 20px;
+    gap: 24px;
+  }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w,
+  .fcta-btn-o {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Footer */
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+/* ══════════════════════════════════════════
+   STATS BAR
+══════════════════════════════════════════ */
+.stats-bar {
+  background: var(--navy-d);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.stat-item {
+  padding: 28px 32px;
+  border-right: 1px solid rgba(255,255,255,.06);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 44px; font-weight: 700;
+  color: var(--white); line-height: 1;
+  display: flex; align-items: baseline; gap: 4px;
+}
+.stat-unit { font-size: 18px; font-weight: 500; color: var(--teal); }
+.stat-label { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 6px; letter-spacing: .04em; }
+
+/* ══════════════════════════════════════════
+   MEDIA STRIP（硬寫 HTML，媒體名稱加連結）
+══════════════════════════════════════════ */
+.media-strip {
+  background: var(--off-white);
+  border-bottom: 1px solid var(--rule);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.media-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+.media-sep { width: 1px; height: 22px; background: var(--rule); flex-shrink: 0; }
+.media-logos { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.media-logo {
+  font-size: 12px; font-weight: 700;
+  color: var(--muted); letter-spacing: .02em; white-space: nowrap;
+  opacity: .7; text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+  transition: opacity .15s, color .15s;
+}
+.media-logo:hover { opacity: 1; color: var(--navy); }
+.logo-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+/* ══════════════════════════════════════════
+   CTA SECTION
+══════════════════════════════════════════ */
+.cta-section { padding: 80px 40px; background: var(--white); }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; }
+.section-title { font-family: 'Oswald', sans-serif; font-size: 38px; font-weight: 600; color: var(--ink); line-height: 1.05; }
+.section-title small {
+  display: block; font-size: 12px;
+  font-family: 'Noto Sans TC', sans-serif; font-weight: 400;
+  color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px;
+}
+.section-more { font-size: 13px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; transition: color .15s, border-color .15s; }
+.section-more:hover { color: var(--navy); border-color: var(--navy); }
+
+.cta-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 14px; }
+
+.cta-card {
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 32px 28px; background: var(--white);
+  cursor: pointer; position: relative; overflow: hidden;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,55,100,.1); border-color: rgba(0,55,100,.25); }
+.cta-card.primary { background: var(--navy); border-color: var(--navy); }
+.cta-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+.cta-card:hover::before { transform: scaleX(1); }
+.top-orange::before { background: var(--orange); }
+.top-teal::before   { background: var(--teal); }
+.top-navy::before   { background: var(--teal); }
+
+.card-num { font-family: 'Oswald', sans-serif; font-size: 60px; font-weight: 700; color: rgba(0,55,100,.05); position: absolute; top: 10px; right: 16px; line-height: 1; user-select: none; }
+.cta-card.primary .card-num { color: rgba(255,255,255,.05); }
+
+.card-icon { width: 42px; height: 42px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px; }
+.icon-orange { background: rgba(255,105,33,.12); }
+.icon-teal   { background: rgba(44,213,196,.12); }
+.icon-white  { background: rgba(255,255,255,.1); }
+
+.card-title { font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 10px; }
+.cta-card.primary .card-title { color: var(--white); }
+.card-desc { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+.cta-card.primary .card-desc { color: rgba(255,255,255,.5); }
+.card-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.cta-card.primary .card-meta { color: rgba(255,255,255,.4); }
+.m-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--teal); }
+
+.card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; text-decoration: none; background: none; border: none; cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: gap .2s; padding: 0; }
+.card-link:hover { gap: 10px; }
+.link-orange  { color: var(--orange); }
+.link-teal    { color: var(--teal-d); }
+.link-o-light { color: var(--orange); }
+
+/* ══════════════════════════════════════════
+   TIMELINE
+══════════════════════════════════════════ */
+.timeline-section { background: var(--off-white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 72px 40px; overflow: hidden; }
+.tl-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
+.tl-title { font-family: 'Oswald', sans-serif; font-size: 34px; font-weight: 600; color: var(--ink); line-height: 1; }
+.tl-title small { display: block; font-size: 11px; font-family: 'Noto Sans TC', sans-serif; font-weight: 400; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+.tl-more { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
+.tl-more:hover { color: var(--navy); }
+
+.tl-scroll { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+.tl-scroll::-webkit-scrollbar { display: none; }
+
+.tl-item { flex-shrink: 0; width: 240px; padding-right: 40px; position: relative; }
+.tl-item::after { content: ''; position: absolute; top: 6px; left: 222px; right: 0; height: 1px; background: var(--rule); }
+.tl-item:last-child::after { display: none; }
+.tl-dot-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.tl-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.tl-date { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+.tl-item-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.35; }
+.tl-item-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.tl-badge { display: inline-block; margin-top: 8px; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 2px 9px; border-radius: 99px; }
+
+/* ══════════════════════════════════════════
+   FOOTER CTA（文字硬寫，按鈕讀主控表）
+══════════════════════════════════════════ */
+.footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
+.fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
+.fcta-btns { display: flex; gap: 12px; flex-shrink: 0; }
+.fcta-btn-w { background: var(--white); color: var(--orange); font-size: 14px; font-weight: 700; padding: 13px 26px; border-radius: 4px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: background .15s; }
+.fcta-btn-w:hover { background: var(--off-white); }
+.fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
+.fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-reg { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); cursor: pointer; text-decoration: none; transition: background .15s; }
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+
+/* ── Animations ── */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s; }
+.fade-in.show { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="notice-bar">▲ 改版設計稿 v3.2 — 首頁 RWD（桌機 / 中螢幕 / 手機）</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <!-- 實作時換成 Google Drive 公開連結：
+         src="https://drive.google.com/uc?id=YOUR_LOGO_ID" -->
+    <img class="nav-mark"
+         src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO"
+         alt="社團法人臺中市民團協會 LOGO">
+    社團法人臺中市民團協會
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#">關於我們</a>
+    <a class="nav-link" href="#">課程與活動</a>
+    <a class="nav-link" href="#">學習資源</a>
+    <a class="nav-link" href="#">媒體報導</a>
+    <a class="nav-link" href="#">聯絡我們</a>
+  </div>
+  <!-- 漢堡按鈕（手機版） -->
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- 手機展開選單 -->
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-link" href="#">關於我們</a>
+  <a class="nav-link" href="#">課程與活動</a>
+  <a class="nav-link" href="#">學習資源</a>
+  <a class="nav-link" href="#">媒體報導</a>
+  <a class="nav-link" href="#">聯絡我們</a>
+</div>
+<div class="nav-backdrop" id="nav-backdrop"></div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+
+  <div class="hero-left">
+
+    <!-- hero_eyebrow -->
+    <div class="hero-label">
+      <span class="label-bar"></span>
+      臺中 · 民間防災 · 自主訓練
+    </div>
+
+    <!-- hero_headline_1 / hero_headline_2_before / hero_headline_2_accent -->
+    <h1 class="hero-h1">
+      災難來臨時<br>
+      你只能<span class="accent">靠自己</span>
+    </h1>
+
+    <!-- 手機版圖片：大標正下方，副標上方 -->
+    <div class="hero-img-mobile">
+      <!-- 實作時換成 <img src="[hero_image_url]" alt="民團訓練現場"> -->
+      <div class="hero-img-mobile-placeholder">
+        <div class="ph-icon">📷</div>
+        <div class="ph-text">hero_image_url（手機版）</div>
+      </div>
+    </div>
+
+    <!-- hero_subheadline -->
+    <div class="hero-h2">但你不必獨自準備</div>
+
+    <!-- hero_body -->
+    <p class="hero-body">
+      台中在地的民間自訓社群，每週五晚上在中央公園，一起練急救、學防災、強化身心韌性。從 2023 年一群普通市民開始，持續讓更多台中人有能力保護自己和身邊的人。
+    </p>
+
+    <!-- hero_btn_primary / hero_btn_primary_link -->
+    <!-- hero_btn_secondary / hero_btn_secondary_link -->
+    <div class="hero-btns">
+      <a class="btn-orange" href="[hero_btn_primary_link]">加入我們的訓練</a>
+      <a class="btn-ghost"  href="[hero_btn_secondary_link]">了解更多 ↓</a>
+    </div>
+
+    <!-- hero_tag_1 / hero_tag_2 / hero_tag_3 -->
+    <div class="hero-tags">
+      <div class="hero-tag"><span class="tag-dot"></span>每週五 19:30 — 台中中央公園</div>
+      <div class="hero-tag"><span class="tag-dot"></span>基礎急救 · 體能訓練 · 防災技能</div>
+      <div class="hero-tag"><span class="tag-dot"></span>無需背景，歡迎第一次體驗</div>
+    </div>
+
+  </div>
+
+  <!-- 右側圖片區（桌機 / 中螢幕，手機隱藏）-->
+  <div class="hero-right">
+    <!-- 實作時換成 <img src="[hero_image_url]" alt="民團訓練現場"> -->
+    <div class="hero-img-placeholder">
+      <div class="hero-img-placeholder-icon">📷</div>
+      <div class="hero-img-placeholder-text">
+        訓練現場照片<br>hero_image_url
+      </div>
+      <div class="hero-img-placeholder-sub">
+        建議尺寸：1600×800px（2:1）<br>
+        替換為 Google Drive 公開連結
+      </div>
+    </div>
+    <div class="hero-accent-line"></div>
+  </div>
+
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="about">
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-target="40">0</span><span class="stat-unit">+</span></div>
+    <div class="stat-label">舉辦活動場次</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-target="850">0</span><span class="stat-unit"> 人次</span></div>
+    <div class="stat-label">累積參與人次</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-target="104">0</span><span class="stat-unit"> 週</span></div>
+    <div class="stat-label">常態週五自訓</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-target="8">0</span><span class="stat-unit"> 家</span></div>
+    <div class="stat-label">媒體採訪報導</div>
+  </div>
+</div>
+
+<!-- MEDIA STRIP -->
+<div class="media-strip">
+  <span class="media-label">媒體報導</span>
+  <div class="media-sep"></div>
+  <div class="media-logos">
+    <a class="media-logo" href="https://www.aljazeera.com/" target="_blank"><div class="logo-dot" style="background:#c0392b"></div>Al Jazeera</a>
+    <a class="media-logo" href="https://www.channel4.com/" target="_blank"><div class="logo-dot" style="background:#1a1a1a"></div>UK Channel 4</a>
+    <a class="media-logo" href="https://www.sbs.com.au/news/dateline" target="_blank"><div class="logo-dot" style="background:#0066cc"></div>AU SBS Dateline</a>
+    <a class="media-logo" href="https://www.twreporter.org/" target="_blank"><div class="logo-dot" style="background:#003764"></div>報導者 The Reporter</a>
+    <a class="media-logo" href="https://news.ltn.com.tw/" target="_blank"><div class="logo-dot" style="background:#FF6921"></div>自由時報</a>
+    <a class="media-logo" href="https://watchout.tw/" target="_blank"><div class="logo-dot" style="background:#2CD5C4"></div>沃草 Watchout</a>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<section class="cta-section" id="cta">
+  <div class="section-head">
+    <div class="section-title">
+      <small>你想做什麼？</small>
+      找到你的入口
+    </div>
+    <a class="section-more" href="#">查看所有活動 →</a>
+  </div>
+  <div class="cta-grid">
+
+    <div class="cta-card primary top-navy fade-in">
+      <div class="card-num">01</div>
+      <div class="card-icon icon-white">🏃</div>
+      <div class="card-title">想來試試看？<br>加入週五常態自訓</div>
+      <div class="card-desc">不需要任何背景，帶著好奇心來就好。每週五晚上，我們在台中中央公園一起練習急救包紮、體能訓練和防災技能。第一次參加可免費體驗。</div>
+      <div class="card-meta">
+        <span class="m-dot"></span>每週五 19:30–21:30
+        <span class="m-dot"></span>台中中央公園
+      </div>
+      <a class="card-link link-o-light" href="[cta_1_link]">報名體驗 →</a>
+    </div>
+
+    <div class="cta-card top-orange fade-in" style="transition-delay:.1s">
+      <div class="card-num">02</div>
+      <div class="card-icon icon-orange">📋</div>
+      <div class="card-title">想深入學習？<br>報名主題課程</div>
+      <div class="card-desc">BLS 急救認證、野外韌性野營、毛孩防災工作坊等主題課程，由專業講師帶領，有結業證書。</div>
+      <div class="card-meta">
+        <span class="m-dot" style="background:var(--orange)"></span>近期開課：BLS 8/23、野營 9/20
+      </div>
+      <a class="card-link link-orange" href="[cta_2_link]">活動查詢 →</a>
+    </div>
+
+    <div class="cta-card top-teal fade-in" style="transition-delay:.2s">
+      <div class="card-num">03</div>
+      <div class="card-icon icon-teal">🤝</div>
+      <div class="card-title">想合作或採訪？<br>聯絡我們</div>
+      <div class="card-desc">歡迎企業、學校、社區、媒體洽談合作，一起把防災教育推廣到更多台中在地社群。</div>
+      <div class="card-meta">
+        <span class="m-dot" style="background:var(--teal)"></span>合作邀約 · 媒體採訪 · 個人諮詢
+      </div>
+      <a class="card-link link-teal" href="[cta_3_link]">聯絡我們 →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="tl-header">
+    <div class="tl-title">
+      <small>我們走過的路</small>
+      活動大事紀
+    </div>
+    <a class="tl-more" href="[timeline_link]">完整大事紀 →</a>
+  </div>
+  <div class="tl-scroll" id="tl-scroll">
+    <div class="tl-item fade-in">
+      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--teal)"></div><span class="tl-date">2023 年 7 月</span></div>
+      <div class="tl-item-title">台中自訓團成立</div>
+      <div class="tl-item-desc">從一群有共同理念的市民自發組成，每週五開始常態自訓。</div>
+      <span class="tl-badge" style="background:rgba(44,213,196,.15);color:var(--teal-d)">起點</span>
+    </div>
+    <div class="tl-item fade-in" style="transition-delay:.05s">
+      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--orange)"></div><span class="tl-date">2023 年 10 月</span></div>
+      <div class="tl-item-title">苗栗通霄海灘演訓</div>
+      <div class="tl-item-desc">民團自辦戰時民防演訓，模擬空襲與急救後送情境。</div>
+      <span class="tl-badge" style="background:rgba(255,105,33,.15);color:var(--orange-d)">特別演訓</span>
+    </div>
+    <div class="tl-item fade-in" style="transition-delay:.1s">
+      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--orange)"></div><span class="tl-date">2024 年 5 月</span></div>
+      <div class="tl-item-title">Al Jazeera 國際報導</div>
+      <div class="tl-item-desc">台灣民防自訓運動獲半島電視台採訪，受到國際矚目。</div>
+      <span class="tl-badge" style="background:rgba(255,105,33,.15);color:var(--orange-d)">國際</span>
+    </div>
+    <div class="tl-item fade-in" style="transition-delay:.15s">
+      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--teal)"></div><span class="tl-date">2024 年 9 月</span></div>
+      <div class="tl-item-title">正式立案社團法人</div>
+      <div class="tl-item-desc">臺中市民團協會通過政府核備，進入組織化階段。</div>
+      <span class="tl-badge" style="background:rgba(44,213,196,.15);color:var(--teal-d)">里程碑</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div>
+    <div class="fcta-label">加入我們</div>
+    <div class="fcta-title">下週五，我們在中央公園等你</div>
+  </div>
+  <div class="fcta-btns">
+    <a class="fcta-btn-w" href="[url_cta_join]">報名週五自訓</a>
+    <a class="fcta-btn-o" href="[url_cta_calendar]">訂閱行事曆</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">社團法人臺中市民團協會 Taichung City Citizen Corps Association</div>
+  <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+  <div class="footer-social">
+    <a class="social-btn" href="[url_facebook]" target="_blank">f</a>
+    <a class="social-btn" href="[url_threads]"  target="_blank">T</a>
+    <a class="social-btn" href="[url_plurk]"    target="_blank">p</a>
+  </div>
+</footer>
+
+<script>
+/* 數字計數器 */
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-target'));
+  const duration = 1400;
+  const start = performance.now();
+  const step = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(e * target).toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString();
+  };
+  requestAnimationFrame(step);
+}
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      if (e.target.classList.contains('counter')) { animateCounter(e.target); io.unobserve(e.target); }
+      if (e.target.classList.contains('fade-in'))  { e.target.classList.add('show'); io.unobserve(e.target); }
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.counter, .fade-in').forEach(el => io.observe(el));
+
+/* 漢堡選單開關 */
+const hamburger = document.getElementById('nav-hamburger');
+const drawer    = document.getElementById('nav-drawer');
+const backdrop  = document.getElementById('nav-backdrop');
+
+function openMenu() {
+  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  drawer.style.top = navBottom + 'px';
+  drawer.classList.add('open');
+  backdrop.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-label', '關閉選單');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  drawer.classList.remove('open');
+  backdrop.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-label', '開啟選單');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', () => {
+  drawer.classList.contains('open') ? closeMenu() : openMenu();
+});
+backdrop.addEventListener('click', closeMenu);
+drawer.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+/*
+  上線版大事紀：從「大事紀」Sheet CSV fetch，只顯示 show_on_home = 是，最多 4 筆
+  const CSV_URL = '大事紀 Sheet 發布 CSV 網址';
+  fetch(CSV_URL).then(r => r.text()).then(csv => {
+    const rows = parseCSV(csv).filter(r => r.show_on_home === '是').slice(0, 4);
+    renderTimeline(rows);
+  });
+*/
+</script>
+</body>
+</html>

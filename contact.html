@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聯絡我們 — 臺中市民團協會</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #003764;
+  --navy-d:    #002548;
+  --navy-l:    #0a4a7c;
+  --orange:    #FF6921;
+  --orange-d:  #e05510;
+  --teal:      #2CD5C4;
+  --teal-d:    #1aada0;
+  --white:     #ffffff;
+  --off-white: #f7f6f3;
+  --ink:       #0d1f33;
+  --muted:     #5a6b7d;
+  --rule:      rgba(0,55,100,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+/* ── NOTICE ── */
+.notice-bar {
+  background: var(--teal); color: var(--navy-d);
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-align: center; padding: 8px;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 40px; height: 58px; gap: 32px;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--white); font-size: 13px; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+}
+.nav-mark {
+  width: 30px; height: 30px; background: var(--orange); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 700; color: var(--white);
+}
+.nav-links { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+.nav-link {
+  color: rgba(255,255,255,.6); font-size: 13px; padding: 6px 12px; border-radius: 4px;
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+  transition: color .15s, background .15s;
+}
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
+.nav-link.active { color: var(--white); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; margin-left: auto; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.7); border-radius: 2px; transition: .2s; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: var(--navy); padding: 52px 40px 44px;
+  border-bottom: 3px solid var(--orange);
+  position: relative; overflow: hidden;
+}
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.bc-link { font-size: 12px; color: rgba(255,255,255,.4); cursor: pointer; }
+.bc-sep  { font-size: 11px; color: rgba(255,255,255,.2); }
+.bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
+.page-h1 {
+  font-family: 'Oswald', sans-serif; font-size: 52px; font-weight: 700;
+  color: var(--white); line-height: 1; margin-bottom: 12px;
+}
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; }
+
+/* ── FAQ ── */
+.faq-section { padding: 64px 40px 0; }
+.faq-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 32px; gap: 20px;
+}
+.faq-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--orange); font-size: 11px; font-weight: 700;
+  letter-spacing: .15em; margin-bottom: 10px;
+}
+.faq-eyebrow-bar { width: 20px; height: 2px; background: var(--orange); }
+.faq-h2 { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 600; color: var(--ink); }
+.faq-sub { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.faq-sheet-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; background: rgba(44,213,196,.07);
+  border: 1px solid rgba(44,213,196,.2); border-radius: 99px;
+  font-size: 11px; font-weight: 700; color: var(--teal-d); white-space: nowrap; flex-shrink: 0;
+}
+.sheet-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.4; transform:scale(.65); }
+}
+.faq-list { display: flex; flex-direction: column; gap: 6px; }
+.faq-item {
+  border: 1px solid var(--rule); border-radius: 8px; overflow: hidden;
+  background: var(--white); transition: border-color .2s, box-shadow .2s;
+}
+.faq-item.open { border-color: rgba(0,55,100,.2); box-shadow: 0 4px 16px rgba(0,55,100,.06); }
+.faq-q {
+  display: flex; align-items: center; gap: 14px; padding: 18px 22px;
+  cursor: pointer; user-select: none; transition: background .15s;
+}
+.faq-q:hover, .faq-item.open .faq-q { background: var(--off-white); }
+.faq-cat {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+}
+.cat-join  { background: rgba(255,105,33,.1);  color: var(--orange); }
+.cat-cost  { background: rgba(0,55,100,.07);   color: var(--navy); }
+.cat-skill { background: rgba(44,213,196,.12); color: var(--teal-d); }
+.cat-org   { background: rgba(0,55,100,.07);   color: var(--navy); }
+.faq-q-text { font-size: 15px; font-weight: 700; color: var(--ink); flex: 1; line-height: 1.4; }
+.faq-chevron {
+  width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--muted); flex-shrink: 0;
+  transition: transform .25s, background .2s, border-color .2s;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); background: var(--navy); border-color: var(--navy); color: var(--white); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .32s ease; }
+.faq-a-inner {
+  padding: 16px 22px 20px; font-size: 14px; color: var(--muted);
+  line-height: 1.9; border-top: 1px solid var(--rule);
+}
+.faq-item.open .faq-a { max-height: 500px; }
+.faq-loading { display: flex; align-items: center; gap: 10px; padding: 24px 0; font-size: 13px; color: var(--muted); }
+.loading-dots span {
+  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--teal); animation: ldots .9s infinite; margin: 0 2px;
+}
+.loading-dots span:nth-child(2) { animation-delay: .15s; }
+.loading-dots span:nth-child(3) { animation-delay: .3s; }
+@keyframes ldots {
+  0%,80%,100% { transform:translateY(0); opacity:.35; }
+  40%          { transform:translateY(-5px); opacity:1; }
+}
+.faq-divider {
+  display: flex; align-items: center; gap: 16px;
+  padding: 36px 40px 0; color: var(--muted); font-size: 13px;
+}
+.faq-divider-line { flex: 1; height: 1px; background: var(--rule); }
+
+/* ── CONTACT CARDS ── */
+.contact-section { padding: 48px 40px 80px; }
+.contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 56px; }
+.contact-card {
+  border: 1px solid var(--rule); border-radius: 10px; overflow: hidden;
+  background: var(--white); display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.contact-card:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(0,55,100,.1); border-color: rgba(0,55,100,.2); }
+.contact-card:hover .card-top-bar { transform: scaleX(1); }
+.card-top-bar { height: 3px; transform: scaleX(0); transform-origin: left; transition: transform .3s; flex-shrink: 0; }
+.bar-orange { background: var(--orange); }
+.bar-teal   { background: var(--teal); }
+.card-body { padding: 32px 28px 0; flex: 1; display: flex; flex-direction: column; }
+.card-icon-wrap { width: 46px; height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; flex-shrink: 0; }
+.icon-bg-orange { background: rgba(255,105,33,.1); }
+.icon-bg-teal   { background: rgba(44,213,196,.1); }
+.icon-bg-navy   { background: rgba(0,55,100,.07); }
+.card-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em; margin-bottom: 8px; }
+.tag-orange { color: var(--orange); }
+.tag-teal   { color: var(--teal-d); }
+.tag-navy   { color: var(--navy-l); }
+.card-title { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 12px; }
+.card-desc { font-size: 13px; color: var(--muted); line-height: 1.85; margin-bottom: 24px; flex: 1; }
+.email-preview { background: var(--off-white); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; margin-bottom: 24px; font-size: 11px; line-height: 1.7; }
+.email-preview-row { display: flex; gap: 6px; }
+.ep-label { font-weight: 700; color: var(--navy); flex-shrink: 0; width: 42px; }
+.ep-val   { color: var(--muted); word-break: break-all; }
+.form-note { background: rgba(44,213,196,.07); border: 1px solid rgba(44,213,196,.25); border-radius: 6px; padding: 12px 14px; margin-bottom: 24px; font-size: 11px; color: var(--teal-d); line-height: 1.7; display: flex; gap: 8px; align-items: flex-start; }
+.form-note-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.card-footer { padding: 0 28px 28px; }
+.card-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px 20px; border-radius: 6px; border: none; font-family: 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; transition: background .15s, transform .1s; }
+.card-btn:hover { transform: translateY(-1px); }
+.card-btn:hover .btn-arrow { transform: translateX(3px); }
+.btn-arrow { transition: transform .2s; display: inline-block; }
+.btn-fill-orange { background: var(--orange); color: var(--white); }
+.btn-fill-orange:hover { background: var(--orange-d); }
+.btn-fill-navy { background: var(--navy); color: var(--white); }
+.btn-fill-navy:hover { background: var(--navy-l); }
+
+/* ── SOCIAL ── */
+.social-section { padding: 40px 40px 0; display: flex; align-items: center; gap: 16px; }
+.social-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.social-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.social-chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1px solid var(--rule); border-radius: 99px; font-size: 12px; font-weight: 700; color: var(--ink); text-decoration: none; cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.social-chip:hover { border-color: var(--navy); background: var(--navy); color: var(--white); }
+.chip-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── INFO STRIP ── */
+.info-strip { background: var(--off-white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 36px 40px; display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
+.info-col { display: flex; align-items: flex-start; gap: 14px; }
+.info-icon { width: 36px; height: 36px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.info-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.info-val { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.5; }
+.info-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.info-sep { width: 1px; height: 48px; background: var(--rule); flex-shrink: 0; }
+
+/* ── FOOTER CTA ── */
+.footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: 80px; flex-wrap: wrap; }
+.fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
+.fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
+.fcta-btns { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+.fcta-btn-w { background: var(--white); color: var(--orange); font-size: 14px; font-weight: 700; padding: 13px 26px; border-radius: 4px; border: none; cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: background .15s; }
+.fcta-btn-w:hover { background: var(--off-white); }
+.fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
+.fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+
+/* ── FOOTER ── */
+footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-reg   { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); cursor: pointer; transition: background .15s; }
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+
+/* ── ANIMATION ── */
+.fade-in { opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+.fade-in.show { opacity: 1; transform: none; }
+
+/* ── RWD ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; height: 54px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .page-header { padding: 40px 20px 36px; }
+  .page-h1 { font-size: 38px; }
+
+  .faq-section { padding: 48px 20px 0; }
+  .faq-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .faq-divider { padding: 28px 20px 0; }
+
+  .contact-section { padding: 40px 20px 60px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  .social-section { padding: 32px 20px 0; flex-wrap: wrap; gap: 12px; }
+
+  .info-strip { padding: 28px 20px; gap: 24px; flex-direction: column; align-items: flex-start; }
+  .info-sep { display: none; }
+
+  .footer-cta { padding: 40px 20px; flex-direction: column; align-items: flex-start; }
+  .fcta-title { font-size: 28px; }
+
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+@media (max-width: 600px) {
+  .page-h1 { font-size: 30px; }
+  .faq-q { padding: 14px 16px; gap: 10px; }
+  .faq-q-text { font-size: 14px; }
+  .faq-a-inner { padding: 14px 16px 16px; }
+  .card-body { padding: 24px 20px 0; }
+  .card-footer { padding: 0 20px 24px; }
+  .fcta-btns { width: 100%; flex-direction: column; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="notice-bar">▲ 改版設計稿 v3 — 聯絡我們（含 FAQ 區塊）</div>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-mark">民</div>
+    社團法人臺中市民團協會
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#">關於臺中民團</a>
+    <a class="nav-link" href="#">自訓與課程活動</a>
+    <a class="nav-link" href="#">學習地圖</a>
+    <a class="nav-link" href="#">媒體報導</a>
+    <a class="nav-link active" href="#">聯絡我們</a>
+  </div>
+  <div class="nav-hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER（無英文裝飾標籤、無 CONTACT 浮水印）── -->
+<div class="page-header">
+  <div class="breadcrumb">
+    <span class="bc-link">首頁</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">聯絡我們</span>
+  </div>
+  <h1 class="page-h1">聯絡我們</h1>
+  <p class="page-sub">不管是想來試試看、談合作，還是採訪報導，我們都很歡迎你找我們說話。</p>
+</div>
+
+<!-- ── FAQ ── -->
+<section class="faq-section">
+  <div class="faq-header fade-in">
+    <div>
+      <div class="faq-eyebrow"><span class="faq-eyebrow-bar"></span>FAQ</div>
+      <div class="faq-h2">常見問題</div>
+      <div class="faq-sub">找不到答案？往下選擇最適合的方式聯絡我們。</div>
+    </div>
+    <div class="faq-sheet-badge">
+      <span class="sheet-dot"></span>
+      資料來源：Google Sheet
+    </div>
+  </div>
+  <div class="faq-list" id="faqList">
+    <div class="faq-loading" id="faqLoading">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      載入常見問題中…
+    </div>
+  </div>
+</section>
+
+<div class="faq-divider fade-in">
+  <div class="faq-divider-line"></div>
+  <span>還有其他問題嗎？直接找我們</span>
+  <div class="faq-divider-line"></div>
+</div>
+
+<!-- ── CONTACT CARDS ── -->
+<section class="contact-section">
+  <div class="contact-grid">
+
+    <!-- 個人聯繫 -->
+    <div class="contact-card fade-in">
+      <div class="card-top-bar bar-orange"></div>
+      <div class="card-body">
+        <div class="card-icon-wrap icon-bg-orange">🙋</div>
+        <div class="card-tag tag-orange">個人聯繫</div>
+        <div class="card-title">想來試試、<br>有問題想問？</div>
+        <div class="card-desc">第一次聽說我們、想了解週五自訓怎麼參加、或有任何個人問題，都歡迎直接寫信給我們。</div>
+        <div class="email-preview">
+          <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val">txgcca@gmail.com</span></div>
+          <div class="email-preview-row"><span class="ep-label">主旨</span><span class="ep-val">【個人聯繫】＿＿＿</span></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="card-btn btn-fill-orange"
+           href="mailto:txgcca@gmail.com?subject=%E3%80%90%E5%80%8B%E4%BA%BA%E8%81%AF%E7%B9%AB%E3%80%91">
+          開啟 Email 撰寫 <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 合作邀約 -->
+    <div class="contact-card fade-in" style="transition-delay:.1s">
+      <div class="card-top-bar bar-teal"></div>
+      <div class="card-body">
+        <div class="card-icon-wrap icon-bg-teal">🤝</div>
+        <div class="card-tag tag-teal">合作邀約</div>
+        <div class="card-title">企業、學校<br>或社區合作？</div>
+        <div class="card-desc">歡迎企業 ESG、學校社團、里辦公室洽談合作，一起把防災教育帶進更多台中在地社群。</div>
+        <div class="form-note">
+          <span class="form-note-icon">📋</span>
+          <span>透過表單填寫合作需求，方便我們提前了解你的情況，更快安排回覆。</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <!-- Google Form URL 待填入 -->
+        <a class="card-btn btn-fill-navy" href="#" target="_blank">
+          填寫合作需求表單 <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 媒體採訪 -->
+    <div class="contact-card fade-in" style="transition-delay:.2s">
+      <div class="card-top-bar bar-orange"></div>
+      <div class="card-body">
+        <div class="card-icon-wrap icon-bg-navy">📡</div>
+        <div class="card-tag tag-navy">媒體採訪</div>
+        <div class="card-title">記者或媒體<br>想採訪我們？</div>
+        <div class="card-desc">我們歡迎各類媒體深入報導台灣民間自訓運動，請來信說明媒體單位與採訪方向，我們盡快回覆。</div>
+        <div class="email-preview">
+          <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val">txgcca@gmail.com</span></div>
+          <div class="email-preview-row"><span class="ep-label">主旨</span><span class="ep-val">【媒體採訪】＿＿＿</span></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="card-btn btn-fill-orange"
+           href="mailto:txgcca@gmail.com?subject=%E3%80%90%E5%AA%92%E9%AB%94%E6%8E%A1%E8%A8%AA%E3%80%91">
+          開啟 Email 撰寫 <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Social -->
+  <div class="social-section fade-in" style="transition-delay:.3s">
+    <span class="social-label">也可以找我們</span>
+    <div class="social-chips">
+      <a class="social-chip" href="#" target="_blank">
+        <span class="chip-dot" style="background:#1877f2"></span>Facebook
+      </a>
+      <a class="social-chip" href="#" target="_blank">
+        <span class="chip-dot" style="background:#000000"></span>Threads
+      </a>
+      <a class="social-chip" href="#" target="_blank">
+        <span class="chip-dot" style="background:#43e55e"></span>Linktree
+      </a>
+      <a class="social-chip" href="#" target="_blank">
+        <span class="chip-dot" style="background:#ff574d"></span>噗浪 Plurk
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── INFO STRIP ── -->
+<div class="info-strip">
+  <div class="info-col fade-in">
+    <div class="info-icon">📍</div>
+    <div>
+      <div class="info-label">常態訓練地點</div>
+      <div class="info-val">台中中央公園</div>
+      <div class="info-sub">每週五 19:30–21:30</div>
+    </div>
+  </div>
+  <div class="info-sep"></div>
+  <div class="info-col fade-in" style="transition-delay:.06s">
+    <div class="info-icon">⏱</div>
+    <div>
+      <div class="info-label">一般回覆時間</div>
+      <div class="info-val">3 個工作日內</div>
+      <div class="info-sub">如需緊急聯繫請於 FB 私訊</div>
+    </div>
+  </div>
+  <div class="info-sep"></div>
+  <div class="info-col fade-in" style="transition-delay:.12s">
+    <div class="info-icon">🏛</div>
+    <div>
+      <div class="info-label">法人立案號碼</div>
+      <div class="info-val">中市社團字第1130158795號</div>
+      <div class="info-sub">113 法登 證社字第000117號</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER CTA ── -->
+<div class="footer-cta">
+  <div>
+    <div class="fcta-label">加入我們</div>
+    <div class="fcta-title">下週五，我們在中央公園等你</div>
+  </div>
+  <div class="fcta-btns">
+    <!-- url_cta_join 待填入 -->
+    <a class="fcta-btn-w" href="#">填寫體驗表單</a>
+    <!-- Google Calendar 訂閱連結待填入 -->
+    <a class="fcta-btn-o" href="#">訂閱活動行事曆</a>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">社團法人臺中市民團協會 Taichung City Citizen Corps Association</div>
+    <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+  </div>
+  <div class="footer-social">
+    <a class="social-btn" href="#" target="_blank">f</a>
+    <a class="social-btn" href="#" target="_blank">Th</a>
+    <a class="social-btn" href="#" target="_blank">p</a>
+  </div>
+</footer>
+
+<script>
+// ── Google Sheet CSV 欄位：category | catClass | question | answer | visible ──
+// 上線後 fetch CSV，visible=FALSE 的列自動過濾不顯示
+
+const MOCK_DATA = [
+  {
+    cat: "參加方式", catClass: "cat-join",
+    q: "我完全沒有急救或防災背景，可以直接來嗎？",
+    a: "完全可以。我們大部分的成員在加入之前都是零基礎，現場會有有經驗的夥伴帶著你一起練習。建議先來體驗一次週五常態自訓，實際感受一下氛圍再決定要不要繼續。"
+  },
+  {
+    cat: "參加方式", catClass: "cat-join",
+    q: "年齡有限制嗎？未成年可以參加嗎？",
+    a: "原則上以成年人（18歲以上）為主。18歲以下須由家長陪同並事先來信告知。如有疑問歡迎直接聯繫我們。"
+  },
+  {
+    cat: "參加方式", catClass: "cat-join",
+    q: "如何成為協會的正式會員？",
+    a: "正式入會並非直接申請，而是從參與週五常態自訓開始，雙方相互熟悉、活絡後，再視情況提出入會申請。費用細節請來信詢問。"
+  },
+  {
+    cat: "費用", catClass: "cat-cost",
+    q: "參加週五自訓需要費用嗎？",
+    a: "常態自訓目前完全免費。部分進階課程或特別工作坊會視情況收取材料費或講師費，屆時都會提前公告。"
+  },
+  {
+    cat: "技能訓練", catClass: "cat-skill",
+    q: "你們訓練哪些技能？",
+    a: "目前主要涵蓋：CPR 與 AED 操作、基礎止血包紮、創傷處理、災難現場評估與傷患分類（START Triage），以及基本的搜救概念。課程內容會隨社會需求和成員程度定期調整。"
+  },
+  {
+    cat: "關於組織", catClass: "cat-org",
+    q: "你們是政府單位嗎？跟官方防災體系有什麼關係？",
+    a: "我們不是政府單位。臺中市民團協會是 2024 年正式立案的民間社團法人，前身是 2023 年成立的台中自訓團，完全由民間自發推動，不隸屬任何政黨。目前本會已列入臺中市造冊的災防團體，隸屬臺中市消防第6分隊管轄，在官方防災體系中具備明確定位。"
+  }
+];
+
+function renderFAQ(items) {
+  const list = document.getElementById('faqList');
+  list.innerHTML = '';
+  items.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'faq-item fade-in';
+    el.style.transitionDelay = (i * 0.07) + 's';
+    el.innerHTML = `
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span class="faq-cat ${item.catClass}">${item.cat}</span>
+        <span class="faq-q-text">${item.q}</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">${item.a}</div>
+      </div>`;
+    list.appendChild(el);
+    setTimeout(() => obs.observe(el), 10);
+  });
+}
+
+function toggleFAQ(qEl) {
+  const item = qEl.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+setTimeout(() => {
+  const loading = document.getElementById('faqLoading');
+  if (loading) loading.remove();
+  renderFAQ(MOCK_DATA);
+}, 600);
+</script>
+</body>
+</html>
