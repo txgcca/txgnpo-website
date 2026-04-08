@@ -213,8 +213,6 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
 </head>
 <body>
 
-<div class="notice-bar">▲ 改版設計稿 v3 — 子分頁：學習地圖（真實資料 · RWD 完成）</div>
-
 <nav>
   <a class="nav-logo" href="index.html">
     <div class="nav-mark">民</div>
@@ -227,22 +225,30 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
     <a class="nav-link" href="media.html">媒體報導</a>
     <a class="nav-link" href="contact.html">聯絡我們</a>
   </div>
-  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-link" href="about.html">關於臺中民團</a>
+  <a class="nav-link" href="training.html">自訓與課程活動</a>
+  <a class="nav-link active" href="learning-map.html">學習地圖</a>
+  <a class="nav-link" href="media.html">媒體報導</a>
+  <a class="nav-link" href="contact.html">聯絡我們</a>
+</div>
 <div class="nav-drawer" id="navDrawer">
-  <a class="nav-link" href="about.html" onclick="toggleMenu()">關於臺中民團</a>
-  <a class="nav-link" href="training.html" onclick="toggleMenu()">自訓與課程活動</a>
-  <a class="nav-link active" href="learning-map.html" onclick="toggleMenu()">學習地圖</a>
-  <a class="nav-link" href="media.html" onclick="toggleMenu()">媒體報導</a>
-  <a class="nav-link" href="contact.html" onclick="toggleMenu()">聯絡我們</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">關於我們</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">加入我們</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">課程與活動</a>
+  <a class="nav-link active" href="#" onclick="toggleMenu()">學習地圖</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">媒體報導</a>
+  <a class="nav-link" href="#" onclick="toggleMenu()">聯絡我們</a>
 </div>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
   <div class="breadcrumb">
-    <a class="bc-link" href="index.html">首頁</a>
+    <a class="bc-link" href="#">首頁</a>
     <span class="bc-sep">›</span>
     <span class="bc-current">學習地圖</span>
   </div>
@@ -523,5 +529,13 @@ const io = new IntersectionObserver(entries=>{
 },{threshold:0.12});
 document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
 </script>
+
+// 漢堡選單
+(function(){
+  var btn = document.getElementById('nav-hamburger');
+  var drw = document.getElementById('nav-drawer');
+  if (btn && drw) btn.addEventListener('click', function(){ drw.classList.toggle('open'); });
+})();
+
 </body>
 </html>

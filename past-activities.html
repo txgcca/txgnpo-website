@@ -188,6 +188,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 @media (max-width: 640px) {
   nav { padding: 0 20px; }
   .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
   .page-hero, .key-section, .chron-section, .back-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
   .key-grid { grid-template-columns: 1fr; }
   .chron-row { grid-template-columns: 80px 1fr; }
@@ -196,6 +197,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .fcta-btns  { flex-direction: column; width: 100%; }
   .fcta-btn-w, .fcta-btn-o { justify-content: center; }
 }
+
+/* ── 手機漢堡選單 ── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; margin-left: auto; background: none; border: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.8); border-radius: 2px; }
+.nav-drawer { display: none; flex-direction: column; background: var(--navy); padding: 8px 0; position: fixed; top: 56px; left: 0; right: 0; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+.nav-drawer.open { display: flex; }
+.nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
 </style>
 </head>
 <body>
@@ -359,14 +367,24 @@ const CHRON_RECORDS = [
     <a class="nav-link" href="media.html">媒體報導</a>
     <a class="nav-link" href="contact.html">聯絡我們</a>
   </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-link active" href="about.html">關於臺中民團</a>
+  <a class="nav-link" href="training.html">自訓與課程活動</a>
+  <a class="nav-link" href="learning-map.html">學習地圖</a>
+  <a class="nav-link" href="media.html">媒體報導</a>
+  <a class="nav-link" href="contact.html">聯絡我們</a>
+</div>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
   <div class="breadcrumb">
-    <a href="index.html">首頁</a>
+    <a href="https://www.txgcca.org.tw/home">首頁</a>
     <span>›</span>
-    <a href="about.html">關於臺中民團</a>
+    <a href="#">關於我們</a>
     <span>›</span>
     <span id="pi-breadcrumb"></span>
   </div>
@@ -647,5 +665,13 @@ requestAnimationFrame(equalizeChronBadges);
   loadFromSheets();
   ══════════════════════════════════════════════════════════ */
 </script>
+
+// 漢堡選單
+(function(){
+  var btn = document.getElementById('nav-hamburger');
+  var drw = document.getElementById('nav-drawer');
+  if (btn && drw) btn.addEventListener('click', function(){ drw.classList.toggle('open'); });
+})();
+
 </body>
 </html>

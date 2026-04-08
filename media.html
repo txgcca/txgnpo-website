@@ -476,7 +476,8 @@ nav {
   }
   .feat-card.main-card { grid-row: auto; }
   nav { padding: 0 20px; gap: 16px; }
-  .nav-link { display: none; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
   .featured-section, .all-section { padding-left: 24px; padding-right: 24px; }
   .page-header { padding: 36px 24px 32px; }
   .section-divider { margin: 0 24px; }
@@ -601,11 +602,16 @@ footer {
 
 .fade-in { opacity: 0; transform: translateY(12px); transition: opacity .45s, transform .45s; }
 .fade-in.show { opacity: 1; transform: none; }
+
+/* ── 手機漢堡選單 ── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; margin-left: auto; background: none; border: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.8); border-radius: 2px; }
+.nav-drawer { display: none; flex-direction: column; background: var(--navy); padding: 8px 0; position: fixed; top: 56px; left: 0; right: 0; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+.nav-drawer.open { display: flex; }
+.nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
 </style>
 </head>
 <body>
-
-
 
 <nav>
   <a class="nav-logo" href="index.html">
@@ -619,17 +625,23 @@ footer {
     <a class="nav-link active" href="media.html">媒體報導</a>
     <a class="nav-link" href="contact.html">聯絡我們</a>
   </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-link" href="about.html">關於臺中民團</a>
+  <a class="nav-link" href="training.html">自訓與課程活動</a>
+  <a class="nav-link" href="learning-map.html">學習地圖</a>
+  <a class="nav-link active" href="media.html">媒體報導</a>
+  <a class="nav-link" href="contact.html">聯絡我們</a>
+</div>
 
 <div class="page-header">
   <div class="breadcrumb">
     <span class="bc-link">首頁</span>
     <span class="bc-sep">›</span>
     <span class="bc-current">媒體報導</span>
-  </div>
-  <div class="page-title-label">
-    <span class="label-bar"></span>
-    Media Coverage
   </div>
   <h1 class="page-h1">媒體報導</h1>
   <p class="page-sub">從台中在地到國際視野，記錄民間自訓運動走過的每一步。</p>
@@ -988,5 +1000,13 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 </script>
+
+// 漢堡選單
+(function(){
+  var btn = document.getElementById('nav-hamburger');
+  var drw = document.getElementById('nav-drawer');
+  if (btn && drw) btn.addEventListener('click', function(){ drw.classList.toggle('open'); });
+})();
+
 </body>
 </html>

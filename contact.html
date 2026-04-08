@@ -270,11 +270,16 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .fcta-btns { width: 100%; flex-direction: column; }
   .fcta-btn-w, .fcta-btn-o { width: 100%; text-align: center; }
 }
+
+/* ── 手機漢堡選單 ── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; margin-left: auto; background: none; border: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.8); border-radius: 2px; }
+.nav-drawer { display: none; flex-direction: column; background: var(--navy); padding: 8px 0; position: fixed; top: 56px; left: 0; right: 0; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+.nav-drawer.open { display: flex; }
+.nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
 </style>
 </head>
 <body>
-
-
 
 <nav>
   <a class="nav-logo" href="index.html">
@@ -288,10 +293,17 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <a class="nav-link" href="media.html">媒體報導</a>
     <a class="nav-link active" href="contact.html">聯絡我們</a>
   </div>
-  <div class="nav-hamburger" onclick="this.classList.toggle('open')">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-link" href="about.html">關於臺中民團</a>
+  <a class="nav-link" href="training.html">自訓與課程活動</a>
+  <a class="nav-link" href="learning-map.html">學習地圖</a>
+  <a class="nav-link" href="media.html">媒體報導</a>
+  <a class="nav-link active" href="contact.html">聯絡我們</a>
+</div>
 
 <!-- ── PAGE HEADER（無英文裝飾標籤、無 CONTACT 浮水印）── -->
 <div class="page-header">
@@ -554,5 +566,13 @@ setTimeout(() => {
   renderFAQ(MOCK_DATA);
 }, 600);
 </script>
+
+// 漢堡選單
+(function(){
+  var btn = document.getElementById('nav-hamburger');
+  var drw = document.getElementById('nav-drawer');
+  if (btn && drw) btn.addEventListener('click', function(){ drw.classList.toggle('open'); });
+})();
+
 </body>
 </html>
