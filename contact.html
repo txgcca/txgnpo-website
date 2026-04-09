@@ -277,6 +277,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 .nav-drawer { display: none; flex-direction: column; background: var(--navy); padding: 8px 0; position: fixed; top: 56px; left: 0; right: 0; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
 .nav-drawer.open { display: flex; }
 .nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 98; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.nav-backdrop.open { display: block; }
 </style>
 </head>
 <body>
@@ -304,11 +306,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   <a class="nav-link" href="media.html">媒體報導</a>
   <a class="nav-link active" href="contact.html">聯絡我們</a>
 </div>
+<div class="nav-backdrop" id="nav-backdrop"></div>
 
 <!-- ── PAGE HEADER（無英文裝飾標籤、無 CONTACT 浮水印）── -->
 <div class="page-header">
   <div class="breadcrumb">
-    <span class="bc-link">首頁</span>
+    <a class="bc-link" href="index.html">首頁</a>
     <span class="bc-sep">›</span>
     <span class="bc-current">聯絡我們</span>
   </div>
@@ -567,12 +570,37 @@ setTimeout(() => {
 }, 600);
 </script>
 
-// 漢堡選單
-(function(){
-  var btn = document.getElementById('nav-hamburger');
-  var drw = document.getElementById('nav-drawer');
-  if (btn && drw) btn.addEventListener('click', function(){ drw.classList.toggle('open'); });
-})();
+<script>
+/* 漢堡選單開關 */
+const hamburger = document.getElementById('nav-hamburger');
+const drawer    = document.getElementById('nav-drawer');
+const backdrop  = document.getElementById('nav-backdrop');
+
+function openMenu() {
+  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  drawer.style.top = navBottom + 'px';
+  drawer.classList.add('open');
+  backdrop.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-label', '關閉選單');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  drawer.classList.remove('open');
+  backdrop.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-label', '開啟選單');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', () => {
+  drawer.classList.contains('open') ? closeMenu() : openMenu();
+});
+backdrop.addEventListener('click', closeMenu);
+drawer.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+</script>
 
 </body>
 </html>

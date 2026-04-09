@@ -47,6 +47,8 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 va
 .nav-drawer { display: none; position: fixed; top: 58px; left: 0; right: 0; background: var(--navy-d); z-index: 99; flex-direction: column; padding: 12px 0 20px; border-bottom: 2px solid var(--orange); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
 .nav-drawer.open { display: flex; }
 .nav-drawer .nav-link { padding: 12px var(--px); border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.05); }
+.nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 98; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.nav-backdrop.open { display: block; }
 
 /* PAGE HEADER */
 .page-header { background: var(--navy); padding: 52px var(--px) 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
@@ -236,19 +238,12 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
   <a class="nav-link" href="media.html">媒體報導</a>
   <a class="nav-link" href="contact.html">聯絡我們</a>
 </div>
-<div class="nav-drawer" id="navDrawer">
-  <a class="nav-link" href="#" onclick="toggleMenu()">關於我們</a>
-  <a class="nav-link" href="#" onclick="toggleMenu()">加入我們</a>
-  <a class="nav-link" href="#" onclick="toggleMenu()">課程與活動</a>
-  <a class="nav-link active" href="#" onclick="toggleMenu()">學習地圖</a>
-  <a class="nav-link" href="#" onclick="toggleMenu()">媒體報導</a>
-  <a class="nav-link" href="#" onclick="toggleMenu()">聯絡我們</a>
-</div>
+<div class="nav-backdrop" id="nav-backdrop"></div>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
   <div class="breadcrumb">
-    <a class="bc-link" href="#">首頁</a>
+    <a class="bc-link" href="index.html">首頁</a>
     <span class="bc-sep">›</span>
     <span class="bc-current">學習地圖</span>
   </div>
@@ -520,22 +515,43 @@ function scrollRow(id,dir) {
   const c = t.querySelector('.res-card,.podcast-card');
   if(c) t.scrollBy({left:dir*(c.offsetWidth+14),behavior:'smooth'});
 }
-function toggleMenu() {
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('navDrawer').classList.toggle('open');
-}
 const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target);}});
 },{threshold:0.12});
 document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
 </script>
 
-// 漢堡選單
-(function(){
-  var btn = document.getElementById('nav-hamburger');
-  var drw = document.getElementById('nav-drawer');
-  if (btn && drw) btn.addEventListener('click', function(){ drw.classList.toggle('open'); });
-})();
+<script>
+/* 漢堡選單開關 */
+const hamburger = document.getElementById('nav-hamburger');
+const drawer    = document.getElementById('nav-drawer');
+const backdrop  = document.getElementById('nav-backdrop');
+
+function openMenu() {
+  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  drawer.style.top = navBottom + 'px';
+  drawer.classList.add('open');
+  backdrop.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-label', '關閉選單');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  drawer.classList.remove('open');
+  backdrop.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-label', '開啟選單');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', () => {
+  drawer.classList.contains('open') ? closeMenu() : openMenu();
+});
+backdrop.addEventListener('click', closeMenu);
+drawer.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+</script>
 
 </body>
 </html>
