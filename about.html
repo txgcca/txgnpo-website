@@ -41,6 +41,11 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .hero-kicker { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; }
 .hero-title { font-family: 'Oswald', sans-serif; font-size: clamp(40px, 5.5vw, 62px); font-weight: 700; line-height: 1.1; color: var(--white); }
 .hero-title em { color: var(--orange); font-style: normal; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.bc-link { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+.bc-link:hover { color: rgba(255,255,255,.7); }
+.bc-sep { font-size: 11px; color: rgba(255,255,255,.2); }
+.bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
 
 /* ── SECTION BASE ── */
 section { padding: 72px 40px; }
@@ -293,7 +298,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 /* ══════════════════════════════════════════
    RWD Breakpoints
 ══════════════════════════════════════════ */
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
@@ -361,6 +366,11 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- HERO -->
 <div class="page-hero">
   <div class="hero-inner">
+    <div class="breadcrumb">
+      <a class="bc-link" href="index.html">首頁</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">關於臺中民團</span>
+    </div>
     <div class="hero-kicker">關於我們 <span class="ann">page_title</span></div>
     <h1 class="hero-title">公民準備好，<em>社會才韌強</em> <span class="ann">hero_tagline</span></h1>
   </div>
