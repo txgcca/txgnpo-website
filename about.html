@@ -27,7 +27,8 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color:
 
 /* ── NAV ── */
 nav { background: var(--navy); display: flex; align-items: center; padding: 0 40px; height: 58px; gap: 32px; position: sticky; top: 0; z-index: 100; }
-.nav-logo { color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; font-family: 'Oswald', sans-serif; letter-spacing: .05em; }
+.nav-logo { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+.nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; }
 .nav-links { display: flex; gap: 2px; margin-left: auto; }
 .nav-links a { color: rgba(255,255,255,.7); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: all .2s; }
 .nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
@@ -329,8 +330,34 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 }
 
 /* ── 手機漢堡選單 ── */
-.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; margin-left: auto; background: none; border: none; }
-.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.8); border-radius: 2px; }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,.08); }
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  background: rgba(255,255,255,.7);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .nav-drawer { display: none; flex-direction: column; background: var(--navy); padding: 8px 0; position: fixed; top: 56px; left: 0; right: 0; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
 .nav-drawer.open { display: flex; }
 .nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
@@ -342,7 +369,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="index.html">臺中市民團協會</a>
+  <a class="nav-logo" href="index.html">
+    <img class="nav-mark"
+         src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO"
+         alt="社團法人臺中市民團協會 LOGO">
+    社團法人臺中市民團協會
+  </a>
   <div class="nav-links">
     <a class="nav-link active" href="about.html">關於臺中民團</a>
     <a class="nav-link" href="training.html">自訓與課程活動</a>
@@ -371,8 +403,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <span class="bc-sep">›</span>
       <span class="bc-current">關於臺中民團</span>
     </div>
-    <div class="hero-kicker">關於我們 <span class="ann">page_title</span></div>
-    <h1 class="hero-title">公民準備好，<em>社會才韌強</em> <span class="ann">hero_tagline</span></h1>
+    <h1 class="hero-title">公民準備好，<em>社會才韌強</em></h1>
   </div>
 </div>
 
