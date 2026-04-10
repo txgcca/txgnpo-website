@@ -34,16 +34,14 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .nav-link:hover { background: rgba(255,255,255,.1); color: var(--white); }
 
 /* ── PAGE HERO ── */
-.page-hero { background: var(--navy-d); padding: 48px 40px 44px; position: relative; overflow: hidden; }
-.page-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(44,213,196,.1) 0%, transparent 65%); pointer-events: none; }
-.page-hero::after  { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 100%); }
-.breadcrumb { font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: .08em; margin-bottom: 18px; }
-.breadcrumb a { color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
-.breadcrumb a:hover { color: rgba(255,255,255,.8); }
-.breadcrumb span { margin: 0 6px; }
-.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.hero-title { font-family: 'Oswald', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 14px; }
-.hero-sub  { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.75; max-width: 540px; }
+.page-header { background: var(--navy); color: var(--white); padding: 52px 40px 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.bc-link { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+.bc-link:hover { color: rgba(255,255,255,.7); }
+.bc-sep { font-size: 11px; color: rgba(255,255,255,.2); }
+.bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
+.page-h1 { font-family: 'Oswald', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 12px; }
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 540px; }
 
 /* ═══════════════════════════════════════
    ① 關鍵記事 — 圖卡區
@@ -225,7 +223,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
-  .page-hero, .key-section, .chron-section, .back-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
+  .page-header { padding: 40px 20px 36px; }
+  .key-section, .chron-section, .back-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
   .key-grid { grid-template-columns: 1fr; }
   .chron-row { grid-template-columns: 80px 1fr; }
   .chron-cat { display: none; }
@@ -410,7 +409,7 @@ const CHRON_RECORDS = [
 <div class="nav-backdrop" id="nav-backdrop"></div>
 
 <!-- PAGE HERO -->
-<section class="page-hero">
+<div class="page-header">
   <div class="breadcrumb">
     <a class="bc-link" href="index.html">首頁</a>
     <span class="bc-sep">›</span>
@@ -418,9 +417,9 @@ const CHRON_RECORDS = [
     <span class="bc-sep">›</span>
     <span class="bc-current" id="pi-breadcrumb"></span>
   </div>
-  <h1 class="hero-title" id="pi-title"></h1>
-  <p class="hero-sub" id="pi-subtitle"></p>
-</section>
+  <h1 class="page-h1" id="pi-title"></h1>
+  <p class="page-sub" id="pi-subtitle"></p>
+</div>
 
 <!-- ① 關鍵記事 -->
 <section class="key-section" id="key-section">

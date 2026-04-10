@@ -38,9 +38,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .bc-link:hover { color: var(--teal); }
 .bc-sep { font-size: 11px; color: rgba(255,255,255,.2); }
 .bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
-.page-hero { background: var(--navy-d); color: var(--white); padding: 48px 40px 44px; position: relative; overflow: hidden; }
-.page-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(44,213,196,.1) 0%, transparent 65%); pointer-events: none; }
-.page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 100%); }
+.page-header { background: var(--navy); color: var(--white); padding: 52px 40px 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
 .hero-inner { max-width: 860px; margin: 0 auto; }
 .hero-kicker { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
 .hero-title { font-family: 'Oswald', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 700; line-height: 1.15; color: var(--white); }
@@ -129,6 +127,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
+  .page-header { padding: 40px 20px 36px; }
   .breadcrumb, .charter-body, .back-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
   .footer-cta { flex-direction: column; gap: 20px; }
   .fcta-btns { flex-direction: column; width: 100%; }
@@ -512,7 +511,7 @@ const CHARTER = [
   <span class="bc-current">協會章程</span>
 </div>
 
-<div class="page-hero">
+<div class="page-header">
   <div class="hero-inner">
     <div class="hero-kicker" id="r-kicker"></div>
     <h1 class="hero-title" id="r-title"></h1>
