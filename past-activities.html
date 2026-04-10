@@ -153,9 +153,9 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .show-more-btn:hover { border-color: var(--navy-l); color: var(--navy); background: rgba(0,55,100,.03); }
 
 /* ── BACK + FOOTER ── */
-.back-bar { background: var(--off-white); border-top: 1px solid var(--rule); padding: 28px 40px; }
-.back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
-.back-link:hover { color: var(--navy); }
+.back-bar { background: var(--navy); padding: 20px 40px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; transition: color .15s; }
+.back-link:hover { color: var(--white); }
 .back-link .arrow { transition: transform .15s; display: inline-block; }
 .back-link:hover .arrow { transform: translateX(-3px); }
 
@@ -273,7 +273,7 @@ const PAGE_INFO = {
   section_key:    "關鍵記事",
   section_chron:  "完整編年記錄",
   back_text:      "返回「關於我們」",
-  back_url:       "https://www.txgcca.org.tw/關於臺中民團",
+  back_url:       "about.html",
 };
 
 /* ══ 全站共用（來自主控表單，所有子頁一致）══════════════════════
