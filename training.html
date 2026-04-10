@@ -107,25 +107,12 @@ nav{
 .bc-sep { margin: 0 2px; color: rgba(255,255,255,.3); font-size: 11px; }
 
 /* ══ PAGE HERO ═════════════════════════════ */
-.page-hero{
-  background:var(--navy);
-  padding:44px 40px 36px;
-  position:relative;overflow:hidden;
-}
-.hero-deco-1{position:absolute;right:-60px;top:-60px;width:240px;height:240px;border:1.5px solid rgba(44,213,196,.1);border-radius:50%;}
-.hero-deco-2{position:absolute;right:20px;top:20px;width:140px;height:140px;border:1.5px solid rgba(255,105,33,.1);border-radius:50%;}
-.hero-deco-line{position:absolute;left:0;bottom:0;width:100%;height:3px;background:linear-gradient(90deg,var(--teal) 0%,var(--orange) 45%,transparent 100%);}
-.hero-inner{max-width:960px;margin:0 auto;position:relative;z-index:1;}
-.hero-title{
-  font-family:'Oswald','Noto Sans TC',sans-serif;
-  font-size:34px;font-weight:700;color:var(--white);
-  line-height:1.2;margin-bottom:8px;
-}
-.hero-title span{color:var(--teal);}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.45);}
+.page-header { background: var(--navy); padding: 52px 40px 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
+.page-h1 { font-family: 'Oswald', 'Noto Sans TC', sans-serif; font-size: 52px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 12px; }
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; }
 @media(max-width:768px){
-  .page-hero{padding:32px 16px 28px;}
-  .hero-title{font-size:26px;}
+  .page-header { padding: 40px 20px 36px; }
+  .page-h1 { font-size: 38px; }
 }
 
 /* ══ LAYOUT ════════════════════════════════ */
@@ -571,14 +558,9 @@ nav{
 </div>
 
 <!-- ══ HERO ═══════════════════════════════════ -->
-<div class="page-hero">
-  <div class="hero-deco-1"></div>
-  <div class="hero-deco-2"></div>
-  <div class="hero-deco-line"></div>
-  <div class="hero-inner">
-    <h1 class="hero-title">自訓與<span>課程活動</span></h1>
-    <p class="hero-sub">週五常態自訓 · 主題課程 · 特別活動報名</p>
-  </div>
+<div class="page-header">
+  <h1 class="page-h1">自訓與課程活動</h1>
+  <p class="page-sub">週五常態自訓 · 主題課程 · 特別活動報名</p>
 </div>
 
 <!-- ══════════════════════════════════════════════

@@ -35,13 +35,9 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .nav-link.active { color: var(--white); }
 
 /* ── PAGE HERO ── */
-.page-hero { background: var(--navy-d); color: var(--white); padding: 80px 40px 72px; position: relative; overflow: hidden; }
-.page-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(44,213,196,.12) 0%, transparent 65%); pointer-events: none; }
-.page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 100%); }
-.hero-inner { max-width: 900px; margin: 0 auto; }
-.hero-kicker { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; }
-.hero-title { font-family: 'Oswald', sans-serif; font-size: clamp(40px, 5.5vw, 62px); font-weight: 700; line-height: 1.1; color: var(--white); }
-.hero-title em { color: var(--orange); font-style: normal; }
+.page-header { background: var(--navy); color: var(--white); padding: 52px 40px 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
+.page-h1 { font-family: 'Oswald', sans-serif; font-size: 52px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 12px; }
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; }
 .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
 .bc-link { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
 .bc-link:hover { color: rgba(255,255,255,.7); }
@@ -338,6 +334,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
+  .page-header { padding: 40px 20px 36px; }
+  .page-h1 { font-size: 38px; }
   section, .about-tl, .charter-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
 
   /* 我們是誰：全寬單欄 */
@@ -396,15 +394,14 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <div class="nav-backdrop" id="nav-backdrop"></div>
 
 <!-- HERO -->
-<div class="page-hero">
-  <div class="hero-inner">
-    <div class="breadcrumb">
-      <a class="bc-link" href="index.html">首頁</a>
-      <span class="bc-sep">›</span>
-      <span class="bc-current">關於臺中民團</span>
-    </div>
-    <h1 class="hero-title">公民準備好，<em>社會才韌強</em></h1>
+<div class="page-header">
+  <div class="breadcrumb">
+    <a class="bc-link" href="index.html">首頁</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">關於臺中民團</span>
   </div>
+  <h1 class="page-h1">關於臺中民團</h1>
+  <p class="page-sub">臺中在地民間防災團體，推廣自救互救、培訓韌性公民。</p>
 </div>
 
 <!-- § 1 我們是誰 -->
