@@ -296,39 +296,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 .social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-decoration: none; transition: background .15s; }
 .social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
 
-/* ══════════════════════════════════════════
-   RWD Breakpoints
-══════════════════════════════════════════ */
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
-  section, .about-tl, .charter-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
-
-  /* 我們是誰：全寬單欄 */
-  .who-grid { grid-template-columns: 1fr; }
-
-  /* 核心價值：橫式卡片在手機上 aspect-ratio 改 2:1（避免太矮看不清） */
-  .value-card { aspect-ratio: 2/1; }
-  .value-title-bar { padding: 0 20px; }
-  .value-title { font-size: 22px; }
-  .value-overlay { padding: 24px 28px; }
-  .value-overlay-text { font-size: 14px; }
-
-  /* 組織架構：單欄堆疊 */
-  .org-grid { grid-template-columns: 1fr; }
-
-  .charter-bar, .footer-cta { flex-direction: column; }
-  .footer-cta { gap: 20px; }
-  .fcta-btns { flex-direction: column; width: 100%; }
-  .fcta-btn-w, .fcta-btn-o { justify-content: center; }
-}
-
-@media (max-width: 480px) {
-  /* 極小螢幕：core value 卡片再調高一點 */
-  .value-card { aspect-ratio: 16/9; }
-}
-
 /* ── 手機漢堡選單 ── */
 .nav-hamburger {
   display: none;
@@ -363,6 +330,39 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 .nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
 .nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 98; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
 .nav-backdrop.open { display: block; }
+
+/* ══════════════════════════════════════════
+   RWD Breakpoints
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  section, .about-tl, .charter-bar, .footer-cta, footer { padding-left: 20px; padding-right: 20px; }
+
+  /* 我們是誰：全寬單欄 */
+  .who-grid { grid-template-columns: 1fr; }
+
+  /* 核心價值：橫式卡片在手機上 aspect-ratio 改 2:1（避免太矮看不清） */
+  .value-card { aspect-ratio: 2/1; }
+  .value-title-bar { padding: 0 20px; }
+  .value-title { font-size: 22px; }
+  .value-overlay { padding: 24px 28px; }
+  .value-overlay-text { font-size: 14px; }
+
+  /* 組織架構：單欄堆疊 */
+  .org-grid { grid-template-columns: 1fr; }
+
+  .charter-bar, .footer-cta { flex-direction: column; }
+  .footer-cta { gap: 20px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  /* 極小螢幕：core value 卡片再調高一點 */
+  .value-card { aspect-ratio: 16/9; }
+}
 </style>
 </head>
 <body>
