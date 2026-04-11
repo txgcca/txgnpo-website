@@ -495,10 +495,6 @@ nav {
   .featured-section, .all-section { padding-left: 24px; padding-right: 24px; }
   .page-header { padding: 40px 20px 36px; }
   .section-divider { margin: 0 24px; }
-  .footer-cta { padding: 40px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
-  .fcta-title { font-size: 26px; }
-  .fcta-btns { flex-direction: column; width: 100%; }
-  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
   .report-row { grid-template-columns: 72px 110px 1fr auto; gap: 0 14px; }
 }
@@ -590,6 +586,14 @@ nav {
   transition: border-color .15s, color .15s;
 }
 .fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+
+/* ── footer-cta RWD（必須在桌機宣告之後）── */
+@media (max-width: 768px) {
+  .footer-cta { flex-direction: column; align-items: flex-start; padding: 40px 20px; gap: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
+}
 
 footer {
   background: var(--navy-d);
