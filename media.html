@@ -495,7 +495,10 @@ nav {
   .featured-section, .all-section { padding-left: 24px; padding-right: 24px; }
   .page-header { padding: 40px 20px 36px; }
   .section-divider { margin: 0 24px; }
-  .footer-cta { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  .footer-cta { padding: 40px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
   .report-row { grid-template-columns: 72px 110px 1fr auto; gap: 0 14px; }
 }
@@ -530,9 +533,6 @@ nav {
   .page-h1 { font-size: 34px; }
   .tl-head { flex-direction: column; align-items: flex-start; gap: 4px; }
   .tl-title { font-size: 24px; }
-  .fcta-title { font-size: 26px; }
-  .fcta-btns { flex-direction: column; width: 100%; }
-  .fcta-btn-w, .fcta-btn-o { width: 100%; text-align: center; }
   .all-section { padding-left: 16px; padding-right: 16px; }
   .featured-section { padding-left: 16px; padding-right: 16px; }
 
@@ -543,9 +543,10 @@ nav {
   background: var(--orange);
   padding: 56px 40px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 32px;
+  flex-wrap: wrap;
 }
 .fcta-label {
   font-size: 11px;

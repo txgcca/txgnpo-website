@@ -180,7 +180,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 va
 .podcast-link-btn:hover { background: var(--orange); color: var(--white); }
 
 /* FOOTER CTA */
-.footer-cta { background: var(--orange); padding: 56px var(--px); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.footer-cta { background: var(--orange); padding: 56px var(--px); display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
 .fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
 .fcta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -220,8 +220,10 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
   .res-h2 { font-size: 28px; }
   .res-card, .podcast-card { flex: 0 0 calc(100vw - 40px); min-width: 0; }
   .row-controls { display: none; }
-  .footer-cta { padding: 40px var(--px); flex-direction: column; align-items: flex-start; }
-  .fcta-title { font-size: 28px; }
+  .footer-cta { padding: 40px var(--px); flex-direction: column; align-items: flex-start; gap: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
   footer { padding: 24px var(--px); flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 

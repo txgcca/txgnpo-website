@@ -205,7 +205,7 @@ nav {
 .info-sep { width: 1px; height: 48px; background: var(--rule); flex-shrink: 0; }
 
 /* ── FOOTER CTA ── */
-.footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: 80px; flex-wrap: wrap; }
+.footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
 .fcta-title { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 600; color: var(--white); line-height: 1.1; }
 .fcta-btns { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
@@ -283,8 +283,10 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .info-strip { padding: 28px 20px; gap: 24px; flex-direction: column; align-items: flex-start; }
   .info-sep { display: none; }
 
-  .footer-cta { padding: 40px 20px; flex-direction: column; align-items: flex-start; }
-  .fcta-title { font-size: 28px; }
+  .footer-cta { padding: 40px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { width: 100%; flex-direction: column; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
 
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
 }
@@ -296,8 +298,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .faq-a-inner { padding: 14px 16px 16px; }
   .card-body { padding: 24px 20px 0; }
   .card-footer { padding: 0 20px 24px; }
-  .fcta-btns { width: 100%; flex-direction: column; }
-  .fcta-btn-w, .fcta-btn-o { width: 100%; text-align: center; }
 }
 
 </style>
