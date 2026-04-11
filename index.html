@@ -507,22 +507,6 @@ nav {
   .timeline-section { padding: 48px 20px; }
   .tl-item { width: 200px; }
 
-  /* Footer CTA */
-  .footer-cta {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 40px 20px;
-    gap: 24px;
-  }
-  .fcta-title { font-size: 26px; }
-  .fcta-btns { flex-direction: column; width: 100%; }
-  .fcta-btn-w,
-  .fcta-btn-o {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-  }
-
   /* Footer */
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
 }
@@ -660,6 +644,15 @@ nav {
 .fcta-btn-w:hover { background: var(--off-white); }
 .fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
 .fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
+
+/* ── footer-cta RWD（必須在桌機宣告之後）── */
+@media (max-width: 768px) {
+  .footer-cta { flex-direction: column; align-items: flex-start; padding: 40px 20px; gap: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+}
 
 /* ══════════════════════════════════════════
    FOOTER
