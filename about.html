@@ -50,10 +50,6 @@ section { padding: 72px 40px; }
 .section-title { font-family: 'Oswald', sans-serif; font-size: 30px; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.2; }
 .section-rule { width: 36px; height: 3px; background: var(--orange); margin-bottom: 28px; }
 
-/* ── FIELD ANNOTATION ── */
-.ann { display: inline-block; background: rgba(255,105,33,.1); border: 1px dashed var(--orange); border-radius: 3px; font-size: 10px; font-weight: 700; color: var(--orange-d); padding: 1px 5px; letter-spacing: .05em; vertical-align: middle; margin-left: 6px; font-family: monospace; white-space: nowrap; position: relative; top: -1px; }
-.ann-teal { background: rgba(44,213,196,.08); border-color: var(--teal); color: var(--teal-d); }
-.ann-dim { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.5); }
 
 /* ══════════════════════════════════════════
    § 1 WHO WE ARE — 左文右數字
@@ -421,7 +417,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   </div>
 </section>
 
-<!-- § 1b 關於我們大事紀（獨立篩選，≠ 首頁大事紀） -->
 <div class="about-tl">
   <div class="tl-header">
     <div class="tl-heading">
@@ -429,9 +424,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       協會大事紀
     </div>
     <div style="display:flex; align-items:center; gap:16px;">
-      <span class="tl-note">
-篩選自大事紀 Sheet
-      </span>
       <a href="past-activities.html" style="font-size:12px; color:var(--teal); text-decoration:none; font-weight:600; white-space:nowrap; transition:opacity .15s;">完整大事記 →</a>
     </div>
   </div>
@@ -480,10 +472,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   </div>
 
-  <!-- Sheet 欄位說明（開發用，上線可移除） -->
-  <div class="tl-sheet-note">
-    📋 <strong>資料來源：</strong>大事紀 Sheet（同首頁），但需在 Sheet 新增欄位 <code>show_on_about</code>（值填「是」）來獨立控制哪些事件顯示在此頁。首頁讀 <code>show_on_home = 是</code>；關於頁讀 <code>show_on_about = 是</code>，兩者互不干擾，最多各顯示 4 筆。
-  </div>
 </div>
 
 <!-- § 2 使命與願景 -->
@@ -492,7 +480,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <h2 class="section-title">使命與願景</h2>
     <div class="section-rule"></div>
 
-    <!-- 7:2:1 橫式圖（上線時替換為設計師製圖） -->
     <div class="mission-img">
       <div class="m-band b7">
         <div class="m-pct">7成</div>
@@ -510,7 +497,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="m-label">公權力</div>
       </div>
     </div>
-    <p class="img-note">↑ 上線時替換為橫式示意圖（建議尺寸 1600×600px）</p>
 
     <p class="mission-body-text">
       臺灣處於天災頻繁與地緣政治敏感的環境，我們致力於提升人民在災難中的應變能力，幫助大家學會在危機中保持冷靜、有序，進而維持社會的穩定。
@@ -532,7 +518,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
             value_1_img
           </div>
         </div>
-        <div class="img-spec">1200 × 400 px · 3:1</div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
           <p class="value-overlay-text">推廣基礎急救知識，讓每個人都能在危急時刻自救。</p>
@@ -550,7 +535,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
             value_2_img
           </div>
         </div>
-        <div class="img-spec">1200 × 400 px · 3:1</div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
           <p class="value-overlay-text">訓練體能與心理素質，應對自然與人為災害。</p>
@@ -568,7 +552,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
             value_3_img
           </div>
         </div>
-        <div class="img-spec">1200 × 400 px · 3:1</div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
           <p class="value-overlay-text">強化社區防災意識，促進互助合作精神。</p>
@@ -592,29 +575,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="org-panel">
         <div class="org-panel-hd">協會組織架構 <span class="ann ann-teal">org_chart_img</span></div>
         <div class="org-img-wrap">
-          <!-- 上線替換：<img src="[org_chart_img]" alt="協會組織架構圖" style="width:100%;height:100%;object-fit:contain;"> -->
-          <div class="org-img-ph">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            圖片由 Google Sites 嵌入
-          </div>
-        </div>
-        <div class="org-rwd-note">
-          📐 建議圖片尺寸：<code>1200 × 900 px（4:3）</code>，500KB 以內<br>
-          ⚠️ Google Sites 設定：圖片區塊選「<code>全寬</code>」，比例選「<code>原始</code>」避免裁切
+          <img src="" alt="訓練活動照片" style="width:100%;height:100%;object-fit:cover;">
         </div>
       </div>
       <div class="org-panel">
         <div class="org-panel-hd">會員分類 <span class="ann ann-teal">member_types_img</span></div>
         <div class="org-img-wrap">
-          <!-- 上線替換：<img src="[member_types_img]" alt="會員分類圖" style="width:100%;height:100%;object-fit:contain;"> -->
-          <div class="org-img-ph">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            圖片由 Google Sites 嵌入
-          </div>
-        </div>
-        <div class="org-rwd-note">
-          📐 建議圖片尺寸：<code>1200 × 900 px（4:3）</code>，500KB 以內<br>
-          ⚠️ 手機：Google Sites 自動單欄堆疊，圖片縮到欄寬後保持比例不跑版
+          <img src="" alt="訓練活動照片" style="width:100%;height:100%;object-fit:cover;">
         </div>
       </div>
     </div>
@@ -625,9 +592,9 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <div class="charter-bar">
   <div class="charter-bar-text">
     <div class="charter-bar-label">法規文件</div>
-    <div class="charter-bar-title">協會章程 <span class="ann ann-dim">charter_section_title</span></div>
+    <div class="charter-bar-title">協會章程</div>
   </div>
-  <a href="charter.html" class="btn-charter">查看協會章程 → <span class="ann ann-dim">charter_btn</span></a>
+  <a href="charter.html" class="btn-charter">查看協會章程 →</a>
 </div>
 
 <!-- FOOTER CTA -->
