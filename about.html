@@ -390,6 +390,11 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   /* 極小螢幕：core value 卡片再調高一點 */
   .value-card { aspect-ratio: 16/9; }
 }
+
+@media (hover: none) {
+  .value-card:hover .value-overlay { opacity: 0; }
+  .value-card.tapped .value-overlay { opacity: 1; }
+}
 </style>
 </head>
 <body>
@@ -681,5 +686,48 @@ drawer.querySelectorAll('.nav-link').forEach(link => {
 });
 </script>
 
+
+<script>
+(function() {
+  // 只在 touch 裝置執行
+  if (!window.matchMedia('(hover: none)').matches) return;
+
+  const cards = document.querySelectorAll('.value-card');
+  let timers = new WeakMap();
+
+  cards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      e.stopPropagation();
+
+      // 若已開啟就直接關掉
+      if (card.classList.contains('tapped')) {
+        clearTimeout(timers.get(card));
+        card.classList.remove('tapped');
+        return;
+      }
+
+      // 關掉其他卡片
+      cards.forEach(c => {
+        clearTimeout(timers.get(c));
+        c.classList.remove('tapped');
+      });
+
+      // 開啟這張，4 秒後自動關閉
+      card.classList.add('tapped');
+      timers.set(card, setTimeout(() => {
+        card.classList.remove('tapped');
+      }, 4000));
+    });
+  });
+
+  // 點卡片外的地方關閉全部
+  document.addEventListener('click', function() {
+    cards.forEach(c => {
+      clearTimeout(timers.get(c));
+      c.classList.remove('tapped');
+    });
+  });
+})();
+</script>
 </body>
 </html>
