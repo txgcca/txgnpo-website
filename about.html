@@ -48,7 +48,6 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 section { padding: 72px 40px; }
 .inner { max-width: 900px; margin: 0 auto; }
 .section-title { font-family: 'Oswald', sans-serif; font-size: 30px; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.2; }
-.section-rule { width: 36px; height: 3px; background: var(--orange); margin-bottom: 28px; }
 
 
 /* ══════════════════════════════════════════
@@ -88,12 +87,21 @@ section { padding: 72px 40px; }
 .mission-bg { background: var(--off-white); }
 .mission-img { width: 100%; aspect-ratio: 16/6; background: var(--navy); border-radius: 8px; overflow: hidden; margin: 28px 0 24px; display: flex; }
 .m-band { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 24px 20px; gap: 4px; }
-.m-band.b7 { background: #003764; flex: 7; border-right: 2px solid rgba(255,255,255,.08); }
-.m-band.b2 { background: #0a4a7c; flex: 2; border-right: 2px solid rgba(255,255,255,.08); }
-.m-band.b1 { background: #0d6eaa; flex: 1; }
-.m-pct { font-family: 'Oswald', sans-serif; font-size: clamp(22px, 3.5vw, 44px); font-weight: 700; color: var(--teal); line-height: 1; }
-.m-role { font-family: 'Oswald', sans-serif; font-size: clamp(12px, 1.6vw, 17px); color: var(--white); font-weight: 600; }
-.m-label { font-size: clamp(9px, 1vw, 11px); color: rgba(255,255,255,.45); }
+.m-band.b7 { background: #FF6921; flex: 7; border-right: 2px solid rgba(255,255,255,.08); }
+.m-band.b2 { background: #2CD5C4; flex: 2; border-right: 2px solid rgba(255,255,255,.08); }
+.m-band.b1 { background: #003764; flex: 1; }
+.m-pct { font-family: 'Oswald', sans-serif; font-size: clamp(22px, 3.5vw, 44px); font-weight: 700; line-height: 1; }
+.m-role { font-family: 'Oswald', sans-serif; font-size: clamp(12px, 1.6vw, 17px); font-weight: 600; }
+.m-label { font-size: clamp(9px, 1vw, 11px); }
+.b7 .m-pct  { color: #ffffff; }
+.b7 .m-role { color: #ffffff; }
+.b7 .m-label{ color: rgba(255,255,255,.7); }
+.b2 .m-pct  { color: #003764; }
+.b2 .m-role { color: #003764; }
+.b2 .m-label{ color: rgba(0,55,100,.6); }
+.b1 .m-pct  { color: #2CD5C4; }
+.b1 .m-role { color: #ffffff; }
+.b1 .m-label{ color: rgba(255,255,255,.6); }
 .img-note { font-size: 11px; color: var(--muted); margin-top: -16px; margin-bottom: 20px; font-style: italic; }
 .mission-body-text { font-size: 15px; line-height: 1.9; color: var(--muted); }
 
@@ -158,13 +166,14 @@ section { padding: 72px 40px; }
   top: 0; bottom: 0; left: 0;
   width: 50%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
   padding: 0 32px;
   transition: opacity .3s ease;
 }
 .value-card:hover .value-title-bar { opacity: 0; }
-.value-accent { width: 28px; height: 3px; background: var(--orange); margin-bottom: 10px; }
+.value-accent { width: 3px; height: 28px; background: var(--orange); margin-bottom: 0; margin-right: 14px; }
 .value-title {
   font-family: 'Oswald', sans-serif;
   font-size: clamp(22px, 2.8vw, 30px);
@@ -339,6 +348,27 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   /* 我們是誰：全寬單欄 */
   .who-grid { grid-template-columns: 1fr; }
 
+  /* 7:2:1 使命圖手機版 */
+  .mission-img {
+    flex-direction: column;
+    aspect-ratio: unset;
+    height: auto;
+  }
+  .m-band {
+    flex: none !important;
+    width: 100%;
+    padding: 20px 24px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    border-right: none;
+    border-bottom: 2px solid rgba(255,255,255,.08);
+  }
+  .m-band:last-child { border-bottom: none; }
+  .m-pct  { font-size: 32px; }
+  .m-role { font-size: 15px; }
+  .m-label{ font-size: 11px; }
+
   /* 核心價值：橫式卡片在手機上 aspect-ratio 改 2:1（避免太矮看不清） */
   .value-card { aspect-ratio: 2/1; }
   .value-title-bar { padding: 0 20px; }
@@ -407,7 +437,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <section>
   <div class="inner">
     <h2 class="section-title">我們是誰</h2>
-    <div class="section-rule"></div>
     <div class="who-grid">
       <p class="who-body">
         我們是臺中的民防團體，致力於推廣基礎救護、體能訓練、與防災教育。我們相信，每位公民都應具備基本的自救能力，這不僅是成熟公民的責任，更是對生命負責的態度。2023 年以臺中自訓團起步，2024 年完成政府立案，正式成立社團法人，持續推廣防災、救護技能與自救互助理念。
@@ -478,7 +507,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <section class="mission-bg">
   <div class="inner">
     <h2 class="section-title">使命與願景</h2>
-    <div class="section-rule"></div>
 
     <div class="mission-img">
       <div class="m-band b7">
@@ -508,7 +536,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <section>
   <div class="inner">
     <h2 class="section-title">三大核心價值</h2>
-    <div class="section-rule"></div>
     <div class="values-stack">
 
       <div class="value-card">
@@ -570,7 +597,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <section class="org-bg">
   <div class="inner">
     <h2 class="section-title">組織架構與會員分類</h2>
-    <div class="section-rule"></div>
     <div class="org-grid">
       <div class="org-panel">
         <div class="org-panel-hd">協會組織架構 <span class="ann ann-teal">org_chart_img</span></div>
@@ -591,7 +617,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- CHARTER BAR -->
 <div class="charter-bar">
   <div class="charter-bar-text">
-    <div class="charter-bar-label">法規文件</div>
     <div class="charter-bar-title">協會章程</div>
   </div>
   <a href="charter.html" class="btn-charter">查看協會章程 →</a>
