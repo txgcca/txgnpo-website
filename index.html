@@ -480,18 +480,30 @@ nav {
   /* Stats */
   .stats-bar {
     grid-template-columns: repeat(2, 1fr);
+    overflow: hidden;
   }
   .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,.06); }
+  .stat-item:nth-child(4) { border-right: none; }
   .stat-item { padding: 20px 24px; }
   .stat-num  { font-size: 36px; }
 
   /* Media strip */
-  .media-strip { padding: 14px 20px; gap: 16px; overflow-x: auto; }
-  .media-logos { flex-wrap: nowrap; gap: 20px; }
+  .media-strip {
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .media-sep { display: none; }
+  .media-logos {
+    gap: 16px 24px;
+  }
 
   /* CTA cards：單欄堆疊 */
   .cta-section { padding: 48px 20px; }
-  .cta-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cta-grid { grid-template-columns: 1fr !important; gap: 12px; }
+  .card-title, .card-desc { word-break: break-word; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
 
   /* Timeline */
   .timeline-section { padding: 48px 20px; }
@@ -509,6 +521,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid rgba(255,255,255,.06);
+  overflow: hidden;
 }
 .stat-item {
   padding: 28px 32px;
@@ -732,8 +745,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <!-- hero_btn_primary / hero_btn_primary_link -->
     <!-- hero_btn_secondary / hero_btn_secondary_link -->
     <div class="hero-btns">
-      <a class="btn-orange" href="[hero_btn_primary_link]">加入我們的訓練</a>
-      <a class="btn-ghost"  href="[hero_btn_secondary_link]">了解更多 ↓</a>
+      <a class="btn-orange" href="training.html">加入我們的訓練</a>
     </div>
 
     <!-- hero_tag_1 / hero_tag_2 / hero_tag_3 -->
@@ -804,7 +816,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <small>你想做什麼？</small>
       找到你的入口
     </div>
-    <a class="section-more" href="#">查看所有活動 →</a>
   </div>
   <div class="cta-grid">
 
