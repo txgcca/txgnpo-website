@@ -643,10 +643,8 @@ footer {
 <section class="all-section">
   <div class="tl-head">
     <div class="tl-title">
-      <small>所有報導</small>
       完整報導列表
     </div>
-    <div class="tl-count" id="tl-count"></div>
   </div>
   <div id="reports-list"></div>
 </section>
@@ -958,7 +956,6 @@ Object.keys(byYear).sort((a, b) => b - a).forEach((year, yi) => {
 });
 
 // 總筆數
-document.getElementById('tl-count').textContent = `共 ${REPORTS.length} 筆`;
 
 /* ── Intersection Observer（淡入動畫） ── */
 const io = new IntersectionObserver((entries) => {
