@@ -121,31 +121,6 @@ nav{
   font-size:22px;font-weight:600;color:var(--navy);
 }
 
-/* ══ ZONE LABELS (mockup) ══════════════════ */
-.zone-bar{
-  display:flex;align-items:center;gap:9px;
-  padding:6px 12px;border-radius:5px;margin-bottom:10px;
-}
-.zone-bar.html{background:rgba(0,55,100,.07);}
-.zone-bar.gsite{background:rgba(44,213,196,.08);}
-.zone-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.zone-dot.html{background:var(--navy);}
-.zone-dot.gsite{background:var(--teal-d);}
-.zone-text{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;}
-.zone-text.html{color:var(--navy);}
-.zone-text.gsite{color:var(--teal-d);}
-.zone-sub{font-size:10px;color:var(--muted);margin-left:auto;}
-
-/* ══ SPEC NOTE ═════════════════════════════ */
-.spec-note{
-  display:flex;align-items:flex-start;gap:8px;
-  background:rgba(44,213,196,.06);
-  border:1px solid rgba(44,213,196,.18);
-  border-radius:6px;padding:9px 13px;
-  margin-bottom:12px;font-size:11px;color:var(--muted);
-}
-.spec-note svg{width:13px;height:13px;color:var(--teal-d);flex-shrink:0;margin-top:1px;}
-.spec-note strong{color:var(--navy);}
 
 /* ══ TWO-COLUMN GRID ═══════════════════════ */
 .training-grid{
@@ -192,13 +167,6 @@ nav{
   border-radius:6px;display:flex;align-items:center;justify-content:center;
   font-size:10px;color:rgba(0,55,100,.3);font-weight:700;letter-spacing:.06em;
 }
-.record-footer{
-  padding:10px 20px;background:rgba(0,55,100,.03);
-  border-top:1px solid var(--rule);
-  font-size:11px;color:var(--muted);
-  display:flex;align-items:center;gap:6px;
-}
-.record-footer svg{width:11px;height:11px;color:var(--teal-d);}
 
 /* ══ RIGHT: 行事曆 ═════════════════════════ */
 .calendar-card{
@@ -233,9 +201,6 @@ nav{
    <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID&mode=WEEK&ctz=Asia%2FTaipei"
      style="border:0" width="100%" height="360" frameborder="0" scrolling="no"></iframe> */
 .gcal-icon{width:44px;height:44px;}
-.gcal-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.6;}
-.gcal-note strong{color:var(--navy);display:block;margin-bottom:3px;font-size:13px;}
-.gcal-code{font-size:10px;color:rgba(0,55,100,.3);text-align:center;line-height:1.5;margin-top:4px;}
 
 /* 手機：Google Calendar embed（Agenda 議程視圖）*/
 .gcal-mobile{display:none;}
@@ -274,7 +239,7 @@ nav{
   border-top:1px solid rgba(44,213,196,.15);
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;
 }
-.subscribe-row p{font-size:12px;color:var(--muted);flex:1;min-width:120px;}
+.subscribe-row p{font-size:12px;color:var(--muted);flex:1;min-width:120px;text-wrap:pretty;}
 .btn-subscribe{
   display:inline-flex;align-items:center;gap:6px;
   background:var(--teal);color:var(--navy);
@@ -381,14 +346,6 @@ nav{
   padding-bottom:16px;margin-bottom:0;
 }
 
-.zone-bar.dark{
-  background:rgba(44,213,196,.06);
-  border:1px solid rgba(44,213,196,.12);
-  margin-bottom:10px;
-}
-.zone-text.dark{color:var(--teal);}
-.zone-sub.dark{color:rgba(255,255,255,.35);}
-.zone-dot.dark{background:var(--teal);}
 
 /* 瀏覽器框 */
 .browser-frame{
@@ -437,25 +394,28 @@ nav{
 }
 .btn-platform:hover{background:var(--orange-d);}
 .btn-platform svg{width:14px;height:14px;}
-.trust-row{
-  display:flex;align-items:center;justify-content:center;
-  gap:8px;margin-top:9px;
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(44,213,196,.4);
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 13px;
 }
-.trust-row span{font-size:11px;color:rgba(255,255,255,.3);}
-.trust-pill{
-  background:rgba(44,213,196,.12);color:var(--teal);
-  font-size:9px;font-weight:700;padding:2px 8px;border-radius:3px;
+.pb-brand { font-weight: 700; color: var(--teal); }
+.pb-sep { color: rgba(255,255,255,.2); }
+.pb-desc { color: rgba(255,255,255,.5); font-size: 12px; }
+
+@media (max-width: 480px) {
+  .platform-badge { flex-direction: column; gap: 4px; text-align: center; }
+  .pb-sep { display: none; }
 }
 
 /* ══ 過往活動紀錄（Sheets 驅動）════════════ */
 .past-section-title{
   font-size:15px;font-weight:700;color:rgba(255,255,255,.85);
   margin-bottom:14px;display:flex;align-items:center;gap:8px;
-}
-.past-section-title .sheets-badge{
-  font-size:9px;font-weight:700;letter-spacing:.08em;
-  background:rgba(44,213,196,.15);color:var(--teal);
-  padding:2px 8px;border-radius:3px;text-transform:uppercase;
 }
 .past-grid{
   display:grid;
@@ -474,12 +434,6 @@ nav{
 .past-card-name{font-size:12px;color:rgba(255,255,255,.85);font-weight:500;margin-bottom:4px;line-height:1.4;}
 .past-card-date{font-size:10px;color:rgba(255,255,255,.4);}
 
-.sheets-note{
-  display:flex;align-items:flex-start;gap:7px;
-  margin-top:12px;font-size:10px;color:rgba(255,255,255,.3);
-  line-height:1.5;
-}
-.sheets-note svg{width:12px;height:12px;color:var(--teal);flex-shrink:0;margin-top:1px;}
 
 /* ══ FOOTER ════════════════════════════════ */
 footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
@@ -552,17 +506,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <h2 class="section-title">週五常態自訓</h2>
   </div>
 
-  <div class="zone-bar html">
-    <div class="zone-dot html"></div>
-    <span class="zone-text html">HTML Embed 區</span>
-    <span class="zone-sub">自訓紀錄圖文 · Google Calendar · CTA</span>
-  </div>
-
-  <div class="spec-note">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span><strong>圖片規格：</strong>主圖 1200×675 px（16:9，＜500 KB）；副圖 600×400 px（3:2，＜250 KB）。從 Google Drive 連結嵌入，換圖即更新。</span>
-  </div>
-
   <!-- 左右欄 -->
   <div class="training-grid">
 
@@ -587,10 +530,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="record-sub-imgs">
         <div class="sub-img">副圖 600 × 400 px</div>
         <div class="sub-img">副圖 600 × 400 px</div>
-      </div>
-      <div class="record-footer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        此區塊可在 Google Sites 後台直接修改文字，無需動程式碼
       </div>
     </div>
 
@@ -624,13 +563,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
           <rect x="20" y="33" width="8" height="6" rx="1" fill="rgba(255,105,33,.25)"/>
           <rect x="31" y="33" width="8" height="6" rx="1" fill="rgba(0,55,100,.1)"/>
         </svg>
-        <div class="gcal-note">
-          <strong>Google Calendar 嵌入（月／週視圖）</strong>
-          每週五自訓日期、地點與更動通知即時同步
-        </div>
-        <div class="gcal-code">
-          &lt;iframe&gt; 嵌入 · 建議高度 360 px · 更新只需改行事曆後台
-        </div>
       </div>
 
       <!-- 手機：議程視圖 placeholder -->
@@ -639,10 +571,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID&mode=AGENDA&ctz=Asia%2FTaipei"
           style="border:0" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
         -->
-        <div class="gcal-note" style="text-align:center;">
-          <strong>Google Calendar（議程視圖）</strong>
-          條列式顯示，手機閱讀友善
-        </div>
         <table class="agenda-ph" style="width:100%;margin-top:8px;">
           <tr>
             <td class="date">4/11（五）</td>
@@ -723,13 +651,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <h2 class="section2-title">主題課程與特別活動</h2>
   </div>
 
-  <!-- HTML Embed 區：oen.tw 截圖 + CTA -->
-  <div class="zone-bar dark" style="margin-bottom:12px;">
-    <div class="zone-dot dark"></div>
-    <span class="zone-text dark">HTML Embed 區</span>
-    <span class="zone-sub dark">oen.tw 截圖框 · CTA 按鈕（寫死）</span>
-  </div>
-
   <div class="browser-frame">
     <div class="browser-bar">
       <div class="browser-dots">
@@ -745,7 +666,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       </div>
       <div class="browser-content-text">
         <strong>應援科技平台截圖</strong>
-        從 Google Drive 嵌入 · 建議尺寸 1440 × 900 px（JPEG ≤ 600 KB）
       </div>
       <div class="browser-content-sub">在 Drive 換圖，網頁自動同步，無需改 HTML</div>
     </div>
@@ -757,22 +677,15 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       前往應援平台查看所有活動
     </a>
-    <div class="trust-row">
-      <span>安全第三方票務平台</span>
-      <span class="trust-pill">應援科技 oen.tw</span>
+    <div class="platform-badge">
+      <span class="pb-brand">應援科技 oen.tw</span>
+      <span class="pb-sep">｜</span>
+      <span class="pb-desc">安全第三方票務平台</span>
     </div>
-  </div>
-
-  <!-- Sheets 驅動：過往活動紀錄 -->
-  <div class="zone-bar dark" style="margin-bottom:12px;">
-    <div class="zone-dot dark"></div>
-    <span class="zone-text dark">HTML Embed 區</span>
-    <span class="zone-sub dark">Google Sheets 驅動 · 更新 Sheet 即同步 · 「是否顯示」欄控制</span>
   </div>
 
   <div class="past-section-title">
     過往活動紀錄
-    <span class="sheets-badge">Sheets 驅動</span>
   </div>
 
   <!-- 實際上線：JS 從 Sheets JSON 抓資料，過濾「是否顯示 = Y」後渲染 -->
@@ -801,10 +714,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     </div>
   </div>
 
-  <div class="sheets-note">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-    維護方式：在 Google Sheets「活動記錄」工作表，將「是否顯示」欄標記為 Y，該筆資料即出現在網頁上。無需動 HTML 或 GitHub。
-  </div>
 
 </div>
 </div><!-- /section2-wrap -->
@@ -823,17 +732,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   </div>
 </footer>
 
-<!-- ══ JS：Sheets 驅動邏輯（上線時啟用）══════
-  上線步驟：
-  1. 將 Google Sheets 發佈為網路（檔案→共用→發佈至網路→選工作表→CSV 格式）
-  2. 取得 CSV URL，格式：
-     https://docs.google.com/spreadsheets/d/SHEET_ID/gviz/tq?tqx=out:csv&sheet=活動記錄
-  3. 將下方 SHEET_CSV_URL 替換為實際 URL
-  4. 移除「mockup 示意資料」的靜態 HTML 卡片，讓 JS 接管渲染
-
-  欄位結構（Sheet）：
-  A：活動名稱　B：日期說明　C：是否顯示（Y/N）
-══════════════════════════════════════════════ -->
 <script>
 const SHEET_CSV_URL = 'YOUR_GOOGLE_SHEETS_CSV_URL_HERE';
 
