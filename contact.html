@@ -61,7 +61,7 @@ nav {
   font-family: 'Oswald', sans-serif; font-size: 52px; font-weight: 700;
   color: var(--white); line-height: 1; margin-bottom: 12px;
 }
-.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; }
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; text-wrap: pretty; }
 
 /* ── FAQ ── */
 .faq-section { padding: 64px 40px 0; }
@@ -77,20 +77,6 @@ nav {
 .faq-eyebrow-bar { width: 20px; height: 2px; background: var(--orange); }
 .faq-h2 { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 600; color: var(--ink); }
 .faq-sub { font-size: 13px; color: var(--muted); margin-top: 8px; }
-.faq-sheet-badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 7px 14px; background: rgba(44,213,196,.07);
-  border: 1px solid rgba(44,213,196,.2); border-radius: 99px;
-  font-size: 11px; font-weight: 700; color: var(--teal-d); white-space: nowrap; flex-shrink: 0;
-}
-.sheet-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50%      { opacity:.4; transform:scale(.65); }
-}
 .faq-list { display: flex; flex-direction: column; gap: 6px; }
 .faq-item {
   border: 1px solid var(--rule); border-radius: 8px; overflow: hidden;
@@ -261,6 +247,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   nav { padding: 0 20px; height: 54px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
+  .page-sub { max-width: 100%; }
 
   .page-header { padding: 40px 20px 36px; }
   .page-h1 { font-size: 38px; }
@@ -340,10 +327,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div>
       <div class="faq-h2">常見問題</div>
       <div class="faq-sub">找不到答案？往下選擇最適合的方式聯絡我們。</div>
-    </div>
-    <div class="faq-sheet-badge">
-      <span class="sheet-dot"></span>
-      資料來源：Google Sheet
     </div>
   </div>
   <div class="faq-list" id="faqList">
