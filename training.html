@@ -394,22 +394,28 @@ nav{
 }
 .btn-platform:hover{background:var(--orange-d);}
 .btn-platform svg{width:14px;height:14px;}
-.platform-badge {
+.trust-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.trust-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  border: 1px solid rgba(44,213,196,.4);
-  border-radius: 6px;
-  padding: 8px 18px;
-  font-size: 13px;
+  gap: 8px;
+  background: rgba(44,213,196,.08);
+  border: 1px solid rgba(44,213,196,.2);
+  border-radius: 4px;
+  padding: 5px 12px;
 }
-.pb-brand { font-weight: 700; color: var(--teal); }
-.pb-sep { color: rgba(255,255,255,.2); }
-.pb-desc { color: rgba(255,255,255,.5); font-size: 12px; }
+.tp-brand { font-size: 11px; color: rgba(255,255,255,.3); }
+.tp-sep   { font-size: 10px; color: rgba(255,255,255,.15); }
+.tp-desc  { font-size: 11px; color: rgba(255,255,255,.3); }
 
 @media (max-width: 480px) {
-  .platform-badge { flex-direction: column; gap: 4px; text-align: center; }
-  .pb-sep { display: none; }
+  .trust-pill { flex-direction: column; gap: 4px; text-align: center; }
+  .tp-sep { display: none; }
+  .trust-row { margin-top: 20px; }
 }
 
 /* ══ 過往活動紀錄（Sheets 驅動）════════════ */
@@ -677,10 +683,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       前往應援平台查看所有活動
     </a>
-    <div class="platform-badge">
-      <span class="pb-brand">應援科技 oen.tw</span>
-      <span class="pb-sep">｜</span>
-      <span class="pb-desc">安全第三方票務平台</span>
+    <div class="trust-row">
+      <div class="trust-pill">
+        <span class="tp-brand">應援科技 oen.tw</span>
+        <span class="tp-sep">｜</span>
+        <span class="tp-desc">安全第三方票務平台</span>
+      </div>
     </div>
   </div>
 
