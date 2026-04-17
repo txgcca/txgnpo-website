@@ -41,7 +41,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .bc-sep { font-size: 11px; color: rgba(255,255,255,.2); }
 .bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
 .page-h1 { font-family: 'Oswald', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 12px; }
-.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 540px; }
+.page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 540px; text-wrap: pretty; }
 
 /* ═══════════════════════════════════════
    ① 關鍵記事 — 圖卡區
@@ -73,7 +73,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .b-orange { background: rgba(255,105,33,.15);  color: var(--orange-d); }
 .b-navy   { background: rgba(0,55,100,.1);     color: var(--navy); }
 .act-title { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 8px; }
-.act-desc  { font-size: 13px; color: var(--muted); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.act-desc  { font-size: 13px; color: var(--muted); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty; }
 
 /* ═══════════════════════════════════════
    ② 編年記錄 — Accordion 區
@@ -224,6 +224,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
   .page-header { padding: 40px 20px 36px; }
+  .page-sub { max-width: 100%; }
   .key-section, .chron-section, .back-bar, .footer-cta { padding-left: 20px; padding-right: 20px; }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
   .key-grid { grid-template-columns: 1fr; }
