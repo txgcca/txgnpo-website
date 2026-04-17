@@ -264,7 +264,20 @@ nav{
 .cta-divider{align-self:stretch;}
 @media(max-width:640px){
   .cta-box{grid-template-columns:1fr;padding:22px 18px;gap:20px;}
-  .cta-divider{display:none;}
+  .cta-divider {
+    flex-direction: row;
+    padding: 0;
+    gap: 6px;
+    align-self: auto;
+  }
+  .cta-divider-line {
+    flex: 1;
+    width: auto;
+    height: 1px;
+  }
+  .cta-arrow svg {
+    transform: rotate(90deg);
+  }
 }
 .cta-step{display:flex;flex-direction:column;gap:4px;}
 .step-num{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
