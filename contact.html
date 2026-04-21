@@ -356,12 +356,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="card-title">想來試試、<br>有問題想問？</div>
         <div class="card-desc">第一次聽說我們、想了解週五自訓怎麼參加、或有任何個人問題，都歡迎直接寫信給我們。</div>
         <div class="email-preview">
-          <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val">txgcca@gmail.com</span></div>
+          <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val" data-field="email_general">txgcca@gmail.com</span></div>
           <div class="email-preview-row"><span class="ep-label">主旨</span><span class="ep-val">【個人詢問|官網】＿＿＿</span></div>
         </div>
       </div>
       <div class="card-footer">
-        <a class="card-btn btn-fill-orange"
+        <a class="card-btn btn-fill-orange" data-mailto="email_general" data-subject="%E3%80%90%E5%80%8B%E4%BA%BA%E8%A9%A2%E5%95%8F%7C%E5%AE%98%E7%B6%B2%E3%80%91"
            href="mailto:txgcca@gmail.com?subject=%E3%80%90%E5%80%8B%E4%BA%BA%E8%A9%A2%E5%95%8F%7C%E5%AE%98%E7%B6%B2%E3%80%91">
           開啟 Email 撰寫 <span class="btn-arrow">→</span>
         </a>
@@ -383,7 +383,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       </div>
       <div class="card-footer">
         <!-- Google Form URL 待填入 -->
-        <a class="card-btn btn-fill-navy" href="#" target="_blank">
+        <a class="card-btn btn-fill-navy" data-href="collab_form_url" href="#" target="_blank">
           填寫合作需求表單 <span class="btn-arrow">→</span>
         </a>
       </div>
@@ -398,12 +398,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="card-title">記者或媒體<br>想採訪我們？</div>
         <div class="card-desc">我們歡迎各類媒體深入報導台灣民間自訓運動，請來信說明媒體單位與採訪方向，我們盡快回覆。</div>
         <div class="email-preview">
-          <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val">txgcca@gmail.com</span></div>
+          <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val" data-field="email_media">txgcca@gmail.com</span></div>
           <div class="email-preview-row"><span class="ep-label">主旨</span><span class="ep-val">【媒體採訪】＿＿＿</span></div>
         </div>
       </div>
       <div class="card-footer">
-        <a class="card-btn btn-fill-orange"
+        <a class="card-btn btn-fill-orange" data-mailto="email_media" data-subject="%E3%80%90%E5%AA%92%E9%AB%94%E6%8E%A1%E8%A8%AA%E3%80%91"
            href="mailto:txgcca@gmail.com?subject=%E3%80%90%E5%AA%92%E9%AB%94%E6%8E%A1%E8%A8%AA%E3%80%91">
           開啟 Email 撰寫 <span class="btn-arrow">→</span>
         </a>
@@ -416,16 +416,16 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   <div class="social-section fade-in" style="transition-delay:.3s">
     <span class="social-label">也可以找我們</span>
     <div class="social-chips">
-      <a class="social-chip" href="#" target="_blank">
+      <a class="social-chip" data-href="url_facebook" href="#" target="_blank">
         <span class="chip-dot" style="background:#1877f2"></span>Facebook
       </a>
-      <a class="social-chip" href="#" target="_blank">
+      <a class="social-chip" data-href="url_threads" href="#" target="_blank">
         <span class="chip-dot" style="background:#000000"></span>Threads
       </a>
-      <a class="social-chip" href="#" target="_blank">
+      <a class="social-chip" data-href="url_linktree" href="#" target="_blank">
         <span class="chip-dot" style="background:#43e55e"></span>Linktree
       </a>
-      <a class="social-chip" href="#" target="_blank">
+      <a class="social-chip" data-href="url_plurk" href="#" target="_blank">
         <span class="chip-dot" style="background:#ff574d"></span>噗浪 Plurk
       </a>
     </div>
@@ -469,8 +469,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="fcta-title">下週五，我們在中央公園等你</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
   </div>
 </div>
 
@@ -481,52 +481,83 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="#" target="_blank">f</a>
-    <a class="social-btn" href="#" target="_blank">T</a>
-    <a class="social-btn" href="#" target="_blank">p</a>
+    <a class="social-btn" data-href="url_facebook" href="#" target="_blank">f</a>
+    <a class="social-btn" data-href="url_threads" href="#" target="_blank">T</a>
+    <a class="social-btn" data-href="url_plurk" href="#" target="_blank">p</a>
   </div>
 </footer>
 
 <script>
-// ── Google Sheet CSV 欄位：category | catClass | question | answer | visible ──
-// 上線後 fetch CSV，visible=FALSE 的列自動過濾不顯示
+// ── CSV 根網址 ──
+const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
 
-const MOCK_DATA = [
-  {
-    cat: "參加方式", catClass: "cat-join",
-    q: "我完全沒有急救或防災背景，可以直接來嗎？",
-    a: "完全可以。我們大部分的成員在加入之前都是零基礎，現場會有有經驗的夥伴帶著你一起練習。建議先來體驗一次週五常態自訓，實際感受一下氛圍再決定要不要繼續。"
-  },
-  {
-    cat: "參加方式", catClass: "cat-join",
-    q: "年齡有限制嗎？未成年可以參加嗎？",
-    a: "原則上以成年人（18歲以上）為主。18歲以下須由家長陪同並事先來信告知。如有疑問歡迎直接聯繫我們。"
-  },
-  {
-    cat: "參加方式", catClass: "cat-join",
-    q: "如何成為協會的正式會員？",
-    a: "正式入會並非直接申請，而是從參與週五常態自訓開始，雙方相互熟悉、活絡後，再視情況提出入會申請。費用細節請來信詢問。"
-  },
-  {
-    cat: "費用", catClass: "cat-cost",
-    q: "參加週五自訓需要費用嗎？",
-    a: "常態自訓目前完全免費。部分進階課程或特別工作坊會視情況收取材料費或講師費，屆時都會提前公告。"
-  },
-  {
-    cat: "技能訓練", catClass: "cat-skill",
-    q: "你們訓練哪些技能？",
-    a: "目前主要涵蓋：CPR 與 AED 操作、基礎止血包紮、創傷處理、災難現場評估與傷患分類（START Triage），以及基本的搜救概念。課程內容會隨社會需求和成員程度定期調整。"
-  },
-  {
-    cat: "關於組織", catClass: "cat-org",
-    q: "你們是政府單位嗎？跟官方防災體系有什麼關係？",
-    a: "我們不是政府單位。臺中市民團協會是 2024 年正式立案的民間社團法人，前身是 2023 年成立的台中自訓團，完全由民間自發推動，不隸屬任何政黨。目前本會已列入臺中市造冊的災防團體，隸屬臺中市消防第6分隊管轄，在官方防災體系中具備明確定位。"
-  }
-];
+function csvUrl(gid) {
+  return CSV_BASE.replace('GID', gid);
+}
 
+// ── 簡易 CSV 解析（支援引號包覆欄位）──
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  return lines.map(line => {
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur.trim());
+    return cols;
+  });
+}
+
+// ── 從 key-value sheet 建立欄位物件 ──
+// 格式：col0=欄位名稱, col2=值
+function parseKV(rows) {
+  const obj = {};
+  rows.forEach(row => {
+    const key = row[0];
+    const val = row[2];
+    if (key && val && key !== '欄位名稱') {
+      obj[key] = val;
+    }
+  });
+  return obj;
+}
+
+// ── 套用全站設定到 data-field / data-href 元素 ──
+function applyFields(data) {
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const key = el.dataset.field;
+    if (data[key]) el.textContent = data[key];
+  });
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const key = el.dataset.href;
+    if (data[key] && data[key] !== '#') el.href = data[key];
+  });
+  document.querySelectorAll('[data-mailto]').forEach(el => {
+    const key = el.dataset.mailto;
+    const subject = el.dataset.subject || '';
+    if (data[key]) {
+      el.href = 'mailto:' + data[key] + (subject ? '?subject=' + subject : '');
+      const display = el.querySelector('[data-field="' + key + '"]');
+      if (!display) {
+        const span = el.closest('.contact-card')?.querySelector('[data-field="' + key + '"]');
+        if (span) span.textContent = data[key];
+      }
+    }
+  });
+}
+
+// ── 渲染 FAQ ──
 function renderFAQ(items) {
   const list = document.getElementById('faqList');
   list.innerHTML = '';
+  if (!items.length) {
+    list.innerHTML = '<div style="padding:24px;color:var(--muted);font-size:13px;">目前暫無常見問題。</div>';
+    return;
+  }
   items.forEach((item, i) => {
     const el = document.createElement('div');
     el.className = 'faq-item fade-in';
@@ -552,6 +583,7 @@ function toggleFAQ(qEl) {
   if (!isOpen) item.classList.add('open');
 }
 
+// ── IntersectionObserver（fade-in 動畫）──
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); }
@@ -559,11 +591,52 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
-setTimeout(() => {
+// ── 主要 fetch 邏輯 ──
+Promise.all([
+  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
+  fetch(csvUrl('1224752276')).then(r => r.text()),   // 聯絡我們
+  fetch(csvUrl('100210601')).then(r => r.text())     // FAQ
+]).then(([siteCSV, contactCSV, faqCSV]) => {
+
+  // 全站設定
+  const siteData = parseKV(parseCSV(siteCSV));
+
+  // 聯絡我們
+  const contactData = parseKV(parseCSV(contactCSV));
+
+  // 合併兩個來源（聯絡我們欄位優先）
+  const allData = Object.assign({}, siteData, contactData);
+  applyFields(allData);
+
+  // FAQ
+  const faqRows = parseCSV(faqCSV);
+  // 第一列為欄位標題，找到 headers
+  const headers = faqRows[0];
+  const idxCat     = headers.indexOf('category');
+  const idxClass   = headers.indexOf('catClass');
+  const idxVisible = headers.indexOf('visible');
+  const idxQ       = headers.indexOf('question');
+  const idxA       = headers.indexOf('answer');
+
+  const faqItems = faqRows.slice(1)
+    .filter(row => row[idxVisible] && row[idxVisible].toUpperCase() === 'TRUE')
+    .map(row => ({
+      cat:      row[idxCat]   || '',
+      catClass: row[idxClass] || '',
+      q:        row[idxQ]     || '',
+      a:        row[idxA]     || ''
+    }))
+    .filter(item => item.q && item.a);
+
   const loading = document.getElementById('faqLoading');
   if (loading) loading.remove();
-  renderFAQ(MOCK_DATA);
-}, 600);
+  renderFAQ(faqItems);
+
+}).catch(err => {
+  console.error('CSV fetch 失敗:', err);
+  const loading = document.getElementById('faqLoading');
+  if (loading) loading.innerHTML = '<span style="color:var(--muted);font-size:13px;">⚠️ 無法載入常見問題，請重新整理頁面。</span>';
+});
 </script>
 
 <script>
