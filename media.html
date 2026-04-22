@@ -661,8 +661,8 @@ footer {
     <div class="fcta-title">下週五，我們在中央公園等你</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
   </div>
 </div>
 
@@ -673,217 +673,93 @@ footer {
     <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="#" target="_blank">f</a>
-    <a class="social-btn" href="#" target="_blank">T</a>
-    <a class="social-btn" href="#" target="_blank">p</a>
+    <a class="social-btn" data-href="url_facebook" href="#" target="_blank">f</a>
+    <a class="social-btn" data-href="url_threads" href="#" target="_blank">T</a>
+    <a class="social-btn" data-href="url_plurk" href="#" target="_blank">p</a>
   </div>
 </footer>
 
 <script>
-/* ================================================================
-   ★ 媒體報導資料區 ★
-   所有報導集中在這裡管理，版型程式碼在下方，請勿修改。
+const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
 
-   【欄位說明】共 13 欄
-
-   id             : 唯一識別碼，流水號格式，例如 "media-001"
-   date           : 報導年月，格式 "YYYY-MM"，例如 "2025-03"
-                    → 系統自動排序（新到舊）並依年份分組顯示
-   outlet         : 媒體名稱，例如 "Al Jazeera"
-   country        : 國家或地區，例如 "澳洲"、"台灣"、"卡達／國際"
-   region         : 填 "international"（國際媒體）或 "domestic"（台灣媒體）
-                    → 自動決定條列區左側色條：
-                       international          → 橘紅
-                       domestic + type=video  → 青綠
-                       domestic + type=text   → 深藍
-   title          : 報導大標題
-   excerpt        : 條列區短描述（1–2 句），精選卡無 featured_desc 時也沿用此欄
-   featured_desc  : 精選卡專屬導讀（較長），非精選或不需要額外說明時留空 ""
-   type           : 填 "video"（影片）或 "text"（文字報導）
-   link           : 報導原始網址，點擊後開新分頁
-   youtubeId      : 影片類才填，YouTube 影片 ID（網址 ?v= 後面那串）
-                    文字報導請填 ""
-   featured       : true  → 進入精選報導區（最多同時 3 筆 featured=true）
-                    false → 只出現在完整條列區
-   featured_order : 精選卡排序，1 = 左側主卡，2 = 右側上卡，3 = 右側下卡
-                    非精選筆數請填 0
-
-   【新增報導 SOP】
-   1. 在下方陣列最前面新增一個 {} 物件（最新的排最前面）
-   2. id 流水號接續最大號 +1
-   3. 如要替換精選，把舊精選的 featured 改為 false、featured_order 改為 0
-      再把新筆數的 featured 改為 true、設定 featured_order 1/2/3
-   4. 存檔，重新整理網頁即可
-   ================================================================ */
-
-const REPORTS = [
-
-  /* ---------- 2025 ---------- */
-  {
-    id:             "media-001",
-    date:           "2025-03",
-    outlet:         "AU SBS Dateline",
-    country:        "澳洲",
-    region:         "international",
-    title:          "Taiwan's civilian army preparing for the worst",
-    excerpt:        "澳洲 SBS 新聞深入台灣，記錄民間自發防災訓練現況。",
-    featured_desc:  "",
-    type:           "video",
-    link:           "https://www.sbs.com.au/news/dateline/",
-    youtubeId:      "",
-    featured:       false,
-    featured_order: 0
-  },
-
-  /* ---------- 2024 ---------- */
-  {
-    id:             "media-003",
-    date:           "2024-06",
-    outlet:         "UK Channel 4",
-    country:        "英國",
-    region:         "international",
-    title:          "The Taiwanese civilians learning to fight",
-    excerpt:        "英國第四頻道實地採訪台中訓練現場。",
-    featured_desc:  "",
-    type:           "video",
-    link:           "https://www.channel4.com/",
-    youtubeId:      "dQw4w9WgXcQ",
-    featured:       true,
-    featured_order: 2
-  },
-  {
-    id:             "media-004",
-    date:           "2024-05",
-    outlet:         "Al Jazeera",
-    country:        "卡達／國際",
-    region:         "international",
-    title:          "Taiwan civilians train for war as China tensions rise",
-    excerpt:        "半島電視台深度報導台灣公民自訓運動。",
-    featured_desc:  "半島電視台深入採訪台中民間自訓社群，報導台灣公民如何在週五夜間的公園裡，自發練習急救與戰時應對技能。",
-    type:           "video",
-    link:           "https://www.aljazeera.com/",
-    youtubeId:      "dQw4w9WgXcQ",
-    featured:       true,
-    featured_order: 1
-  },
-  {
-    id:             "media-005",
-    date:           "2024-04",
-    outlet:         "沃草 Watchout",
-    country:        "台灣",
-    region:         "domestic",
-    title:          "公民自組防災訓練，台中這群人每週五不缺席",
-    excerpt:        "沃草公民媒體深度採訪訓練現場與核心成員。",
-    featured_desc:  "",
-    type:           "text",
-    link:           "https://watchout.tw/",
-    youtubeId:      "",
-    featured:       false,
-    featured_order: 0
-  },
-  {
-    id:             "media-006",
-    date:           "2024-01",
-    outlet:         "報導者 The Reporter",
-    country:        "台灣",
-    region:         "domestic",
-    title:          "下班後的社區守護者：台中這群市民每週五都在練什麼？",
-    excerpt:        "深度長文報導，民團創立背景與成員故事。",
-    featured_desc:  "深度文字報導，記錄民團從零開始、到累積數百人次參與的完整歷程。",
-    type:           "text",
-    link:           "https://www.twreporter.org/",
-    youtubeId:      "",
-    featured:       true,
-    featured_order: 3
-  },
-
-  /* ---------- 2023 ---------- */
-  {
-    id:             "media-007",
-    date:           "2023-12",
-    outlet:         "自由時報",
-    country:        "台灣",
-    region:         "domestic",
-    title:          "台中市民自組防災訓練團，每週五晚練習急救包紮",
-    excerpt:        "成立半年後首度獲主流媒體報導。",
-    featured_desc:  "",
-    type:           "text",
-    link:           "https://www.ltn.com.tw/",
-    youtubeId:      "",
-    featured:       false,
-    featured_order: 0
-  },
-  {
-    id:             "media-008",
-    date:           "2023-10",
-    outlet:         "民視新聞",
-    country:        "台灣",
-    region:         "domestic",
-    title:          "苗栗通霄演訓直擊，民間防災意識抬頭",
-    excerpt:        "首次大型演訓獲電視媒體現場採訪。",
-    featured_desc:  "",
-    type:           "video",
-    link:           "https://www.ftvnews.com.tw/",
-    youtubeId:      "",
-    featured:       false,
-    featured_order: 0
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i+1];
+    if (inQ) {
+      if (ch === '"' && next === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { cur += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(cur.trim()); cur = ''; }
+      else if (ch === '\r' && next === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; i++; }
+      else if (ch === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; }
+      else { cur += ch; }
+    }
   }
+  if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
+  return rows.filter(r => r.some(c => c));
+}
 
-];
+function parseKV(rows) {
+  const obj = {};
+  rows.forEach(row => {
+    if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
+  });
+  return obj;
+}
 
-/* ================================================================
-   以下為版型程式碼，請勿修改
-   ================================================================ */
+function parseRows(rows) {
+  const headers = rows[0];
+  return rows.slice(1)
+    .filter(row => row[0] && /^[a-z]+-\d+/.test(row[0]))
+    .map(row => {
+      const obj = {};
+      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+      return obj;
+    });
+}
+
+function applyFields(data) {
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const key = el.dataset.href;
+    if (data[key] && data[key] !== '#') el.href = data[key];
+  });
+}
 
 /* ── 工具函式 ── */
 function accentClass(item) {
   if (item.region === 'international') return 'accent-orange';
   return item.type === 'video' ? 'accent-teal' : 'accent-navy';
 }
-
 function formatDateDisplay(dateStr) {
-  // "2024-05" → "2024.05"
-  return dateStr.replace('-', '.');
+  return (dateStr || '').replace('-', '.');
 }
-
 function formatDateFeatured(dateStr) {
-  // "2024-05" → "2024 年 5 月"
-  const [y, m] = dateStr.split('-');
-  return `${y} 年 ${parseInt(m)} 月`;
+  const [y, m] = (dateStr || '').split('-');
+  return y && m ? `${y} 年 ${parseInt(m)} 月` : dateStr;
 }
 
 /* ── 精選報導區 ── */
 function buildFeatCard(item, isMain, delay) {
   const isVideo = item.type === 'video';
   const isIntl  = item.region === 'international';
-
-  let badgeHtml;
-  if (isMain) {
-    badgeHtml = isIntl
-      ? `<div class="media-badge badge-intl">🌍 國際</div>`
-      : isVideo
-        ? `<div class="media-badge badge-video">▶ 影片</div>`
-        : `<div class="media-badge badge-text">📄 文字</div>`;
-  } else {
-    badgeHtml = isIntl
-      ? `<div class="media-badge badge-intl">🌍 國際</div>`
-      : isVideo
-        ? `<div class="media-badge badge-video">▶ 影片</div>`
-        : `<div class="media-badge badge-text">📄 文字</div>`;
-  }
-
+  const badgeHtml = isIntl
+    ? `<div class="media-badge badge-intl">🌍 國際</div>`
+    : isVideo
+      ? `<div class="media-badge badge-video">▶ 影片</div>`
+      : `<div class="media-badge badge-text">📄 文字</div>`;
   const videoHtml = isVideo && item.youtubeId
-    ? `<div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/${item.youtubeId}"
-          title="${item.outlet} 報導"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>` : '';
-
+    ? `<div class="video-wrap"><iframe src="https://www.youtube.com/embed/${item.youtubeId}"
+        title="${item.outlet} 報導"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe></div>` : '';
   const desc = item.featured_desc || item.excerpt;
   const descHtml = desc ? `<div class="feat-desc">${desc}</div>` : '';
   const linkText = isVideo ? '觀看報導 ↗' : '閱讀全文 ↗';
-
   return `
     <div class="feat-card ${isMain ? 'main-card' : ''} fade-in" style="transition-delay:${delay}s">
       ${videoHtml}
@@ -900,15 +776,6 @@ function buildFeatCard(item, isMain, delay) {
     </div>`;
 }
 
-const featured = REPORTS
-  .filter(r => r.featured)
-  .sort((a, b) => a.featured_order - b.featured_order);
-
-const grid = document.getElementById('featured-grid');
-featured.forEach((item, i) => {
-  grid.innerHTML += buildFeatCard(item, i === 0, i * 0.08);
-});
-
 /* ── 完整報導條列區 ── */
 function buildReportRow(item) {
   const isVideo  = item.type === 'video';
@@ -916,7 +783,6 @@ function buildReportRow(item) {
     ? `<span class="type-pill pill-video">▶ 影片</span>`
     : `<span class="type-pill pill-text">📄 文字</span>`;
   const linkText = isVideo ? '觀看 ↗' : '閱讀 ↗';
-
   return `
     <div class="report-row">
       <div class="row-accent ${accentClass(item)}"></div>
@@ -936,43 +802,47 @@ function buildReportRow(item) {
     </div>`;
 }
 
-// 排序：新到舊
-const sorted = [...REPORTS].sort((a, b) => b.date.localeCompare(a.date));
+function renderMedia(reports) {
+  // 精選報導
+  const featured = reports
+    .filter(r => r.featured === 'TRUE')
+    .sort((a, b) => Number(a.featured_order) - Number(b.featured_order));
+  const grid = document.getElementById('featured-grid');
+  grid.innerHTML = featured.map((item, i) => buildFeatCard(item, i === 0, i * 0.08)).join('');
 
-// 依年份分組
-const byYear = {};
-sorted.forEach(item => {
-  const year = item.date.split('-')[0];
-  if (!byYear[year]) byYear[year] = [];
-  byYear[year].push(item);
-});
-
-// 渲染
-const listEl = document.getElementById('reports-list');
-Object.keys(byYear).sort((a, b) => b - a).forEach((year, yi) => {
-  const rows = byYear[year].map(buildReportRow).join('');
-  listEl.innerHTML += `
+  // 完整列表：新到舊排序，依年份分組
+  const sorted = [...reports].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  const byYear = {};
+  sorted.forEach(item => {
+    const year = (item.date || '').split('-')[0];
+    if (year) { if (!byYear[year]) byYear[year] = []; byYear[year].push(item); }
+  });
+  const listEl = document.getElementById('reports-list');
+  listEl.innerHTML = Object.keys(byYear).sort((a, b) => b - a).map((year, yi) => `
     <div class="year-group fade-in" style="transition-delay:${yi * 0.05}s">
       <div class="year-label">
         <span class="year-num">${year}</span>
         <span class="year-line"></span>
       </div>
-      ${rows}
-    </div>`;
+      ${byYear[year].map(buildReportRow).join('')}
+    </div>`).join('');
+
+  // 動畫觀察
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+}
+
+Promise.all([
+  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
+  fetch(csvUrl('1793841217')).then(r => r.text()),  // 媒體報導
+]).then(([siteCSV, mediaCSV]) => {
+  applyFields(parseKV(parseCSV(siteCSV)));
+  renderMedia(parseRows(parseCSV(mediaCSV)));
+}).catch(err => {
+  console.error('CSV fetch 失敗:', err);
 });
-
-// 總筆數
-
-/* ── Intersection Observer（淡入動畫） ── */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('show');
-      io.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 </script>
 
 <script>
