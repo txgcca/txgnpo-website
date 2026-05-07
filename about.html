@@ -657,12 +657,7 @@ function parseKV(rows) {
 }
 
 function parseRowsBy(rows) {
-  const headers = rows[0];
-  return rows.slice(1).map(row => {
-    const obj = {};
-    headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
-    return obj;
-  }).filter(r => /^\d{4}/.test(r.date || ''));
+  return rows.filter(r => /^\d{4}/.test(r.date || ''));
 }
 
 function applyFields(cfg) {
