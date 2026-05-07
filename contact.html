@@ -548,6 +548,8 @@ function applyFields(data) {
       }
     }
   });
+  const reg = document.querySelector('.footer-reg');
+  if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
 // ── 渲染 FAQ ──

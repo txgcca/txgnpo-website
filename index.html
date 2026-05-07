@@ -942,6 +942,8 @@ function applyFields(data) {
     const val = data[el.dataset.dot];
     if (val) el.style.background = val;
   });
+  const reg = document.querySelector('.footer-reg');
+  if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
 const DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };

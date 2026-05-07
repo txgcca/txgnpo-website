@@ -441,6 +441,8 @@ function applyFields(data) {
     const key = el.dataset.href;
     if (data[key] && data[key] !== '#') el.href = data[key];
   });
+  const reg = document.querySelector('.footer-reg');
+  if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
 const PLATFORM_STYLE = {

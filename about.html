@@ -682,6 +682,8 @@ function applyFields(cfg) {
     const ph = el.querySelector('.photo-ph');
     if (ph) ph.style.display = 'none';
   });
+  const reg = document.querySelector('.footer-reg');
+  if (reg && cfg.org_reg_1) reg.textContent = cfg.org_reg_1 + (cfg.org_reg_2 ? ' ｜ ' + cfg.org_reg_2 : '');
 }
 
 const DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
