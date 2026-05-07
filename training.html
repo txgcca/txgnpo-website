@@ -250,6 +250,28 @@ nav{
 }
 .btn-subscribe:hover{background:var(--teal-d);color:var(--white);}
 .btn-subscribe svg{width:13px;height:13px;}
+.subscribe-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-subscribe-ghost {
+  background: transparent;
+  border: 1.5px solid #2CD5C4;
+  color: #2CD5C4;
+}
+.btn-subscribe-ghost:hover {
+  background: rgba(44,213,196,0.1);
+}
+@media (max-width: 480px) {
+  .subscribe-btns {
+    flex-direction: column;
+  }
+  .subscribe-btns .btn-subscribe {
+    width: 100%;
+    justify-content: center;
+  }
+}
 
 /* ══ CTA 區（單按鈕）══════════════════════ */
 .cta-box{
@@ -606,10 +628,16 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
       <div class="subscribe-row">
         <p data-field="calendar_subscribe_text">加入行事曆，即時接收自訓異動與取消通知</p>
-        <a href="#" data-href="calendar_subscribe_url" class="btn-subscribe">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-          訂閱 Google Calendar
-        </a>
+        <div class="subscribe-btns">
+          <a href="#" data-href="calendar_google_url" class="btn-subscribe btn-subscribe-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            加入 Google Calendar
+          </a>
+          <a href="#" data-href="calendar_subscribe_url" class="btn-subscribe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            訂閱行事曆
+          </a>
+        </div>
       </div>
     </div>
 
