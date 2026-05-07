@@ -268,117 +268,14 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 ════════════════════════════════════════════════════════════ -->
 
 <script>
-
-/* ══ 頁面文字 ══════════════════════════════════════════════════ */
 const PAGE_INFO = {
-  page_title:     "過往活動",
-  page_subtitle:  "從 2023 年的自主訓練小群體，到獲得政府立案的社團法人，每一場活動都是我們推廣民防自救理念的足跡。",
-  section_key:    "關鍵記事",
-  section_chron:  "完整編年記錄",
-  back_text:      "返回「關於我們」",
-  back_url:       "about.html",
+  page_title:    "過往活動",
+  page_subtitle: "從 2023 年的自主訓練小群體，到獲得政府立案的社團法人，每一場活動都是我們推廣民防自救理念的足跡。",
+  section_key:   "關鍵記事",
+  section_chron: "完整編年記錄",
+  back_text:     "返回「關於我們」",
+  back_url:      "about.html",
 };
-
-/* ══ 全站共用（來自主控表單，所有子頁一致）══════════════════════
-   對應主控表單欄位：
-     cta_join_label     → 橘色條帶主按鈕文字
-     url_cta_join       → 橘色條帶主按鈕連結
-     cta_calendar_label → 橘色條帶次按鈕文字
-     url_cta_calendar   → 橘色條帶次按鈕連結
-   ★ 這裡的值請與主控表單保持同步，勿單獨修改
-══════════════════════════════════════════════════════════════ */
-const SITE_CONFIG = {
-  cta_join_label:     "報名週五自訓",
-  url_cta_join:       "training.html#self-training",
-  cta_calendar_label: "訂閱行事曆",
-  url_cta_calendar:   "#",
-};
-
-/* ══ ① 關鍵記事 ══════════════════════════════════════════════ */
-const KEY_EVENTS = [
-  {
-    date:        "2023 年 7 月",
-    title:       "台中自訓團成立",
-    description: "一群來自各行各業、有共同理念的市民自發組成，每週五開始常態自訓，專注體能與急救技能。",
-    badge:       "起點",
-    badge_color: "teal",
-    image_url:   "https://placehold.co/640x360/003764/2CD5C4?text=2023.07+成立"
-  },
-  {
-    date:        "2023 年 10 月",
-    title:       "苗栗通霄海灘演訓",
-    description: "民團自辦戰時民防演訓，模擬空襲與急救後送情境，為期兩天一夜，高強度實戰化訓練。",
-    badge:       "特別演訓",
-    badge_color: "orange",
-    image_url:   "https://placehold.co/640x360/1a3d5c/FF6921?text=2023.10+海灘演訓"
-  },
-  {
-    date:        "2024 年 5 月",
-    title:       "Al Jazeera 國際媒體報導",
-    description: "台灣民防自訓運動獲半島電視台採訪報導，播出後受到國際廣泛關注，引發海外媒體詢問。",
-    badge:       "國際",
-    badge_color: "orange",
-    image_url:   "https://placehold.co/640x360/0a4a7c/ffffff?text=2024.05+AJE+報導"
-  },
-  {
-    date:        "2024 年 9 月",
-    title:       "正式立案社團法人",
-    description: "臺中市民團協會通過政府核備，取得社團法人資格，中市社團字第1130158795號，進入組織化運作。",
-    badge:       "里程碑",
-    badge_color: "teal",
-    image_url:   "https://placehold.co/640x360/002548/2CD5C4?text=2024.09+正式立案"
-  },
-  {
-    date:        "2024 年 11 月",
-    title:       "台中市民防聯合演練",
-    description: "協同台中市其他民間團體舉辦聯合演練，累計超過 80 名市民參與，強化跨組織應急協作。",
-    badge:       "聯合演練",
-    badge_color: "orange",
-    image_url:   "https://placehold.co/640x360/1a3d5c/ffffff?text=2024.11+聯合演練"
-  },
-  {
-    date:        "2025 年 3 月",
-    title:       "首屆會員大會暨理監事改選",
-    description: "第一屆會員大會順利召開，完成理監事改選，確立協會長期治理架構，凝聚組織共識。",
-    badge:       "里程碑",
-    badge_color: "teal",
-    image_url:   ""
-  },
-];
-
-/* ══ ② 編年記錄（完整流水帳）══════════════════════════════════
-   依 year 升序排列（舊→新），同年內依 sort 排列
-   JS 會自動依 year 分組，並以最新年份預設展開
-══════════════════════════════════════════════════════════════ */
-const CHRON_RECORDS = [
-  /* ── 2023 ── */
-  { year: 2023, date_display: "7 月",  title: "台中自訓團成立，開始週五常態自訓",       category: "里程碑" },
-  { year: 2023, date_display: "8 月",  title: "首次急救課程（基礎止血包紮）",           category: "課程"   },
-  { year: 2023, date_display: "9 月",  title: "防災演練：大里區震災情境模擬",           category: "演習"   },
-  { year: 2023, date_display: "10 月", title: "苗栗通霄海灘演訓（兩天一夜）",           category: "演習"   },
-  { year: 2023, date_display: "11 月", title: "消防署協同訓練：滅火器操作實習",         category: "訓練"   },
-  { year: 2023, date_display: "12 月", title: "年終成果回顧暨新成員招募說明會",         category: "對外合作" },
-
-  /* ── 2024 ── */
-  { year: 2024, date_display: "1 月",  title: "首次 TCCC 戰術創傷急救認證課程（30 名）", category: "課程"   },
-  { year: 2024, date_display: "2 月",  title: "夜間情境訓練：低光源搜救模擬",           category: "訓練"   },
-  { year: 2024, date_display: "3 月",  title: "社區防災說明會（南屯區）",               category: "對外合作" },
-  { year: 2024, date_display: "4 月",  title: "進階急救課程：骨折固定與後送技術",       category: "課程"   },
-  { year: 2024, date_display: "5 月",  title: "Al Jazeera 半島電視台採訪報導",         category: "媒體",  note: "國際媒體" },
-  { year: 2024, date_display: "6 月",  title: "跨縣市交流：桃園自訓社群來訪觀摩",       category: "對外合作" },
-  { year: 2024, date_display: "7 月",  title: "TRX 戰術體能課程（12 週計畫啟動）",     category: "訓練"   },
-  { year: 2024, date_display: "8 月",  title: "協會立案申請送件",                       category: "里程碑" },
-  { year: 2024, date_display: "9 月",  title: "正式取得社團法人資格，完成政府立案",     category: "里程碑", note: "中市社團字第1130158795號" },
-  { year: 2024, date_display: "10 月", title: "台中電視台專題採訪播出",                 category: "媒體"   },
-  { year: 2024, date_display: "11 月", title: "台中市民防聯合演練（8 組織、80+ 人）",   category: "演習"   },
-  { year: 2024, date_display: "12 月", title: "年度訓練回顧暨第 1 屆會員大會籌備",     category: "里程碑" },
-
-  /* ── 2025 ── */
-  { year: 2025, date_display: "1 月",  title: "2025 訓練計畫公告，開放第一季報名",     category: "訓練"   },
-  { year: 2025, date_display: "2 月",  title: "海外媒體跟拍（英語系記者）",             category: "媒體"   },
-  { year: 2025, date_display: "3 月",  title: "首屆會員大會暨理監事改選",               category: "里程碑" },
-];
-
 </script>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -470,9 +367,9 @@ const CHRON_RECORDS = [
     <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="#" target="_blank">f</a>
-    <a class="social-btn" href="#" target="_blank">T</a>
-    <a class="social-btn" href="#" target="_blank">p</a>
+    <a class="social-btn" data-href="url_facebook" href="#" target="_blank">f</a>
+    <a class="social-btn" data-href="url_threads" href="#" target="_blank">T</a>
+    <a class="social-btn" data-href="url_plurk" href="#" target="_blank">p</a>
   </div>
 </footer>
 
@@ -656,49 +553,89 @@ const fadeIo = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => fadeIo.observe(el));
 
+/* ── CSV 工具 ── */
+const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i+1];
+    if (inQ) {
+      if (ch === '"' && next === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { cur += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(cur.trim()); cur = ''; }
+      else if (ch === '\r' && next === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; i++; }
+      else if (ch === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; }
+      else { cur += ch; }
+    }
+  }
+  if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
+  return rows.filter(r => r.some(c => c));
+}
+
+function parseKV(rows) {
+  const obj = {};
+  rows.forEach(row => {
+    if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
+  });
+  return obj;
+}
+
+function parseRowsBy(rows, filterFn) {
+  const headers = rows[0];
+  return rows.slice(1)
+    .map(row => {
+      const obj = {};
+      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+      return obj;
+    })
+    .filter(filterFn);
+}
+
 /* ── 啟動 ── */
 renderPageInfo(PAGE_INFO);
-renderSiteConfig(SITE_CONFIG);
-renderKeyEvents(KEY_EVENTS);
-renderAccordion(CHRON_RECORDS);
-requestAnimationFrame(equalizeChronBadges);
 
-/*
-  ══ 上線版：改從兩張 Google Sheet CSV 抓資料 ══════════════════
+Promise.all([
+  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
+  fetch(csvUrl('1523016997')).then(r => r.text()),  // 大事記
+  fetch(csvUrl('1168080937')).then(r => r.text()),  // 完整活動紀錄
+]).then(([siteCSV, keyCSV, chronCSV]) => {
 
-  async function loadFromSheets() {
-    const KEY_CSV   = 'https://docs.google.com/spreadsheets/d/YOUR_ID/pub?gid=SHEET1_GID&output=csv';
-    const CHRON_CSV = 'https://docs.google.com/spreadsheets/d/YOUR_ID/pub?gid=SHEET2_GID&output=csv';
+  // 全站設定
+  const siteData = parseKV(parseCSV(siteCSV));
+  renderSiteConfig({
+    cta_join_label:     siteData.cta_join_label     || '報名週五自訓',
+    url_cta_join:       siteData.url_cta_join        || '#',
+    cta_calendar_label: siteData.cta_calendar_label  || '訂閱行事曆',
+    url_cta_calendar:   siteData.url_cta_calendar    || '#',
+  });
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const val = siteData[el.dataset.href];
+    if (val && val !== '#') el.href = val;
+  });
 
-    function parseCSV(text) {
-      const [header, ...lines] = text.trim().split('\n');
-      const keys = header.split(',').map(k => k.trim().replace(/"/g,''));
-      return lines.map(line => {
-        const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,))/g) || [];
-        return Object.fromEntries(keys.map((k, i) => [k, (vals[i] || '').replace(/"/g,'').trim()]));
-      });
-    }
+  // 大事記（過往活動頁）
+  const keyEvents = parseRowsBy(parseCSV(keyCSV), r => r.show_on_past === '是').slice(0, 6);
+  renderKeyEvents(keyEvents);
 
-    const [keyData, chronData] = await Promise.all([
-      fetch(KEY_CSV).then(r => r.text()).then(parseCSV),
-      fetch(CHRON_CSV).then(r => r.text()).then(parseCSV),
-    ]);
+  // 完整活動紀錄
+  const chronRecords = parseRowsBy(parseCSV(chronCSV), r => /^\d{4}$/.test(r.year))
+    .map(r => ({ ...r, year: parseInt(r.year) }));
+  renderAccordion(chronRecords);
 
-    const keyFiltered = keyData
-      .filter(r => r.show_on_about === '是')
-      .slice(0, 6);
+  requestAnimationFrame(equalizeChronBadges);
 
-    const chronMapped = chronData.map(r => ({
-      ...r,
-      year: parseInt(r.year),
-    }));
-
-    renderKeyEvents(keyFiltered);
-    renderAccordion(chronMapped);
-  }
-
-  loadFromSheets();
-  ══════════════════════════════════════════════════════════ */
+}).catch(err => {
+  console.error('CSV fetch 失敗:', err);
+  renderSiteConfig({ cta_join_label:'報名週五自訓', url_cta_join:'#', cta_calendar_label:'訂閱行事曆', url_cta_calendar:'#' });
+  renderKeyEvents([]);
+  renderAccordion([]);
+});
 </script>
 
 <script>
