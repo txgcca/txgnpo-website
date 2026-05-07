@@ -716,7 +716,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <!-- hero_eyebrow -->
     <div class="hero-label">
       <span class="label-bar"></span>
-      臺中 · 民間防災 · 自主訓練
+      <span data-field="hero_eyebrow">臺中 · 民間防災 · 自主訓練</span>
     </div>
 
     <!-- hero_headline_1 / hero_headline_2_before / hero_headline_2_accent -->
@@ -735,24 +735,24 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     </div>
 
     <!-- hero_subheadline -->
-    <div class="hero-h2">但你不必獨自準備</div>
+    <div class="hero-h2" data-field="hero_subheadline">但你不必獨自準備</div>
 
     <!-- hero_body -->
-    <p class="hero-body">
+    <p class="hero-body" data-field="hero_body">
       台中在地的民間自訓社群，每週五晚上在中央公園，一起練急救、學防災、強化身心韌性。從 2023 年一群普通市民開始，持續讓更多台中人有能力保護自己和身邊的人。
     </p>
 
     <!-- hero_btn_primary / hero_btn_primary_link -->
     <!-- hero_btn_secondary / hero_btn_secondary_link -->
     <div class="hero-btns">
-      <a class="btn-orange" href="training.html">加入我們的訓練</a>
+      <a class="btn-orange" href="training.html" data-field="hero_btn_primary">加入我們的訓練</a>
     </div>
 
     <!-- hero_tag_1 / hero_tag_2 / hero_tag_3 -->
     <div class="hero-tags">
-      <div class="hero-tag"><span class="tag-dot"></span>每週五 19:30 — 台中中央公園</div>
-      <div class="hero-tag"><span class="tag-dot"></span>基礎急救 · 體能訓練 · 防災技能</div>
-      <div class="hero-tag"><span class="tag-dot"></span>無需背景，歡迎第一次體驗</div>
+      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_1">每週五 19:30 — 台中中央公園</span></div>
+      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_2">基礎急救 · 體能訓練 · 防災技能</span></div>
+      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_3">無需背景，歡迎第一次體驗</span></div>
     </div>
 
   </div>
@@ -779,19 +779,19 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <div class="stats-bar" id="about">
   <div class="stat-item">
     <div class="stat-num"><span class="counter" data-target="40">0</span><span class="stat-unit">+</span></div>
-    <div class="stat-label">舉辦活動場次</div>
+    <div class="stat-label" data-field="stat_1_label">舉辦活動場次</div>
   </div>
   <div class="stat-item">
     <div class="stat-num"><span class="counter" data-target="850">0</span><span class="stat-unit"> 人次</span></div>
-    <div class="stat-label">累積參與人次</div>
+    <div class="stat-label" data-field="stat_2_label">累積參與人次</div>
   </div>
   <div class="stat-item">
     <div class="stat-num"><span class="counter" data-target="104">0</span><span class="stat-unit"> 週</span></div>
-    <div class="stat-label">常態週五自訓</div>
+    <div class="stat-label" data-field="stat_3_label">常態週五自訓</div>
   </div>
   <div class="stat-item">
     <div class="stat-num"><span class="counter" data-target="8">0</span><span class="stat-unit"> 家</span></div>
-    <div class="stat-label">媒體採訪報導</div>
+    <div class="stat-label" data-field="stat_4_label">媒體採訪報導</div>
   </div>
 </div>
 
@@ -813,8 +813,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <section class="cta-section" id="cta">
   <div class="section-head">
     <div class="section-title">
-      <small>你想做什麼？</small>
-      找到你的入口
+      <small data-field="cta_section_label">你想做什麼？</small>
+      <span data-field="cta_section_title">找到你的入口</span>
     </div>
   </div>
   <div class="cta-grid">
@@ -822,35 +822,35 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="cta-card primary top-navy fade-in">
       <div class="card-num">01</div>
       <div class="card-icon icon-white">🏃</div>
-      <div class="card-title">想來試試看？<br>加入週五常態自訓</div>
-      <div class="card-desc">不需要任何背景，帶著好奇心來就好。每週五晚上，我們在台中中央公園一起練習急救包紮、體能訓練和防災技能。第一次參加可免費體驗。</div>
+      <div class="card-title" data-field="cta_1_title">想來試試看？<br>加入週五常態自訓</div>
+      <div class="card-desc" data-field="cta_1_desc">不需要任何背景，帶著好奇心來就好。每週五晚上，我們在台中中央公園一起練習急救包紮、體能訓練和防災技能。</div>
       <div class="card-meta">
         <span class="m-dot"></span>每週五 19:30–21:30
         <span class="m-dot"></span>台中中央公園
       </div>
-      <a class="card-link link-o-light" href="training.html#self-training">報名體驗 →</a>
+      <a class="card-link link-o-light" href="training.html#self-training"><span data-field="cta_1_btn">報名體驗</span> →</a>
     </div>
 
     <div class="cta-card top-orange fade-in" style="transition-delay:.1s">
       <div class="card-num">02</div>
       <div class="card-icon icon-orange">📋</div>
-      <div class="card-title">想深入學習？<br>報名主題課程</div>
-      <div class="card-desc">BLS 急救認證、野外韌性野營、毛孩防災工作坊等主題課程，由專業講師帶領，有結業證書。</div>
+      <div class="card-title" data-field="cta_2_title">想深入學習？<br>報名主題課程</div>
+      <div class="card-desc" data-field="cta_2_desc">BLS 急救認證、野外韌性野營、毛孩防災工作坊等主題課程，由專業講師帶領，有結業證書。</div>
       <div class="card-meta">
         <span class="m-dot" style="background:var(--orange)"></span>近期開課：BLS 8/23、野營 9/20
       </div>
-      <a class="card-link link-orange" href="training.html#courses">活動查詢 →</a>
+      <a class="card-link link-orange" href="training.html#courses"><span data-field="cta_2_btn">活動查詢</span> →</a>
     </div>
 
     <div class="cta-card top-teal fade-in" style="transition-delay:.2s">
       <div class="card-num">03</div>
       <div class="card-icon icon-teal">🤝</div>
-      <div class="card-title">想合作或採訪？<br>聯絡我們</div>
-      <div class="card-desc">歡迎企業、學校、社區、媒體洽談合作，一起把防災教育推廣到更多台中在地社群。</div>
+      <div class="card-title" data-field="cta_3_title">想合作或採訪？<br>聯絡我們</div>
+      <div class="card-desc" data-field="cta_3_desc">歡迎企業、學校、社區、媒體洽談合作，一起把防災教育推廣到更多台中在地社群。</div>
       <div class="card-meta">
         <span class="m-dot" style="background:var(--teal)"></span>合作邀約 · 媒體採訪 · 個人諮詢
       </div>
-      <a class="card-link link-teal" href="contact.html">聯絡我們 →</a>
+      <a class="card-link link-teal" href="contact.html"><span data-field="cta_3_btn">聯絡我們</span> →</a>
     </div>
 
   </div>
@@ -866,30 +866,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <a class="tl-more" href="past-activities.html">完整大事紀 →</a>
   </div>
   <div class="tl-scroll" id="tl-scroll">
-    <div class="tl-item fade-in">
-      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--teal)"></div><span class="tl-date">2023 年 7 月</span></div>
-      <div class="tl-item-title">台中自訓團成立</div>
-      <div class="tl-item-desc">從一群有共同理念的市民自發組成，每週五開始常態自訓。</div>
-      <span class="tl-badge" style="background:rgba(44,213,196,.15);color:var(--teal-d)">起點</span>
-    </div>
-    <div class="tl-item fade-in" style="transition-delay:.05s">
-      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--orange)"></div><span class="tl-date">2023 年 10 月</span></div>
-      <div class="tl-item-title">苗栗通霄海灘演訓</div>
-      <div class="tl-item-desc">民團自辦戰時民防演訓，模擬空襲與急救後送情境。</div>
-      <span class="tl-badge" style="background:rgba(255,105,33,.15);color:var(--orange-d)">特別演訓</span>
-    </div>
-    <div class="tl-item fade-in" style="transition-delay:.1s">
-      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--orange)"></div><span class="tl-date">2024 年 5 月</span></div>
-      <div class="tl-item-title">Al Jazeera 國際報導</div>
-      <div class="tl-item-desc">台灣民防自訓運動獲半島電視台採訪，受到國際矚目。</div>
-      <span class="tl-badge" style="background:rgba(255,105,33,.15);color:var(--orange-d)">國際</span>
-    </div>
-    <div class="tl-item fade-in" style="transition-delay:.15s">
-      <div class="tl-dot-row"><div class="tl-dot" style="background:var(--teal)"></div><span class="tl-date">2024 年 9 月</span></div>
-      <div class="tl-item-title">正式立案社團法人</div>
-      <div class="tl-item-desc">臺中市民團協會通過政府核備，進入組織化階段。</div>
-      <span class="tl-badge" style="background:rgba(44,213,196,.15);color:var(--teal-d)">里程碑</span>
-    </div>
+    <!-- 由 JS 從大事記 sheet 動態渲染 -->
   </div>
 </section>
 
@@ -900,8 +877,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="fcta-title">下週五，我們在中央公園等你</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
   </div>
 </div>
 
@@ -913,11 +890,107 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="[url_facebook]" target="_blank">f</a>
-    <a class="social-btn" href="[url_threads]"  target="_blank">T</a>
-    <a class="social-btn" href="[url_plurk]"    target="_blank">p</a>
+    <a class="social-btn" data-href="url_facebook" href="#" target="_blank">f</a>
+    <a class="social-btn" data-href="url_threads" href="#" target="_blank">T</a>
+    <a class="social-btn" data-href="url_plurk" href="#" target="_blank">p</a>
   </div>
 </footer>
+
+<script>
+const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i+1];
+    if (inQ) {
+      if (ch === '"' && next === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { cur += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(cur.trim()); cur = ''; }
+      else if (ch === '\r' && next === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; i++; }
+      else if (ch === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; }
+      else { cur += ch; }
+    }
+  }
+  if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
+  return rows.filter(r => r.some(c => c));
+}
+
+function parseKV(rows) {
+  const obj = {};
+  rows.forEach(row => {
+    if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
+  });
+  return obj;
+}
+
+function applyFields(data) {
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const val = data[el.dataset.field];
+    if (!val) return;
+    if (el.tagName === 'IMG') el.src = val;
+    else el.textContent = val;
+  });
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const val = data[el.dataset.href];
+    if (val && val !== '#') el.href = val;
+  });
+}
+
+const DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
+const BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal:'rgba(44,213,196,.15)' };
+const BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
+
+function renderTimeline(events) {
+  const wrap = document.getElementById('tl-scroll');
+  if (!wrap) return;
+  const items = events
+    .filter(r => r.show_on_home === '是')
+    .slice(0, 4);
+  wrap.innerHTML = items.map((e, i) => {
+    const color = e.badge_color || 'teal';
+    return `<div class="tl-item fade-in" style="transition-delay:${i*0.05}s">
+      <div class="tl-dot-row">
+        <div class="tl-dot" style="background:${DOT_COLOR[color]||'var(--teal)'}"></div>
+        <span class="tl-date">${e.date}</span>
+      </div>
+      <div class="tl-item-title">${e.title}</div>
+      <div class="tl-item-desc">${e.description}</div>
+      ${e.badge ? `<span class="tl-badge" style="background:${BADGE_BG[color]||BADGE_BG.teal};color:${BADGE_CLR[color]||BADGE_CLR.teal}">${e.badge}</span>` : ''}
+    </div>`;
+  }).join('');
+  wrap.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+}
+
+function parseKeyEvents(rows) {
+  const headers = rows[0];
+  return rows.slice(1)
+    .map(row => {
+      const obj = {};
+      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+      return obj;
+    })
+    .filter(r => /^\d{4}/.test(r.date || ''));
+}
+
+Promise.all([
+  fetch(csvUrl('0')).then(r => r.text()),
+  fetch(csvUrl('1480814273')).then(r => r.text()),
+  fetch(csvUrl('1523016997')).then(r => r.text()),
+]).then(([siteCSV, homeCSV, keyCSV]) => {
+  const siteData = parseKV(parseCSV(siteCSV));
+  const homeData = parseKV(parseCSV(homeCSV));
+  applyFields(Object.assign({}, siteData, homeData));
+  renderTimeline(parseKeyEvents(parseCSV(keyCSV)));
+}).catch(err => {
+  console.error('CSV fetch 失敗:', err);
+});
+</script>
 
 <script>
 /* 數字計數器 */
@@ -975,15 +1048,6 @@ backdrop.addEventListener('click', closeMenu);
 drawer.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', closeMenu);
 });
-
-/*
-  上線版大事紀：從「大事紀」Sheet CSV fetch，只顯示 show_on_home = 是，最多 4 筆
-  const CSV_URL = '大事紀 Sheet 發布 CSV 網址';
-  fetch(CSV_URL).then(r => r.text()).then(csv => {
-    const rows = parseCSV(csv).filter(r => r.show_on_home === '是').slice(0, 4);
-    renderTimeline(rows);
-  });
-*/
 </script>
 </body>
 </html>
