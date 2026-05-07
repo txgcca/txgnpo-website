@@ -657,7 +657,12 @@ function parseKV(rows) {
 }
 
 function parseRowsBy(rows) {
-  return rows.filter(r => /[a-z]+-\d+/i.test(Object.values(r)[0] || ''));
+  const headers = rows[0];
+  return rows.slice(1).map(row => {
+    const obj = {};
+    headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+    return obj;
+  }).filter(r => /^\d{4}/.test(r.date || ''));
 }
 
 function applyFields(cfg) {
@@ -686,35 +691,26 @@ function applyFields(cfg) {
   });
 }
 
-const CAT_BG = {
-  '里程碑': '#003764', '演習': '#003764', '公益': '#003764',
-  '課程': '#FF6921', '推廣': '#FF6921', '訓練': '#FF6921', '對外合作': '#FF6921',
-  '媒體': '#2CD5C4'
-};
-const CAT_DOT = {
-  '里程碑': '#003764', '演習': '#003764', '公益': '#003764',
-  '課程': '#FF6921', '推廣': '#FF6921', '訓練': '#FF6921', '對外合作': '#FF6921',
-  '媒體': '#2CD5C4'
-};
+const DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
+const BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal:'rgba(44,213,196,.15)' };
+const BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
 
 function renderTimeline(events) {
   const items = events.filter(e => e.show_on_about === '是').slice(0, 6);
   const wrap = document.getElementById('tl-scroll');
   if (!wrap) return;
-  wrap.innerHTML = items.map(e => {
-    const cat = e.category || '';
-    const dot = CAT_DOT[cat] || '#003764';
-    const bg  = CAT_BG[cat]  || '#003764';
+  wrap.innerHTML = items.length ? items.map(e => {
+    const color = e.badge_color || 'teal';
     return `<div class="tl-item">
       <div class="tl-dot-row">
-        <div class="tl-dot" style="background:${dot}"></div>
-        <div class="tl-date">${e.date || ''}</div>
+        <div class="tl-dot" style="background:${DOT_COLOR[color] || 'var(--teal)'}"></div>
+        <span class="tl-date">${e.date}</span>
       </div>
-      <div class="tl-item-title">${e.title || ''}</div>
-      <div class="tl-item-desc">${e.desc || ''}</div>
-      ${cat ? `<span class="tl-badge" style="background:${bg};color:#fff;">${cat}</span>` : ''}
+      <div class="tl-item-title">${e.title}</div>
+      <div class="tl-item-desc">${e.description}</div>
+      ${e.badge ? `<span class="tl-badge" style="background:${BADGE_BG[color]||BADGE_BG.teal};color:${BADGE_CLR[color]||BADGE_CLR.teal}">${e.badge}</span>` : ''}
     </div>`;
-  }).join('');
+  }).join('') : '';
 }
 
 Promise.all([
