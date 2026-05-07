@@ -510,7 +510,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <span class="bc-current">自訓與課程活動</span>
   </div>
   <h1 class="page-h1">自訓與課程活動</h1>
-  <p class="page-sub">週五常態自訓 · 主題課程 · 特別活動報名</p>
+  <p class="page-sub" data-field="hero_sub">週五常態自訓 · 主題課程 · 特別活動報名</p>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -520,7 +520,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <div class="page-wrap" id="self-training">
 
   <div class="section-header">
-    <h2 class="section-title">週五常態自訓</h2>
+    <h2 class="section-title" data-field="s1_title">週五常態自訓</h2>
   </div>
 
   <!-- 左右欄 -->
@@ -536,12 +536,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="record-img-badge">活動現場照片</div>
       </div>
       <div class="record-body">
-        <h3>週五常態自訓——EVAC 緊急撤離演練</h3>
-        <p>每週五 19:30—21:30，於台中中央公園集合。內容涵蓋情境評估、傷患搬運、團隊協作等應急技能，適合所有民眾參與，無需特殊裝備。</p>
+        <h3 data-field="training_record_title">週五常態自訓——EVAC 緊急撤離演練</h3>
+        <p data-field="training_record_body">每週五 19:30—21:30，於台中中央公園集合。內容涵蓋情境評估、傷患搬運、團隊協作等應急技能，適合所有民眾參與，無需特殊裝備。</p>
         <div class="record-tags">
-          <span class="rtag navy">📍 台中中央公園</span>
-          <span class="rtag teal">🕕 週五 19:30–21:30</span>
-          <span class="rtag orange">免費體驗</span>
+          <span class="rtag navy" data-field="training_location_city">📍 台中中央公園</span>
+          <span class="rtag teal" data-field="training_time">🕕 週五 19:30–21:30</span>
+          <span class="rtag orange" data-field="training_tag_label">新手友善</span>
         </div>
       </div>
       <div class="record-sub-imgs">
@@ -605,8 +605,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       </div>
 
       <div class="subscribe-row">
-        <p>加入行事曆，即時接收自訓異動與取消通知</p>
-        <a href="#" class="btn-subscribe">
+        <p data-field="calendar_subscribe_text">加入行事曆，即時接收自訓異動與取消通知</p>
+        <a href="#" data-href="calendar_subscribe_url" class="btn-subscribe">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
           訂閱 Google Calendar
         </a>
@@ -623,11 +623,11 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="step-circle s1">1</div>
         <span class="step-label">Step One</span>
       </div>
-      <div class="step-title">填寫體驗表單</div>
-      <p class="step-desc">初次參與請先填寫基本資料，讓我們更了解你的背景，確保活動順利進行。</p>
-      <a href="YOUR_GOOGLE_FORM_URL" target="_blank" class="btn-primary">
+      <div class="step-title" data-field="cta_step1_title">填寫體驗表單</div>
+      <p class="step-desc" data-field="cta_step1_desc">初次參與請先填寫基本資料，讓我們更了解你的背景，確保活動順利進行。</p>
+      <a href="#" data-href="cta_step1_url" target="_blank" class="btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        填寫體驗表單
+        <span data-field="cta_step1_btn">填寫體驗表單</span>
       </a>
     </div>
 
@@ -645,8 +645,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="step-circle s2">2</div>
         <span class="step-label">Step Two</span>
       </div>
-      <div class="step-title">完成購票</div>
-      <p class="step-desc-only">填完表單後，我們會在表單結尾直接引導你前往應援科技平台完成本次購票繳費。票種含免費體驗票與正式會員票。</p>
+      <div class="step-title" data-field="cta_step2_title">完成購票</div>
+      <p class="step-desc-only" data-field="cta_step2_desc">填完表單後，我們會在表單引導你前往應援科技平台完成本次自訓活動繳費。</p>
       <div class="step-hint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
         表單填完後自動引導，不需另開連結
@@ -665,7 +665,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <div class="section2-inner">
 
   <div class="section2-header">
-    <h2 class="section2-title">主題課程與特別活動</h2>
+    <h2 class="section2-title" data-field="s2_title">主題課程與特別活動</h2>
   </div>
 
   <div class="browser-frame">
@@ -689,10 +689,10 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   </div>
 
   <div class="platform-cta">
-    <p class="platform-cta-note">特別課程不定期上架，前往平台查看最新資訊</p>
-    <a href="https://txgcca-org.oen.tw" target="_blank" class="btn-platform">
+    <p class="platform-cta-note" data-field="platform_cta_note">特別課程不定期上架，前往平台查看最新資訊</p>
+    <a href="https://txgcca-org.oen.tw" data-href="platform_cta_url" target="_blank" class="btn-platform">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      前往應援平台查看所有活動
+      <span data-field="platform_cta_btn">前往應援平台查看所有活動</span>
     </a>
     <div class="trust-row">
       <div class="trust-pill">
@@ -745,43 +745,112 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="#" target="_blank">f</a>
-    <a class="social-btn" href="#" target="_blank">T</a>
-    <a class="social-btn" href="#" target="_blank">p</a>
+    <a class="social-btn" data-href="url_facebook" href="#" target="_blank">f</a>
+    <a class="social-btn" data-href="url_threads" href="#" target="_blank">T</a>
+    <a class="social-btn" data-href="url_plurk" href="#" target="_blank">p</a>
   </div>
 </footer>
 
 <script>
-const SHEET_CSV_URL = 'YOUR_GOOGLE_SHEETS_CSV_URL_HERE';
+const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
 
-async function loadPastActivities() {
-  if (!SHEET_CSV_URL || SHEET_CSV_URL.startsWith('YOUR_')) return; // mockup 模式跳過
-
-  const grid = document.getElementById('past-activities-grid');
-  grid.innerHTML = '<div class="cards-loading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>載入中…</div>';
-
-  try {
-    const res  = await fetch(SHEET_CSV_URL);
-    const text = await res.text();
-    const rows = text.trim().split('\n').slice(1); // 跳過表頭
-    const visible = rows
-      .map(r => r.split(','))
-      .filter(cols => cols[2]?.trim().toUpperCase() === 'Y');
-
-    if (!visible.length) { grid.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:12px;">目前無已標記顯示的活動紀錄。</p>'; return; }
-
-    grid.innerHTML = visible.map((cols, i) => `
-      <div class="past-card">
-        <div class="past-card-num">${String(i+1).padStart(2,'0')}</div>
-        <div class="past-card-name">${cols[0]?.replace(/"/g,'').trim()}</div>
-        <div class="past-card-date">${cols[1]?.replace(/"/g,'').trim()}</div>
-      </div>`).join('');
-  } catch(e) {
-    grid.innerHTML = '<p style="color:rgba(255,105,33,.6);font-size:12px;">資料載入失敗，請稍後再試。</p>';
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i+1];
+    if (inQ) {
+      if (ch === '"' && next === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { cur += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(cur.trim()); cur = ''; }
+      else if (ch === '\r' && next === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; i++; }
+      else if (ch === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; }
+      else { cur += ch; }
+    }
   }
+  if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
+  return rows.filter(r => r.some(c => c));
 }
 
-loadPastActivities();
+function parseKV(rows) {
+  const obj = {};
+  rows.forEach(row => {
+    if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
+  });
+  return obj;
+}
+
+function parseRowsBy(rows, filterFn) {
+  const headers = rows[0];
+  return rows.slice(1)
+    .map(row => {
+      const obj = {};
+      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+      return obj;
+    })
+    .filter(filterFn);
+}
+
+function applyFields(data) {
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const val = data[el.dataset.field];
+    if (!val) return;
+    if (el.tagName === 'IMG') el.src = val;
+    else el.textContent = val;
+  });
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const val = data[el.dataset.href];
+    if (val && val !== '#') el.href = val;
+  });
+}
+
+function renderCalendar(calId) {
+  if (!calId || calId === '行事曆 ID') return;
+  const encId = encodeURIComponent(calId);
+  document.querySelector('.gcal-desktop').innerHTML =
+    `<iframe src="https://calendar.google.com/calendar/embed?src=${encId}&mode=WEEK&ctz=Asia%2FTaipei"
+      style="border:0" width="100%" height="360" frameborder="0" scrolling="no"></iframe>`;
+  document.querySelector('.gcal-mobile').innerHTML =
+    `<iframe src="https://calendar.google.com/calendar/embed?src=${encId}&mode=AGENDA&ctz=Asia%2FTaipei"
+      style="border:0" width="100%" height="320" frameborder="0" scrolling="no"></iframe>`;
+}
+
+function renderPastActivities(events) {
+  const grid = document.getElementById('past-activities-grid');
+  if (!events.length) {
+    grid.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:12px;">目前暫無過往活動紀錄。</p>';
+    return;
+  }
+  grid.innerHTML = events.map((e, i) => `
+    <div class="past-card">
+      <div class="past-card-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="past-card-name">${e.title}</div>
+      <div class="past-card-date">${e.date}</div>
+    </div>`).join('');
+}
+
+Promise.all([
+  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
+  fetch(csvUrl('2135537779')).then(r => r.text()),  // 自訓與課程活動
+  fetch(csvUrl('1523016997')).then(r => r.text()),  // 大事記
+]).then(([siteCSV, trainingCSV, keyCSV]) => {
+  const siteData     = parseKV(parseCSV(siteCSV));
+  const trainingData = parseKV(parseCSV(trainingCSV));
+  const allData      = Object.assign({}, siteData, trainingData);
+
+  applyFields(allData);
+  renderCalendar(allData.calendar_embed_id);
+
+  const pastEvents = parseRowsBy(parseCSV(keyCSV), r => r.show_on_training === '是');
+  renderPastActivities(pastEvents);
+
+}).catch(err => {
+  console.error('CSV fetch 失敗:', err);
+});
 </script>
 
 
