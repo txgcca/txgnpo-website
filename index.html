@@ -797,13 +797,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <div class="media-strip">
   <span class="media-label">媒體報導</span>
   <div class="media-sep"></div>
-  <div class="media-logos">
-    <a class="media-logo" href="https://www.aljazeera.com/" target="_blank"><div class="logo-dot" style="background:#c0392b"></div>Al Jazeera</a>
-    <a class="media-logo" href="https://www.channel4.com/" target="_blank"><div class="logo-dot" style="background:#1a1a1a"></div>UK Channel 4</a>
-    <a class="media-logo" href="https://www.sbs.com.au/news/dateline" target="_blank"><div class="logo-dot" style="background:#0066cc"></div>AU SBS Dateline</a>
-    <a class="media-logo" href="https://www.twreporter.org/" target="_blank"><div class="logo-dot" style="background:#003764"></div>報導者 The Reporter</a>
-    <a class="media-logo" href="https://news.ltn.com.tw/" target="_blank"><div class="logo-dot" style="background:#FF6921"></div>自由時報</a>
-    <a class="media-logo" href="https://watchout.tw/" target="_blank"><div class="logo-dot" style="background:#2CD5C4"></div>沃草 Watchout</a>
+  <div class="media-logos" id="media-logos">
+    <a class="media-logo" data-href="media_1_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_1_color" style="background:#c0392b"></div><span data-field="media_1_name">Al Jazeera</span></a>
+    <a class="media-logo" data-href="media_2_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_2_color" style="background:#1a1a1a"></div><span data-field="media_2_name">UK Channel 4</span></a>
+    <a class="media-logo" data-href="media_3_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_3_color" style="background:#0066cc"></div><span data-field="media_3_name">AU SBS Dateline</span></a>
+    <a class="media-logo" data-href="media_4_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_4_color" style="background:#003764"></div><span data-field="media_4_name">報導者 The Reporter</span></a>
+    <a class="media-logo" data-href="media_5_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_5_color" style="background:#FF6921"></div><span data-field="media_5_name">自由時報</span></a>
+    <a class="media-logo" data-href="media_6_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_6_color" style="background:#2CD5C4"></div><span data-field="media_6_name">沃草 Watchout</span></a>
   </div>
 </div>
 
@@ -937,6 +937,10 @@ function applyFields(data) {
   document.querySelectorAll('[data-href]').forEach(el => {
     const val = data[el.dataset.href];
     if (val && val !== '#') el.href = val;
+  });
+  document.querySelectorAll('[data-dot]').forEach(el => {
+    const val = data[el.dataset.dot];
+    if (val) el.style.background = val;
   });
 }
 
