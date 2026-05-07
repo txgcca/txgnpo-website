@@ -552,8 +552,8 @@ const CHARTER = [
     <div class="fcta-title">下週五，我們在中央公園等你</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" id="r-join" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" id="r-cal"  href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" id="r-join" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
+    <a class="fcta-btn-o" id="r-cal" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
   </div>
 </div>
 
@@ -561,12 +561,12 @@ const CHARTER = [
   <div>
     <div class="footer-brand">社團法人臺中市韌民協會</div>
     <div class="footer-brand-en">Taichung City Citizen Corps Association</div>
-    <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
+    <div class="footer-reg"><span data-field="org_reg_1">中市社團字第1130158795號</span> ｜ <span data-field="org_reg_2">113 法登 證社字第000117號</span></div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="#" target="_blank">f</a>
-    <a class="social-btn" href="#" target="_blank">T</a>
-    <a class="social-btn" href="#" target="_blank">p</a>
+    <a class="social-btn" data-href="url_facebook" href="#" target="_blank">f</a>
+    <a class="social-btn" data-href="url_threads" href="#" target="_blank">T</a>
+    <a class="social-btn" data-href="url_plurk" href="#" target="_blank">p</a>
   </div>
 </footer>
 
@@ -575,13 +575,78 @@ const CHARTER = [
    渲染引擎 — 請勿修改
    ════════════════════════════════════════ */
 
-/* 注入頁面基本資訊 */
-document.getElementById('r-kicker').textContent = PAGE_INFO.kicker;
-document.getElementById('r-title').textContent  = PAGE_INFO.pageTitle;
-document.getElementById('r-intro').innerHTML    = '<strong>' + PAGE_INFO.pageTitle + '</strong>' + PAGE_INFO.intro.replace(/^臺中市民團協會章程/, '');
-document.getElementById('r-back').href  = PAGE_INFO.backLink;
-document.getElementById('r-join').href  = PAGE_INFO.joinLink;
-document.getElementById('r-cal').href   = PAGE_INFO.calLink;
+/* ── CSV utilities ── */
+const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i+1];
+    if (inQ) {
+      if (ch === '"' && next === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { cur += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(cur.trim()); cur = ''; }
+      else if (ch === '\r' && next === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; i++; }
+      else if (ch === '\n') { row.push(cur.trim()); cur = ''; rows.push(row); row = []; }
+      else { cur += ch; }
+    }
+  }
+  if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
+  return rows.filter(r => r.some(c => c));
+}
+
+function parseKV(rows) {
+  const obj = {};
+  rows.forEach(row => {
+    if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
+  });
+  return obj;
+}
+
+function renderPageInfo() {
+  document.getElementById('r-kicker').textContent = PAGE_INFO.kicker;
+  document.getElementById('r-title').textContent  = PAGE_INFO.pageTitle;
+  document.getElementById('r-intro').innerHTML    = '<strong>' + PAGE_INFO.pageTitle + '</strong>' + PAGE_INFO.intro.replace(/^臺中市民團協會章程/, '');
+  document.getElementById('r-back').href  = PAGE_INFO.backLink;
+  document.getElementById('r-join').href  = PAGE_INFO.joinLink;
+  document.getElementById('r-cal').href   = PAGE_INFO.calLink;
+}
+
+Promise.all([
+  fetch(csvUrl('0')).then(r => r.text()),        // 全站設定
+  fetch(csvUrl('95921268')).then(r => r.text()), // charter_page info
+]).then(([siteCSV, charterCSV]) => {
+  const siteData    = parseKV(parseCSV(siteCSV));
+  const charterData = parseKV(parseCSV(charterCSV));
+
+  // 用 sheet 值覆蓋 PAGE_INFO
+  if (charterData.kicker)    PAGE_INFO.kicker    = charterData.kicker;
+  if (charterData.pageTitle) PAGE_INFO.pageTitle = charterData.pageTitle;
+  if (charterData.intro)     PAGE_INFO.intro     = charterData.intro;
+  if (charterData.backLink)  PAGE_INFO.backLink  = charterData.backLink;
+  if (siteData.url_cta_join)      PAGE_INFO.joinLink = siteData.url_cta_join;
+  if (siteData.url_cta_calendar)  PAGE_INFO.calLink  = siteData.url_cta_calendar;
+
+  renderPageInfo();
+
+  // 登記字號 + 社群連結
+  document.querySelectorAll('[data-field]').forEach(el => {
+    if (siteData[el.dataset.field]) el.textContent = siteData[el.dataset.field];
+  });
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const val = siteData[el.dataset.href];
+    if (val && val !== '#') el.href = val;
+  });
+
+}).catch(err => {
+  console.error('CSV fetch 失敗:', err);
+  renderPageInfo(); // fetch 失敗時仍用 PAGE_INFO 預設值渲染
+});
 
 /* 渲染章節與法條 */
 const container = document.getElementById('r-chapters');
