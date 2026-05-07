@@ -436,8 +436,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <span class="bc-sep">›</span>
     <span class="bc-current">關於臺中民團</span>
   </div>
-  <h1 class="page-h1">關於臺中民團</h1>
-  <p class="page-sub">臺中在地民間防災團體，推廣自救互救、培訓韌性公民。</p>
+  <h1 class="page-h1" data-field="page_title">關於臺中民團</h1>
+  <p class="page-sub" data-field="hero_tagline">臺中在地民間防災團體，推廣自救互救、培訓韌性公民。</p>
 </div>
 
 <!-- § 1 我們是誰 -->
@@ -445,7 +445,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   <div class="inner">
     <h2 class="section-title">我們是誰</h2>
     <div class="who-grid">
-      <p class="who-body">
+      <p class="who-body" data-field="who_body">
         我們是臺中的民防團體，致力於推廣基礎救護、體能訓練、與防災教育。我們相信，每位公民都應具備基本的自救能力，這不僅是成熟公民的責任，更是對生命負責的態度。2023 年以臺中自訓團起步，2024 年完成政府立案，正式成立社團法人，持續推廣防災、救護技能與自救互助理念。
       </p>
       <!-- stat box 移除，以下 timeline 取代 -->
@@ -464,48 +464,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     </div>
   </div>
 
-  <div class="tl-scroll">
-
-    <div class="tl-item">
-      <div class="tl-dot-row">
-        <div class="tl-dot" style="background:var(--teal)"></div>
-        <span class="tl-date">2023 年 7 月</span>
-      </div>
-      <div class="tl-item-title">台中自訓團成立</div>
-      <div class="tl-item-desc">從一群有共同理念的市民自發組成，每週五開始常態自訓。</div>
-      <span class="tl-badge" style="background:rgba(44,213,196,.15);color:var(--teal-d)">起點</span>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot-row">
-        <div class="tl-dot" style="background:var(--orange)"></div>
-        <span class="tl-date">2023 年 10 月</span>
-      </div>
-      <div class="tl-item-title">苗栗通霄海灘演訓</div>
-      <div class="tl-item-desc">民團自辦戰時民防演訓，模擬空襲與急救後送情境。</div>
-      <span class="tl-badge" style="background:rgba(255,105,33,.15);color:var(--orange-d)">特別演訓</span>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot-row">
-        <div class="tl-dot" style="background:var(--orange)"></div>
-        <span class="tl-date">2024 年 5 月</span>
-      </div>
-      <div class="tl-item-title">Al Jazeera 國際報導</div>
-      <div class="tl-item-desc">台灣民防自訓運動獲半島電視台採訪，受到國際矚目。</div>
-      <span class="tl-badge" style="background:rgba(255,105,33,.15);color:var(--orange-d)">國際</span>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot-row">
-        <div class="tl-dot" style="background:var(--teal)"></div>
-        <span class="tl-date">2024 年 9 月</span>
-      </div>
-      <div class="tl-item-title">正式立案社團法人</div>
-      <div class="tl-item-desc">臺中市民團協會通過政府核備，進入組織化運作階段。</div>
-      <span class="tl-badge" style="background:rgba(44,213,196,.15);color:var(--teal-d)">里程碑</span>
-    </div>
-
+  <div class="tl-scroll" id="tl-scroll">
+    <!-- 由 JS 從 大事記 sheet 動態渲染 -->
   </div>
 
 </div>
@@ -546,53 +506,53 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="values-stack">
 
       <div class="value-card">
-        <div class="value-bg">
-          <div class="photo-ph">
+        <div class="value-bg" data-bg-field="value_1_img">
+          <div class="photo-ph" id="value-ph-1">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             value_1_img
           </div>
         </div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
-          <p class="value-overlay-text">推廣基礎急救知識，讓每個人都能在危急時刻自救。</p>
+          <p class="value-overlay-text" data-field="value_1_desc">推廣基礎急救知識，讓每個人都能在危急時刻自救。</p>
         </div>
         <div class="value-title-bar">
           <div class="value-accent"></div>
-          <div class="value-title">自救能力</div>
+          <div class="value-title" data-field="value_1_title">自救能力</div>
         </div>
       </div>
 
       <div class="value-card">
-        <div class="value-bg">
-          <div class="photo-ph">
+        <div class="value-bg" data-bg-field="value_2_img">
+          <div class="photo-ph" id="value-ph-2">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             value_2_img
           </div>
         </div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
-          <p class="value-overlay-text">訓練體能與心理素質，應對自然與人為災害。</p>
+          <p class="value-overlay-text" data-field="value_2_desc">訓練體能與心理素質，應對自然與人為災害。</p>
         </div>
         <div class="value-title-bar">
           <div class="value-accent"></div>
-          <div class="value-title">社會韌性</div>
+          <div class="value-title" data-field="value_2_title">社會韌性</div>
         </div>
       </div>
 
       <div class="value-card">
-        <div class="value-bg">
-          <div class="photo-ph">
+        <div class="value-bg" data-bg-field="value_3_img">
+          <div class="photo-ph" id="value-ph-3">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             value_3_img
           </div>
         </div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
-          <p class="value-overlay-text">強化社區防災意識，促進互助合作精神。</p>
+          <p class="value-overlay-text" data-field="value_3_desc">強化社區防災意識，促進互助合作精神。</p>
         </div>
         <div class="value-title-bar">
           <div class="value-accent"></div>
-          <div class="value-title">共同行動</div>
+          <div class="value-title" data-field="value_3_title">共同行動</div>
         </div>
       </div>
 
@@ -608,13 +568,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="org-panel">
         <div class="org-panel-hd">協會組織架構</div>
         <div class="org-img-wrap">
-          <img src="" alt="訓練活動照片" style="width:100%;height:100%;object-fit:cover;">
+          <img src="" data-field="org_chart_img" alt="訓練活動照片" style="width:100%;height:100%;object-fit:contain;">
         </div>
       </div>
       <div class="org-panel">
         <div class="org-panel-hd">會員分類</div>
         <div class="org-img-wrap">
-          <img src="" alt="訓練活動照片" style="width:100%;height:100%;object-fit:cover;">
+          <img src="" data-field="member_types_img" alt="訓練活動照片" style="width:100%;height:100%;object-fit:contain;">
         </div>
       </div>
     </div>
@@ -624,9 +584,9 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- CHARTER BAR -->
 <div class="charter-bar">
   <div class="charter-bar-text">
-    <div class="charter-bar-title">協會章程</div>
+    <div class="charter-bar-title" data-field="charter_section_title">協會章程</div>
   </div>
-  <a href="charter.html" class="btn-charter">查看協會章程 →</a>
+  <a href="charter.html" class="btn-charter"><span data-field="charter_btn">查看協會章程 →</span></a>
 </div>
 
 <!-- FOOTER CTA -->
@@ -636,8 +596,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="fcta-title">下週五，我們在中央公園等你</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" href="#" data-href="url_cta_join">報名週五自訓</a>
+    <a class="fcta-btn-o" href="#" data-href="url_cta_calendar">訂閱行事曆</a>
   </div>
 </div>
 
@@ -649,12 +609,124 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="footer-reg">中市社團字第1130158795號 ｜ 113 法登 證社字第000117號</div>
   </div>
   <div class="footer-social">
-    <a class="social-btn" href="#" target="_blank">f</a>
-    <a class="social-btn" href="#" target="_blank">T</a>
-    <a class="social-btn" href="#" target="_blank">p</a>
+    <a class="social-btn" href="#" data-href="url_facebook" target="_blank">f</a>
+    <a class="social-btn" href="#" data-href="url_threads" target="_blank">T</a>
+    <a class="social-btn" href="#" data-href="url_plurk" target="_blank">p</a>
   </div>
 </footer>
 
+
+<script>
+/* ── CSV → DOM ── */
+const _SHEET = id =>
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=' + id + '&single=true&output=csv';
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"' && text[i+1] === '"') { field += '"'; i++; }
+      else if (c === '"') inQ = false;
+      else field += c;
+    } else {
+      if (c === '"') inQ = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c !== '\r') field += c;
+    }
+  }
+  if (field || row.length) { row.push(field); rows.push(row); }
+  if (!rows.length) return [];
+  const hdrs = rows[0];
+  return rows.slice(1).map(r => {
+    const o = {};
+    hdrs.forEach((h, i) => { o[h.trim()] = (r[i] || '').trim(); });
+    return o;
+  });
+}
+
+function parseKV(rows) {
+  const cfg = {};
+  rows.forEach(r => {
+    const vals = Object.values(r);
+    if (vals[0]) cfg[vals[0]] = vals[2] || '';
+  });
+  return cfg;
+}
+
+function parseRowsBy(rows) {
+  return rows.filter(r => /[a-z]+-\d+/i.test(Object.values(r)[0] || ''));
+}
+
+function applyFields(cfg) {
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const v = cfg[el.dataset.field];
+    if (!v) return;
+    if (el.tagName === 'IMG') el.src = v;
+    else el.textContent = v;
+  });
+  document.querySelectorAll('[data-href]').forEach(el => {
+    const v = cfg[el.dataset.href];
+    if (v) el.href = v;
+  });
+  document.querySelectorAll('[data-mailto]').forEach(el => {
+    const v = cfg[el.dataset.mailto];
+    if (v) el.href = 'mailto:' + v;
+  });
+  document.querySelectorAll('[data-bg-field]').forEach(el => {
+    const v = cfg[el.dataset.bgField];
+    if (!v) return;
+    el.style.backgroundImage = `url('${v}')`;
+    el.style.backgroundSize = 'cover';
+    el.style.backgroundPosition = 'center';
+    const ph = el.querySelector('.photo-ph');
+    if (ph) ph.style.display = 'none';
+  });
+}
+
+const CAT_BG = {
+  '里程碑': '#003764', '演習': '#003764', '公益': '#003764',
+  '課程': '#FF6921', '推廣': '#FF6921', '訓練': '#FF6921', '對外合作': '#FF6921',
+  '媒體': '#2CD5C4'
+};
+const CAT_DOT = {
+  '里程碑': '#003764', '演習': '#003764', '公益': '#003764',
+  '課程': '#FF6921', '推廣': '#FF6921', '訓練': '#FF6921', '對外合作': '#FF6921',
+  '媒體': '#2CD5C4'
+};
+
+function renderTimeline(events) {
+  const items = events.filter(e => e.show_on_about === '是').slice(0, 6);
+  const wrap = document.getElementById('tl-scroll');
+  if (!wrap) return;
+  wrap.innerHTML = items.map(e => {
+    const cat = e.category || '';
+    const dot = CAT_DOT[cat] || '#003764';
+    const bg  = CAT_BG[cat]  || '#003764';
+    return `<div class="tl-item">
+      <div class="tl-dot-row">
+        <div class="tl-dot" style="background:${dot}"></div>
+        <div class="tl-date">${e.date || ''}</div>
+      </div>
+      <div class="tl-item-title">${e.title || ''}</div>
+      <div class="tl-item-desc">${e.desc || ''}</div>
+      ${cat ? `<span class="tl-badge" style="background:${bg};color:#fff;">${cat}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+
+Promise.all([
+  fetch(_SHEET(0)).then(r => r.text()),
+  fetch(_SHEET(486489436)).then(r => r.text()),
+  fetch(_SHEET(1523016997)).then(r => r.text())
+]).then(([csvSite, csvAbout, csvEvents]) => {
+  const cfg = Object.assign({}, parseKV(parseCSV(csvSite)), parseKV(parseCSV(csvAbout)));
+  applyFields(cfg);
+  renderTimeline(parseRowsBy(parseCSV(csvEvents)));
+}).catch(err => console.warn('CSV fetch error:', err));
+</script>
 
 <script>
 /* 漢堡選單開關 */
