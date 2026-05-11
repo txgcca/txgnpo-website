@@ -235,6 +235,19 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
   .res-card, .podcast-card { flex: 0 0 calc(100vw - 40px); }
 }
 </style>
+<script>
+  (function() {
+    if (window.self !== window.top) {
+      document.addEventListener('DOMContentLoaded', function() {
+        var nav = document.querySelector('nav');
+        var footer = document.querySelector('footer');
+        if (nav) nav.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+      });
+    }
+  })();
+</script>
+
 </head>
 <body>
 

@@ -495,6 +495,19 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 @keyframes spin{to{transform:rotate(360deg);}}
 
 </style>
+<script>
+  (function() {
+    if (window.self !== window.top) {
+      document.addEventListener('DOMContentLoaded', function() {
+        var nav = document.querySelector('nav');
+        var footer = document.querySelector('footer');
+        if (nav) nav.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+      });
+    }
+  })();
+</script>
+
 </head>
 <body>
 
