@@ -977,6 +977,34 @@ function cachedFetch(url, cacheName) {
   }
 })();
 
+/* ══════════════════════════════════════════
+   數字計數器 + IntersectionObserver
+   （必須在 CSV fetch 之前宣告，applyStatsBar 會用到 io）
+══════════════════════════════════════════ */
+function animateCounter(el) {
+  var target = parseInt(el.getAttribute('data-target'));
+  if (!target || isNaN(target)) { el.textContent = '—'; return; }
+  var duration = 1400;
+  var start = performance.now();
+  var step = function(now) {
+    var p = Math.min((now - start) / duration, 1);
+    var e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(e * target).toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString();
+  };
+  requestAnimationFrame(step);
+}
+
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      if (e.target.classList.contains('counter')) { animateCounter(e.target); io.unobserve(e.target); }
+      if (e.target.classList.contains('fade-in'))  { e.target.classList.add('show'); io.unobserve(e.target); }
+    }
+  });
+}, { threshold: 0.2 });
+
 /* CSV 解析 */
 function parseCSV(text) {
   var rows = [];
@@ -1146,31 +1174,7 @@ Promise.all([
 </script>
 
 <script>
-/* 數字計數器 */
-function animateCounter(el) {
-  var target = parseInt(el.getAttribute('data-target'));
-  if (!target || isNaN(target)) { el.textContent = '—'; return; }
-  var duration = 1400;
-  var start = performance.now();
-  var step = function(now) {
-    var p = Math.min((now - start) / duration, 1);
-    var e = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.floor(e * target).toLocaleString();
-    if (p < 1) requestAnimationFrame(step);
-    else el.textContent = target.toLocaleString();
-  };
-  requestAnimationFrame(step);
-}
-
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting) {
-      if (e.target.classList.contains('counter')) { animateCounter(e.target); io.unobserve(e.target); }
-      if (e.target.classList.contains('fade-in'))  { e.target.classList.add('show'); io.unobserve(e.target); }
-    }
-  });
-}, { threshold: 0.2 });
-
+/* fade-in 元素觀察（io 已在上方宣告）*/
 document.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
 
 /* 漢堡選單開關 */
