@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>自訓與課程活動 — 臺中市民團協會</title>
+<title>自訓與課程活動 — 臺中市韌民協會</title>
+<meta name="description" content="8 週自訓入門班、BLS 證照班、防災工作坊等課程資訊與報名管道。">
+<meta property="og:title" content="自訓與課程活動 — 臺中市韌民協會">
+<meta property="og:description" content="8 週自訓入門班、BLS 證照班、防災工作坊等課程資訊與報名管道。">
+<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
+<meta property="og:url" content="https://txgcca.github.io/txgnpo-website/training.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -101,6 +110,20 @@ nav{
 .page-header { background: var(--navy); padding: 52px 60px 44px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
 .page-h1 { font-family: 'Oswald', 'Noto Sans TC', sans-serif; font-size: 52px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 12px; }
 .page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; }
+/* Skeleton for hero sub */
+.page-sub.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,.06) 25%, rgba(255,255,255,.12) 50%, rgba(255,255,255,.06) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  color: transparent;
+  min-height: 1.8em;
+  width: 70%;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 @media(max-width:768px){
   .page-header { padding: 40px 20px 36px; }
   .page-h1 { font-size: 38px; }
@@ -153,7 +176,7 @@ nav{
   font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   padding:3px 9px;border-radius:2px;
 }
-.record-body{padding:18px 20px 12px;flex:1;}
+.record-body{padding:18px 20px 14px;flex:1;}
 .record-body h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;}
 .record-body p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
 .record-tags{display:flex;flex-wrap:wrap;gap:6px;}
@@ -161,12 +184,6 @@ nav{
 .rtag.navy{background:rgba(0,55,100,.08);color:var(--navy);}
 .rtag.teal{background:rgba(44,213,196,.12);color:var(--teal-d);}
 .rtag.orange{background:rgba(255,105,33,.1);color:var(--orange-d);}
-.record-sub-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 14px;}
-.sub-img{
-  height:68px;background:linear-gradient(135deg,#dce8f0,#c0d4e4);
-  border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-size:10px;color:rgba(0,55,100,.3);font-weight:700;letter-spacing:.06em;
-}
 
 /* ══ RIGHT: 行事曆 ═════════════════════════ */
 .calendar-card{
@@ -197,16 +214,10 @@ nav{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:12px;padding:24px;min-height:260px;
 }
-/* 實際上線時把 .gcal-desktop 內容換成：
-   <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID&mode=WEEK&ctz=Asia%2FTaipei"
-     style="border:0" width="100%" height="360" frameborder="0" scrolling="no"></iframe> */
 .gcal-icon{width:44px;height:44px;}
 
 /* 手機：Google Calendar embed（Agenda 議程視圖）*/
 .gcal-mobile{display:none;}
-/* 實際上線時把 .gcal-mobile 內容換成：
-   <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID&mode=AGENDA&ctz=Asia%2FTaipei"
-     style="border:0" width="100%" height="320" frameborder="0" scrolling="no"></iframe> */
 
 @media(max-width:720px){
   .gcal-desktop{display:none;}
@@ -273,53 +284,26 @@ nav{
   }
 }
 
-/* ══ CTA 區（單按鈕）══════════════════════ */
+/* ══ CTA 區（左敘事＋右購票）══════════════ */
 .cta-box{
   background:var(--white);border-radius:10px;
   padding:28px 32px;
   box-shadow:var(--shadow-sm);border:1px solid var(--rule);
   margin-bottom:16px;
   display:grid;
-  grid-template-columns:1fr auto 1fr;
-  gap:0;align-items:start;
+  grid-template-columns:1fr 1fr;
+  gap:32px;align-items:center;
 }
-.cta-divider{align-self:stretch;}
 @media(max-width:640px){
   .cta-box{grid-template-columns:1fr;padding:22px 18px;gap:20px;}
-  .cta-divider {
-    flex-direction: row;
-    padding: 0;
-    gap: 6px;
-    align-self: auto;
-  }
-  .cta-divider-line {
-    flex: 1;
-    width: auto;
-    height: 1px;
-  }
-  .cta-arrow svg {
-    transform: rotate(90deg);
-  }
 }
-.cta-step{display:flex;flex-direction:column;gap:4px;}
-.step-num{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.step-circle{
-  width:24px;height:24px;border-radius:50%;
-  font-size:12px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+.cta-narrative{
+  font-size:13px;color:var(--muted);line-height:1.75;
 }
-.step-circle.s1{background:var(--orange);color:var(--white);}
-.step-circle.s2{background:rgba(0,55,100,.12);color:var(--navy);}
-.step-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-.step-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.step-desc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px;}
-.step-desc-only{font-size:12px;color:var(--muted);line-height:1.65;}/* step 2：純說明，無按鈕 */
-.step-hint{
-  font-size:11px;color:var(--teal-d);
-  display:flex;align-items:center;gap:5px;margin-top:8px;
+.cta-purchase{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  text-align:center;
 }
-.step-hint svg{width:12px;height:12px;}
-
 .btn-primary{
   display:inline-flex;align-items:center;gap:7px;
   background:var(--orange);color:var(--white);
@@ -330,18 +314,6 @@ nav{
 }
 .btn-primary:hover{background:var(--orange-d);}
 .btn-primary svg{width:14px;height:14px;}
-
-.cta-divider{
-  display:flex;flex-direction:column;align-items:center;
-  padding:0 24px;gap:6px;
-}
-.cta-arrow{
-  width:30px;height:30px;border-radius:50%;
-  background:var(--off-white);border:1.5px solid var(--rule);
-  display:flex;align-items:center;justify-content:center;
-}
-.cta-arrow svg{width:13px;height:13px;color:var(--muted);}
-.cta-divider-line{flex:1;width:1px;background:var(--rule);}
 
 /* ══ #JOIN FORM ════════════════════════════ */
 .join-section{
@@ -495,17 +467,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 @keyframes spin{to{transform:rotate(360deg);}}
 
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
-
 </head>
 <body>
 
@@ -543,17 +504,17 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <span class="bc-current">自訓與課程活動</span>
   </div>
   <h1 class="page-h1">自訓與課程活動</h1>
-  <p class="page-sub" data-field="hero_sub">週五常態自訓 · 主題課程 · 特別活動報名</p>
+  <p class="page-sub skeleton" id="hero-sub" data-field="hero_sub">8週入門 · 主題課程 · 特別活動報名</p>
 </div>
 
 <!-- ══════════════════════════════════════════════
-     上半段：週五常態自訓
+     上半段：8 週自訓入門班
 ══════════════════════════════════════════════ -->
 <section style="padding-bottom:4px;">
 <div class="page-wrap" id="self-training">
 
   <div class="section-header">
-    <h2 class="section-title" data-field="s1_title">週五常態自訓</h2>
+    <h2 class="section-title" data-field="s1_title">8 週自訓入門班</h2>
   </div>
 
   <!-- 左右欄 -->
@@ -569,18 +530,15 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="record-img-badge">活動現場照片</div>
       </div>
       <div class="record-body">
-        <h3 data-field="training_record_title">週五常態自訓——EVAC 緊急撤離演練</h3>
-        <p data-field="training_record_body">每週五 19:30—21:30，於台中中央公園集合。內容涵蓋情境評估、傷患搬運、團隊協作等應急技能，適合所有民眾參與，無需特殊裝備。</p>
+        <h3 data-field="training_record_title">自我訓練，就從現在開始</h3>
+        <p data-field="training_record_body">8 週自訓入門班，帶你從零開始建立基礎救護與防災應變能力。不需要任何背景，現在就可以開始準備。</p>
         <div class="record-tags">
           <span class="rtag navy" data-field="training_location_city">📍 台中中央公園</span>
-          <span class="rtag teal" data-field="training_time">🕕 週五 19:30–21:30</span>
+          <span class="rtag teal" data-field="training_time">每梯 8 週・一年 2–3 梯次</span>
           <span class="rtag orange" data-field="training_tag_label">新手友善</span>
         </div>
       </div>
-      <div class="record-sub-imgs">
-        <div class="sub-img">副圖 600 × 400 px</div>
-        <div class="sub-img">副圖 600 × 400 px</div>
-      </div>
+      <!-- 副圖已移除 -->
     </div>
 
     <!-- RIGHT：行事曆 -->
@@ -588,7 +546,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="calendar-header">
         <div class="calendar-header-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          自訓行事曆
+          韌民行事曆
         </div>
         <!-- 桌機顯示「月/週視圖」，手機顯示「議程視圖」，CSS 控制 -->
         <span class="cal-badge cal-badge-desktop">桌機｜月週視圖</span>
@@ -597,10 +555,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
       <!-- 桌機：月/週視圖 placeholder -->
       <div class="gcal-desktop">
-        <!-- 上線時替換為：
-        <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID&mode=WEEK&ctz=Asia%2FTaipei"
-          style="border:0" width="100%" height="360" frameborder="0" scrolling="no"></iframe>
-        -->
         <svg class="gcal-icon" viewBox="0 0 48 48" fill="none">
           <rect x="4" y="8" width="40" height="36" rx="4" fill="#fff" stroke="#dde4ea" stroke-width="1.5"/>
           <rect x="4" y="8" width="40" height="11" rx="4" fill="#003764"/>
@@ -617,10 +571,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
       <!-- 手機：議程視圖 placeholder -->
       <div class="gcal-mobile">
-        <!-- 上線時替換為：
-        <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID&mode=AGENDA&ctz=Asia%2FTaipei"
-          style="border:0" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
-        -->
         <table class="agenda-ph" style="width:100%;margin-top:8px;">
           <tr>
             <td class="date">4/11（五）</td>
@@ -642,11 +592,11 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="subscribe-btns">
           <a href="#" data-href="calendar_google_url" class="btn-subscribe btn-subscribe-ghost">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-            加入 Google Calendar
+            <span data-field="calendar_btn_android">訂閱行事曆｜安卓</span>
           </a>
           <a href="#" data-href="calendar_subscribe_url" class="btn-subscribe">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-            訂閱行事曆
+            <span data-field="calendar_btn_ios">訂閱行事曆｜iOS</span>
           </a>
         </div>
       </div>
@@ -654,42 +604,17 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   </div><!-- /training-grid -->
 
-  <!-- 兩步驟 CTA（單按鈕版）-->
+  <!-- 左敘事＋右購票 CTA -->
   <div class="cta-box">
-    <!-- Step 1：有按鈕 -->
-    <div class="cta-step">
-      <div class="step-num">
-        <div class="step-circle s1">1</div>
-        <span class="step-label">Step One</span>
-      </div>
-      <div class="step-title" data-field="cta_step1_title">填寫體驗表單</div>
-      <p class="step-desc" data-field="cta_step1_desc">初次參與請先填寫基本資料，讓我們更了解你的背景，確保活動順利進行。</p>
-      <a href="#" data-href="cta_step1_url" target="_blank" class="btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        <span data-field="cta_step1_btn">填寫體驗表單</span>
+    <!-- 左：敘事 -->
+    <div class="cta-narrative" data-field="cta_narrative">從 2023 年至今，我們走過超過 150 週的常態自訓。2026 年起，我們將這三年累積的訓練內容，重新設計為 8 週一期的入門課程。不需要經驗、不需要基礎，8 週後你就是一位具備自救互助能力的準備者。</div>
+
+    <!-- 右：購票按鈕 -->
+    <div class="cta-purchase">
+      <a href="#" data-href="cta_purchase_url" target="_blank" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span data-field="cta_purchase_btn">前往應援平台報名</span>
       </a>
-    </div>
-
-    <div class="cta-divider">
-      <div class="cta-divider-line"></div>
-      <div class="cta-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="cta-divider-line"></div>
-    </div>
-
-    <!-- Step 2：純說明，無按鈕 -->
-    <div class="cta-step">
-      <div class="step-num">
-        <div class="step-circle s2">2</div>
-        <span class="step-label">Step Two</span>
-      </div>
-      <div class="step-title" data-field="cta_step2_title">完成購票</div>
-      <p class="step-desc-only" data-field="cta_step2_desc">填完表單後，我們會在表單引導你前往應援科技平台完成本次自訓活動繳費。</p>
-      <div class="step-hint">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-        表單填完後自動引導，不需另開連結
-      </div>
     </div>
   </div>
 
@@ -698,7 +623,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 </section>
 
 <!-- ══════════════════════════════════════════════
-     下半段：主題課程與特別活動
+     下半段：主題課程與特別活動（不動）
 ══════════════════════════════════════════════ -->
 <div class="section2-wrap" id="courses">
 <div class="section2-inner">
@@ -746,10 +671,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     過往活動紀錄
   </div>
 
-  <!-- 實際上線：JS 從 Sheets JSON 抓資料，過濾「是否顯示 = Y」後渲染 -->
-  <!-- Sheet 欄位：活動名稱 | 日期 | 是否顯示（Y/N） -->
   <div class="past-grid" id="past-activities-grid">
-    <!-- 以下為 mockup 示意資料，上線後由 JS 動態渲染 -->
+    <!-- 以下為 fallback 示意資料，上線後由 JS 動態渲染 -->
     <div class="past-card">
       <div class="past-card-num">01</div>
       <div class="past-card-name">BLS 基本救命術發證班</div>
@@ -776,7 +699,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 </div>
 </div><!-- /section2-wrap -->
 
-<!-- ══ FOOTER ══════════════════════════════════ -->
+<!-- ══ FOOTER（本頁不加 Footer CTA）═══════════════ -->
 <footer>
   <div>
     <div class="footer-brand">社團法人臺中市韌民協會</div>
@@ -791,6 +714,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 </footer>
 
 <script>
+/* ══ CSV 基礎工具 ══════════════════════════════ */
 const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
 function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
 
@@ -834,12 +758,15 @@ function parseRowsBy(rows, filterFn) {
     .filter(filterFn);
 }
 
+/* ══ 方案 A：applyFields（含 fallback 覆蓋）══════ */
 function applyFields(data) {
   document.querySelectorAll('[data-field]').forEach(el => {
     const val = data[el.dataset.field];
     if (!val) return;
     if (el.tagName === 'IMG') el.src = val;
     else el.textContent = val;
+    // 移除骨架屏
+    el.classList.remove('skeleton');
   });
   document.querySelectorAll('[data-href]').forEach(el => {
     const val = data[el.dataset.href];
@@ -849,35 +776,73 @@ function applyFields(data) {
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
+/* ══ 方案 C：localStorage 快取（6 小時）══════════ */
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時（毫秒）
+const NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function cachedFetch(cacheKey, url) {
+  if (!NO_CACHE) {
+    try {
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        const { timestamp, data } = JSON.parse(cached);
+        const age = Date.now() - timestamp;
+        if (age < CACHE_TTL) {
+          console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + cacheKey);
+          return Promise.resolve(data);
+        }
+      }
+    } catch (e) { /* localStorage 不可用或資料損壞，直接 fetch */ }
+  } else {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + cacheKey);
+  }
+
+  // 沒有快取或已過期：從網路抓
+  return fetch(url).then(r => r.text()).then(text => {
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: text }));
+      if (!NO_CACHE) console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + cacheKey);
+    } catch (e) { /* localStorage 寫入失敗（容量滿等），靜默處理 */ }
+    return text;
+  });
+}
+
+/* ══ 行事曆 embed 渲染 ════════════════════════════ */
 function renderCalendar(calId) {
   if (!calId || calId === '行事曆 ID') return;
   const encId = encodeURIComponent(calId);
-  document.querySelector('.gcal-desktop').innerHTML =
-    `<iframe src="https://calendar.google.com/calendar/embed?src=${encId}&mode=WEEK&ctz=Asia%2FTaipei"
-      style="border:0" width="100%" height="360" frameborder="0" scrolling="no"></iframe>`;
-  document.querySelector('.gcal-mobile').innerHTML =
-    `<iframe src="https://calendar.google.com/calendar/embed?src=${encId}&mode=AGENDA&ctz=Asia%2FTaipei"
-      style="border:0" width="100%" height="320" frameborder="0" scrolling="no"></iframe>`;
+  const desktopEl = document.querySelector('.gcal-desktop');
+  const mobileEl = document.querySelector('.gcal-mobile');
+  if (desktopEl) {
+    desktopEl.innerHTML =
+      '<iframe src="https://calendar.google.com/calendar/embed?src=' + encId + '&mode=WEEK&ctz=Asia%2FTaipei" style="border:0" width="100%" height="360" frameborder="0" scrolling="no"></iframe>';
+  }
+  if (mobileEl) {
+    mobileEl.innerHTML =
+      '<iframe src="https://calendar.google.com/calendar/embed?src=' + encId + '&mode=AGENDA&ctz=Asia%2FTaipei" style="border:0" width="100%" height="320" frameborder="0" scrolling="no"></iframe>';
+  }
 }
 
+/* ══ 過往活動渲染 ═════════════════════════════════ */
 function renderPastActivities(events) {
   const grid = document.getElementById('past-activities-grid');
   if (!events.length) {
     grid.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:12px;">目前暫無過往活動紀錄。</p>';
     return;
   }
-  grid.innerHTML = events.map((e, i) => `
-    <div class="past-card">
-      <div class="past-card-num">${String(i+1).padStart(2,'0')}</div>
-      <div class="past-card-name">${e.title}</div>
-      <div class="past-card-date">${e.date}</div>
-    </div>`).join('');
+  grid.innerHTML = events.map((e, i) =>
+    '<div class="past-card">' +
+      '<div class="past-card-num">' + String(i+1).padStart(2,'0') + '</div>' +
+      '<div class="past-card-name">' + e.title + '</div>' +
+      '<div class="past-card-date">' + e.date + '</div>' +
+    '</div>').join('');
 }
 
+/* ══ 方案 D：Promise.all 平行載入 ════════════════ */
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
-  fetch(csvUrl('2135537779')).then(r => r.text()),  // 自訓與課程活動
-  fetch(csvUrl('1523016997')).then(r => r.text()),  // 大事記
+  cachedFetch('txgcca_cache_site',     csvUrl('0')),           // 全站設定
+  cachedFetch('txgcca_cache_training', csvUrl('2135537779')),   // 自訓與課程活動
+  cachedFetch('txgcca_cache_events',   csvUrl('1523016997')),   // 大事記
 ]).then(([siteCSV, trainingCSV, keyCSV]) => {
   const siteData     = parseKV(parseCSV(siteCSV));
   const trainingData = parseKV(parseCSV(trainingCSV));
@@ -890,10 +855,12 @@ Promise.all([
   renderPastActivities(pastEvents);
 
 }).catch(err => {
-  console.error('CSV fetch 失敗:', err);
+  console.error('[TXGCCA] CSV fetch 失敗:', err);
+  // 方案 A fallback：HTML 預設值已在頁面上，使用者仍能看到基本內容
+  // 移除骨架屏，顯示 fallback
+  document.querySelectorAll('.skeleton').forEach(el => el.classList.remove('skeleton'));
 });
 </script>
-
 
 <script>
 /* 漢堡選單開關 */
