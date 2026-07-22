@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>聯絡我們 — 臺中市民團協會</title>
+<title>聯絡我們 — 臺中市韌民協會</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="一般聯絡、媒體採訪、個人諮詢等各類聯繫方式。">
+<meta property="og:title" content="聯絡我們 — 臺中市韌民協會">
+<meta property="og:description" content="一般聯絡、媒體採訪、個人諮詢等各類聯繫方式。">
+<meta property="og:image" content="og-image.png">
+<meta property="og:url" content="https://txgcca.org.tw/contact.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -47,6 +61,7 @@ nav {
 }
 .nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
 .nav-link.active { color: var(--white); }
+
 /* ── PAGE HEADER ── */
 .page-header {
   background: var(--navy); padding: 52px 60px 44px;
@@ -54,7 +69,7 @@ nav {
   position: relative; overflow: hidden;
 }
 .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
-.bc-link { font-size: 12px; color: rgba(255,255,255,.4); cursor: pointer; }
+.bc-link { font-size: 12px; color: rgba(255,255,255,.4); cursor: pointer; text-decoration: none; }
 .bc-sep  { font-size: 11px; color: rgba(255,255,255,.2); }
 .bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
 .page-h1 {
@@ -63,18 +78,27 @@ nav {
 }
 .page-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px; text-wrap: pretty; }
 
+/* ── Skeleton (方案 B) ── */
+.skel-line {
+  background: linear-gradient(90deg, rgba(255,255,255,.06) 25%, rgba(255,255,255,.12) 50%, rgba(255,255,255,.06) 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s infinite;
+  border-radius: 4px;
+  height: 1em;
+  width: 80%;
+}
+@keyframes skel-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skel-active .skel-line { display: none; }
+
 /* ── FAQ ── */
 .faq-section { padding: 64px 40px 0; }
 .faq-header {
   display: flex; align-items: flex-end; justify-content: space-between;
   margin-bottom: 32px; gap: 20px;
 }
-.faq-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  color: var(--orange); font-size: 11px; font-weight: 700;
-  letter-spacing: .15em; margin-bottom: 10px;
-}
-.faq-eyebrow-bar { width: 20px; height: 2px; background: var(--orange); }
 .faq-h2 { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 600; color: var(--ink); }
 .faq-sub { font-size: 13px; color: var(--muted); margin-top: 8px; }
 .faq-list { display: flex; flex-direction: column; gap: 6px; }
@@ -175,7 +199,7 @@ nav {
 .social-chip:hover { border-color: var(--navy); background: var(--navy); color: var(--white); }
 .chip-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
-/* ── INFO STRIP ── */
+/* ── INFO STRIP（兩欄：回覆時間 + 法人立案號碼）── */
 .info-strip { background: var(--off-white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 36px 40px; display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
 .info-col { display: flex; align-items: flex-start; gap: 14px; }
 .info-icon { width: 36px; height: 36px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
@@ -282,17 +306,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 }
 
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
-
 </head>
 <body>
 
@@ -321,15 +334,17 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 </div>
 <div class="nav-backdrop" id="nav-backdrop"></div>
 
-<!-- ── PAGE HEADER（無英文裝飾標籤、無 CONTACT 浮水印）── -->
-<div class="page-header">
+<!-- ── PAGE HEADER ── -->
+<div class="page-header" id="pageHeader">
   <div class="breadcrumb">
     <a class="bc-link" href="index.html">首頁</a>
     <span class="bc-sep">›</span>
     <span class="bc-current">聯絡我們</span>
   </div>
   <h1 class="page-h1">聯絡我們</h1>
-  <p class="page-sub">不管是想來試試看、談合作，還是採訪報導，我們都很歡迎你找我們說話。</p>
+  <p class="page-sub" data-field="contact_hero_sub">不管是想來試試看、談合作，還是採訪報導，我們都很歡迎你找我們說話。</p>
+  <!-- Skeleton: shimmer line shown until CSV loads -->
+  <div class="skel-line" id="skelHeroSub" style="margin-top:6px;width:60%;height:14px;"></div>
 </div>
 
 <!-- ── FAQ ── -->
@@ -365,7 +380,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         <div class="card-icon-wrap icon-bg-orange">🙋</div>
         <div class="card-tag tag-orange">個人聯繫</div>
         <div class="card-title">想來試試、<br>有問題想問？</div>
-        <div class="card-desc">第一次聽說我們、想了解週五自訓怎麼參加、或有任何個人問題，都歡迎直接寫信給我們。</div>
+        <div class="card-desc" data-field="card_personal_desc">第一次聽說我們、想了解 8 週入門資訊、或有任何個人問題，都歡迎直接寫信給我們。</div>
         <div class="email-preview">
           <div class="email-preview-row"><span class="ep-label">收件人</span><span class="ep-val" data-field="email_general">txgcca@gmail.com</span></div>
           <div class="email-preview-row"><span class="ep-label">主旨</span><span class="ep-val">【個人詢問|官網】＿＿＿</span></div>
@@ -393,7 +408,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
         </div>
       </div>
       <div class="card-footer">
-        <!-- Google Form URL 待填入 -->
         <a class="card-btn btn-fill-navy" data-href="collab_form_url" href="#" target="_blank">
           填寫合作需求表單 <span class="btn-arrow">→</span>
         </a>
@@ -443,18 +457,9 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   </div>
 </section>
 
-<!-- ── INFO STRIP ── -->
+<!-- ── INFO STRIP（兩欄：回覆時間 + 法人立案號碼）── -->
 <div class="info-strip">
   <div class="info-col fade-in">
-    <div class="info-icon">📍</div>
-    <div>
-      <div class="info-label">常態訓練地點</div>
-      <div class="info-val" data-field="training_location_city">台中中央公園</div>
-      <div class="info-sub" data-field="training_time">每週五 19:30–21:30</div>
-    </div>
-  </div>
-  <div class="info-sep"></div>
-  <div class="info-col fade-in" style="transition-delay:.06s">
     <div class="info-icon">🕐</div>
     <div>
       <div class="info-label">一般回覆時間</div>
@@ -463,25 +468,25 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     </div>
   </div>
   <div class="info-sep"></div>
-  <div class="info-col fade-in" style="transition-delay:.12s">
+  <div class="info-col fade-in" style="transition-delay:.06s">
     <div class="info-icon">🏛</div>
     <div>
-      <div class="info-label">法人立案號碼</div>
+      <div class="info-label">協會立案證明</div>
       <div class="info-val" data-field="org_reg_1">中市社團字第1130158795號</div>
       <div class="info-sub" data-field="org_reg_2">113 法登 證社字第000117號</div>
     </div>
   </div>
 </div>
 
-<!-- ── FOOTER CTA ── -->
+<!-- ── FOOTER CTA（Sheet 驅動）── -->
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training" data-field="cta_join_label">8週入門說明</a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#" data-field="cta_calendar_label">訂閱行事曆</a>
   </div>
 </div>
 
@@ -499,21 +504,87 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 </footer>
 
 <script>
-// ── CSV 根網址 ──
+/* ================================================================
+   CSV 資料流 — contact.html
+   抓取：全站設定 (gid=0)、聯絡我們 (gid=1224752276)、FAQ (gid=100210601)
+   方案 A：HTML fallback（已在 HTML 內建）
+   方案 B：Skeleton（page-sub 區域）
+   方案 C：localStorage 快取（6 小時）
+   方案 D：Promise.all 平行載入
+================================================================ */
+
+// ── 常數 ──
 const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時（毫秒）
+const NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
 
 function csvUrl(gid) {
   return CSV_BASE.replace('GID', gid);
 }
 
+// ── 方案 C：localStorage 快取 ──
+function getCachedCSV(sheetName) {
+  if (NO_CACHE) return null;
+  try {
+    const raw = localStorage.getItem('txgcca_cache_' + sheetName);
+    if (!raw) return null;
+    const cached = JSON.parse(raw);
+    if (Date.now() - cached.timestamp < CACHE_TTL) {
+      return cached.data;
+    }
+  } catch (e) { /* ignore corrupt cache */ }
+  return null;
+}
+
+function setCachedCSV(sheetName, data) {
+  try {
+    localStorage.setItem('txgcca_cache_' + sheetName, JSON.stringify({
+      timestamp: Date.now(),
+      data: data
+    }));
+  } catch (e) { /* ignore quota errors */ }
+}
+
+function fetchCSV(gid, sheetName) {
+  const cached = getCachedCSV(sheetName);
+  if (cached) {
+    return Promise.resolve(cached);
+  }
+  return fetch(csvUrl(gid))
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+      setCachedCSV(sheetName, text);
+      return text;
+    });
+}
+
+// ── Console 訊息 ──
+(function() {
+  if (NO_CACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected)');
+  } else {
+    var anyCache = localStorage.getItem('txgcca_cache_global');
+    if (anyCache) {
+      try {
+        var age = Math.round((Date.now() - JSON.parse(anyCache).timestamp) / 60000);
+        console.log('[TXGCCA] Cache mode: ENABLED (age: ' + age + ' minutes)');
+      } catch(e) {
+        console.log('[TXGCCA] Cache mode: INITIAL FETCH');
+      }
+    } else {
+      console.log('[TXGCCA] Cache mode: INITIAL FETCH');
+    }
+  }
+})();
+
 // ── 簡易 CSV 解析（支援引號包覆欄位）──
 function parseCSV(text) {
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
-  return lines.map(line => {
-    const cols = [];
-    let cur = '', inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
+  var lines = text.split(/\r?\n/).filter(function(l) { return l.trim(); });
+  return lines.map(function(line) {
+    var cols = [];
+    var cur = '', inQ = false;
+    for (var i = 0; i < line.length; i++) {
+      var ch = line[i];
       if (ch === '"') { inQ = !inQ; }
       else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
       else { cur += ch; }
@@ -524,12 +595,11 @@ function parseCSV(text) {
 }
 
 // ── 從 key-value sheet 建立欄位物件 ──
-// 格式：col0=欄位名稱, col2=值
 function parseKV(rows) {
-  const obj = {};
-  rows.forEach(row => {
-    const key = row[0];
-    const val = row[2];
+  var obj = {};
+  rows.forEach(function(row) {
+    var key = row[0];
+    var val = row[2];
     if (key && val && key !== '欄位名稱') {
       obj[key] = val;
     }
@@ -539,127 +609,143 @@ function parseKV(rows) {
 
 // ── 套用全站設定到 data-field / data-href 元素 ──
 function applyFields(data) {
-  document.querySelectorAll('[data-field]').forEach(el => {
-    const key = el.dataset.field;
+  document.querySelectorAll('[data-field]').forEach(function(el) {
+    var key = el.dataset.field;
     if (data[key]) el.textContent = data[key];
   });
-  document.querySelectorAll('[data-href]').forEach(el => {
-    const key = el.dataset.href;
+  document.querySelectorAll('[data-href]').forEach(function(el) {
+    var key = el.dataset.href;
     if (data[key] && data[key] !== '#') el.href = data[key];
   });
-  document.querySelectorAll('[data-mailto]').forEach(el => {
-    const key = el.dataset.mailto;
-    const subject = el.dataset.subject || '';
+  document.querySelectorAll('[data-mailto]').forEach(function(el) {
+    var key = el.dataset.mailto;
+    var subject = el.dataset.subject || '';
     if (data[key]) {
       el.href = 'mailto:' + data[key] + (subject ? '?subject=' + subject : '');
-      const display = el.querySelector('[data-field="' + key + '"]');
-      if (!display) {
-        const span = el.closest('.contact-card')?.querySelector('[data-field="' + key + '"]');
-        if (span) span.textContent = data[key];
+      var span = el.closest('.contact-card');
+      if (span) {
+        var display = span.querySelector('[data-field="' + key + '"]');
+        if (display) display.textContent = data[key];
       }
     }
   });
-  const reg = document.querySelector('.footer-reg');
+  var reg = document.querySelector('.footer-reg');
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
+}
+
+// ── 方案 B：移除 Skeleton ──
+function removeSkeleton() {
+  var skel = document.getElementById('skelHeroSub');
+  if (skel) skel.style.display = 'none';
+  var header = document.getElementById('pageHeader');
+  if (header) header.classList.add('skel-active');
 }
 
 // ── 渲染 FAQ ──
 function renderFAQ(items) {
-  const list = document.getElementById('faqList');
+  var list = document.getElementById('faqList');
   list.innerHTML = '';
   if (!items.length) {
     list.innerHTML = '<div style="padding:24px;color:var(--muted);font-size:13px;">目前暫無常見問題。</div>';
     return;
   }
-  items.forEach((item, i) => {
-    const el = document.createElement('div');
+  items.forEach(function(item, i) {
+    var el = document.createElement('div');
     el.className = 'faq-item fade-in';
     el.style.transitionDelay = (i * 0.07) + 's';
-    el.innerHTML = `
-      <div class="faq-q" onclick="toggleFAQ(this)">
-        <span class="faq-cat ${item.catClass}">${item.cat}</span>
-        <span class="faq-q-text">${item.q}</span>
-        <span class="faq-chevron">▼</span>
-      </div>
-      <div class="faq-a">
-        <div class="faq-a-inner">${item.a}</div>
-      </div>`;
+    el.innerHTML =
+      '<div class="faq-q" onclick="toggleFAQ(this)">' +
+        '<span class="faq-cat ' + item.catClass + '">' + item.cat + '</span>' +
+        '<span class="faq-q-text">' + item.q + '</span>' +
+        '<span class="faq-chevron">▼</span>' +
+      '</div>' +
+      '<div class="faq-a">' +
+        '<div class="faq-a-inner">' + item.a + '</div>' +
+      '</div>';
     list.appendChild(el);
-    setTimeout(() => obs.observe(el), 10);
+    setTimeout(function() { obs.observe(el); }, 10);
   });
 }
 
 function toggleFAQ(qEl) {
-  const item = qEl.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  var item = qEl.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
   if (!isOpen) item.classList.add('open');
 }
 
 // ── IntersectionObserver（fade-in 動畫）──
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
     if (e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); }
   });
 }, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
 
-// ── 主要 fetch 邏輯 ──
+// ── 方案 D：Promise.all 平行載入 ──
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
-  fetch(csvUrl('1224752276')).then(r => r.text()),   // 聯絡我們
-  fetch(csvUrl('100210601')).then(r => r.text())     // FAQ
-]).then(([siteCSV, contactCSV, faqCSV]) => {
+  fetchCSV('0', 'global'),           // 全站設定
+  fetchCSV('1224752276', 'contact'),  // 聯絡我們
+  fetchCSV('100210601', 'faq')        // FAQ
+]).then(function(results) {
+  var siteCSV    = results[0];
+  var contactCSV = results[1];
+  var faqCSV     = results[2];
 
   // 全站設定
-  const siteData = parseKV(parseCSV(siteCSV));
+  var siteData = parseKV(parseCSV(siteCSV));
 
   // 聯絡我們
-  const contactData = parseKV(parseCSV(contactCSV));
+  var contactData = parseKV(parseCSV(contactCSV));
 
   // 合併兩個來源（聯絡我們欄位優先）
-  const allData = Object.assign({}, siteData, contactData);
+  var allData = Object.assign({}, siteData, contactData);
   applyFields(allData);
 
+  // 移除 skeleton
+  removeSkeleton();
+
   // FAQ
-  const faqRows = parseCSV(faqCSV);
-  // 第一列為欄位標題，找到 headers
-  const headers = faqRows[0];
-  const idxCat     = headers.indexOf('category');
-  const idxClass   = headers.indexOf('catClass');
-  const idxVisible = headers.indexOf('visible');
-  const idxQ       = headers.indexOf('question');
-  const idxA       = headers.indexOf('answer');
+  var faqRows = parseCSV(faqCSV);
+  var headers = faqRows[0];
+  var idxCat     = headers.indexOf('category');
+  var idxClass   = headers.indexOf('catClass');
+  var idxVisible = headers.indexOf('visible');
+  var idxQ       = headers.indexOf('question');
+  var idxA       = headers.indexOf('answer');
 
-  const faqItems = faqRows.slice(1)
-    .filter(row => row[idxVisible] && row[idxVisible].toUpperCase() === 'TRUE')
-    .map(row => ({
-      cat:      row[idxCat]   || '',
-      catClass: row[idxClass] || '',
-      q:        row[idxQ]     || '',
-      a:        row[idxA]     || ''
-    }))
-    .filter(item => item.q && item.a);
+  var faqItems = faqRows.slice(1)
+    .filter(function(row) { return row[idxVisible] && row[idxVisible].toUpperCase() === 'TRUE'; })
+    .map(function(row) {
+      return {
+        cat:      row[idxCat]   || '',
+        catClass: row[idxClass] || '',
+        q:        row[idxQ]     || '',
+        a:        row[idxA]     || ''
+      };
+    })
+    .filter(function(item) { return item.q && item.a; });
 
-  const loading = document.getElementById('faqLoading');
+  var loading = document.getElementById('faqLoading');
   if (loading) loading.remove();
   renderFAQ(faqItems);
 
-}).catch(err => {
+}).catch(function(err) {
   console.error('CSV fetch 失敗:', err);
-  const loading = document.getElementById('faqLoading');
+  removeSkeleton(); // 即使失敗也移除 skeleton，顯示 fallback
+  var loading = document.getElementById('faqLoading');
   if (loading) loading.innerHTML = '<span style="color:var(--muted);font-size:13px;">⚠️ 無法載入常見問題，請重新整理頁面。</span>';
 });
 </script>
 
 <script>
 /* 漢堡選單開關 */
-const hamburger = document.getElementById('nav-hamburger');
-const drawer    = document.getElementById('nav-drawer');
-const backdrop  = document.getElementById('nav-backdrop');
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
 
 function openMenu() {
-  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  var navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
   drawer.style.top = navBottom + 'px';
   drawer.classList.add('open');
   backdrop.classList.add('open');
@@ -675,11 +761,11 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', function() {
   drawer.classList.contains('open') ? closeMenu() : openMenu();
 });
 backdrop.addEventListener('click', closeMenu);
-drawer.querySelectorAll('.nav-link').forEach(link => {
+drawer.querySelectorAll('.nav-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 </script>
