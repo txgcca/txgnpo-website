@@ -284,26 +284,8 @@ nav{
   }
 }
 
-/* ══ CTA 區（左敘事＋右購票）══════════════ */
-.cta-box{
-  background:var(--white);border-radius:10px;
-  padding:28px 32px;
-  box-shadow:var(--shadow-sm);border:1px solid var(--rule);
-  margin-bottom:16px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:32px;align-items:center;
-}
-@media(max-width:640px){
-  .cta-box{grid-template-columns:1fr;padding:22px 18px;gap:20px;}
-}
-.cta-narrative{
-  font-size:13px;color:var(--muted);line-height:1.75;
-}
-.cta-purchase{
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  text-align:center;
-}
+/* ══ 卡片內購票按鈕 ═════════════════════ */
+.record-cta{ margin-top: 16px; }
 .btn-primary{
   display:inline-flex;align-items:center;gap:7px;
   background:var(--orange);color:var(--white);
@@ -537,8 +519,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
           <span class="rtag teal" data-field="training_time">每梯 8 週・一年 2–3 梯次</span>
           <span class="rtag orange" data-field="training_tag_label">新手友善</span>
         </div>
+        <div class="record-cta">
+          <a href="#" data-href="cta_purchase_url" target="_blank" class="btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span data-field="cta_purchase_btn">前往應援平台報名</span>
+          </a>
+        </div>
       </div>
-      <!-- 副圖已移除 -->
     </div>
 
     <!-- RIGHT：行事曆 -->
@@ -603,20 +590,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     </div>
 
   </div><!-- /training-grid -->
-
-  <!-- 左敘事＋右購票 CTA -->
-  <div class="cta-box">
-    <!-- 左：敘事 -->
-    <div class="cta-narrative" data-field="cta_narrative">從 2023 年至今，我們走過超過 150 週的常態自訓。2026 年起，我們將這三年累積的訓練內容，重新設計為 8 週一期的入門課程。不需要經驗、不需要基礎，8 週後你就是一位具備自救互助能力的準備者。</div>
-
-    <!-- 右：購票按鈕 -->
-    <div class="cta-purchase">
-      <a href="#" data-href="cta_purchase_url" target="_blank" class="btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        <span data-field="cta_purchase_btn">前往應援平台報名</span>
-      </a>
-    </div>
-  </div>
 
 
 </div><!-- /page-wrap -->
