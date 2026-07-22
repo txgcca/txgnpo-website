@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>臺中市民團協會 — 首頁改版稿 v3.2</title>
+<title>臺中市韌民協會</title>
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- SEO Meta -->
+<meta name="description" content="臺中市韌民協會，臺中在地民間防災自訓社群。2023 年起以每週常態自訓累積實戰經驗，2026 年推出 8 週自訓入門班，帶你有系統地建立災害應變能力。">
+<meta property="og:title" content="臺中市韌民協會">
+<meta property="og:description" content="臺中市韌民協會，臺中在地民間防災自訓社群。2023 年起以每週常態自訓累積實戰經驗，2026 年推出 8 週自訓入門班，帶你有系統地建立災害應變能力。">
+<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
+<meta property="og:url" content="https://txgcca.org.tw/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -144,7 +158,6 @@ nav {
 
 /* ══════════════════════════════════════════
    HERO — 桌機（> 1100px）
-   兩欄並排，右側 560px，外凸弧
 ══════════════════════════════════════════ */
 .hero {
   background: var(--navy);
@@ -272,10 +285,7 @@ nav {
   flex-shrink: 0;
 }
 
-/* ── 右側圖片區（桌機）──
-   560px 寬、左側外凸弧（clip-path 11 點正弦插值）
-   margin-left: -50px で左に突出
-*/
+/* ── 右側圖片區（桌機）── */
 .hero-right {
   position: relative;
   overflow: hidden;
@@ -333,9 +343,33 @@ nav {
 }
 
 /* ══════════════════════════════════════════
+   SKELETON 骨架屏
+══════════════════════════════════════════ */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,.06) 25%, rgba(255,255,255,.12) 50%, rgba(255,255,255,.06) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+.skeleton-light {
+  background: linear-gradient(90deg, rgba(0,55,100,.06) 25%, rgba(0,55,100,.1) 50%, rgba(0,55,100,.06) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes skeleton-pulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ══════════════════════════════════════════
    RWD ① 中螢幕（768px ~ 1100px）
-   筆電開雙頁面的情境
-   右側改為 40%，字級縮小，弧形突出量縮小
 ══════════════════════════════════════════ */
 @media (max-width: 1100px) {
   .hero {
@@ -358,7 +392,7 @@ nav {
     max-width: 100%;
   }
   .hero-right {
-    margin-left: -30px; /* 弧形突出量縮小 */
+    margin-left: -30px;
     clip-path: polygon(
       6%   0%,
       4.2% 10%,
@@ -380,8 +414,6 @@ nav {
 
 /* ══════════════════════════════════════════
    RWD ② 手機（< 768px）
-   單欄垂直堆疊
-   圖片插在大標下方、副標上方
 ══════════════════════════════════════════ */
 @media (max-width: 768px) {
 
@@ -407,16 +439,16 @@ nav {
     margin-bottom: 20px;
   }
 
-  /* 大標：第一眼衝擊，字級縮小但保持份量 */
+  /* 大標 */
   .hero-h1 {
     font-size: 48px;
-    margin-bottom: 24px; /* 大標和圖片之間留空間 */
+    margin-bottom: 24px;
   }
 
-  /* 手機版圖片：大標下方插入，16:9 橫幅，無弧形 */
+  /* 手機版圖片 */
   .hero-img-mobile {
     display: block;
-    width: calc(100% + 48px); /* 左右突破 padding 滿版 */
+    width: calc(100% + 48px);
     margin-left: -24px;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -498,6 +530,7 @@ nav {
   .media-logos {
     gap: 16px 24px;
   }
+  .media-more { margin-left: 0; margin-top: 4px; width: 100%; }
 
   /* CTA cards：單欄堆疊 */
   .cta-section { padding: 48px 20px; }
@@ -538,7 +571,7 @@ nav {
 .stat-label { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 6px; letter-spacing: .04em; }
 
 /* ══════════════════════════════════════════
-   MEDIA STRIP（硬寫 HTML，媒體名稱加連結）
+   MEDIA STRIP（純顯示，不可點擊）
 ══════════════════════════════════════════ */
 .media-strip {
   background: var(--off-white);
@@ -554,12 +587,21 @@ nav {
 .media-logo {
   font-size: 12px; font-weight: 700;
   color: var(--muted); letter-spacing: .02em; white-space: nowrap;
-  opacity: .7; text-decoration: none;
+  opacity: .7;
   display: flex; align-items: center; gap: 6px;
-  transition: opacity .15s, color .15s;
 }
-.media-logo:hover { opacity: 1; color: var(--navy); }
 .logo-dot { width: 5px; height: 5px; border-radius: 50%; }
+.media-more {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.media-more:hover { color: var(--navy); }
 
 /* ══════════════════════════════════════════
    CTA SECTION
@@ -635,7 +677,7 @@ nav {
 .tl-badge { display: inline-block; margin-top: 8px; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 2px 9px; border-radius: 99px; }
 
 /* ══════════════════════════════════════════
-   FOOTER CTA（文字硬寫，按鈕讀主控表）
+   FOOTER CTA（Sheet 驅動）
 ══════════════════════════════════════════ */
 .footer-cta { background: var(--orange); padding: 56px 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .fcta-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 10px; }
@@ -646,13 +688,12 @@ nav {
 .fcta-btn-o { background: transparent; color: rgba(255,255,255,.8); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,.4); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; font-family: 'Noto Sans TC', sans-serif; transition: border-color .15s, color .15s; }
 .fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
 
-/* ── footer-cta RWD（必須在桌機宣告之後）── */
+/* ── footer-cta RWD ── */
 @media (max-width: 768px) {
   .footer-cta { flex-direction: column; align-items: flex-start; padding: 40px 20px; gap: 24px; }
   .fcta-title { font-size: 26px; }
   .fcta-btns { flex-direction: column; width: 100%; }
   .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
-  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 /* ══════════════════════════════════════════
@@ -670,16 +711,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 .fade-in { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s; }
 .fade-in.show { opacity: 1; transform: none; }
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
 
 </head>
 <body>
@@ -687,8 +718,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">
-    <!-- 實作時換成 Google Drive 公開連結：
-         src="https://drive.google.com/uc?id=YOUR_LOGO_ID" -->
     <img class="nav-mark"
          src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO"
          alt="社團法人臺中市韌民協會 LOGO">
@@ -701,7 +730,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <a class="nav-link" href="media.html">媒體報導</a>
     <a class="nav-link" href="contact.html">聯絡我們</a>
   </div>
-  <!-- 漢堡按鈕（手機版） -->
   <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
     <span></span><span></span><span></span>
   </button>
@@ -722,13 +750,11 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   <div class="hero-left">
 
-    <!-- hero_eyebrow -->
     <div class="hero-label">
       <span class="label-bar"></span>
       <span data-field="hero_eyebrow">臺中 · 民間防災 · 自主訓練</span>
     </div>
 
-    <!-- hero_headline_1 / hero_headline_2_before / hero_headline_2_accent -->
     <h1 class="hero-h1">
       災難來臨時<br>
       你只能<span class="accent">靠自己</span>
@@ -736,39 +762,33 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
     <!-- 手機版圖片：大標正下方，副標上方 -->
     <div class="hero-img-mobile">
-      <!-- 實作時換成 <img src="[hero_image_url]" alt="民團訓練現場"> -->
       <div class="hero-img-mobile-placeholder">
         <div class="ph-icon">📷</div>
         <div class="ph-text">hero_image_url（手機版）</div>
       </div>
     </div>
 
-    <!-- hero_subheadline -->
     <div class="hero-h2" data-field="hero_subheadline">但你不必獨自準備</div>
 
-    <!-- hero_body -->
-    <p class="hero-body" data-field="hero_body">
-      台中在地的民間自訓社群，每週五晚上在中央公園，一起練急救、學防災、強化身心韌性。從 2023 年一群普通市民開始，持續讓更多台中人有能力保護自己和身邊的人。
+    <!-- hero_body（骨架屏 → CSV 覆蓋） -->
+    <p class="hero-body skeleton" data-field="hero_body">
+      由一群臺中市民於 2023 年發起的自訓社群，三年間每週在中央公園練急救與防災。2025 年正式加入臺中市災害防救團體，並將三年的自訓經驗重新設計為「8 週自訓入門班」，帶你有系統地建立應變能力。
     </p>
 
-    <!-- hero_btn_primary / hero_btn_primary_link -->
-    <!-- hero_btn_secondary / hero_btn_secondary_link -->
     <div class="hero-btns">
-      <a class="btn-orange" href="training.html" data-field="hero_btn_primary">加入我們的訓練</a>
+      <a class="btn-orange" href="training.html" data-field="hero_btn_primary">了解8週入門課程</a>
     </div>
 
-    <!-- hero_tag_1 / hero_tag_2 / hero_tag_3 -->
     <div class="hero-tags">
-      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_1">每週五 19:30 — 台中中央公園</span></div>
-      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_2">基礎急救 · 體能訓練 · 防災技能</span></div>
-      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_3">無需背景，歡迎第一次體驗</span></div>
+      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_1">8週入門，一年2–3梯次</span></div>
+      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_2">救護技術・防災技能・新手入門</span></div>
+      <div class="hero-tag"><span class="tag-dot"></span><span data-field="hero_tag_3">無需背景，現在就可以開始準備</span></div>
     </div>
 
   </div>
 
   <!-- 右側圖片區（桌機 / 中螢幕，手機隱藏）-->
   <div class="hero-right">
-    <!-- 實作時換成 <img src="[hero_image_url]" alt="民團訓練現場"> -->
     <div class="hero-img-placeholder">
       <div class="hero-img-placeholder-icon">📷</div>
       <div class="hero-img-placeholder-text">
@@ -784,38 +804,39 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
 </section>
 
-<!-- STATS BAR -->
+<!-- STATS BAR（排序：自訓週數 → 活動場次 → 累積參與人次 → 媒體採訪報導）-->
 <div class="stats-bar" id="about">
   <div class="stat-item">
-    <div class="stat-num"><span class="counter" data-target="40">0</span><span class="stat-unit">+</span></div>
-    <div class="stat-label" data-field="stat_1_label">舉辦活動場次</div>
+    <div class="stat-num"><span class="counter skeleton" id="stat-1-num">⬜</span><span class="stat-unit"> 週</span></div>
+    <div class="stat-label" data-field="stat_1_label">自訓</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num"><span class="counter" data-target="850">0</span><span class="stat-unit"> 人次</span></div>
-    <div class="stat-label" data-field="stat_2_label">累積參與人次</div>
+    <div class="stat-num"><span class="counter skeleton" id="stat-2-num">⬜</span><span class="stat-unit">+</span></div>
+    <div class="stat-label" data-field="stat_2_label">活動場次</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num"><span class="counter" data-target="104">0</span><span class="stat-unit"> 週</span></div>
-    <div class="stat-label" data-field="stat_3_label">常態週五自訓</div>
+    <div class="stat-num"><span class="counter skeleton" id="stat-3-num">⬜</span><span class="stat-unit"> 人次</span></div>
+    <div class="stat-label" data-field="stat_3_label">累積參與人次</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num"><span class="counter" data-target="8">0</span><span class="stat-unit"> 家</span></div>
+    <div class="stat-num"><span class="counter skeleton" id="stat-4-num">⬜</span><span class="stat-unit"> 家</span></div>
     <div class="stat-label" data-field="stat_4_label">媒體採訪報導</div>
   </div>
 </div>
 
-<!-- MEDIA STRIP -->
+<!-- MEDIA STRIP（純顯示，不可點擊 + 右側導流連結）-->
 <div class="media-strip">
   <span class="media-label">媒體報導</span>
   <div class="media-sep"></div>
   <div class="media-logos" id="media-logos">
-    <a class="media-logo" data-href="media_1_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_1_color" style="background:#c0392b"></div><span data-field="media_1_name">Al Jazeera</span></a>
-    <a class="media-logo" data-href="media_2_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_2_color" style="background:#1a1a1a"></div><span data-field="media_2_name">UK Channel 4</span></a>
-    <a class="media-logo" data-href="media_3_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_3_color" style="background:#0066cc"></div><span data-field="media_3_name">AU SBS Dateline</span></a>
-    <a class="media-logo" data-href="media_4_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_4_color" style="background:#003764"></div><span data-field="media_4_name">報導者 The Reporter</span></a>
-    <a class="media-logo" data-href="media_5_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_5_color" style="background:#FF6921"></div><span data-field="media_5_name">自由時報</span></a>
-    <a class="media-logo" data-href="media_6_link" href="#" target="_blank"><div class="logo-dot" data-dot="media_6_color" style="background:#2CD5C4"></div><span data-field="media_6_name">沃草 Watchout</span></a>
+    <span class="media-logo"><div class="logo-dot" data-dot="media_1_color" style="background:#c0392b"></div><span data-field="media_1_name">Al Jazeera</span></span>
+    <span class="media-logo"><div class="logo-dot" data-dot="media_2_color" style="background:#1a1a1a"></div><span data-field="media_2_name">AU SBS Dateline</span></span>
+    <span class="media-logo"><div class="logo-dot" data-dot="media_3_color" style="background:#0066cc"></div><span data-field="media_3_name">UK Channel 4</span></span>
+    <span class="media-logo"><div class="logo-dot" data-dot="media_4_color" style="background:#003764"></div><span data-field="media_4_name">報導者 Reporter</span></span>
+    <span class="media-logo"><div class="logo-dot" data-dot="media_5_color" style="background:#FF6921"></div><span data-field="media_5_name">自由時報</span></span>
+    <span class="media-logo"><div class="logo-dot" data-dot="media_6_color" style="background:#2CD5C4"></div><span data-field="media_6_name">沃草 Watchout</span></span>
   </div>
+  <a class="media-more" href="media.html"><span data-field="media_more_label">更多報導</span> →</a>
 </div>
 
 <!-- CTA SECTION -->
@@ -831,24 +852,23 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="cta-card primary top-navy fade-in">
       <div class="card-num">01</div>
       <div class="card-icon icon-white">🏃</div>
-      <div class="card-title" data-field="cta_1_title">想來試試看？<br>加入週五常態自訓</div>
-      <div class="card-desc" data-field="cta_1_desc">不需要任何背景，帶著好奇心來就好。每週五晚上，我們在台中中央公園一起練習急救包紮、體能訓練和防災技能。</div>
+      <div class="card-title" data-field="cta_1_title">想開始準備？<br>加入 8 週入門班</div>
+      <div class="card-desc" data-field="cta_1_desc">不需要任何背景，8 週帶你從零開始，學會基礎救護、防災與緊急應變觀念。</div>
       <div class="card-meta">
-        <span class="m-dot"></span>每週五 19:30–21:30
-        <span class="m-dot"></span>台中中央公園
+        <span class="m-dot"></span><span data-field="cta_1_meta">每梯 8 週・一年 2–3 梯次</span>
       </div>
-      <a class="card-link link-o-light" href="training.html#self-training"><span data-field="cta_1_btn">報名體驗</span> →</a>
+      <a class="card-link link-o-light" href="training.html#self-training"><span data-field="cta_1_btn">了解8週入門課程</span> →</a>
     </div>
 
     <div class="cta-card top-orange fade-in" style="transition-delay:.1s">
       <div class="card-num">02</div>
       <div class="card-icon icon-orange">📋</div>
       <div class="card-title" data-field="cta_2_title">想深入學習？<br>報名主題課程</div>
-      <div class="card-desc" data-field="cta_2_desc">BLS 急救認證、野外韌性野營、毛孩防災工作坊等主題課程，由專業講師帶領，有結業證書。</div>
+      <div class="card-desc" data-field="cta_2_desc">從 BLS 證照班到防災工作坊，我們不定期推出多元主題課程，由專業講師帶領，帶你深入不同面向的救護與防災知識。</div>
       <div class="card-meta">
-        <span class="m-dot" style="background:var(--orange)"></span>近期開課：BLS 8/23、野營 9/20
+        <span class="m-dot" style="background:var(--orange)"></span><span data-field="cta_2_meta">近期課程與活動 → 應援科技平台查看</span>
       </div>
-      <a class="card-link link-orange" href="training.html#courses"><span data-field="cta_2_btn">活動查詢</span> →</a>
+      <a class="card-link link-orange" href="training.html#courses"><span data-field="cta_2_btn">應援平台</span> →</a>
     </div>
 
     <div class="cta-card top-teal fade-in" style="transition-delay:.2s">
@@ -879,15 +899,15 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   </div>
 </section>
 
-<!-- FOOTER CTA -->
+<!-- FOOTER CTA（Sheet 驅動） -->
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training"><span data-field="cta_join_label">8週入門說明</span></a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#"><span data-field="cta_calendar_label">訂閱行事曆</span></a>
   </div>
 </div>
 
@@ -906,14 +926,63 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 </footer>
 
 <script>
-const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
-function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
+/* ══════════════════════════════════════════
+   CSV 基礎工具 + localStorage 快取
+══════════════════════════════════════════ */
+const CSV_BASE_MAIN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+const CSV_BASE_CAL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTqiSzFjO5JbBhIYuzKt_g1A4CPi4hrLZbj0N1jI6z_Vf8aEm4qeFl8A0fPYg5U5wrtijGrO8RlJYnB/pub?gid=GID&single=true&output=csv';
 
+function csvUrl(gid, base) { return (base || CSV_BASE_MAIN).replace('GID', gid); }
+
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時
+const NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function getCacheKey(name) { return 'txgcca_cache_' + name; }
+
+function cachedFetch(url, cacheName) {
+  if (!NO_CACHE) {
+    try {
+      const raw = localStorage.getItem(getCacheKey(cacheName));
+      if (raw) {
+        const cached = JSON.parse(raw);
+        const age = Date.now() - cached.timestamp;
+        if (age < CACHE_TTL) {
+          console.log('[TXGCCA] Cache HIT for "' + cacheName + '" (age: ' + Math.round(age / 60000) + ' min)');
+          return Promise.resolve(cached.data);
+        }
+      }
+    } catch (e) { /* 快取讀取失敗，繼續 fetch */ }
+  }
+
+  return fetch(url).then(function(r) { return r.text(); }).then(function(text) {
+    try {
+      localStorage.setItem(getCacheKey(cacheName), JSON.stringify({ timestamp: Date.now(), data: text }));
+    } catch (e) { /* localStorage 寫入失敗（私密模式等），靜默忽略 */ }
+    return text;
+  });
+}
+
+/* 開發者模式 Console 訊息 */
+(function() {
+  if (NO_CACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected)');
+  } else {
+    var anyCache = false;
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i).indexOf('txgcca_cache_') === 0) { anyCache = true; break; }
+      }
+    } catch(e) {}
+    console.log('[TXGCCA] Cache mode: ' + (anyCache ? 'ENABLED' : 'INITIAL FETCH'));
+  }
+})();
+
+/* CSV 解析 */
 function parseCSV(text) {
-  const rows = [];
-  let row = [], cur = '', inQ = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i], next = text[i+1];
+  var rows = [];
+  var row = [], cur = '', inQ = false;
+  for (var i = 0; i < text.length; i++) {
+    var ch = text[i], next = text[i+1];
     if (inQ) {
       if (ch === '"' && next === '"') { cur += '"'; i++; }
       else if (ch === '"') { inQ = false; }
@@ -927,95 +996,165 @@ function parseCSV(text) {
     }
   }
   if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
-  return rows.filter(r => r.some(c => c));
+  return rows.filter(function(r) { return r.some(function(c) { return c; }); });
 }
 
 function parseKV(rows) {
-  const obj = {};
-  rows.forEach(row => {
+  var obj = {};
+  rows.forEach(function(row) {
     if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
   });
   return obj;
 }
 
+/* 將 前台統計 CSV（項目 / 數值 兩欄）解析為 { 自訓週數: N, 活動場次: N, 觸及人次: N } */
+function parseStats(rows) {
+  var obj = {};
+  rows.forEach(function(row) {
+    if (row[0] && row[1] && row[0] !== '項目') obj[row[0]] = row[1];
+  });
+  return obj;
+}
+
 function applyFields(data) {
-  document.querySelectorAll('[data-field]').forEach(el => {
-    const val = data[el.dataset.field];
+  document.querySelectorAll('[data-field]').forEach(function(el) {
+    var val = data[el.dataset.field];
     if (!val) return;
     if (el.tagName === 'IMG') el.src = val;
     else el.textContent = val;
   });
-  document.querySelectorAll('[data-href]').forEach(el => {
-    const val = data[el.dataset.href];
+  document.querySelectorAll('[data-href]').forEach(function(el) {
+    var val = data[el.dataset.href];
     if (val && val !== '#') el.href = val;
   });
-  document.querySelectorAll('[data-dot]').forEach(el => {
-    const val = data[el.dataset.dot];
+  document.querySelectorAll('[data-dot]').forEach(function(el) {
+    var val = data[el.dataset.dot];
     if (val) el.style.background = val;
   });
-  const reg = document.querySelector('.footer-reg');
+  var reg = document.querySelector('.footer-reg');
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
-const DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
-const BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal:'rgba(44,213,196,.15)' };
-const BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
+/* 移除骨架屏 */
+function removeSkeleton(el) {
+  if (el) { el.classList.remove('skeleton'); el.classList.remove('skeleton-light'); }
+}
+
+/* ══════════════════════════════════════════
+   Stats Bar 動態數值
+══════════════════════════════════════════ */
+function applyStatsBar(statsData, homeData) {
+  var mapping = [
+    { id: 'stat-1-num', statsKey: '自訓週數', homeKey: null },
+    { id: 'stat-2-num', statsKey: '活動場次', homeKey: null },
+    { id: 'stat-3-num', statsKey: '觸及人次', homeKey: null },
+    { id: 'stat-4-num', statsKey: null,       homeKey: 'stat_4_value' }
+  ];
+
+  mapping.forEach(function(m) {
+    var el = document.getElementById(m.id);
+    if (!el) return;
+    var rawVal = m.statsKey ? statsData[m.statsKey] : (homeData[m.homeKey] || '');
+    var num = parseInt(String(rawVal).replace(/[^0-9]/g, ''), 10);
+    if (!num || isNaN(num)) num = 0;
+    el.setAttribute('data-target', num);
+    el.textContent = '0';
+    removeSkeleton(el);
+    io.observe(el);
+  });
+}
+
+/* ══════════════════════════════════════════
+   大事紀
+══════════════════════════════════════════ */
+var DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
+var BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal:'rgba(44,213,196,.15)' };
+var BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
 
 function renderTimeline(events) {
-  const wrap = document.getElementById('tl-scroll');
+  var wrap = document.getElementById('tl-scroll');
   if (!wrap) return;
-  const items = events
-    .filter(r => r.show_on_home === '是')
+  var items = events
+    .filter(function(r) { return r.show_on_home === '是'; })
     .slice(0, 4);
-  wrap.innerHTML = items.map((e, i) => {
-    const color = e.badge_color || 'teal';
-    return `<div class="tl-item fade-in" style="transition-delay:${i*0.05}s">
-      <div class="tl-dot-row">
-        <div class="tl-dot" style="background:${DOT_COLOR[color]||'var(--teal)'}"></div>
-        <span class="tl-date">${e.date}</span>
-      </div>
-      <div class="tl-item-title">${e.title}</div>
-      <div class="tl-item-desc">${e.description}</div>
-      ${e.badge ? `<span class="tl-badge" style="background:${BADGE_BG[color]||BADGE_BG.teal};color:${BADGE_CLR[color]||BADGE_CLR.teal}">${e.badge}</span>` : ''}
-    </div>`;
+  wrap.innerHTML = items.map(function(e, i) {
+    var color = e.badge_color || 'teal';
+    return '<div class="tl-item fade-in" style="transition-delay:' + (i*0.05) + 's">' +
+      '<div class="tl-dot-row">' +
+        '<div class="tl-dot" style="background:' + (DOT_COLOR[color]||'var(--teal)') + '"></div>' +
+        '<span class="tl-date">' + e.date + '</span>' +
+      '</div>' +
+      '<div class="tl-item-title">' + e.title + '</div>' +
+      '<div class="tl-item-desc">' + e.description + '</div>' +
+      (e.badge ? '<span class="tl-badge" style="background:' + (BADGE_BG[color]||BADGE_BG.teal) + ';color:' + (BADGE_CLR[color]||BADGE_CLR.teal) + '">' + e.badge + '</span>' : '') +
+    '</div>';
   }).join('');
-  wrap.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+  wrap.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
 }
 
 function parseKeyEvents(rows) {
-  const headers = rows[0];
+  var headers = rows[0];
   return rows.slice(1)
-    .map(row => {
-      const obj = {};
-      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+    .map(function(row) {
+      var obj = {};
+      headers.forEach(function(h, i) { if (h) obj[h] = row[i] || ''; });
       return obj;
     })
-    .filter(r => /^\d{4}/.test(r.date || ''));
+    .filter(function(r) { return /^\d{4}/.test(r.date || ''); });
 }
 
+/* ══════════════════════════════════════════
+   主抓取：4 CSV（全站設定 + 首頁 + 大事記 + 前台統計）
+══════════════════════════════════════════ */
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),
-  fetch(csvUrl('1480814273')).then(r => r.text()),
-  fetch(csvUrl('1523016997')).then(r => r.text()),
-]).then(([siteCSV, homeCSV, keyCSV]) => {
-  const siteData = parseKV(parseCSV(siteCSV));
-  const homeData = parseKV(parseCSV(homeCSV));
+  cachedFetch(csvUrl('0'), 'site'),
+  cachedFetch(csvUrl('1480814273'), 'home'),
+  cachedFetch(csvUrl('1523016997'), 'key_events'),
+  cachedFetch(csvUrl('1764884051', CSV_BASE_CAL), 'front_stats')
+]).then(function(results) {
+  var siteCSV  = results[0];
+  var homeCSV  = results[1];
+  var keyCSV   = results[2];
+  var statsCSV = results[3];
+
+  var siteData  = parseKV(parseCSV(siteCSV));
+  var homeData  = parseKV(parseCSV(homeCSV));
+  var statsData = parseStats(parseCSV(statsCSV));
+
+  /* 合併 site + home 資料並套用到 data-field */
   applyFields(Object.assign({}, siteData, homeData));
+
+  /* 移除 hero-body 骨架屏 */
+  removeSkeleton(document.querySelector('.hero-body'));
+
+  /* Stats Bar 動態數值 */
+  applyStatsBar(statsData, homeData);
+
+  /* 大事紀 */
   renderTimeline(parseKeyEvents(parseCSV(keyCSV)));
-}).catch(err => {
-  console.error('CSV fetch 失敗:', err);
+
+}).catch(function(err) {
+  console.error('[TXGCCA] CSV fetch 失敗:', err);
+  /* 失敗時移除骨架屏，顯示 fallback */
+  document.querySelectorAll('.skeleton').forEach(function(el) { removeSkeleton(el); });
+  /* Stats Bar fallback：顯示佔位符 */
+  ['stat-1-num','stat-2-num','stat-3-num','stat-4-num'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { removeSkeleton(el); el.textContent = '—'; }
+  });
 });
 </script>
 
 <script>
 /* 數字計數器 */
 function animateCounter(el) {
-  const target = parseInt(el.getAttribute('data-target'));
-  const duration = 1400;
-  const start = performance.now();
-  const step = (now) => {
-    const p = Math.min((now - start) / duration, 1);
-    const e = 1 - Math.pow(1 - p, 3);
+  var target = parseInt(el.getAttribute('data-target'));
+  if (!target || isNaN(target)) { el.textContent = '—'; return; }
+  var duration = 1400;
+  var start = performance.now();
+  var step = function(now) {
+    var p = Math.min((now - start) / duration, 1);
+    var e = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.floor(e * target).toLocaleString();
     if (p < 1) requestAnimationFrame(step);
     else el.textContent = target.toLocaleString();
@@ -1023,8 +1162,8 @@ function animateCounter(el) {
   requestAnimationFrame(step);
 }
 
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
     if (e.isIntersecting) {
       if (e.target.classList.contains('counter')) { animateCounter(e.target); io.unobserve(e.target); }
       if (e.target.classList.contains('fade-in'))  { e.target.classList.add('show'); io.unobserve(e.target); }
@@ -1032,15 +1171,15 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.counter, .fade-in').forEach(el => io.observe(el));
+document.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
 
 /* 漢堡選單開關 */
-const hamburger = document.getElementById('nav-hamburger');
-const drawer    = document.getElementById('nav-drawer');
-const backdrop  = document.getElementById('nav-backdrop');
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
 
 function openMenu() {
-  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  var navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
   drawer.style.top = navBottom + 'px';
   drawer.classList.add('open');
   backdrop.classList.add('open');
@@ -1056,11 +1195,11 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', function() {
   drawer.classList.contains('open') ? closeMenu() : openMenu();
 });
 backdrop.addEventListener('click', closeMenu);
-drawer.querySelectorAll('.nav-link').forEach(link => {
+drawer.querySelectorAll('.nav-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 </script>
