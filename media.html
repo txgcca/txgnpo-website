@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>媒體報導 — 臺中市民團協會</title>
+<title>媒體報導 — 臺中市韌民協會</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="臺中市韌民協會歷年媒體報導集錦，包含國際媒體 Al Jazeera、UK Channel 4 等。">
+<meta property="og:title" content="媒體報導 — 臺中市韌民協會">
+<meta property="og:description" content="臺中市韌民協會歷年媒體報導集錦，包含國際媒體 Al Jazeera、UK Channel 4 等。">
+<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
+<meta property="og:url" content="https://txgcca.github.io/txgnpo-website/media.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -93,6 +107,7 @@ nav {
   color: rgba(255,255,255,.4);
   cursor: pointer;
   transition: color .15s;
+  text-decoration: none;
 }
 .bc-link:hover { color: rgba(255,255,255,.7); }
 .bc-sep {
@@ -337,7 +352,7 @@ nav {
   background: var(--rule);
 }
 
-/* Row items — desktop: 4 欄 grid（accent 為 absolute，flow 子元素共 4 個） */
+/* Row items */
 .report-row {
   display: grid;
   grid-template-columns: 88px 130px 1fr auto;
@@ -458,61 +473,7 @@ nav {
 .nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 98; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
 .nav-backdrop.open { display: block; }
 
-/* ── RWD ── */
-
-/* 平板（860px 以下）：精選區改單欄、outlet 欄縮窄 */
-@media (max-width: 768px) {
-  .featured-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-  .feat-card.main-card { grid-row: auto; }
-  nav { padding: 0 20px; gap: 16px; }
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
-  .featured-section, .all-section { padding-left: 24px; padding-right: 24px; }
-  .page-header { padding: 40px 20px 36px; }
-  .section-divider { margin: 0 24px; }
-  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .report-row { grid-template-columns: 72px 110px 1fr auto; gap: 0 14px; }
-}
-
-/* 手機（540px 以下）：條列區改區塊堆疊 */
-@media (max-width: 540px) {
-  .report-row {
-    display: block;
-    padding: 14px 16px 14px 16px;
-  }
-  .row-date {
-    display: inline;
-    margin-right: 8px;
-    font-size: 10px;
-  }
-  .row-outlet-wrap {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
-  }
-  .row-country { display: none; }
-  .row-title { font-size: 13px; margin-bottom: 4px; }
-  .row-excerpt { display: none; }
-  .row-right {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 10px;
-    gap: 10px;
-  }
-  .page-h1 { font-size: 34px; }
-  .tl-head { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .tl-title { font-size: 24px; }
-  .all-section { padding-left: 16px; padding-right: 16px; }
-  .featured-section { padding-left: 16px; padding-right: 16px; }
-
-}
-
-/* FOOTER CTA */
+/* ── FOOTER CTA ── */
 .footer-cta {
   background: var(--orange);
   padding: 56px 40px;
@@ -571,14 +532,7 @@ nav {
 }
 .fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
 
-/* ── footer-cta RWD（必須在桌機宣告之後）── */
-@media (max-width: 768px) {
-  .footer-cta { flex-direction: column; align-items: flex-start; padding: 40px 20px; gap: 24px; }
-  .fcta-title { font-size: 26px; }
-  .fcta-btns { flex-direction: column; width: 100%; }
-  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
-}
-
+/* ── FOOTER ── */
 footer {
   background: var(--navy-d);
   padding: 28px 40px;
@@ -595,19 +549,64 @@ footer {
 .social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-decoration: none; transition: background .15s; }
 .social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
 
+/* ── ANIMATIONS ── */
 .fade-in { opacity: 0; transform: translateY(12px); transition: opacity .45s, transform .45s; }
 .fade-in.show { opacity: 1; transform: none; }
+
+/* ── RWD ── */
+@media (max-width: 768px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .feat-card.main-card { grid-row: auto; }
+  nav { padding: 0 20px; gap: 16px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .featured-section, .all-section { padding-left: 24px; padding-right: 24px; }
+  .page-header { padding: 40px 20px 36px; }
+  .section-divider { margin: 0 24px; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .report-row { grid-template-columns: 72px 110px 1fr auto; gap: 0 14px; }
+  .footer-cta { flex-direction: column; align-items: flex-start; padding: 40px 20px; gap: 24px; }
+  .fcta-title { font-size: 26px; }
+  .fcta-btns { flex-direction: column; width: 100%; }
+  .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 540px) {
+  .report-row {
+    display: block;
+    padding: 14px 16px 14px 16px;
+  }
+  .row-date {
+    display: inline;
+    margin-right: 8px;
+    font-size: 10px;
+  }
+  .row-outlet-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .row-country { display: none; }
+  .row-title { font-size: 13px; margin-bottom: 4px; }
+  .row-excerpt { display: none; }
+  .row-right {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .page-h1 { font-size: 34px; }
+  .tl-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .tl-title { font-size: 24px; }
+  .all-section { padding-left: 16px; padding-right: 16px; }
+  .featured-section { padding-left: 16px; padding-right: 16px; }
+}
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
 
 </head>
 <body>
@@ -666,17 +665,19 @@ footer {
   <div id="reports-list"></div>
 </section>
 
+<!-- FOOTER CTA — Sheet 驅動，HTML 保留 fallback -->
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training"><span data-field="cta_join_label">8週入門說明</span></a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#"><span data-field="cta_calendar_label">訂閱行事曆</span></a>
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <div>
     <div class="footer-brand">社團法人臺中市韌民協會</div>
@@ -691,14 +692,63 @@ footer {
 </footer>
 
 <script>
-const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
+/* ══════════════════════════════════════════
+   CSV 基礎工具 + localStorage 快取
+══════════════════════════════════════════ */
+var CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
 function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
 
+/* ── LocalStorage 快取 (6 小時) ── */
+var CACHE_TTL = 6 * 60 * 60 * 1000;
+var NOCACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function getCacheKey(sheetName) { return 'txgcca_cache_' + sheetName; }
+
+function getCache(sheetName) {
+  if (NOCACHE) return null;
+  try {
+    var raw = localStorage.getItem(getCacheKey(sheetName));
+    if (!raw) return null;
+    var cached = JSON.parse(raw);
+    var age = Date.now() - cached.timestamp;
+    if (age < CACHE_TTL) {
+      console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + sheetName);
+      return cached.data;
+    }
+  } catch (e) { /* ignore corrupt cache */ }
+  return null;
+}
+
+function setCache(sheetName, data) {
+  try {
+    localStorage.setItem(getCacheKey(sheetName), JSON.stringify({ timestamp: Date.now(), data: data }));
+  } catch (e) { /* localStorage full or unavailable */ }
+}
+
+function fetchCSV(gid, sheetName) {
+  var cached = getCache(sheetName);
+  if (cached) return Promise.resolve(cached);
+
+  if (NOCACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + sheetName);
+  } else {
+    console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + sheetName);
+  }
+
+  return fetch(csvUrl(gid))
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+      setCache(sheetName, text);
+      return text;
+    });
+}
+
+/* ── CSV 解析工具 ── */
 function parseCSV(text) {
-  const rows = [];
-  let row = [], cur = '', inQ = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i], next = text[i+1];
+  var rows = [];
+  var row = [], cur = '', inQ = false;
+  for (var i = 0; i < text.length; i++) {
+    var ch = text[i], next = text[i+1];
     if (inQ) {
       if (ch === '"' && next === '"') { cur += '"'; i++; }
       else if (ch === '"') { inQ = false; }
@@ -712,34 +762,44 @@ function parseCSV(text) {
     }
   }
   if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
-  return rows.filter(r => r.some(c => c));
+  return rows.filter(function(r) { return r.some(function(c) { return c; }); });
 }
 
 function parseKV(rows) {
-  const obj = {};
-  rows.forEach(row => {
+  var obj = {};
+  rows.forEach(function(row) {
     if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
   });
   return obj;
 }
 
 function parseRows(rows) {
-  const headers = rows[0];
+  var headers = rows[0];
   return rows.slice(1)
-    .filter(row => row[0] && /^[a-z]+-\d+/.test(row[0]))
-    .map(row => {
-      const obj = {};
-      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+    .filter(function(row) { return row[0] && /^[a-z]+-\d+/.test(row[0]); })
+    .map(function(row) {
+      var obj = {};
+      headers.forEach(function(h, i) { if (h) obj[h] = row[i] || ''; });
       return obj;
     });
 }
 
+/* ── 全站設定套用 ── */
 function applyFields(data) {
-  document.querySelectorAll('[data-href]').forEach(el => {
-    const key = el.dataset.href;
+  /* data-field 文字替換 */
+  document.querySelectorAll('[data-field]').forEach(function(el) {
+    var key = el.dataset.field;
+    if (data[key]) el.textContent = data[key];
+  });
+
+  /* data-href 連結替換 */
+  document.querySelectorAll('[data-href]').forEach(function(el) {
+    var key = el.dataset.href;
     if (data[key] && data[key] !== '#') el.href = data[key];
   });
-  const reg = document.querySelector('.footer-reg');
+
+  /* 頁尾法人編號 */
+  var reg = document.querySelector('.footer-reg');
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
@@ -752,120 +812,126 @@ function formatDateDisplay(dateStr) {
   return (dateStr || '').replace('-', '.');
 }
 function formatDateFeatured(dateStr) {
-  const [y, m] = (dateStr || '').split('-');
-  return y && m ? `${y} 年 ${parseInt(m)} 月` : dateStr;
+  var parts = (dateStr || '').split('-');
+  var y = parts[0], m = parts[1];
+  return y && m ? y + ' 年 ' + parseInt(m) + ' 月' : dateStr;
 }
 
 /* ── 精選報導區 ── */
 function buildFeatCard(item, isMain, delay) {
-  const isVideo = item.type === 'video';
-  const isIntl  = item.region === 'international';
-  const badgeHtml = isIntl
-    ? `<div class="media-badge badge-intl">🌍 國際</div>`
+  var isVideo = item.type === 'video';
+  var isIntl  = item.region === 'international';
+  var badgeHtml = isIntl
+    ? '<div class="media-badge badge-intl">🌍 國際</div>'
     : isVideo
-      ? `<div class="media-badge badge-video">▶ 影片</div>`
-      : `<div class="media-badge badge-text">📄 文字</div>`;
-  const videoHtml = isVideo && item.youtubeId
-    ? `<div class="video-wrap"><iframe src="https://www.youtube.com/embed/${item.youtubeId}"
-        title="${item.outlet} 報導"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe></div>` : '';
-  const desc = item.featured_desc || item.excerpt;
-  const descHtml = desc ? `<div class="feat-desc">${desc}</div>` : '';
-  const linkText = isVideo ? '觀看報導 ↗' : '閱讀全文 ↗';
-  return `
-    <div class="feat-card ${isMain ? 'main-card' : ''} fade-in" style="transition-delay:${delay}s">
-      ${videoHtml}
-      <div class="feat-body">
-        ${badgeHtml}
-        <div class="feat-outlet">${item.outlet}</div>
-        <div class="feat-title">${item.title}</div>
-        ${descHtml}
-        <div class="feat-footer">
-          <span class="feat-date">${formatDateFeatured(item.date)}</span>
-          <a class="feat-link" href="${item.link}" target="_blank">${linkText}</a>
-        </div>
-      </div>
-    </div>`;
+      ? '<div class="media-badge badge-video">▶ 影片</div>'
+      : '<div class="media-badge badge-text">📄 文字</div>';
+  var videoHtml = isVideo && item.youtubeId
+    ? '<div class="video-wrap"><iframe src="https://www.youtube.com/embed/' + item.youtubeId + '"'
+      + ' title="' + item.outlet + ' 報導"'
+      + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"'
+      + ' allowfullscreen></iframe></div>' : '';
+  var desc = item.featured_desc || item.excerpt;
+  var descHtml = desc ? '<div class="feat-desc">' + desc + '</div>' : '';
+  var linkText = isVideo ? '觀看報導 ↗' : '閱讀全文 ↗';
+  return ''
+    + '<div class="feat-card ' + (isMain ? 'main-card' : '') + ' fade-in" style="transition-delay:' + delay + 's">'
+    +   videoHtml
+    +   '<div class="feat-body">'
+    +     badgeHtml
+    +     '<div class="feat-outlet">' + item.outlet + '</div>'
+    +     '<div class="feat-title">' + item.title + '</div>'
+    +     descHtml
+    +     '<div class="feat-footer">'
+    +       '<span class="feat-date">' + formatDateFeatured(item.date) + '</span>'
+    +       '<a class="feat-link" href="' + item.link + '" target="_blank">' + linkText + '</a>'
+    +     '</div>'
+    +   '</div>'
+    + '</div>';
 }
 
 /* ── 完整報導條列區 ── */
 function buildReportRow(item) {
-  const isVideo  = item.type === 'video';
-  const pillHtml = isVideo
-    ? `<span class="type-pill pill-video">▶ 影片</span>`
-    : `<span class="type-pill pill-text">📄 文字</span>`;
-  const linkText = isVideo ? '觀看 ↗' : '閱讀 ↗';
-  return `
-    <div class="report-row">
-      <div class="row-accent ${accentClass(item)}"></div>
-      <div class="row-date">${formatDateDisplay(item.date)}</div>
-      <div class="row-outlet-wrap">
-        <div class="row-outlet">${item.outlet}</div>
-        <div class="row-country">${item.country}</div>
-      </div>
-      <div class="row-content">
-        <div class="row-title">${item.title}</div>
-        <div class="row-excerpt">${item.excerpt}</div>
-      </div>
-      <div class="row-right">
-        ${pillHtml}
-        <a class="row-link" href="${item.link}" target="_blank">${linkText}</a>
-      </div>
-    </div>`;
+  var isVideo  = item.type === 'video';
+  var pillHtml = isVideo
+    ? '<span class="type-pill pill-video">▶ 影片</span>'
+    : '<span class="type-pill pill-text">📄 文字</span>';
+  var linkText = isVideo ? '觀看 ↗' : '閱讀 ↗';
+  return ''
+    + '<div class="report-row">'
+    +   '<div class="row-accent ' + accentClass(item) + '"></div>'
+    +   '<div class="row-date">' + formatDateDisplay(item.date) + '</div>'
+    +   '<div class="row-outlet-wrap">'
+    +     '<div class="row-outlet">' + item.outlet + '</div>'
+    +     '<div class="row-country">' + item.country + '</div>'
+    +   '</div>'
+    +   '<div class="row-content">'
+    +     '<div class="row-title">' + item.title + '</div>'
+    +     '<div class="row-excerpt">' + item.excerpt + '</div>'
+    +   '</div>'
+    +   '<div class="row-right">'
+    +     pillHtml
+    +     '<a class="row-link" href="' + item.link + '" target="_blank">' + linkText + '</a>'
+    +   '</div>'
+    + '</div>';
 }
 
 function renderMedia(reports) {
-  // 精選報導
-  const featured = reports
-    .filter(r => r.featured === 'TRUE')
-    .sort((a, b) => Number(a.featured_order) - Number(b.featured_order));
-  const grid = document.getElementById('featured-grid');
-  grid.innerHTML = featured.map((item, i) => buildFeatCard(item, i === 0, i * 0.08)).join('');
+  /* 精選報導 */
+  var featured = reports
+    .filter(function(r) { return r.featured === 'TRUE'; })
+    .sort(function(a, b) { return Number(a.featured_order) - Number(b.featured_order); });
+  var grid = document.getElementById('featured-grid');
+  grid.innerHTML = featured.map(function(item, i) { return buildFeatCard(item, i === 0, i * 0.08); }).join('');
 
-  // 完整列表：新到舊排序，依年份分組
-  const sorted = [...reports].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-  const byYear = {};
-  sorted.forEach(item => {
-    const year = (item.date || '').split('-')[0];
+  /* 完整列表：新到舊排序，依年份分組 */
+  var sorted = reports.slice().sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
+  var byYear = {};
+  sorted.forEach(function(item) {
+    var year = (item.date || '').split('-')[0];
     if (year) { if (!byYear[year]) byYear[year] = []; byYear[year].push(item); }
   });
-  const listEl = document.getElementById('reports-list');
-  listEl.innerHTML = Object.keys(byYear).sort((a, b) => b - a).map((year, yi) => `
-    <div class="year-group fade-in" style="transition-delay:${yi * 0.05}s">
-      <div class="year-label">
-        <span class="year-num">${year}</span>
-        <span class="year-line"></span>
-      </div>
-      ${byYear[year].map(buildReportRow).join('')}
-    </div>`).join('');
+  var listEl = document.getElementById('reports-list');
+  listEl.innerHTML = Object.keys(byYear).sort(function(a, b) { return b - a; }).map(function(year, yi) {
+    return ''
+      + '<div class="year-group fade-in" style="transition-delay:' + (yi * 0.05) + 's">'
+      +   '<div class="year-label">'
+      +     '<span class="year-num">' + year + '</span>'
+      +     '<span class="year-line"></span>'
+      +   '</div>'
+      +   byYear[year].map(buildReportRow).join('')
+      + '</div>';
+  }).join('');
 
-  // 動畫觀察
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+  /* 動畫觀察 */
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+  document.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
 }
 
+/* ══════════════════════════════════════════
+   CSV 載入（Promise.all 平行 + 快取）
+══════════════════════════════════════════ */
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
-  fetch(csvUrl('1793841217')).then(r => r.text()),  // 媒體報導
-]).then(([siteCSV, mediaCSV]) => {
-  applyFields(parseKV(parseCSV(siteCSV)));
-  renderMedia(parseRows(parseCSV(mediaCSV)));
-}).catch(err => {
-  console.error('CSV fetch 失敗:', err);
+  fetchCSV('0', 'global'),              // 全站設定
+  fetchCSV('1793841217', 'media'),       // 媒體報導
+]).then(function(results) {
+  applyFields(parseKV(parseCSV(results[0])));
+  renderMedia(parseRows(parseCSV(results[1])));
+}).catch(function(err) {
+  console.error('[TXGCCA] CSV fetch 失敗:', err);
 });
 </script>
 
 <script>
-/* 漢堡選單開關 */
-const hamburger = document.getElementById('nav-hamburger');
-const drawer    = document.getElementById('nav-drawer');
-const backdrop  = document.getElementById('nav-backdrop');
+/* ── 漢堡選單開關 ── */
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
 
 function openMenu() {
-  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  var navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
   drawer.style.top = navBottom + 'px';
   drawer.classList.add('open');
   backdrop.classList.add('open');
@@ -881,11 +947,11 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', function() {
   drawer.classList.contains('open') ? closeMenu() : openMenu();
 });
 backdrop.addEventListener('click', closeMenu);
-drawer.querySelectorAll('.nav-link').forEach(link => {
+drawer.querySelectorAll('.nav-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 </script>
