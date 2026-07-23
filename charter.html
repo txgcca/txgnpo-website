@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>協會章程 — 臺中市民團協會</title>
+<title>協會章程 — 臺中市韌民協會</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="社團法人臺中市韌民協會章程全文。">
+<meta property="og:title" content="協會章程 — 臺中市韌民協會">
+<meta property="og:description" content="社團法人臺中市韌民協會章程全文。">
+<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
+<meta property="og:url" content="https://txgcca.github.io/txgnpo-website/charter.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -97,6 +111,21 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 .footer-social { display: flex; gap: 10px; }
 .social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-decoration: none; transition: background .15s; }
 .social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+
+/* ── Skeleton 骨架屏 ── */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,.08) 25%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.08) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  color: transparent !important;
+}
+.skeleton * { color: transparent !important; }
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ── 手機漢堡選單 ── */
 .nav-hamburger {
   display: none;
@@ -149,16 +178,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .article { grid-template-columns: 44px 1fr; }
 }
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
 
 </head>
 <body>
@@ -191,11 +210,11 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 /* ── 頁面基本資訊 ── */
 const PAGE_INFO = {
   kicker:     "法規文件",
-  pageTitle:  "臺中市民團協會章程",
-  intro:      "臺中市民團協會章程係依相關法令設立，規範協會之組織架構、會員權利義務、財務管理及各項運作規則。本章程經 113 年 9 月 15 日第 1 屆第 1 次會員大會通過，報請臺中市政府社會局以中市社團字第 1130158795 號函核備後施行，法人登記號 113 法登 證社字第 000117 號。",
-  backLink:   "about.html",   /* 返回「關於我們」頁面的網址 */
-  joinLink:   "training.html#self-training",   /* 報名週五自訓的網址 */
-  calLink:    "#",   /* 訂閱行事曆的網址 */
+  pageTitle:  "臺中市韌民協會章程",
+  intro:      "臺中市韌民協會章程係依相關法令設立，規範協會之組織架構、會員權利義務、財務管理及各項運作規則。本章程經 113 年 9 月 15 日第 1 屆第 1 次會員大會通過，報請臺中市政府社會局以中市社團字第 1130158795 號函核備後施行，法人登記號 113 法登 證社字第 000117 號。",
+  backLink:   "about.html",
+  joinLink:   "training.html#self-training",
+  calLink:    "#",
 };
 
 /* ── 六章法條 ── */
@@ -209,7 +228,7 @@ const CHARTER = [
     articles: [
       {
         num:  "第 1 條",
-        text: "本會名稱為臺中市民團協會（以下簡稱本會）。本會英文名稱為 Taichung City Citizen Corps Association。本會日文名稱為臺中市自主防災協会（たいちゅうしじしゅぼうさいきょうかい）。本會之臺羅名稱為 Tâi-tiong-tshī Bîn-thuân Hia̍p-huē。",
+        text: "本會名稱為臺中市韌民協會（以下簡稱本會）。本會英文名稱為 Taichung City Citizen Corps Association。本會日文名稱為臺中市自主防災協会（たいちゅうしじしゅぼうさいきょうかい）。本會之臺羅名稱為 Tâi-tiong-tshī Bîn-thuân Hia̍p-huē。",
         items: [],
       },
       {
@@ -538,15 +557,15 @@ const CHARTER = [
 
 <div class="page-header">
   <div class="hero-inner">
-    <div class="hero-kicker" id="r-kicker"></div>
-    <h1 class="hero-title" id="r-title"></h1>
+    <div class="hero-kicker skeleton" id="r-kicker">法規文件</div>
+    <h1 class="hero-title skeleton" id="r-title">臺中市韌民協會章程</h1>
   </div>
 </div>
 
 <div class="charter-body">
   <div class="intro-card">
     <div class="intro-icon">📋</div>
-    <p class="intro-text" id="r-intro"></p>
+    <p class="intro-text" id="r-intro"><strong>臺中市韌民協會章程</strong>係依相關法令設立，規範協會之組織架構、會員權利義務、財務管理及各項運作規則。本章程經 113 年 9 月 15 日第 1 屆第 1 次會員大會通過，報請臺中市政府社會局以中市社團字第 1130158795 號函核備後施行，法人登記號 113 法登 證社字第 000117 號。</p>
   </div>
   <div id="r-chapters"></div>
 </div>
@@ -559,12 +578,12 @@ const CHARTER = [
 
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" id="r-join" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" id="r-cal" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" id="r-join" data-href="url_cta_join" href="training.html#self-training" data-field="cta_join_label">8週入門說明</a>
+    <a class="fcta-btn-o" id="r-cal" data-href="url_cta_calendar" href="#" data-field="cta_calendar_label">訂閱行事曆</a>
   </div>
 </div>
 
@@ -589,6 +608,51 @@ const CHARTER = [
 /* ── CSV utilities ── */
 const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
 function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
+
+/* ── LocalStorage 快取 (6 小時) ── */
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours in ms
+const NOCACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function getCacheKey(sheetName) { return 'txgcca_cache_' + sheetName; }
+
+function getCache(sheetName) {
+  if (NOCACHE) return null;
+  try {
+    const raw = localStorage.getItem(getCacheKey(sheetName));
+    if (!raw) return null;
+    const cached = JSON.parse(raw);
+    const age = Date.now() - cached.timestamp;
+    if (age < CACHE_TTL) {
+      console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + sheetName);
+      return cached.data;
+    }
+  } catch (e) { /* ignore corrupt cache */ }
+  return null;
+}
+
+function setCache(sheetName, data) {
+  try {
+    localStorage.setItem(getCacheKey(sheetName), JSON.stringify({ timestamp: Date.now(), data: data }));
+  } catch (e) { /* localStorage full or unavailable */ }
+}
+
+function fetchCSV(gid, sheetName) {
+  const cached = getCache(sheetName);
+  if (cached) return Promise.resolve(cached);
+
+  if (NOCACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + sheetName);
+  } else {
+    console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + sheetName);
+  }
+
+  return fetch(csvUrl(gid))
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+      setCache(sheetName, text);
+      return text;
+    });
+}
 
 function parseCSV(text) {
   const rows = [];
@@ -619,21 +683,28 @@ function parseKV(rows) {
   return obj;
 }
 
+function removeSkeleton() {
+  document.querySelectorAll('.skeleton').forEach(el => el.classList.remove('skeleton'));
+}
+
 function renderPageInfo() {
   document.getElementById('r-kicker').textContent = PAGE_INFO.kicker;
   document.getElementById('r-title').textContent  = PAGE_INFO.pageTitle;
-  document.getElementById('r-intro').innerHTML    = '<strong>' + PAGE_INFO.pageTitle + '</strong>' + PAGE_INFO.intro.replace(/^臺中市民團協會章程/, '');
+  document.getElementById('r-intro').innerHTML    = '<strong>' + PAGE_INFO.pageTitle + '</strong>' + PAGE_INFO.intro.replace(/^臺中市韌民協會章程/, '');
   document.getElementById('r-back').href  = PAGE_INFO.backLink;
   document.getElementById('r-join').href  = PAGE_INFO.joinLink;
   document.getElementById('r-cal').href   = PAGE_INFO.calLink;
+  removeSkeleton();
 }
 
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),        // 全站設定
-  fetch(csvUrl('95921268')).then(r => r.text()), // charter_page info
-]).then(([siteCSV, charterCSV]) => {
-  const siteData    = parseKV(parseCSV(siteCSV));
-  const charterData = parseKV(parseCSV(charterCSV));
+  fetchCSV('0', 'global'),            // 全站設定
+  fetchCSV('95921268', 'charter'),     // charter_page info
+]).then(function(results) {
+  var siteCSV    = results[0];
+  var charterCSV = results[1];
+  var siteData    = parseKV(parseCSV(siteCSV));
+  var charterData = parseKV(parseCSV(charterCSV));
 
   // 用 sheet 值覆蓋 PAGE_INFO
   if (charterData.kicker)    PAGE_INFO.kicker    = charterData.kicker;
@@ -645,82 +716,83 @@ Promise.all([
 
   renderPageInfo();
 
-  // 登記字號 + 社群連結
-  document.querySelectorAll('[data-field]').forEach(el => {
-    if (siteData[el.dataset.field]) el.textContent = siteData[el.dataset.field];
+  // data-field 文字覆蓋（Footer CTA + 登記字號等）
+  document.querySelectorAll('[data-field]').forEach(function(el) {
+    var val = siteData[el.dataset.field];
+    if (val) el.textContent = val;
   });
-  document.querySelectorAll('[data-href]').forEach(el => {
-    const val = siteData[el.dataset.href];
+
+  // data-href 連結覆蓋（社群連結 + CTA 按鈕）
+  document.querySelectorAll('[data-href]').forEach(function(el) {
+    var val = siteData[el.dataset.href];
     if (val && val !== '#') el.href = val;
   });
 
-}).catch(err => {
+}).catch(function(err) {
   console.error('CSV fetch 失敗:', err);
   renderPageInfo(); // fetch 失敗時仍用 PAGE_INFO 預設值渲染
 });
 
 /* 渲染章節與法條 */
-const container = document.getElementById('r-chapters');
+var container = document.getElementById('r-chapters');
 
-CHARTER.forEach((ch, idx) => {
+CHARTER.forEach(function(ch, idx) {
   /* 子項目 HTML */
-  const buildItems = (items) => {
+  var buildItems = function(items) {
     if (!items || items.length === 0) return '';
-    const rows = items.map(item => {
+    var rows = items.map(function(item) {
       if (typeof item === 'object' && item.fee) {
-        return `<span class="sub-item fee"><span>${item.label}</span><span class="fee-val">${item.val}</span></span>`;
+        return '<span class="sub-item fee"><span>' + item.label + '</span><span class="fee-val">' + item.val + '</span></span>';
       }
-      return `<span class="sub-item">${item}</span>`;
+      return '<span class="sub-item">' + item + '</span>';
     }).join('');
-    return `<div class="sub-items">${rows}</div>`;
+    return '<div class="sub-items">' + rows + '</div>';
   };
 
   /* 法條 HTML */
-  const articlesHTML = ch.articles.map(a => `
-    <div class="article">
-      <span class="article-num">${a.num}</span>
-      <div class="article-body">${a.text}${buildItems(a.items)}</div>
-    </div>`).join('');
+  var articlesHTML = ch.articles.map(function(a) {
+    return '<div class="article"><span class="article-num">' + a.num + '</span><div class="article-body">' + a.text + buildItems(a.items) + '</div></div>';
+  }).join('');
 
   /* 章節區塊 HTML（第一章預設展開） */
-  const isOpen = idx === 0 ? 'open' : '';
-  const block = document.createElement('div');
-  block.className = `chapter-block ${isOpen}`;
-  block.id = `ch${idx + 1}`;
-  block.innerHTML = `
-    <div class="chapter-hd" onclick="toggleChapter(this)">
-      <span class="ch-badge">${ch.chapter}</span>
-      <div>
-        <div class="chapter-name">${ch.title}</div>
-        <div class="chapter-sub">${ch.range}</div>
-      </div>
-      <svg class="ch-arrow" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
-      </svg>
-    </div>
-    <div class="chapter-content">
-      <div class="chapter-content-inner">${articlesHTML}</div>
-    </div>`;
+  var isOpen = idx === 0 ? 'open' : '';
+  var block = document.createElement('div');
+  block.className = 'chapter-block ' + isOpen;
+  block.id = 'ch' + (idx + 1);
+  block.innerHTML =
+    '<div class="chapter-hd" onclick="toggleChapter(this)">' +
+      '<span class="ch-badge">' + ch.chapter + '</span>' +
+      '<div>' +
+        '<div class="chapter-name">' + ch.title + '</div>' +
+        '<div class="chapter-sub">' + ch.range + '</div>' +
+      '</div>' +
+      '<svg class="ch-arrow" viewBox="0 0 20 20" fill="currentColor">' +
+        '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>' +
+      '</svg>' +
+    '</div>' +
+    '<div class="chapter-content">' +
+      '<div class="chapter-content-inner">' + articlesHTML + '</div>' +
+    '</div>';
   container.appendChild(block);
 });
 
 /* 折疊互動 */
 function toggleChapter(hd) {
-  const block = hd.closest('.chapter-block');
-  const isOpen = block.classList.contains('open');
-  document.querySelectorAll('.chapter-block').forEach(b => b.classList.remove('open'));
+  var block = hd.closest('.chapter-block');
+  var isOpen = block.classList.contains('open');
+  document.querySelectorAll('.chapter-block').forEach(function(b) { b.classList.remove('open'); });
   if (!isOpen) block.classList.add('open');
 }
 </script>
 
 <script>
 /* 漢堡選單開關 */
-const hamburger = document.getElementById('nav-hamburger');
-const drawer    = document.getElementById('nav-drawer');
-const backdrop  = document.getElementById('nav-backdrop');
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
 
 function openMenu() {
-  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  var navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
   drawer.style.top = navBottom + 'px';
   drawer.classList.add('open');
   backdrop.classList.add('open');
@@ -736,11 +808,11 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', function() {
   drawer.classList.contains('open') ? closeMenu() : openMenu();
 });
 backdrop.addEventListener('click', closeMenu);
-drawer.querySelectorAll('.nav-link').forEach(link => {
+drawer.querySelectorAll('.nav-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 </script>
