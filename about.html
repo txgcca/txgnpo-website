@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>關於我們 — 臺中市民團協會</title>
+<title>關於我們 — 臺中市韌民協會</title>
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- SEO Meta -->
+<meta name="description" content="認識臺中市韌民協會的成立故事、三大核心價值與組織架構。">
+<meta property="og:title" content="關於我們 — 臺中市韌民協會">
+<meta property="og:description" content="認識臺中市韌民協會的成立故事、三大核心價值與組織架構。">
+<meta property="og:image" content="https://txgcca.org.tw/og-image.png">
+<meta property="og:url" content="https://txgcca.org.tw/about.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -44,6 +58,20 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 .bc-sep { font-size: 11px; color: rgba(255,255,255,.2); }
 .bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
 
+/* ── Skeleton 骨架屏（方案 B）── */
+.skel-line {
+  display: inline-block;
+  height: 1em;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255,255,255,.08) 25%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.08) 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s ease-in-out infinite;
+}
+@keyframes skel-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ── SECTION BASE ── */
 section { padding: 72px 40px; }
 .inner { max-width: 900px; margin: 0 auto; }
@@ -75,7 +103,6 @@ section { padding: 72px 40px; }
 .tl-item-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.35; }
 .tl-item-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
 .tl-badge { display: inline-block; margin-top: 8px; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 2px 9px; border-radius: 99px; }
-/* Sheet 欄位說明角 */
 .tl-sheet-note { margin-top: 24px; padding: 10px 14px; background: rgba(0,55,100,.05); border-radius: 5px; border-left: 3px solid var(--teal); font-size: 11px; color: var(--muted); line-height: 1.7; }
 .tl-sheet-note code { font-family: monospace; background: rgba(0,55,100,.08); padding: 1px 4px; border-radius: 2px; font-size: 11px; }
 
@@ -197,12 +224,6 @@ section { padding: 72px 40px; }
 
 /* ══════════════════════════════════════════
    § 4 ORG CHART + MEMBER TYPES  (RWD)
-   - 桌機：並排 2 欄
-   - 平板/手機：單欄堆疊
-   - 圖片建議：1200×900px (4:3)，500KB 以內
-   - Google Sites 注意：圖片區塊選「全寬」，
-     Google Sites 會自動縮放並從中央裁切；
-     重要資訊請置中、避免放邊緣
 ══════════════════════════════════════════ */
 .org-bg { background: var(--navy-d); }
 .org-bg .section-title { color: var(--white); }
@@ -227,7 +248,6 @@ section { padding: 72px 40px; }
   color: var(--teal);
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
 }
-/* 圖片容器：4:3，圖片完整顯示不裁切 */
 .org-img-wrap {
   width: 100%;
   aspect-ratio: 4/3;
@@ -238,10 +258,9 @@ section { padding: 72px 40px; }
 .org-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: contain;   /* contain = 不裁切，完整顯示架構圖 */
+  object-fit: contain;
   display: block;
 }
-/* 佔位（開發用） */
 .org-img-ph {
   width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
@@ -249,7 +268,6 @@ section { padding: 72px 40px; }
   color: rgba(255,255,255,.2); font-size: 12px;
 }
 .org-img-ph svg { width: 32px; height: 32px; opacity: .2; }
-/* RWD 說明標籤 */
 .org-rwd-note {
   padding: 10px 14px;
   font-size: 10px;
@@ -286,7 +304,7 @@ section { padding: 72px 40px; }
 .fcta-btn-o:hover { border-color: rgba(255,255,255,.8); color: var(--white); }
 
 /* ══════════════════════════════════════════
-   FOOTER  (identical to homepage)
+   FOOTER
 ══════════════════════════════════════════ */
 footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
@@ -396,16 +414,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .value-card.tapped .value-title-bar { opacity: 0; }
 }
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
 
 </head>
 <body>
@@ -577,13 +585,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="org-panel">
         <div class="org-panel-hd">協會組織架構</div>
         <div class="org-img-wrap">
-          <img src="" data-field="org_chart_img" alt="訓練活動照片" style="width:100%;height:100%;object-fit:contain;">
+          <img src="" data-field="org_chart_img" alt="協會組織架構圖" style="width:100%;height:100%;object-fit:contain;">
         </div>
       </div>
       <div class="org-panel">
         <div class="org-panel-hd">會員分類</div>
         <div class="org-img-wrap">
-          <img src="" data-field="member_types_img" alt="訓練活動照片" style="width:100%;height:100%;object-fit:contain;">
+          <img src="" data-field="member_types_img" alt="會員分類說明圖" style="width:100%;height:100%;object-fit:contain;">
         </div>
       </div>
     </div>
@@ -601,12 +609,12 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- FOOTER CTA -->
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" href="#" data-href="url_cta_join">報名週五自訓</a>
-    <a class="fcta-btn-o" href="#" data-href="url_cta_calendar">訂閱行事曆</a>
+    <a class="fcta-btn-w" href="#" data-href="url_cta_join"><span data-field="cta_join_label">8週入門說明</span></a>
+    <a class="fcta-btn-o" href="#" data-href="url_cta_calendar"><span data-field="cta_calendar_label">訂閱行事曆</span></a>
   </div>
 </div>
 
@@ -626,15 +634,67 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
 
 <script>
-/* ── CSV → DOM ── */
-const _SHEET = id =>
-  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=' + id + '&single=true&output=csv';
+/* ══════════════════════════════════════════
+   CSV 基礎工具 + localStorage 快取
+══════════════════════════════════════════ */
 
+/* CSV URL 建構 */
+function csvUrl(gid) {
+  return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=' + gid + '&single=true&output=csv';
+}
+
+/* ══ 方案 C：localStorage 快取（6 小時）══════════ */
+var CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時（毫秒）
+var NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function cachedFetch(cacheKey, url) {
+  if (!NO_CACHE) {
+    try {
+      var cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        var parsed = JSON.parse(cached);
+        var age = Date.now() - parsed.timestamp;
+        if (age < CACHE_TTL) {
+          console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + cacheKey);
+          return Promise.resolve(parsed.data);
+        }
+      }
+    } catch (e) { /* localStorage 不可用或資料損壞，直接 fetch */ }
+  } else {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + cacheKey);
+  }
+
+  // 沒有快取或已過期：從網路抓
+  return fetch(url).then(function(r) { return r.text(); }).then(function(text) {
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: text }));
+      if (!NO_CACHE) console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + cacheKey);
+    } catch (e) { /* localStorage 寫入失敗（容量滿等），靜默處理 */ }
+    return text;
+  });
+}
+
+/* 開發者模式 Console 訊息 */
+(function() {
+  if (NO_CACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected)');
+  } else {
+    var anyCache = false;
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i).indexOf('txgcca_cache_') === 0) { anyCache = true; break; }
+      }
+    } catch(e) {}
+    console.log('[TXGCCA] Cache mode: ' + (anyCache ? 'ENABLED' : 'INITIAL FETCH'));
+  }
+})();
+
+/* ══ CSV 解析工具 ═════════════════════════════════ */
 function parseCSV(text) {
-  const rows = [];
-  let row = [], field = '', inQ = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
+  var rows = [];
+  var row = [], field = '', inQ = false;
+  for (var i = 0; i < text.length; i++) {
+    var c = text[i];
     if (inQ) {
       if (c === '"' && text[i+1] === '"') { field += '"'; i++; }
       else if (c === '"') inQ = false;
@@ -648,96 +708,105 @@ function parseCSV(text) {
   }
   if (field || row.length) { row.push(field); rows.push(row); }
   if (!rows.length) return [];
-  const hdrs = rows[0];
-  return rows.slice(1).map(r => {
-    const o = {};
-    hdrs.forEach((h, i) => { o[h.trim()] = (r[i] || '').trim(); });
+  var hdrs = rows[0];
+  return rows.slice(1).map(function(r) {
+    var o = {};
+    hdrs.forEach(function(h, idx) { o[h.trim()] = (r[idx] || '').trim(); });
     return o;
   });
 }
 
 function parseKV(rows) {
-  const cfg = {};
-  rows.forEach(r => {
-    const vals = Object.values(r);
+  var cfg = {};
+  rows.forEach(function(r) {
+    var vals = Object.values(r);
     if (vals[0]) cfg[vals[0]] = vals[2] || '';
   });
   return cfg;
 }
 
 function parseRowsBy(rows) {
-  return rows.filter(r => /^\d{4}/.test(r.date || ''));
+  return rows.filter(function(r) { return /^\d{4}/.test(r.date || ''); });
 }
 
+/* ══ DOM 套用工具 ═════════════════════════════════ */
 function applyFields(cfg) {
-  document.querySelectorAll('[data-field]').forEach(el => {
-    const v = cfg[el.dataset.field];
+  document.querySelectorAll('[data-field]').forEach(function(el) {
+    var v = cfg[el.dataset.field];
     if (!v) return;
     if (el.tagName === 'IMG') el.src = v;
     else el.textContent = v;
   });
-  document.querySelectorAll('[data-href]').forEach(el => {
-    const v = cfg[el.dataset.href];
+  document.querySelectorAll('[data-href]').forEach(function(el) {
+    var v = cfg[el.dataset.href];
     if (v) el.href = v;
   });
-  document.querySelectorAll('[data-mailto]').forEach(el => {
-    const v = cfg[el.dataset.mailto];
+  document.querySelectorAll('[data-mailto]').forEach(function(el) {
+    var v = cfg[el.dataset.mailto];
     if (v) el.href = 'mailto:' + v;
   });
-  document.querySelectorAll('[data-bg-field]').forEach(el => {
-    const v = cfg[el.dataset.bgField];
+  document.querySelectorAll('[data-bg-field]').forEach(function(el) {
+    var v = cfg[el.dataset.bgField];
     if (!v) return;
-    el.style.backgroundImage = `url('${v}')`;
+    el.style.backgroundImage = "url('" + v + "')";
     el.style.backgroundSize = 'cover';
     el.style.backgroundPosition = 'center';
-    const ph = el.querySelector('.photo-ph');
+    var ph = el.querySelector('.photo-ph');
     if (ph) ph.style.display = 'none';
   });
-  const reg = document.querySelector('.footer-reg');
+  var reg = document.querySelector('.footer-reg');
   if (reg && cfg.org_reg_1) reg.textContent = cfg.org_reg_1 + (cfg.org_reg_2 ? ' ｜ ' + cfg.org_reg_2 : '');
 }
 
-const DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
-const BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal:'rgba(44,213,196,.15)' };
-const BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
+/* ══ 大事記 Timeline 渲染 ═════════════════════════ */
+var DOT_COLOR = { navy:'var(--navy)', orange:'var(--orange)', teal:'var(--teal)' };
+var BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal:'rgba(44,213,196,.15)' };
+var BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
 
 function renderTimeline(events) {
-  const items = events.filter(e => e.show_on_about === '是').slice(0, 6);
-  const wrap = document.getElementById('tl-scroll');
+  var items = events.filter(function(e) { return e.show_on_about === '是'; }).slice(0, 6);
+  var wrap = document.getElementById('tl-scroll');
   if (!wrap) return;
-  wrap.innerHTML = items.length ? items.map(e => {
-    const color = e.badge_color || 'teal';
-    return `<div class="tl-item">
-      <div class="tl-dot-row">
-        <div class="tl-dot" style="background:${DOT_COLOR[color] || 'var(--teal)'}"></div>
-        <span class="tl-date">${e.date}</span>
-      </div>
-      <div class="tl-item-title">${e.title}</div>
-      <div class="tl-item-desc">${e.description}</div>
-      ${e.badge ? `<span class="tl-badge" style="background:${BADGE_BG[color]||BADGE_BG.teal};color:${BADGE_CLR[color]||BADGE_CLR.teal}">${e.badge}</span>` : ''}
-    </div>`;
+  wrap.innerHTML = items.length ? items.map(function(e) {
+    var color = e.badge_color || 'teal';
+    return '<div class="tl-item">' +
+      '<div class="tl-dot-row">' +
+        '<div class="tl-dot" style="background:' + (DOT_COLOR[color] || 'var(--teal)') + '"></div>' +
+        '<span class="tl-date">' + e.date + '</span>' +
+      '</div>' +
+      '<div class="tl-item-title">' + e.title + '</div>' +
+      '<div class="tl-item-desc">' + e.description + '</div>' +
+      (e.badge ? '<span class="tl-badge" style="background:' + (BADGE_BG[color]||BADGE_BG.teal) + ';color:' + (BADGE_CLR[color]||BADGE_CLR.teal) + '">' + e.badge + '</span>' : '') +
+    '</div>';
   }).join('') : '';
 }
 
+/* ══ 方案 D：Promise.all 平行載入 ════════════════ */
 Promise.all([
-  fetch(_SHEET(0)).then(r => r.text()),
-  fetch(_SHEET(486489436)).then(r => r.text()),
-  fetch(_SHEET(1523016997)).then(r => r.text())
-]).then(([csvSite, csvAbout, csvEvents]) => {
-  const cfg = Object.assign({}, parseKV(parseCSV(csvSite)), parseKV(parseCSV(csvAbout)));
+  cachedFetch('txgcca_cache_site',   csvUrl('0')),           // 全站設定
+  cachedFetch('txgcca_cache_about',  csvUrl('486489436')),    // 關於臺中民團
+  cachedFetch('txgcca_cache_events', csvUrl('1523016997'))    // 大事記
+]).then(function(results) {
+  var csvSite   = results[0];
+  var csvAbout  = results[1];
+  var csvEvents = results[2];
+
+  var cfg = Object.assign({}, parseKV(parseCSV(csvSite)), parseKV(parseCSV(csvAbout)));
   applyFields(cfg);
   renderTimeline(parseRowsBy(parseCSV(csvEvents)));
-}).catch(err => console.warn('CSV fetch error:', err));
+}).catch(function(err) {
+  console.warn('[TXGCCA] CSV fetch error:', err);
+});
 </script>
 
 <script>
 /* 漢堡選單開關 */
-const hamburger = document.getElementById('nav-hamburger');
-const drawer    = document.getElementById('nav-drawer');
-const backdrop  = document.getElementById('nav-backdrop');
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
 
 function openMenu() {
-  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  var navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
   drawer.style.top = navBottom + 'px';
   drawer.classList.add('open');
   backdrop.classList.add('open');
@@ -753,52 +822,48 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', function() {
   drawer.classList.contains('open') ? closeMenu() : openMenu();
 });
 backdrop.addEventListener('click', closeMenu);
-drawer.querySelectorAll('.nav-link').forEach(link => {
+drawer.querySelectorAll('.nav-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 </script>
 
 
 <script>
+/* 核心價值卡片 Touch 切換（手機用） */
 (function() {
-  // 只在 touch 裝置執行
   if (!window.matchMedia('(hover: none)').matches) return;
 
-  const cards = document.querySelectorAll('.value-card');
-  let timers = new WeakMap();
+  var cards = document.querySelectorAll('.value-card');
+  var timers = new WeakMap();
 
-  cards.forEach(card => {
+  cards.forEach(function(card) {
     card.addEventListener('click', function(e) {
       e.stopPropagation();
 
-      // 若已開啟就直接關掉
       if (card.classList.contains('tapped')) {
         clearTimeout(timers.get(card));
         card.classList.remove('tapped');
         return;
       }
 
-      // 關掉其他卡片
-      cards.forEach(c => {
+      cards.forEach(function(c) {
         clearTimeout(timers.get(c));
         c.classList.remove('tapped');
       });
 
-      // 開啟這張，4 秒後自動關閉
       card.classList.add('tapped');
-      timers.set(card, setTimeout(() => {
+      timers.set(card, setTimeout(function() {
         card.classList.remove('tapped');
       }, 3000));
     });
   });
 
-  // 點卡片外的地方關閉全部
   document.addEventListener('click', function() {
-    cards.forEach(c => {
+    cards.forEach(function(c) {
       clearTimeout(timers.get(c));
       c.classList.remove('tapped');
     });
