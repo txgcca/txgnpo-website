@@ -328,7 +328,7 @@ nav {
   color: var(--muted);
 }
 
-/* Year group */
+/* Year group — collapsible */
 .year-group {
   margin-bottom: 36px;
 }
@@ -336,8 +336,13 @@ nav {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 16px;
+  margin-bottom: 0;
+  cursor: pointer;
+  padding: 10px 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
+.year-label:hover .year-num { color: var(--navy-l); }
 .year-num {
   font-family: 'Oswald', sans-serif;
   font-size: 13px;
@@ -345,11 +350,37 @@ nav {
   color: var(--navy);
   letter-spacing: .06em;
   white-space: nowrap;
+  transition: color .15s;
 }
+.year-count {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.year-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform .25s;
+}
+.year-group.open .year-arrow { transform: rotate(180deg); }
 .year-line {
   flex: 1;
   height: 1px;
   background: var(--rule);
+}
+.year-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .35s ease;
+}
+.year-group.open .year-content {
+  max-height: 5000px;
+  transition: max-height .5s ease;
+}
+.year-group.open .year-label {
+  margin-bottom: 16px;
 }
 
 /* Row items */
@@ -891,17 +922,33 @@ function renderMedia(reports) {
     var year = (item.date || '').split('-')[0];
     if (year) { if (!byYear[year]) byYear[year] = []; byYear[year].push(item); }
   });
+  var currentYear = String(new Date().getFullYear());
   var listEl = document.getElementById('reports-list');
-  listEl.innerHTML = Object.keys(byYear).sort(function(a, b) { return b - a; }).map(function(year, yi) {
+  var yearKeys = Object.keys(byYear).sort(function(a, b) { return b - a; });
+
+  listEl.innerHTML = yearKeys.map(function(year, yi) {
+    var isOpen = (year === currentYear) || (yi === 0 && !byYear[currentYear]);
+    var count = byYear[year].length;
     return ''
-      + '<div class="year-group fade-in" style="transition-delay:' + (yi * 0.05) + 's">'
+      + '<div class="year-group fade-in' + (isOpen ? ' open' : '') + '" style="transition-delay:' + (yi * 0.05) + 's">'
       +   '<div class="year-label">'
       +     '<span class="year-num">' + year + '</span>'
+      +     '<span class="year-count">' + count + ' 篇</span>'
       +     '<span class="year-line"></span>'
+      +     '<svg class="year-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'
       +   '</div>'
-      +   byYear[year].map(buildReportRow).join('')
+      +   '<div class="year-content">'
+      +     byYear[year].map(buildReportRow).join('')
+      +   '</div>'
       + '</div>';
   }).join('');
+
+  /* 年份開合 toggle */
+  listEl.querySelectorAll('.year-label').forEach(function(label) {
+    label.addEventListener('click', function() {
+      label.parentElement.classList.toggle('open');
+    });
+  });
 
   /* 動畫觀察 */
   var io = new IntersectionObserver(function(entries) {
