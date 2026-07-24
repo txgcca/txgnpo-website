@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>學習地圖 — 臺中市民團協會</title>
+<title>學習地圖 — 臺中市韌民協會</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="韌性公民自主學習資源，涵蓋影片、書籍、Podcast 推薦。">
+<meta property="og:title" content="學習地圖 — 臺中市韌民協會">
+<meta property="og:description" content="韌性公民自主學習資源，涵蓋影片、書籍、Podcast 推薦。">
+<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
+<meta property="og:url" content="https://txgcca.github.io/txgnpo-website/learning-map.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -235,16 +249,6 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
   .res-card, .podcast-card { flex: 0 0 calc(100vw - 40px); }
 }
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
 
 </head>
 <body>
@@ -315,7 +319,7 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
 <div class="nationwide-section fade-in">
   <div>
     <div class="nw-title">不在台中？找到你所在地的自訓社群</div>
-    <p class="nw-desc">這份表單由各地自訓社群共同維護，收錄全台灣的自訓團體資訊。無論你在哪個縣市，都能找到離你最近的訓練夥伴。</p>
+    <p class="nw-desc">這份表單由臺中市韌民協會維護，收錄台灣各地的自訓團體資訊。快來找找離你最近的訓練夥伴。</p>
   </div>
   <a class="nw-btn" data-href="ctaLink" href="#" target="_blank">前往全台自訓地圖 →</a>
 </div>
@@ -373,12 +377,12 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
 <!-- FOOTER CTA -->
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training">報名週五自訓</a>
-    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#">訂閱行事曆</a>
+    <a class="fcta-btn-w" data-href="url_cta_join" href="training.html#self-training" data-field="cta_join_label">8週入門說明</a>
+    <a class="fcta-btn-o" data-href="url_cta_calendar" href="#" data-field="cta_calendar_label">訂閱行事曆</a>
   </div>
 </div>
 
@@ -396,9 +400,58 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
 </footer>
 
 <script>
+/* ══════════════════════════════════════════════
+   CSV 資料流 + LocalStorage 快取
+   ══════════════════════════════════════════════ */
 const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
 function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
 
+/* ── LocalStorage 快取 (6 小時) ── */
+const CACHE_TTL = 6 * 60 * 60 * 1000;
+const NOCACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function getCacheKey(sheetName) { return 'txgcca_cache_' + sheetName; }
+
+function getCache(sheetName) {
+  if (NOCACHE) return null;
+  try {
+    const raw = localStorage.getItem(getCacheKey(sheetName));
+    if (!raw) return null;
+    const cached = JSON.parse(raw);
+    const age = Date.now() - cached.timestamp;
+    if (age < CACHE_TTL) {
+      console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + sheetName);
+      return cached.data;
+    }
+  } catch (e) { /* ignore corrupt cache */ }
+  return null;
+}
+
+function setCache(sheetName, data) {
+  try {
+    localStorage.setItem(getCacheKey(sheetName), JSON.stringify({ timestamp: Date.now(), data: data }));
+  } catch (e) { /* localStorage full or unavailable */ }
+}
+
+function fetchCSV(gid, sheetName) {
+  const cached = getCache(sheetName);
+  if (cached) return Promise.resolve(cached);
+
+  if (NOCACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + sheetName);
+  } else {
+    console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + sheetName);
+  }
+
+  return fetch(csvUrl(gid))
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+      setCache(sheetName, text);
+      return text;
+    });
+}
+
+/* ── CSV 解析工具 ── */
 function parseCSV(text) {
   const rows = [];
   let row = [], cur = '', inQ = false;
@@ -428,8 +481,6 @@ function parseKV(rows) {
   return obj;
 }
 
-// 從 row 型 CSV 解析成物件陣列
-// 跳過非資料列（id 欄不符合 xxx-000 格式的列）
 function parseRows(rows) {
   const headers = rows[0];
   return rows.slice(1)
@@ -441,6 +492,7 @@ function parseRows(rows) {
     });
 }
 
+/* ── 套用 data-field / data-href ── */
 function applyFields(data) {
   document.querySelectorAll('[data-field]').forEach(el => {
     const key = el.dataset.field;
@@ -456,6 +508,7 @@ function applyFields(data) {
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
 }
 
+/* ── 推薦資源渲染 ── */
 const PLATFORM_STYLE = {
   stream:  {bar:'bar-stream',  badge:'badge-stream',  btn:'btn-stream' },
   youtube: {bar:'bar-youtube', badge:'badge-youtube', btn:''           },
@@ -527,12 +580,13 @@ function scrollRow(id, dir) {
   if (c) t.scrollBy({left: dir*(c.offsetWidth+14), behavior:'smooth'});
 }
 
+/* ── 主載入流程 ── */
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),          // 全站設定
-  fetch(csvUrl('72860620')).then(r => r.text()),    // 學習地圖
-  fetch(csvUrl('1324424215')).then(r => r.text()),  // 影片推薦
-  fetch(csvUrl('1850033102')).then(r => r.text()),  // 書籍推薦
-  fetch(csvUrl('1756528444')).then(r => r.text()),  // podcast推薦
+  fetchCSV('0',          'global'),
+  fetchCSV('72860620',   'learning_map'),
+  fetchCSV('1324424215', 'learning_map_videos'),
+  fetchCSV('1850033102', 'learning_map_books'),
+  fetchCSV('1756528444', 'learning_map_podcasts'),
 ]).then(([siteCSV, mapCSV, videoCSV, bookCSV, podCSV]) => {
   const siteData = parseKV(parseCSV(siteCSV));
   const mapData  = parseKV(parseCSV(mapCSV));
@@ -543,9 +597,10 @@ Promise.all([
   renderPodcasts(parseRows(parseCSV(podCSV)));
 
 }).catch(err => {
-  console.error('CSV fetch 失敗:', err);
+  console.error('[TXGCCA] CSV fetch 失敗:', err);
 });
 
+/* ── 滾動漸入動畫 ── */
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
 }, {threshold: 0.12});
