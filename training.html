@@ -455,7 +455,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- ══ NAV ════════════════════════════════════ -->
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
+    <img class="nav-mark" data-field="url_logo" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
   </a>
   <div class="nav-links">
@@ -505,7 +505,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <!-- LEFT：自訓紀錄 -->
     <div class="record-card">
       <div class="record-img-wrap">
-        <div class="record-img-ph">
+        <img src="" data-field="training_img_main_url" alt="自訓活動照片" style="width:100%;height:100%;object-fit:cover;" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="record-img-ph" style="display:flex">
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,55,100,.6)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           <div class="record-img-ph-text">主圖 1200 × 675 px（16:9）</div>
         </div>
@@ -615,13 +616,16 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="browser-url-bar">txgcca-org.oen.tw</div>
     </div>
     <div class="browser-content">
-      <div class="browser-content-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <img src="" data-field="platform_screenshot_url" alt="應援科技報名平台畫面" style="width:100%; display:block;" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';">
+      <div class="browser-placeholder" style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%;">
+        <div class="browser-content-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="browser-content-text">
+          <strong>應援科技平台截圖</strong>
+        </div>
+        <div class="browser-content-sub">在 Drive 換圖，網頁自動同步，無需改 HTML</div>
       </div>
-      <div class="browser-content-text">
-        <strong>應援科技平台截圖</strong>
-      </div>
-      <div class="browser-content-sub">在 Drive 換圖，網頁自動同步，無需改 HTML</div>
     </div>
   </div>
 

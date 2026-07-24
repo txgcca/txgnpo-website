@@ -312,6 +312,8 @@ nav {
   object-fit: cover;
   display: block;
 }
+.hero-photo { width:100%; height:100%; object-fit:cover; display:block; }
+.hero-photo-mobile { width:100%; height:auto; border-radius:12px; display:block; }
 .hero-img-placeholder {
   width: 100%;
   height: 100%;
@@ -718,7 +720,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark"
+    <img class="nav-mark" data-field="url_logo"
          src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO"
          alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
@@ -762,7 +764,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
     <!-- 手機版圖片：大標正下方，副標上方 -->
     <div class="hero-img-mobile">
-      <div class="hero-img-mobile-placeholder">
+      <img src="" data-field="hero_image_url" alt="訓練現場照片" class="hero-photo-mobile" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hero-img-mobile-placeholder" style="display:flex">
         <div class="ph-icon">📷</div>
         <div class="ph-text">hero_image_url（手機版）</div>
       </div>
@@ -789,7 +792,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   <!-- 右側圖片區（桌機 / 中螢幕，手機隱藏）-->
   <div class="hero-right">
-    <div class="hero-img-placeholder">
+    <img src="" data-field="hero_image_url" alt="訓練現場照片" class="hero-photo" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="hero-img-placeholder" style="display:flex">
       <div class="hero-img-placeholder-icon">📷</div>
       <div class="hero-img-placeholder-text">
         訓練現場照片<br>hero_image_url

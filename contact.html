@@ -311,7 +311,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
+    <img class="nav-mark" data-field="url_logo" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
   </a>
   <div class="nav-links">
@@ -611,7 +611,10 @@ function parseKV(rows) {
 function applyFields(data) {
   document.querySelectorAll('[data-field]').forEach(function(el) {
     var key = el.dataset.field;
-    if (data[key]) el.textContent = data[key];
+    if (data[key]) {
+      if (el.tagName === 'IMG') el.src = data[key];
+      else el.textContent = data[key];
+    }
   });
   document.querySelectorAll('[data-href]').forEach(function(el) {
     var key = el.dataset.href;

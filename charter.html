@@ -522,7 +522,7 @@ const CHARTER = [
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark"
+    <img class="nav-mark" data-field="url_logo"
          src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO"
          alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
@@ -719,7 +719,10 @@ Promise.all([
   // data-field 文字覆蓋（Footer CTA + 登記字號等）
   document.querySelectorAll('[data-field]').forEach(function(el) {
     var val = siteData[el.dataset.field];
-    if (val) el.textContent = val;
+    if (val) {
+      if (el.tagName === 'IMG') el.src = val;
+      else el.textContent = val;
+    }
   });
 
   // data-href 連結覆蓋（社群連結 + CTA 按鈕）
