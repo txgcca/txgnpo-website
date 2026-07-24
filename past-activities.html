@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>過往活動 — 臺中市民團協會</title>
+<title>過往活動 — 臺中市韌民協會</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="協會歷年活動紀錄與大事記。">
+<meta property="og:title" content="過往活動 — 臺中市韌民協會">
+<meta property="og:description" content="協會歷年活動紀錄與大事記。">
+<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
+<meta property="og:url" content="https://txgcca.github.io/txgnpo-website/past-activities.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -236,16 +250,6 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .fcta-btn-w, .fcta-btn-o { width: 100%; justify-content: center; text-align: center; }
 }
 </style>
-<script>
-  (function() {
-    if (window.self !== window.top) {
-      document.addEventListener('DOMContentLoaded', function() {
-        var nav = document.querySelector('nav');
-        if (nav) nav.style.display = 'none';
-      });
-    }
-  })();
-</script>
 
 </head>
 <body>
@@ -361,12 +365,12 @@ const PAGE_INFO = {
 <!-- FOOTER CTA -->
 <div class="footer-cta">
   <div>
-    <div class="fcta-label">加入我們</div>
-    <div class="fcta-title">下週五，我們在中央公園等你</div>
+    <div class="fcta-label" data-field="cta_join_kicker">加入我們</div>
+    <div class="fcta-title" data-field="cta_join_title">給自己一個 8 週，掌握自訓基礎</div>
   </div>
   <div class="fcta-btns">
-    <a class="fcta-btn-w" id="pi-cta-primary"></a>
-    <a class="fcta-btn-o" id="pi-cta-secondary"></a>
+    <a class="fcta-btn-w" id="pi-cta-primary" data-href="url_cta_join" href="#"><span data-field="cta_join_label">8週入門說明</span></a>
+    <a class="fcta-btn-o" id="pi-cta-secondary" data-href="url_cta_calendar" href="#"><span data-field="cta_calendar_label">訂閱行事曆</span></a>
   </div>
 </div>
 
@@ -416,12 +420,11 @@ function renderPageInfo(p) {
 }
 
 function renderSiteConfig(s) {
-  const btnP = document.getElementById('pi-cta-primary');
-  btnP.textContent = s.cta_join_label;
-  btnP.href        = s.url_cta_join;
-  const btnS = document.getElementById('pi-cta-secondary');
-  btnS.textContent = s.cta_calendar_label;
-  btnS.href        = s.url_cta_calendar;
+  /* Footer CTA 按鈕連結 */
+  var btnP = document.getElementById('pi-cta-primary');
+  if (btnP && s.url_cta_join) btnP.href = s.url_cta_join;
+  var btnS = document.getElementById('pi-cta-secondary');
+  if (btnS && s.url_cta_calendar) btnS.href = s.url_cta_calendar;
 }
 
 /* ═══════════════════════════════
@@ -512,6 +515,19 @@ function renderAccordion(records) {
   const years = Object.keys(map).map(Number).sort((a, b) => b - a);  /* 新→舊 */
   const wrap  = document.getElementById('chron-accordion');
 
+  /* 重置某個年份區塊的「展開更多」狀態，恢復只顯示前 N 筆 */
+  function resetShowMore(block, yr) {
+    var state = block._showMoreState;
+    if (!state || !state.expanded) return;
+    var list = block.querySelector('#list-' + yr);
+    var allRows = list.querySelectorAll('.chron-row');
+    for (var ri = allRows.length - 1; ri >= ROWS_PER_YEAR; ri--) {
+      allRows[ri].remove();
+    }
+    state.btn.textContent = '＋ 查看其餘 ' + state.hiddenCount + ' 筆';
+    state.expanded = false;
+  }
+
   years.forEach((yr, idx) => {
     const rows    = map[yr];
     const total   = rows.length;
@@ -521,6 +537,7 @@ function renderAccordion(records) {
 
     const block = document.createElement('div');
     block.className = 'year-block' + (isOpen ? ' open' : '');
+    block.dataset.year = yr;
     block.innerHTML = `
       <div class="year-hd">
         <span class="year-badge">${yr}</span>
@@ -540,19 +557,50 @@ function renderAccordion(records) {
       </div>
     `;
 
-    /* 開合 toggle */
+    /* 單一展開 accordion：點開一個年份時，其他全部收合＋重置 */
     block.querySelector('.year-hd').addEventListener('click', () => {
-      block.classList.toggle('open');
+      const wasOpen = block.classList.contains('open');
+
+      /* 收合所有其他年份並重置展開狀態 */
+      wrap.querySelectorAll('.year-block').forEach(other => {
+        if (other !== block && other.classList.contains('open')) {
+          other.classList.remove('open');
+          resetShowMore(other, other.dataset.year);
+        }
+      });
+
+      /* 切換自己 */
+      if (wasOpen) {
+        block.classList.remove('open');
+        resetShowMore(block, yr);
+      } else {
+        block.classList.add('open');
+      }
     });
 
-    /* 展開更多 */
+    /* 展開 / 收合 toggle（雙向） */
     const moreBtn = block.querySelector('.show-more-btn');
     if (moreBtn) {
+      block._showMoreState = { btn: moreBtn, expanded: false, hiddenCount: hidden.length };
+
       moreBtn.addEventListener('click', () => {
-        const list = block.querySelector(`#list-${yr}`);
-        list.insertAdjacentHTML('beforeend', hidden.map(renderChronRow).join(''));
-        block.querySelector(`#more-wrap-${yr}`).remove();
-        requestAnimationFrame(equalizeChronBadges);  /* 新列補齊寬度 */
+        const state = block._showMoreState;
+        const list = block.querySelector('#list-' + yr);
+        if (!state.expanded) {
+          /* 展開：附加隱藏列 */
+          list.insertAdjacentHTML('beforeend', hidden.map(renderChronRow).join(''));
+          moreBtn.textContent = '收起';
+          state.expanded = true;
+          requestAnimationFrame(equalizeChronBadges);
+        } else {
+          /* 收合：移除多出來的列 */
+          var allRows = list.querySelectorAll('.chron-row');
+          for (var ri = allRows.length - 1; ri >= ROWS_PER_YEAR; ri--) {
+            allRows[ri].remove();
+          }
+          moreBtn.textContent = '＋ 查看其餘 ' + hidden.length + ' 筆';
+          state.expanded = false;
+        }
       });
     }
 
@@ -566,15 +614,60 @@ const fadeIo = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => fadeIo.observe(el));
 
-/* ── CSV 工具 ── */
+/* ══════════════════════════════════════════
+   CSV 基礎工具 + localStorage 快取
+══════════════════════════════════════════ */
 const CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g/pub?gid=GID&single=true&output=csv';
 function csvUrl(gid) { return CSV_BASE.replace('GID', gid); }
 
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時
+const NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
+
+function getCacheKey(name) { return 'txgcca_cache_' + name; }
+
+function cachedFetch(url, cacheName) {
+  if (!NO_CACHE) {
+    try {
+      var raw = localStorage.getItem(getCacheKey(cacheName));
+      if (raw) {
+        var cached = JSON.parse(raw);
+        var age = Date.now() - cached.timestamp;
+        if (age < CACHE_TTL) {
+          console.log('[TXGCCA] Cache HIT for "' + cacheName + '" (age: ' + Math.round(age / 60000) + ' min)');
+          return Promise.resolve(cached.data);
+        }
+      }
+    } catch (e) { /* 快取讀取失敗，繼續 fetch */ }
+  }
+
+  return fetch(url).then(function(r) { return r.text(); }).then(function(text) {
+    try {
+      localStorage.setItem(getCacheKey(cacheName), JSON.stringify({ timestamp: Date.now(), data: text }));
+    } catch (e) { /* localStorage 寫入失敗（私密模式等），靜默忽略 */ }
+    return text;
+  });
+}
+
+/* 開發者模式 Console 訊息 */
+(function() {
+  if (NO_CACHE) {
+    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected)');
+  } else {
+    var anyCache = false;
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i).indexOf('txgcca_cache_') === 0) { anyCache = true; break; }
+      }
+    } catch(e) {}
+    console.log('[TXGCCA] Cache mode: ' + (anyCache ? 'ENABLED' : 'INITIAL FETCH'));
+  }
+})();
+
 function parseCSV(text) {
-  const rows = [];
-  let row = [], cur = '', inQ = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i], next = text[i+1];
+  var rows = [];
+  var row = [], cur = '', inQ = false;
+  for (var i = 0; i < text.length; i++) {
+    var ch = text[i], next = text[i+1];
     if (inQ) {
       if (ch === '"' && next === '"') { cur += '"'; i++; }
       else if (ch === '"') { inQ = false; }
@@ -588,23 +681,23 @@ function parseCSV(text) {
     }
   }
   if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
-  return rows.filter(r => r.some(c => c));
+  return rows.filter(function(r) { return r.some(function(c) { return c; }); });
 }
 
 function parseKV(rows) {
-  const obj = {};
-  rows.forEach(row => {
+  var obj = {};
+  rows.forEach(function(row) {
     if (row[0] && row[2] && row[0] !== '欄位名稱') obj[row[0]] = row[2];
   });
   return obj;
 }
 
 function parseRowsBy(rows, filterFn) {
-  const headers = rows[0];
+  var headers = rows[0];
   return rows.slice(1)
-    .map(row => {
-      const obj = {};
-      headers.forEach((h, i) => { if (h) obj[h] = row[i] || ''; });
+    .map(function(row) {
+      var obj = {};
+      headers.forEach(function(h, i) { if (h) obj[h] = row[i] || ''; });
       return obj;
     })
     .filter(filterFn);
@@ -614,40 +707,59 @@ function parseRowsBy(rows, filterFn) {
 renderPageInfo(PAGE_INFO);
 
 Promise.all([
-  fetch(csvUrl('0')).then(r => r.text()),           // 全站設定
-  fetch(csvUrl('1523016997')).then(r => r.text()),  // 大事記
-  fetch(csvUrl('1168080937')).then(r => r.text()),  // 完整活動紀錄
-]).then(([siteCSV, keyCSV, chronCSV]) => {
+  cachedFetch(csvUrl('0'), 'site_settings'),           // 全站設定
+  cachedFetch(csvUrl('1523016997'), 'milestones'),      // 大事記
+  cachedFetch(csvUrl('1168080937'), 'full_activities'),  // 完整活動紀錄
+]).then(function(results) {
+  var siteCSV = results[0];
+  var keyCSV  = results[1];
+  var chronCSV = results[2];
 
   // 全站設定
-  const siteData = parseKV(parseCSV(siteCSV));
+  var siteData = parseKV(parseCSV(siteCSV));
+
+  // data-field 填入
+  document.querySelectorAll('[data-field]').forEach(function(el) {
+    var key = el.dataset.field;
+    if (siteData[key]) {
+      if (el.tagName === 'IMG') { el.src = siteData[key]; }
+      else { el.textContent = siteData[key]; }
+    }
+  });
+
   renderSiteConfig({
-    cta_join_label:     siteData.cta_join_label     || '報名週五自訓',
     url_cta_join:       siteData.url_cta_join        || '#',
-    cta_calendar_label: siteData.cta_calendar_label  || '訂閱行事曆',
     url_cta_calendar:   siteData.url_cta_calendar    || '#',
   });
-  document.querySelectorAll('[data-href]').forEach(el => {
-    const val = siteData[el.dataset.href];
+
+  // data-href 社群連結
+  document.querySelectorAll('[data-href]').forEach(function(el) {
+    var val = siteData[el.dataset.href];
     if (val && val !== '#') el.href = val;
   });
-  const reg = document.querySelector('.footer-reg');
+
+  // Footer 立案號碼
+  var reg = document.querySelector('.footer-reg');
   if (reg && siteData.org_reg_1) reg.textContent = siteData.org_reg_1 + (siteData.org_reg_2 ? ' ｜ ' + siteData.org_reg_2 : '');
 
+  // LOGO
+  var logoImg = document.querySelector('.nav-mark');
+  if (logoImg && siteData.url_logo) logoImg.src = siteData.url_logo;
+
   // 大事記（過往活動頁）
-  const keyEvents = parseRowsBy(parseCSV(keyCSV), r => r.show_on_past === '是').slice(0, 6);
+  var keyEvents = parseRowsBy(parseCSV(keyCSV), function(r) { return r.show_on_past === '是'; }).slice(0, 6);
   renderKeyEvents(keyEvents);
 
   // 完整活動紀錄
-  const chronRecords = parseRowsBy(parseCSV(chronCSV), r => /^\d{4}$/.test(r.year))
-    .map(r => ({ ...r, year: parseInt(r.year) }));
+  var chronRecords = parseRowsBy(parseCSV(chronCSV), function(r) { return /^\d{4}$/.test(r.year); })
+    .map(function(r) { return Object.assign({}, r, { year: parseInt(r.year) }); });
   renderAccordion(chronRecords);
 
   requestAnimationFrame(equalizeChronBadges);
 
-}).catch(err => {
+}).catch(function(err) {
   console.error('CSV fetch 失敗:', err);
-  renderSiteConfig({ cta_join_label:'報名週五自訓', url_cta_join:'#', cta_calendar_label:'訂閱行事曆', url_cta_calendar:'#' });
+  renderSiteConfig({ url_cta_join:'#', url_cta_calendar:'#' });
   renderKeyEvents([]);
   renderAccordion([]);
 });
@@ -655,12 +767,12 @@ Promise.all([
 
 <script>
 /* 漢堡選單開關 */
-const hamburger = document.getElementById('nav-hamburger');
-const drawer    = document.getElementById('nav-drawer');
-const backdrop  = document.getElementById('nav-backdrop');
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
 
 function openMenu() {
-  const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+  var navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
   drawer.style.top = navBottom + 'px';
   drawer.classList.add('open');
   backdrop.classList.add('open');
@@ -676,11 +788,11 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', function() {
   drawer.classList.contains('open') ? closeMenu() : openMenu();
 });
 backdrop.addEventListener('click', closeMenu);
-drawer.querySelectorAll('.nav-link').forEach(link => {
+drawer.querySelectorAll('.nav-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 </script>
