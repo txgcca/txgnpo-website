@@ -506,7 +506,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <!-- LEFT：自訓紀錄 -->
     <div class="record-card">
       <div class="record-img-wrap">
-        <img src="" data-field="training_img_main_url" alt="自訓活動照片" style="width:100%;height:100%;object-fit:cover;" onload="this.style.opacity='1'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="" data-field="training_img_main_url" alt="自訓活動照片" style="width:100%;height:100%;object-fit:cover;" onload="" onerror="">
         <div class="record-img-ph" style="display:flex">
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,55,100,.6)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           <div class="record-img-ph-text">主圖 1200 × 675 px（16:9）</div>
@@ -617,7 +617,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="browser-url-bar">txgcca-org.oen.tw</div>
     </div>
     <div class="browser-content">
-      <img src="" data-field="platform_screenshot_url" alt="應援科技報名平台畫面" style="width:100%; display:block;" onload="this.style.opacity='1'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+      <img src="" data-field="platform_screenshot_url" alt="應援科技報名平台畫面" style="width:100%; display:block;" onload="" onerror="">
       <div class="browser-placeholder" style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%;">
         <div class="browser-content-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
@@ -742,10 +742,16 @@ function applyFields(data) {
     const val = data[el.dataset.field];
     if (!val) return;
     if (el.tagName === 'IMG') {
-      if (el.dataset.field === 'url_logo') {
-        el.style.opacity = '0';
-        el.onload = function(){ this.style.opacity = '1'; };
-      }
+      el.style.display = '';
+      el.style.opacity = '0';
+      el.onload = function() {
+        this.style.opacity = '1';
+        if (this.nextElementSibling) this.nextElementSibling.style.display = 'none';
+      };
+      el.onerror = function() {
+        this.style.display = 'none';
+        if (this.nextElementSibling) this.nextElementSibling.style.display = 'flex';
+      };
       el.src = val;
     }
     else el.textContent = val;
