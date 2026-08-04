@@ -52,7 +52,7 @@ nav {
   color: var(--white); font-size: 13px; font-weight: 700;
   text-decoration: none; white-space: nowrap;
 }
-.nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; }
+.nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; opacity: 1; transition: opacity .3s ease; }
 .nav-links { display: flex; gap: 2px; margin-left: auto; align-items: center; }
 .nav-link {
   color: rgba(255,255,255,.6); font-size: 13px; padding: 6px 12px; border-radius: 4px;
@@ -612,7 +612,13 @@ function applyFields(data) {
   document.querySelectorAll('[data-field]').forEach(function(el) {
     var key = el.dataset.field;
     if (data[key]) {
-      if (el.tagName === 'IMG') el.src = data[key];
+      if (el.tagName === 'IMG') {
+        if (key === 'url_logo') {
+          el.style.opacity = '0';
+          el.onload = function(){ this.style.opacity = '1'; };
+        }
+        el.src = data[key];
+      }
       else el.textContent = data[key];
     }
   });

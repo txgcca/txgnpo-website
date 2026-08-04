@@ -42,7 +42,7 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color:
 /* ── NAV ── */
 nav { background: var(--navy); display: flex; align-items: center; padding: 0 40px; height: 58px; gap: 32px; position: sticky; top: 0; z-index: 100; }
 .nav-logo { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
-.nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; }
+.nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; opacity: 1; transition: opacity .3s ease; }
 .nav-links { display: flex; gap: 2px; margin-left: auto; }
 .nav-link  { color: rgba(255,255,255,.72); font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 4px; text-decoration: none; transition: background .15s, color .15s; }
 .nav-link:hover { background: rgba(255,255,255,.1); color: var(--white); }
@@ -722,7 +722,13 @@ Promise.all([
   document.querySelectorAll('[data-field]').forEach(function(el) {
     var key = el.dataset.field;
     if (siteData[key]) {
-      if (el.tagName === 'IMG') { el.src = siteData[key]; }
+      if (el.tagName === 'IMG') {
+        if (key === 'url_logo') {
+          el.style.opacity = '0';
+          el.onload = function(){ this.style.opacity = '1'; };
+        }
+        el.src = siteData[key];
+      }
       else { el.textContent = siteData[key]; }
     }
   });
@@ -744,7 +750,11 @@ Promise.all([
 
   // LOGO
   var logoImg = document.querySelector('.nav-mark');
-  if (logoImg && siteData.url_logo) logoImg.src = siteData.url_logo;
+  if (logoImg && siteData.url_logo) {
+    logoImg.style.opacity = '0';
+    logoImg.onload = function(){ this.style.opacity = '1'; };
+    logoImg.src = siteData.url_logo;
+  }
 
   // 大事記（過往活動頁）
   var keyEvents = parseRowsBy(parseCSV(keyCSV), function(r) { return r.show_on_past === '是'; }).slice(0, 6);
