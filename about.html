@@ -586,7 +586,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="org-panel">
         <div class="org-panel-hd">協會組織架構</div>
         <div class="org-img-wrap">
-          <img src="" data-field="org_chart_img" alt="協會組織架構圖" style="width:100%;height:100%;object-fit:contain;" onload="this.style.opacity='1';" onerror="this.style.display='none';">
+          <img src="" data-field="org_chart_img" alt="協會組織架構圖" style="width:100%;height:100%;object-fit:contain;" onload="" onerror="">
         </div>
       </div>
       <div class="org-panel">
@@ -736,10 +736,10 @@ function applyFields(cfg) {
     var v = cfg[el.dataset.field];
     if (!v) return;
     if (el.tagName === 'IMG') {
-      if (el.dataset.field === 'url_logo') {
-        el.style.opacity = '0';
-        el.onload = function(){ this.style.opacity = '1'; };
-      }
+      el.style.display = '';
+      el.style.opacity = '0';
+      el.onload = function() { this.style.opacity = '1'; };
+      el.onerror = function() { this.style.display = 'none'; };
       el.src = v;
     }
     else el.textContent = v;
