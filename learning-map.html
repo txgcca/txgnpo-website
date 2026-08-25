@@ -302,13 +302,13 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
       <img src=""
            alt="民防學習地圖 第一張"
            data-field="mapImg1Url"
-           onerror="this.parentElement.innerHTML='<div class=\'map-placeholder\'><div class=\'map-placeholder-icon\'>🗺️</div><div class=\'map-placeholder-text\'>學習地圖截圖 — 第一張</div></div>'">
+           onerror="">
     </div>
     <div class="map-img-wrap">
       <img src=""
            alt="民防學習地圖 第二張"
            data-field="mapImg2Url"
-           onerror="this.parentElement.innerHTML='<div class=\'map-placeholder\'><div class=\'map-placeholder-icon\'>📊</div><div class=\'map-placeholder-text\'>學習地圖截圖 — 第二張</div></div>'">
+           onerror="">
     </div>
   </div>
   <div class="map-footer-row fade-in" style="transition-delay:.12s">
@@ -501,6 +501,17 @@ function applyFields(data) {
       if (key === 'url_logo') {
         el.style.opacity = '0';
         el.onload = function(){ this.style.opacity = '1'; };
+      }
+      if (key === 'mapImg1Url' || key === 'mapImg2Url') {
+        el.style.display = '';
+        el.style.opacity = '0';
+        el.onload = function() {
+          this.style.opacity = '1';
+        };
+        el.onerror = function() {
+          this.style.display = 'none';
+          this.parentElement.innerHTML = '<div class="map-placeholder"><div class="map-placeholder-icon">🗺️</div><div class="map-placeholder-text">圖片載入失敗</div></div>';
+        };
       }
       el.src = data[key];
     }
