@@ -19,6 +19,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://docs.google.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -545,17 +546,37 @@ function setCachedCSV(sheetName, data) {
   } catch (e) { /* ignore quota errors */ }
 }
 
-function fetchCSV(gid, sheetName) {
+function fetchCSV(gid, sheetName, onUpdate) {
+  // 快取未過期：直接用
   const cached = getCachedCSV(sheetName);
-  if (cached) {
-    return Promise.resolve(cached);
-  }
-  return fetch(csvUrl(gid))
-    .then(function(r) { return r.text(); })
+  if (cached) return Promise.resolve(cached);
+
+  const network = fetch(csvUrl(gid))
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
     .then(function(text) {
       setCachedCSV(sheetName, text);
       return text;
     });
+
+  // 快取已過期但還在：先顯示舊資料，背景更新，有變動再通知
+  const stale = NO_CACHE ? null : getStaleCSV(sheetName);
+  if (stale) {
+    network.then(function(text) {
+      if (text !== stale && onUpdate) onUpdate(text);
+    }).catch(function() { /* 網路失敗就繼續用舊資料 */ });
+    return Promise.resolve(stale);
+  }
+  return network;
+}
+
+function getStaleCSV(sheetName) {
+  try {
+    const cached = JSON.parse(localStorage.getItem('txgcca_cache_' + sheetName));
+    return cached && cached.data ? cached.data : null;
+  } catch (e) { return null; }
 }
 
 // ── Console 訊息 ──
@@ -577,21 +598,23 @@ function fetchCSV(gid, sheetName) {
   }
 })();
 
-// ── 簡易 CSV 解析（支援引號包覆欄位）──
+// ── CSV 解析（支援引號、逗號、儲存格內換行）──
 function parseCSV(text) {
-  var lines = text.split(/\r?\n/).filter(function(l) { return l.trim(); });
-  return lines.map(function(line) {
-    var cols = [];
-    var cur = '', inQ = false;
-    for (var i = 0; i < line.length; i++) {
-      var ch = line[i];
-      if (ch === '"') { inQ = !inQ; }
-      else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
-      else { cur += ch; }
-    }
-    cols.push(cur.trim());
-    return cols;
-  });
+  var rows = [], row = [], field = '', inQ = false;
+  for (var i = 0; i < text.length; i++) {
+    var ch = text[i];
+    if (inQ) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQ = false;
+      } else field += ch;
+    } else if (ch === '"') inQ = true;
+    else if (ch === ',') { row.push(field.trim()); field = ''; }
+    else if (ch === '\n') { row.push(field.trim()); rows.push(row); row = []; field = ''; }
+    else if (ch !== '\r') field += ch;
+  }
+  if (field || row.length) { row.push(field.trim()); rows.push(row); }
+  return rows.filter(function(r) { return r.some(function(c) { return c !== ''; }); });
 }
 
 // ── 從 key-value sheet 建立欄位物件 ──
@@ -656,8 +679,7 @@ function renderFAQ(items) {
   }
   items.forEach(function(item, i) {
     var el = document.createElement('div');
-    el.className = 'faq-item fade-in';
-    el.style.transitionDelay = (i * 0.07) + 's';
+    el.className = 'faq-item';
     el.innerHTML =
       '<div class="faq-q" onclick="toggleFAQ(this)">' +
         '<span class="faq-cat ' + item.catClass + '">' + item.cat + '</span>' +
@@ -668,7 +690,6 @@ function renderFAQ(items) {
         '<div class="faq-a-inner">' + item.a + '</div>' +
       '</div>';
     list.appendChild(el);
-    setTimeout(function() { obs.observe(el); }, 10);
   });
 }
 
@@ -687,32 +708,10 @@ var obs = new IntersectionObserver(function(entries) {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
 
-// ── 方案 D：Promise.all 平行載入 ──
-Promise.all([
-  fetchCSV('0', 'site'),           // 全站設定
-  fetchCSV('1224752276', 'contact'),  // 聯絡我們
-  fetchCSV('100210601', 'faq')        // FAQ
-]).then(function(results) {
-  var siteCSV    = results[0];
-  var contactCSV = results[1];
-  var faqCSV     = results[2];
-
-  // 全站設定
-  var siteData = parseKV(parseCSV(siteCSV));
-
-  // 聯絡我們
-  var contactData = parseKV(parseCSV(contactCSV));
-
-  // 合併兩個來源（聯絡我們欄位優先）
-  var allData = Object.assign({}, siteData, contactData);
-  applyFields(allData);
-
-  // 移除 skeleton
-  removeSkeleton();
-
-  // FAQ
+// ── FAQ：獨立載入，不等其他表 ──
+function showFAQ(faqCSV) {
   var faqRows = parseCSV(faqCSV);
-  var headers = faqRows[0];
+  var headers = faqRows[0] || [];
   var idxCat     = headers.indexOf('category');
   var idxClass   = headers.indexOf('catClass');
   var idxVisible = headers.indexOf('visible');
@@ -734,12 +733,28 @@ Promise.all([
   var loading = document.getElementById('faqLoading');
   if (loading) loading.remove();
   renderFAQ(faqItems);
+}
 
+fetchCSV('100210601', 'faq', showFAQ)
+  .then(showFAQ)
+  .catch(function(err) {
+    console.error('FAQ 載入失敗:', err);
+    var loading = document.getElementById('faqLoading');
+    if (loading) loading.innerHTML = '<span style="color:var(--muted);font-size:13px;">⚠️ 無法載入常見問題，請重新整理頁面。</span>';
+  });
+
+// ── 全站設定 + 聯絡我們：平行載入（方案 D）──
+Promise.all([
+  fetchCSV('0', 'site'),              // 全站設定
+  fetchCSV('1224752276', 'contact')   // 聯絡我們
+]).then(function(results) {
+  // 合併兩個來源（聯絡我們欄位優先）
+  var allData = Object.assign({}, parseKV(parseCSV(results[0])), parseKV(parseCSV(results[1])));
+  applyFields(allData);
+  removeSkeleton();
 }).catch(function(err) {
   console.error('CSV fetch 失敗:', err);
   removeSkeleton(); // 即使失敗也移除 skeleton，顯示 fallback
-  var loading = document.getElementById('faqLoading');
-  if (loading) loading.innerHTML = '<span style="color:var(--muted);font-size:13px;">⚠️ 無法載入常見問題，請重新整理頁面。</span>';
 });
 </script>
 
