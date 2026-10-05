@@ -43,7 +43,6 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color:
 nav { background: var(--navy); display: flex; align-items: center; padding: 0 40px; height: 58px; gap: 32px; position: sticky; top: 0; z-index: 100; }
 .nav-logo { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
 .nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; opacity: 1; transition: opacity .3s ease; }
-img[data-field="org_chart_img"] { opacity: 0; transition: opacity .4s ease; }
 .nav-links { display: flex; gap: 2px; margin-left: auto; }
 .nav-link { color: rgba(255,255,255,.6); font-size: 13px; padding: 6px 12px; border-radius: 4px; cursor: pointer; white-space: nowrap; transition: color .15s, background .15s; text-decoration: none; }
 .nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
@@ -523,12 +522,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="values-stack">
 
       <div class="value-card">
-        <div class="value-bg" data-bg-field="value_1_img">
-          <div class="photo-ph" id="value-ph-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            value_1_img
-          </div>
-        </div>
+        <div class="value-bg" style="background-image:url('images/value-1.jpg')"></div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
           <p class="value-overlay-text" data-field="value_1_desc">推廣基礎急救知識，讓每個人都能在危急時刻自救。</p>
@@ -540,12 +534,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       </div>
 
       <div class="value-card">
-        <div class="value-bg" data-bg-field="value_2_img">
-          <div class="photo-ph" id="value-ph-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            value_2_img
-          </div>
-        </div>
+        <div class="value-bg" style="background-image:url('images/value-2.jpg')"></div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
           <p class="value-overlay-text" data-field="value_2_desc">訓練體能與心理素質，應對自然與人為災害。</p>
@@ -557,12 +546,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       </div>
 
       <div class="value-card">
-        <div class="value-bg" data-bg-field="value_3_img">
-          <div class="photo-ph" id="value-ph-3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            value_3_img
-          </div>
-        </div>
+        <div class="value-bg" style="background-image:url('images/value-3.jpg')"></div>
         <div class="value-base-grad"></div>
         <div class="value-overlay">
           <p class="value-overlay-text" data-field="value_3_desc">強化社區防災意識，促進互助合作精神。</p>
@@ -585,13 +569,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
       <div class="org-panel">
         <div class="org-panel-hd">協會組織架構</div>
         <div class="org-img-wrap">
-          <img src="" data-field="org_chart_img" alt="協會組織架構圖" style="width:100%;height:100%;object-fit:contain;" onload="" onerror="">
+          <img src="images/org-chart.jpg" width="1200" height="900" loading="lazy" alt="協會組織架構圖" style="width:100%;height:100%;object-fit:contain;">
         </div>
       </div>
       <div class="org-panel">
         <div class="org-panel-hd">會員分類</div>
         <div class="org-img-wrap">
-          <img src="" data-field="member_types_img" alt="會員分類說明圖" style="width:100%;height:100%;object-fit:contain;">
+          <img src="images/member-types.jpg" width="1200" height="900" loading="lazy" alt="會員分類說明圖" style="width:100%;height:100%;object-fit:contain;">
         </div>
       </div>
     </div>

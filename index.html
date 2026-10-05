@@ -314,8 +314,8 @@ nav {
   object-fit: cover;
   display: block;
 }
-.hero-photo { width:100%; height:100%; object-fit:cover; object-position:81% center; display:block; opacity:0; transition:opacity .4s ease; }
-.hero-photo-mobile { width:100%; height:auto; border-radius:12px; display:block; opacity:0; transition:opacity .4s ease; }
+.hero-photo { width:100%; height:100%; object-fit:cover; object-position:81% center; display:block; }
+.hero-photo-mobile { width:100%; height:auto; border-radius:12px; display:block; }
 .hero-img-placeholder {
   width: 100%;
   height: 100%;
@@ -765,11 +765,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
     <!-- 手機版圖片：大標正下方，副標上方 -->
     <div class="hero-img-mobile">
-      <img src="" data-field="hero_image_url" alt="訓練現場照片" class="hero-photo-mobile" onload="" onerror="">
-      <div class="hero-img-mobile-placeholder" style="display:flex">
-        <div class="ph-icon">📷</div>
-        <div class="ph-text">hero_image_url（手機版）</div>
-      </div>
+      <img src="images/hero.jpg" width="1600" height="800" alt="訓練現場照片" class="hero-photo-mobile">
     </div>
 
     <div class="hero-h2" data-field="hero_subheadline">但你不必獨自準備</div>
@@ -793,17 +789,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   <!-- 右側圖片區（桌機 / 中螢幕，手機隱藏）-->
   <div class="hero-right">
-    <img src="" data-field="hero_image_url" alt="訓練現場照片" class="hero-photo" onload="" onerror="">
-    <div class="hero-img-placeholder" style="display:flex">
-      <div class="hero-img-placeholder-icon">📷</div>
-      <div class="hero-img-placeholder-text">
-        訓練現場照片<br>hero_image_url
-      </div>
-      <div class="hero-img-placeholder-sub">
-        建議尺寸：1600×800px（2:1）<br>
-        替換為 Google Drive 公開連結
-      </div>
-    </div>
+    <img src="images/hero.jpg" width="1600" height="800" alt="訓練現場照片" class="hero-photo">
     <div class="hero-accent-line"></div>
   </div>
 
