@@ -300,7 +300,7 @@ const PAGE_INFO = {
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark" data-field="url_logo" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
+    <img class="nav-mark" src="logo.png" width="40" height="40" alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
   </a>
   <div class="nav-links">
@@ -707,8 +707,8 @@ function parseRowsBy(rows, filterFn) {
 renderPageInfo(PAGE_INFO);
 
 Promise.all([
-  cachedFetch(csvUrl('0'), 'site_settings'),           // 全站設定
-  cachedFetch(csvUrl('1523016997'), 'milestones'),      // 大事記
+  cachedFetch(csvUrl('0'), 'site'),           // 全站設定
+  cachedFetch(csvUrl('1523016997'), 'events'),      // 大事記
   cachedFetch(csvUrl('1168080937'), 'full_activities'),  // 完整活動紀錄
 ]).then(function(results) {
   var siteCSV = results[0];
@@ -723,10 +723,6 @@ Promise.all([
     var key = el.dataset.field;
     if (siteData[key]) {
       if (el.tagName === 'IMG') {
-        if (key === 'url_logo') {
-          el.style.opacity = '0';
-          el.onload = function(){ this.style.opacity = '1'; };
-        }
         el.src = siteData[key];
       }
       else { el.textContent = siteData[key]; }
@@ -748,13 +744,6 @@ Promise.all([
   var reg = document.querySelector('.footer-reg');
   if (reg && siteData.org_reg_1) reg.textContent = siteData.org_reg_1 + (siteData.org_reg_2 ? ' ｜ ' + siteData.org_reg_2 : '');
 
-  // LOGO
-  var logoImg = document.querySelector('.nav-mark');
-  if (logoImg && siteData.url_logo) {
-    logoImg.style.opacity = '0';
-    logoImg.onload = function(){ this.style.opacity = '1'; };
-    logoImg.src = siteData.url_logo;
-  }
 
   // 大事記（過往活動頁）
   var keyEvents = parseRowsBy(parseCSV(keyCSV), function(r) { return r.show_on_past === '是'; }).slice(0, 6);

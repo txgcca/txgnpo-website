@@ -311,7 +311,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark" data-field="url_logo" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
+    <img class="nav-mark" src="logo.png" width="40" height="40" alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
   </a>
   <div class="nav-links">
@@ -563,7 +563,7 @@ function fetchCSV(gid, sheetName) {
   if (NO_CACHE) {
     console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected)');
   } else {
-    var anyCache = localStorage.getItem('txgcca_cache_global');
+    var anyCache = localStorage.getItem('txgcca_cache_site');
     if (anyCache) {
       try {
         var age = Math.round((Date.now() - JSON.parse(anyCache).timestamp) / 60000);
@@ -613,10 +613,6 @@ function applyFields(data) {
     var key = el.dataset.field;
     if (data[key]) {
       if (el.tagName === 'IMG') {
-        if (key === 'url_logo') {
-          el.style.opacity = '0';
-          el.onload = function(){ this.style.opacity = '1'; };
-        }
         el.src = data[key];
       }
       else el.textContent = data[key];
@@ -693,7 +689,7 @@ document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); })
 
 // ── 方案 D：Promise.all 平行載入 ──
 Promise.all([
-  fetchCSV('0', 'global'),           // 全站設定
+  fetchCSV('0', 'site'),           // 全站設定
   fetchCSV('1224752276', 'contact'),  // 聯絡我們
   fetchCSV('100210601', 'faq')        // FAQ
 ]).then(function(results) {

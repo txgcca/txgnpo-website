@@ -644,7 +644,7 @@ footer {
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <img class="nav-mark" data-field="url_logo" src="https://placehold.co/120x40/FF6921/ffffff?text=LOGO" alt="社團法人臺中市韌民協會 LOGO">
+    <img class="nav-mark" src="logo.png" width="40" height="40" alt="社團法人臺中市韌民協會 LOGO">
     社團法人臺中市韌民協會
   </a>
   <div class="nav-links">
@@ -822,10 +822,6 @@ function applyFields(data) {
     var key = el.dataset.field;
     if (data[key]) {
       if (el.tagName === 'IMG') {
-        if (key === 'url_logo') {
-          el.style.opacity = '0';
-          el.onload = function(){ this.style.opacity = '1'; };
-        }
         el.src = data[key];
       }
       else el.textContent = data[key];
@@ -970,7 +966,7 @@ function renderMedia(reports) {
    CSV 載入（Promise.all 平行 + 快取）
 ══════════════════════════════════════════ */
 Promise.all([
-  fetchCSV('0', 'global'),              // 全站設定
+  fetchCSV('0', 'site'),              // 全站設定
   fetchCSV('1793841217', 'media'),       // 媒體報導
 ]).then(function(results) {
   applyFields(parseKV(parseCSV(results[0])));
