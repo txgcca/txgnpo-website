@@ -105,7 +105,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 va
 .gitmind-btn:hover .arr { transform: translateX(3px); }
 .map-images { display: flex; flex-direction: column; gap: 16px; }
 .map-img-wrap { border: 1px solid rgba(255,255,255,.08); border-radius: 8px; overflow: hidden; }
-.map-img-wrap img { width: 100%; display: block; }
+.map-img-wrap img { width: 100%; height: auto; display: block; }
 .map-placeholder { width: 100%; height: 280px; background: rgba(0,55,100,.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
 .map-placeholder-icon { font-size: 36px; opacity: .5; }
 .map-placeholder-text { font-size: 13px; color: rgba(255,255,255,.4); }
@@ -299,16 +299,10 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
   </div>
   <div class="map-images fade-in" style="transition-delay:.08s">
     <div class="map-img-wrap">
-      <img src=""
-           alt="民防學習地圖 第一張"
-           data-field="mapImg1Url"
-           onerror="">
+      <img src="images/learning-map-1.jpg" width="1600" height="900" loading="lazy" alt="民防學習地圖 第一張">
     </div>
     <div class="map-img-wrap">
-      <img src=""
-           alt="民防學習地圖 第二張"
-           data-field="mapImg2Url"
-           onerror="">
+      <img src="images/learning-map-2.jpg" width="1600" height="900" loading="lazy" alt="民防學習地圖 第二張">
     </div>
   </div>
   <div class="map-footer-row fade-in" style="transition-delay:.12s">
@@ -498,17 +492,6 @@ function applyFields(data) {
     const key = el.dataset.field;
     if (!data[key]) return;
     if (el.tagName === 'IMG') {
-      if (key === 'mapImg1Url' || key === 'mapImg2Url') {
-        el.style.display = '';
-        el.style.opacity = '0';
-        el.onload = function() {
-          this.style.opacity = '1';
-        };
-        el.onerror = function() {
-          this.style.display = 'none';
-          this.parentElement.innerHTML = '<div class="map-placeholder"><div class="map-placeholder-icon">🗺️</div><div class="map-placeholder-text">圖片載入失敗</div></div>';
-        };
-      }
       el.src = data[key];
     }
     else { el.textContent = data[key]; }
