@@ -418,16 +418,38 @@ img[data-field="platform_screenshot_url"] { opacity: 0; transition: opacity .4s 
   gap:10px;
 }
 @media(max-width:640px){.past-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:400px){.past-grid{grid-template-columns:1fr;}}
 
 .past-card{
   background:rgba(255,255,255,.05);
   border:1px solid rgba(44,213,196,.15);
   border-radius:8px;padding:14px 12px;
 }
-.past-card-num{font-size:9px;color:var(--teal);font-weight:700;margin-bottom:6px;letter-spacing:.08em;}
-.past-card-name{font-size:12px;color:rgba(255,255,255,.85);font-weight:500;margin-bottom:4px;line-height:1.4;}
-.past-card-date{font-size:10px;color:rgba(255,255,255,.4);}
+.past-card-date{font-size:10px;color:var(--teal);font-weight:700;margin-bottom:6px;letter-spacing:.06em;}
+.past-card-partner{font-size:11px;color:rgba(255,255,255,.55);margin-bottom:3px;line-height:1.4;}
+.past-card-name{font-size:12px;color:rgba(255,255,255,.85);font-weight:500;line-height:1.4;}
+.past-empty{font-size:12px;color:rgba(255,255,255,.4);}
+
+/* 歷年紀錄：年份收合 */
+.past-years-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.6);margin:32px 0 6px;}
+.py-group{border-bottom:1px solid rgba(255,255,255,.08);}
+.py-label{
+  width:100%;display:flex;align-items:center;gap:12px;padding:12px 0;
+  background:none;border:none;cursor:pointer;text-align:left;
+  font-family:inherit;color:inherit;
+}
+.py-year{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:rgba(255,255,255,.85);letter-spacing:.04em;}
+.py-label:hover .py-year{color:var(--teal);}
+.py-line{flex:1;height:1px;background:rgba(255,255,255,.06);}
+.py-arrow{width:14px;height:14px;flex-shrink:0;color:rgba(255,255,255,.4);transition:transform .25s;}
+.py-group.open .py-arrow{transform:rotate(180deg);}
+.py-content{display:none;padding:0 0 14px;}
+.py-group.open .py-content{display:block;}
+.py-row{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:7px 0;font-size:13px;line-height:1.5;}
+.py-date{color:rgba(255,255,255,.4);white-space:nowrap;}
+.py-text{color:rgba(255,255,255,.85);}
+.py-partner{color:var(--teal);margin-right:8px;}
+.past-all-link{display:inline-block;margin-top:20px;font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;}
+.past-all-link:hover{opacity:.8;}
 
 
 /* ══ FOOTER ════════════════════════════════ */
@@ -646,29 +668,16 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     過往活動紀錄
   </div>
 
+  <!-- 最近 4 場（由 JS 從「完整活動紀錄」渲染）-->
   <div class="past-grid" id="past-activities-grid">
-    <!-- 以下為 fallback 示意資料，上線後由 JS 動態渲染 -->
-    <div class="past-card">
-      <div class="past-card-num">01</div>
-      <div class="past-card-name">BLS 基本救命術發證班</div>
-      <div class="past-card-date">2025 / 05、07、08 月</div>
-    </div>
-    <div class="past-card">
-      <div class="past-card-num">02</div>
-      <div class="past-card-name">台中地圖導航</div>
-      <div class="past-card-date">2025 / 06 月</div>
-    </div>
-    <div class="past-card">
-      <div class="past-card-num">03</div>
-      <div class="past-card-name">災害韌性演訓計畫</div>
-      <div class="past-card-date">2025 / 03 月</div>
-    </div>
-    <div class="past-card">
-      <div class="past-card-num">04</div>
-      <div class="past-card-name">韌性升級雙講座</div>
-      <div class="past-card-date">2025 / 02 月</div>
-    </div>
+    <p class="past-empty">載入活動紀錄中…</p>
   </div>
+
+  <!-- 歷年紀錄：依年份收合（預設全部收合）-->
+  <div class="past-years-title">歷年紀錄</div>
+  <div id="past-years"></div>
+
+  <a class="past-all-link" href="past-activities.html">查看協會所有活動 →</a>
 
 
 </div>
@@ -810,27 +819,87 @@ function renderCalendar(calId) {
   }
 }
 
-/* ══ 過往活動渲染 ═════════════════════════════════ */
-function renderPastActivities(events) {
-  const grid = document.getElementById('past-activities-grid');
-  if (!events.length) {
-    grid.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:12px;">目前暫無過往活動紀錄。</p>';
+/* ══ 過往活動（資料來源：完整活動紀錄）══════════════
+   規則：
+   - 只顯示 category = 「課程活動」或「外部合作」
+   - 「外部合作」必須有填 partner 才顯示（未填 = 不公開）
+   - 顯示順序：月份 → 單位 → 標題
+   - 排序：年份 → 月份 → Sheet 列順序（越下面越新）
+═══════════════════════════════════════════════════ */
+function escHTML(t) {
+  return String(t || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function pickTrainingActivities(rows) {
+  return rows
+    .map((r, idx) => Object.assign({}, r, { _idx: idx }))
+    .filter(r => /^\d{4}$/.test((r.year || '').trim()))
+    .filter(r => {
+      const cat = (r.category || '').trim();
+      if (cat === '課程活動') return true;
+      if (cat === '外部合作') return !!(r.partner || '').trim();
+      return false;
+    })
+    .map(r => Object.assign(r, {
+      year: parseInt(r.year, 10),
+      month: parseInt(r.date_display, 10) || 0,
+      partner: (r.partner || '').trim()
+    }))
+    .sort((a, b) => (b.year - a.year) || (b.month - a.month) || (b._idx - a._idx));
+}
+
+function renderPastActivities(items) {
+  const grid  = document.getElementById('past-activities-grid');
+  const years = document.getElementById('past-years');
+  if (!items.length) {
+    grid.innerHTML = '<p class="past-empty">目前暫無活動紀錄。</p>';
+    years.innerHTML = '';
     return;
   }
-  grid.innerHTML = events.map((e, i) =>
+
+  // 最近 4 場
+  grid.innerHTML = items.slice(0, 4).map(r =>
     '<div class="past-card">' +
-      '<div class="past-card-num">' + String(i+1).padStart(2,'0') + '</div>' +
-      '<div class="past-card-name">' + e.title + '</div>' +
-      '<div class="past-card-date">' + e.date + '</div>' +
+      '<div class="past-card-date">' + r.year + '・' + escHTML(r.date_display) + '</div>' +
+      (r.partner ? '<div class="past-card-partner">' + escHTML(r.partner) + '</div>' : '') +
+      '<div class="past-card-name">' + escHTML(r.title) + '</div>' +
     '</div>').join('');
+
+  // 依年份收合（新 → 舊，預設全部收合）
+  const byYear = {};
+  items.forEach(r => { (byYear[r.year] = byYear[r.year] || []).push(r); });
+  const arrow = '<svg class="py-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+  years.innerHTML = Object.keys(byYear).map(Number).sort((a, b) => b - a).map(y =>
+    '<div class="py-group">' +
+      '<button class="py-label" type="button" aria-expanded="false">' +
+        '<span class="py-year">' + y + '</span><span class="py-line"></span>' + arrow +
+      '</button>' +
+      '<div class="py-content">' +
+        byYear[y].map(r =>
+          '<div class="py-row">' +
+            '<span class="py-date">' + escHTML(r.date_display) + '</span>' +
+            '<span class="py-text">' +
+              (r.partner ? '<span class="py-partner">' + escHTML(r.partner) + '</span>' : '') +
+              escHTML(r.title) +
+            '</span>' +
+          '</div>').join('') +
+      '</div>' +
+    '</div>').join('');
+
+  years.querySelectorAll('.py-label').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const open = btn.parentElement.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
 }
 
 /* ══ 方案 D：Promise.all 平行載入 ════════════════ */
 Promise.all([
   cachedFetch('txgcca_cache_site',     csvUrl('0')),           // 全站設定
   cachedFetch('txgcca_cache_training', csvUrl('2135537779')),   // 自訓與課程活動
-  cachedFetch('txgcca_cache_events',   csvUrl('1523016997')),   // 大事記
-]).then(([siteCSV, trainingCSV, keyCSV]) => {
+  cachedFetch('txgcca_cache_full_activities', csvUrl('1168080937')),   // 完整活動紀錄
+]).then(([siteCSV, trainingCSV, activityCSV]) => {
   const siteData     = parseKV(parseCSV(siteCSV));
   const trainingData = parseKV(parseCSV(trainingCSV));
   const allData      = Object.assign({}, siteData, trainingData);
@@ -838,14 +907,15 @@ Promise.all([
   applyFields(allData);
   renderCalendar(allData.calendar_embed_id);
 
-  const pastEvents = parseRowsBy(parseCSV(keyCSV), r => r.show_on_training === '是');
-  renderPastActivities(pastEvents);
+  renderPastActivities(pickTrainingActivities(parseRowsBy(parseCSV(activityCSV), () => true)));
 
 }).catch(err => {
   console.error('[TXGCCA] CSV fetch 失敗:', err);
   // 方案 A fallback：HTML 預設值已在頁面上，使用者仍能看到基本內容
   // 移除骨架屏，顯示 fallback
   document.querySelectorAll('.skeleton').forEach(el => el.classList.remove('skeleton'));
+  const grid = document.getElementById('past-activities-grid');
+  if (grid) grid.innerHTML = '<p class="past-empty">暫時無法載入活動紀錄，請稍後再試。</p>';
 });
 </script>
 
