@@ -920,8 +920,8 @@ function renderMedia(reports) {
   var grid = document.getElementById('featured-grid');
   grid.innerHTML = featured.map(function(item, i) { return buildFeatCard(item, i === 0, i * 0.08); }).join('');
 
-  /* 完整列表：新到舊排序，依年份分組 */
-  var sorted = reports.slice().sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
+  /* 完整列表：依年份分組；年份新 → 舊（下方 yearKeys），年份內 1 月 → 12 月 */
+  var sorted = reports.slice().sort(function(a, b) { return (a.date || '').localeCompare(b.date || ''); });
   var byYear = {};
   sorted.forEach(function(item) {
     var year = (item.date || '').split('-')[0];
