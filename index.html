@@ -570,8 +570,10 @@ nav {
   font-size: 44px; font-weight: 700;
   color: var(--white); line-height: 1;
   display: flex; align-items: baseline; gap: 4px;
+  font-variant-numeric: tabular-nums;
 }
-.stat-unit { font-size: 18px; font-weight: 500; color: var(--teal); }
+.counter { display: inline-block; }
+.stat-unit { font-size: 18px; font-weight: 500; color: var(--teal); white-space: nowrap; flex-shrink: 0; }
 .stat-label { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 6px; letter-spacing: .04em; }
 
 /* ══════════════════════════════════════════
@@ -975,7 +977,7 @@ function cachedFetch(url, cacheName) {
 function animateCounter(el) {
   var target = parseInt(el.getAttribute('data-target'));
   if (!target || isNaN(target)) { el.textContent = '—'; return; }
-  var duration = 1400;
+  var duration = 800;
   var start = performance.now();
   var step = function(now) {
     var p = Math.min((now - start) / duration, 1);
@@ -1089,11 +1091,20 @@ function applyStatsBar(statsData, homeData) {
     var num = parseInt(String(rawVal).replace(/[^0-9]/g, ''), 10);
     if (!num || isNaN(num)) num = 0;
     el.setAttribute('data-target', num);
-    el.textContent = '0';
     removeSkeleton(el);
+    // 先放最終數字量寬度並保留，動畫時數字變寬也不會推動旁邊的字
+    el.textContent = num ? num.toLocaleString() : '—';
+    el.style.minWidth = el.getBoundingClientRect().width + 'px';
+    if (statsAnimated) return;   // 這次瀏覽已經數過：直接顯示最終數字
+    el.textContent = '0';
     io.observe(el);
   });
+  try { sessionStorage.setItem('txgcca_stats_animated', '1'); } catch (e) {}
 }
+
+// 每次開瀏覽器只跑一次數字動畫
+var statsAnimated = false;
+try { statsAnimated = sessionStorage.getItem('txgcca_stats_animated') === '1'; } catch (e) {}
 
 /* ══════════════════════════════════════════
    大事紀
