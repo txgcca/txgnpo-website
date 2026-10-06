@@ -152,6 +152,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
   /* width 由 JS equalizeChronBadges() 統一設定 */
 }
 .chron-title-cell { font-size: 14px; color: var(--ink); line-height: 1.5; }
+.chron-partner { color: var(--navy-l); font-weight: 700; margin-right: 8px; }
 .chron-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
 /* 更多按鈕 */
@@ -273,8 +274,9 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     year         : 年份數字（如 2024）
     date_display : 顯示用日期（如 "11 月"）
     title        : 活動標題
-    category     : 類型標籤（"里程碑" | "媒體" | "課程" | "公益" | "推廣" | "訓練" | "演習" | "外部合作"）
+    category     : 類型標籤（"里程碑" | "媒體" | "課程活動" | "公益" | "推廣" | "訓練" | "演習" | "外部合作"）
     note         : 備註（可空字串）
+    partner      : 外部單位名稱（只有「外部合作」需要填；未填則該筆不公開顯示）
 
   ★ 修改頁面標題／說明文字 → 改 PAGE_INFO 對應欄位
   ★ 新增關鍵記事 → 在 KEY_EVENTS 陣列加一筆（勿超過 6 筆）
@@ -399,10 +401,11 @@ const CAT_CLASS = {
   '里程碑':   'b-navy',
   '演習':     'b-navy',
   '公益':     'b-navy',
+  '課程活動': 'b-orange',
   '課程':     'b-orange',
   '推廣':     'b-orange',
   '訓練':     'b-orange',
-  '對外合作': 'b-orange',
+  '外部合作': 'b-orange',
   '媒體':     'b-teal',
 };
 
@@ -474,7 +477,7 @@ function renderChronRow(r) {
       <div class="chron-date-cell">${r.date_display}</div>
       <span class="chron-cat ${CAT_CLASS[r.category] || 'b-navy'}">${r.category}</span>
       <div>
-        <div class="chron-title-cell">${r.title}</div>
+        <div class="chron-title-cell">${r.partner ? `<span class="chron-partner">${r.partner}</span>` : ''}${r.title}</div>
         ${r.note ? `<div class="chron-note">${r.note}</div>` : ''}
       </div>
     </div>
@@ -751,7 +754,9 @@ Promise.all([
 
   // 完整活動紀錄
   var chronRecords = parseRowsBy(parseCSV(chronCSV), function(r) { return /^\d{4}$/.test(r.year); })
-    .map(function(r) { return Object.assign({}, r, { year: parseInt(r.year) }); });
+    .map(function(r) { return Object.assign({}, r, { year: parseInt(r.year), category: (r.category || '').trim(), partner: (r.partner || '').trim() }); })
+    // 外部合作未填 partner = 不公開，整筆不顯示
+    .filter(function(r) { return !(r.category === '外部合作' && !r.partner); });
   renderAccordion(chronRecords);
 
   requestAnimationFrame(equalizeChronBadges);
