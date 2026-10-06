@@ -824,7 +824,8 @@ function renderCalendar(calId) {
    - 只顯示 category = 「課程活動」或「外部合作」
    - 「外部合作」必須有填 partner 才顯示（未填 = 不公開）
    - 顯示順序：月份 → 單位 → 標題
-   - 排序：年份 → 月份 → Sheet 列順序（越下面越新）
+   - 最近 4 場：由新到舊
+   - 歷年紀錄：年份由新到舊；年份打開後由 1 月到 12 月（同月份照 Sheet 列順序）
 ═══════════════════════════════════════════════════ */
 function escHTML(t) {
   return String(t || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -865,9 +866,10 @@ function renderPastActivities(items) {
       '<div class="past-card-name">' + escHTML(r.title) + '</div>' +
     '</div>').join('');
 
-  // 依年份收合（新 → 舊，預設全部收合）
+  // 依年份收合：年份新 → 舊；年份內 1 月 → 12 月（預設全部收合）
   const byYear = {};
   items.forEach(r => { (byYear[r.year] = byYear[r.year] || []).push(r); });
+  Object.values(byYear).forEach(list => list.sort((a, b) => (a.month - b.month) || (a._idx - b._idx)));
   const arrow = '<svg class="py-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
   years.innerHTML = Object.keys(byYear).map(Number).sort((a, b) => b - a).map(y =>
     '<div class="py-group">' +
