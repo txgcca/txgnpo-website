@@ -448,6 +448,15 @@ img[data-field="platform_screenshot_url"] { opacity: 0; transition: opacity .4s 
 .py-date{color:rgba(255,255,255,.4);white-space:nowrap;}
 .py-text{color:rgba(255,255,255,.85);}
 .py-partner{color:var(--teal);margin-right:8px;}
+.py-row.py-extra{display:none;}
+.py-group.show-all .py-row.py-extra{display:grid;}
+.py-more{
+  margin-top:8px;width:100%;padding:8px 0;border-radius:4px;cursor:pointer;
+  background:none;border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.55);font-size:12px;font-family:inherit;
+  transition:border-color .15s,color .15s;
+}
+.py-more:hover{border-color:var(--teal);color:var(--teal);}
 .past-all-link{display:inline-block;margin-top:20px;font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;}
 .past-all-link:hover{opacity:.8;}
 
@@ -826,10 +835,14 @@ function renderCalendar(calId) {
    - 顯示順序：月份 → 單位 → 標題
    - 最近 4 場：由新到舊
    - 歷年紀錄：年份由新到舊；年份打開後由 1 月到 12 月（同月份照 Sheet 列順序）
+   - 同時只展開一個年份；每年先顯示前 3 筆，其餘按「查看其餘」展開；
+     年份收合後再打開，回到只顯示前 3 筆
 ═══════════════════════════════════════════════════ */
 function escHTML(t) {
   return String(t || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+
+const ROWS_PER_YEAR = 3;   // 每個年份打開後先顯示的筆數
 
 function pickTrainingActivities(rows) {
   return rows
@@ -877,22 +890,47 @@ function renderPastActivities(items) {
         '<span class="py-year">' + y + '</span><span class="py-line"></span>' + arrow +
       '</button>' +
       '<div class="py-content">' +
-        byYear[y].map(r =>
-          '<div class="py-row">' +
+        byYear[y].map((r, i) =>
+          '<div class="py-row' + (i >= ROWS_PER_YEAR ? ' py-extra' : '') + '">' +
             '<span class="py-date">' + escHTML(r.date_display) + '</span>' +
             '<span class="py-text">' +
               (r.partner ? '<span class="py-partner">' + escHTML(r.partner) + '</span>' : '') +
               escHTML(r.title) +
             '</span>' +
           '</div>').join('') +
+        (byYear[y].length > ROWS_PER_YEAR
+          ? '<button class="py-more" type="button" data-extra="' + (byYear[y].length - ROWS_PER_YEAR) + '">＋ 查看其餘 ' + (byYear[y].length - ROWS_PER_YEAR) + ' 筆</button>'
+          : '') +
       '</div>' +
     '</div>').join('');
 
-  years.querySelectorAll('.py-label').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const open = btn.parentElement.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  // 收合某個年份，並回到只顯示前 3 筆
+  function closeYear(group) {
+    group.classList.remove('open', 'show-all');
+    group.querySelector('.py-label').setAttribute('aria-expanded', 'false');
+    const more = group.querySelector('.py-more');
+    if (more) more.textContent = '＋ 查看其餘 ' + more.dataset.extra + ' 筆';
+  }
+
+  years.querySelectorAll('.py-group').forEach(group => {
+    const label = group.querySelector('.py-label');
+    label.addEventListener('click', () => {
+      const wasOpen = group.classList.contains('open');
+      // 同時只開一個年份：先收合所有年份
+      years.querySelectorAll('.py-group.open').forEach(closeYear);
+      if (!wasOpen) {
+        group.classList.add('open');
+        label.setAttribute('aria-expanded', 'true');
+      }
     });
+
+    const more = group.querySelector('.py-more');
+    if (more) {
+      more.addEventListener('click', () => {
+        const all = group.classList.toggle('show-all');
+        more.textContent = all ? '收起' : '＋ 查看其餘 ' + more.dataset.extra + ' 筆';
+      });
+    }
   });
 }
 
