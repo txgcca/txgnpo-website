@@ -21,6 +21,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
+/* 主視覺標語專用字型（已裁切，只含標語用到的字；授權見 fonts/OFL-*.txt） */
+@font-face { font-family: 'Glow Sans TC'; font-weight: 800; font-display: swap; src: url(fonts/glow-sans-tc-slogan.woff2) format('woff2'); }
+@font-face { font-family: 'Wix Madefor Display'; font-weight: 800; font-display: swap; src: url(fonts/wix-madefor-display-slogan.woff2) format('woff2'); }
 :root {
   --navy:      #003764;
   --navy-d:    #002548;
@@ -287,34 +290,65 @@ nav {
   flex-shrink: 0;
 }
 
-/* ── 右側圖片區（桌機）── */
+/* ── 右側圖片區（桌機 > 1100px）──
+   無字照片以主角為定位點：主角在照片寬度 56% 處，對齊畫面寬度 70%
+   左側品牌藍漸層讓標題清楚，標語用網頁文字疊上（不會被裁切） */
 .hero-right {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
-  margin-left: -130px;
-  clip-path: polygon(
-    8.9% 0%,
-    6.2% 10%,
-    3.6% 20%,
-    1.7% 30%,
-    0.4% 40%,
-    0%   50%,
-    0.4% 60%,
-    1.7% 70%,
-    3.6% 80%,
-    6.2% 90%,
-    8.9% 100%,
-    100% 100%,
-    100% 0%
-  );
 }
-.hero-right img {
-  width: 100%;
+.hero-photo {
+  position: absolute;
+  top: 0;
   height: 100%;
-  object-fit: cover;
+  width: auto;
+  max-width: none;
+  left: 70%;
+  transform: translateX(-56%);
   display: block;
 }
-.hero-photo { width:100%; height:100%; object-fit:cover; object-position:81% center; display:block; }
+@media (min-aspect-ratio: 5/2) {
+  .hero-photo { left: auto; right: 0; transform: none; }   /* 超寬螢幕：避免右側留白 */
+}
+.hero-right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    var(--navy) 0%, var(--navy) 36%,
+    rgba(0,55,100,.78) 46%, rgba(0,55,100,.35) 56%, rgba(0,55,100,0) 66%);
+}
+.hero-slogan {
+  position: absolute;
+  right: 4.5%;
+  top: 50%;
+  transform: translateY(-44%);
+  z-index: 1;
+  pointer-events: none;
+  color: var(--white);
+  text-align: right;
+  line-height: 1;
+}
+.hero-slogan .s-zh {
+  display: block;
+  font-family: 'Glow Sans TC', 'Noto Sans TC', sans-serif;
+  font-weight: 800;
+  font-size: min(9.43vw, 17.25vh);
+  letter-spacing: .1em;
+  margin-right: -.1em;
+}
+.hero-slogan .s-zh + .s-zh { margin-top: .04em; }
+.hero-slogan .s-en {
+  display: block;
+  font-family: 'Wix Madefor Display', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: min(2.645vw, 4.83vh);
+  margin-top: .55em;
+  white-space: nowrap;
+}
 .hero-photo-mobile { width:100%; height:auto; border-radius:12px; display:block; }
 .hero-img-placeholder {
   width: 100%;
@@ -340,6 +374,7 @@ nav {
   text-align: center;
 }
 .hero-accent-line {
+  z-index: 2;
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 3px;
@@ -376,12 +411,28 @@ nav {
    RWD ① 中螢幕（768px ~ 1100px）
 ══════════════════════════════════════════ */
 @media (max-width: 1100px) {
+  /* 平板：比照手機，標題下方放整張有標語的 hero.jpg */
   .hero {
-    grid-template-columns: 1fr 40%;
-    min-height: 80vh;
+    display: block;
+    min-height: auto;
+    padding-bottom: 56px;
   }
   .hero-left {
-    padding: 64px 48px 64px 32px;
+    padding: 56px 40px 0;
+  }
+  .hero-right, .hero-accent-line { display: none; }
+  .hero-img-mobile {
+    display: block;
+    width: calc(100% + 80px);
+    margin: 0 0 32px -40px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .hero-img-mobile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .hero-h1 {
     font-size: 56px;
@@ -394,24 +445,6 @@ nav {
     font-size: 14px;
     margin-bottom: 32px;
     max-width: 100%;
-  }
-  .hero-right {
-    margin-left: -100px;
-    clip-path: polygon(
-      6%   0%,
-      4.2% 10%,
-      2.4% 20%,
-      1.1% 30%,
-      0.3% 40%,
-      0%   50%,
-      0.3% 60%,
-      1.1% 70%,
-      2.4% 80%,
-      4.2% 90%,
-      6%   100%,
-      100% 100%,
-      100% 0%
-    );
   }
   .nav-link { font-size: 12px; padding: 6px 8px; }
 }
@@ -772,8 +805,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
     <div class="hero-h2" data-field="hero_subheadline">但你不必獨自準備</div>
 
-    <!-- hero_body（骨架屏 → CSV 覆蓋） -->
-    <p class="hero-body skeleton" data-field="hero_body">
+    <!-- hero_body：HTML 預設文字立即顯示，Sheet 載入後覆蓋 -->
+    <p class="hero-body" data-field="hero_body">
       由一群臺中市民於 2023 年發起的自訓社群，三年間每週在中央公園練急救與防災。2025 年正式加入臺中市災害防救團體，並將三年的自訓經驗重新設計為「8 週自訓入門班」，帶你有系統地建立應變能力。
     </p>
 
@@ -791,9 +824,14 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   <!-- 右側圖片區（桌機 / 中螢幕，手機隱藏）-->
   <div class="hero-right">
-    <img src="images/hero.jpg" width="1600" height="800" alt="訓練現場照片" class="hero-photo">
-    <div class="hero-accent-line"></div>
+    <img src="images/hero-desktop.jpg" width="1600" height="800" alt="訓練現場照片" class="hero-photo">
+    <div class="hero-slogan" role="img" aria-label="韌民永不認命 Together, we shield">
+      <span class="s-zh">韌民</span>
+      <span class="s-zh" id="slogan-main"><span>永不認命</span></span>
+      <span class="s-en" id="slogan-en"><span>TOGETHER, WE SHIELD</span></span>
+    </div>
   </div>
+  <div class="hero-accent-line"></div>
 
 </section>
 
@@ -1146,48 +1184,60 @@ function parseKeyEvents(rows) {
 }
 
 /* ══════════════════════════════════════════
-   主抓取：4 CSV（全站設定 + 首頁 + 大事記 + 前台統計）
+   資料載入：各區塊各自等自己需要的表，不互相拖累
+   - 文字（data-field）：只等「全站設定＋首頁」
+   - 統計數字：等「首頁（stat_4_value）＋前台統計」
+   - 大事紀：只等「大事記」
 ══════════════════════════════════════════ */
-Promise.all([
-  cachedFetch(csvUrl('0'), 'site'),
-  cachedFetch(csvUrl('1480814273'), 'home'),
-  cachedFetch(csvUrl('1523016997'), 'events'),
-  cachedFetch(csvUrl('1764884051', CSV_BASE_CAL), 'front_stats')
-]).then(function(results) {
-  var siteCSV  = results[0];
-  var homeCSV  = results[1];
-  var keyCSV   = results[2];
-  var statsCSV = results[3];
+var sitePromise = cachedFetch(csvUrl('0'), 'site');
+var homePromise = cachedFetch(csvUrl('1480814273'), 'home');
 
-  var siteData  = parseKV(parseCSV(siteCSV));
-  var homeData  = parseKV(parseCSV(homeCSV));
-  var statsData = parseStats(parseCSV(statsCSV));
-
-  /* 合併 site + home 資料並套用到 data-field */
-  applyFields(Object.assign({}, siteData, homeData));
-
-  /* 移除 hero-body 骨架屏 */
-  removeSkeleton(document.querySelector('.hero-body'));
-
-  /* Stats Bar 動態數值 */
-  applyStatsBar(statsData, homeData);
-
-  /* 大事紀 */
-  renderTimeline(parseKeyEvents(parseCSV(keyCSV)));
-
+/* 文字 */
+Promise.all([sitePromise, homePromise]).then(function(results) {
+  applyFields(Object.assign({}, parseKV(parseCSV(results[0])), parseKV(parseCSV(results[1]))));
 }).catch(function(err) {
-  console.error('[TXGCCA] CSV fetch 失敗:', err);
-  /* 失敗時移除骨架屏，顯示 fallback */
-  document.querySelectorAll('.skeleton').forEach(function(el) { removeSkeleton(el); });
-  /* Stats Bar fallback：顯示佔位符 */
+  console.error('[TXGCCA] 文字資料載入失敗，使用 HTML 預設文字:', err);
+});
+
+/* Stats Bar 動態數值 */
+Promise.all([homePromise, cachedFetch(csvUrl('1764884051', CSV_BASE_CAL), 'front_stats')]).then(function(results) {
+  applyStatsBar(parseStats(parseCSV(results[1])), parseKV(parseCSV(results[0])));
+}).catch(function(err) {
+  console.error('[TXGCCA] 統計資料載入失敗:', err);
   ['stat-1-num','stat-2-num','stat-3-num','stat-4-num'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) { removeSkeleton(el); el.textContent = '—'; }
   });
 });
+
+/* 大事紀 */
+cachedFetch(csvUrl('1523016997'), 'events').then(function(keyCSV) {
+  renderTimeline(parseKeyEvents(parseCSV(keyCSV)));
+}).catch(function(err) {
+  console.error('[TXGCCA] 大事記載入失敗:', err);
+});
 </script>
 
 <script>
+/* 主視覺標語：英文自動調整字距，頭尾對齊「永不認命」（原圖的排法）*/
+(function() {
+  var zh = document.querySelector('#slogan-main > span');
+  var en = document.querySelector('#slogan-en > span');
+  if (!zh || !en) return;
+  function fit() {
+    if (!zh.offsetWidth) return;                 // 平板／手機隱藏時不計算
+    en.style.letterSpacing = '0px';
+    // 中文字形實際寬度 = 量到的寬度 − 最後一個字後面的字距
+    var zhWidth = zh.getBoundingClientRect().width - parseFloat(getComputedStyle(zh).letterSpacing || 0);
+    var gap = zhWidth - en.getBoundingClientRect().width;
+    var ls = Math.max(0, gap / (en.textContent.length - 1));
+    en.style.letterSpacing = ls + 'px';
+    en.style.marginRight = (-ls) + 'px';         // 抵消最後一個字母後面多出的間距
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+  var t; window.addEventListener('resize', function() { clearTimeout(t); t = setTimeout(fit, 100); });
+})();
+
 /* fade-in 元素觀察（io 已在上方宣告）*/
 document.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
 

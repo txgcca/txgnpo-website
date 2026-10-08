@@ -519,7 +519,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <span class="bc-current">自訓與課程活動</span>
   </div>
   <h1 class="page-h1">自訓與課程活動</h1>
-  <p class="page-sub skeleton" id="hero-sub" data-field="hero_sub">8週入門 · 主題課程 · 特別活動報名</p>
+  <p class="page-sub" id="hero-sub" data-field="hero_sub">8週入門 · 主題課程 · 特別活動報名</p>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -934,29 +934,30 @@ function renderPastActivities(items) {
   });
 }
 
-/* ══ 方案 D：Promise.all 平行載入 ════════════════ */
+/* ══ 資料載入：各區塊各自等自己需要的表 ════════════
+   - 文字、行事曆：只等「全站設定＋自訓與課程活動」
+   - 過往活動：只等「完整活動紀錄」
+═══════════════════════════════════════════════════ */
 Promise.all([
   cachedFetch('txgcca_cache_site',     csvUrl('0')),           // 全站設定
   cachedFetch('txgcca_cache_training', csvUrl('2135537779')),   // 自訓與課程活動
-  cachedFetch('txgcca_cache_full_activities', csvUrl('1168080937')),   // 完整活動紀錄
-]).then(([siteCSV, trainingCSV, activityCSV]) => {
-  const siteData     = parseKV(parseCSV(siteCSV));
-  const trainingData = parseKV(parseCSV(trainingCSV));
-  const allData      = Object.assign({}, siteData, trainingData);
-
+]).then(([siteCSV, trainingCSV]) => {
+  const allData = Object.assign({}, parseKV(parseCSV(siteCSV)), parseKV(parseCSV(trainingCSV)));
   applyFields(allData);
   renderCalendar(allData.calendar_embed_id);
-
-  renderPastActivities(pickTrainingActivities(parseRowsBy(parseCSV(activityCSV), () => true)));
-
 }).catch(err => {
-  console.error('[TXGCCA] CSV fetch 失敗:', err);
-  // 方案 A fallback：HTML 預設值已在頁面上，使用者仍能看到基本內容
-  // 移除骨架屏，顯示 fallback
-  document.querySelectorAll('.skeleton').forEach(el => el.classList.remove('skeleton'));
-  const grid = document.getElementById('past-activities-grid');
-  if (grid) grid.innerHTML = '<p class="past-empty">暫時無法載入活動紀錄，請稍後再試。</p>';
+  console.error('[TXGCCA] 文字資料載入失敗，使用 HTML 預設文字:', err);
 });
+
+cachedFetch('txgcca_cache_full_activities', csvUrl('1168080937'))   // 完整活動紀錄
+  .then(activityCSV => {
+    renderPastActivities(pickTrainingActivities(parseRowsBy(parseCSV(activityCSV), () => true)));
+  })
+  .catch(err => {
+    console.error('[TXGCCA] 活動紀錄載入失敗:', err);
+    const grid = document.getElementById('past-activities-grid');
+    if (grid) grid.innerHTML = '<p class="past-empty">暫時無法載入活動紀錄，請稍後再試。</p>';
+  });
 </script>
 
 <script>
