@@ -268,7 +268,8 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     description : 說明文字（建議 60 字以內）
     badge       : 標籤文字（如 "里程碑"，可空字串）
     badge_color : "teal" | "orange" | "navy"
-    image_url   : 圖片網址（Google Drive 公開連結，空字串則顯示佔位）
+    image_url   : 圖片檔名（放在 images/key-events/，例如 2024-registration.jpg）；
+                  也可填完整網址；空白或檔案不存在則顯示佔位
 
   【② 編年記錄 Accordion】CHRON_RECORDS 陣列
   每筆欄位：
@@ -434,13 +435,25 @@ function renderSiteConfig(s) {
 /* ═══════════════════════════════
    ① 渲染關鍵記事卡片
 ═══════════════════════════════ */
+/* 關鍵記事配圖：
+   - image_url 填檔名（例如 2024-registration.jpg）→ 讀 images/key-events/ 裡的檔案
+   - 填完整網址（https://…）→ 照舊使用該網址
+   - 空白、或檔案還沒上傳 → 顯示 TXGCCA 佔位圖 */
+const KEY_EVENT_IMG_DIR = 'images/key-events/';
+function keyEventImgSrc(v) {
+  v = (v || '').trim();
+  if (!v) return '';
+  return /^https?:\/\//i.test(v) ? v : KEY_EVENT_IMG_DIR + v;
+}
+
 function renderKeyEvents(events) {
   const grid = document.getElementById('key-grid');
   grid.innerHTML = events.map((e, i) => `
     <div class="act-card" style="transition-delay:${(i % 3) * 0.07}s">
       <div class="act-img-wrap">
-        ${e.image_url
-          ? `<img class="act-img" src="${e.image_url}" alt="${e.title}" loading="lazy">`
+        ${keyEventImgSrc(e.image_url)
+          ? `<img class="act-img" src="${keyEventImgSrc(e.image_url)}" alt="${e.title}" loading="lazy"
+                onerror="this.outerHTML='<div class=&quot;act-img-fallback&quot;>TXGCCA</div>'">`
           : `<div class="act-img-fallback">TXGCCA</div>`}
       </div>
       <div class="act-body">
