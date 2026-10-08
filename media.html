@@ -921,8 +921,9 @@ function renderMedia(reports) {
   var grid = document.getElementById('featured-grid');
   grid.innerHTML = featured.map(function(item, i) { return buildFeatCard(item, i === 0, i * 0.08); }).join('');
 
-  /* 完整列表：依年份分組；年份新 → 舊（下方 yearKeys），年份內 1 月 → 12 月 */
-  var sorted = reports.slice().sort(function(a, b) { return (a.date || '').localeCompare(b.date || ''); });
+  /* 完整列表：依年份分組；年份新 → 舊（下方 yearKeys），年份內也新 → 舊（同日期 Sheet 越下面越前面） */
+  var sorted = reports.map(function(r, i) { return Object.assign({ _idx: i }, r); })
+    .sort(function(a, b) { return (b.date || '').localeCompare(a.date || '') || (b._idx - a._idx); });
   var byYear = {};
   sorted.forEach(function(item) {
     var year = (item.date || '').split('-')[0];
