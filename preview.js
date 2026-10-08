@@ -14,7 +14,7 @@
 ════════════════════════════════════════════════════════════ */
 (function () {
   var LIVE_ID  = '2PACX-1vSmLYivM4AX0l0D6Qv8i39uy_IQe4UkAgAm2wO5ACdo5dNxyH_TURO9LCipQRid3GfEKcI9OmAcZC0g';
-  var DRAFT_ID = '';   // ← 草稿 Sheet 的發布 ID（尚未設定時，預覽模式仍讀正式資料）
+  var DRAFT_ID = '2PACX-1vQr1aCA70mc4zUOG1vC-SuFDBVAAQvxkkmoo0wn59GmE680PjlW0lIR6I_b2O95XizC_H-Rf-lbCG1q';   // ← 草稿 Sheet 的發布 ID（尚未設定時，預覽模式仍讀正式資料）
 
   var params = new URLSearchParams(window.location.search);
   if (!params.has('preview')) return;
