@@ -757,7 +757,10 @@ Promise.all([
   var chronRecords = parseRowsBy(parseCSV(chronCSV), function(r) { return /^\d{4}$/.test(r.year); })
     .map(function(r) { return Object.assign({}, r, { year: parseInt(r.year), category: (r.category || '').trim(), partner: (r.partner || '').trim() }); })
     // 外部合作未填 partner = 不公開，整筆不顯示
-    .filter(function(r) { return !(r.category === '外部合作' && !r.partner); });
+    .filter(function(r) { return !(r.category === '外部合作' && !r.partner); })
+    // 年份內由新到舊：月份 12 → 1；同月份 Sheet 越下面越前面
+    .map(function(r, i) { return Object.assign(r, { _idx: i, _month: parseInt(r.date_display, 10) || 0 }); })
+    .sort(function(a, b) { return (b.year - a.year) || (b._month - a._month) || (b._idx - a._idx); });
   renderAccordion(chronRecords);
 
   requestAnimationFrame(equalizeChronBadges);
