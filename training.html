@@ -449,7 +449,7 @@ img[data-field="platform_screenshot_url"] { opacity: 0; transition: opacity .4s 
 .py-row{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:7px 0;font-size:13px;line-height:1.5;}
 .py-date{color:rgba(255,255,255,.4);white-space:nowrap;}
 .py-text{color:rgba(255,255,255,.85);}
-.py-partner{margin-right:8px;}   /* 單位名稱與標題同色，閱讀較舒服 */
+.py-partner{}   /* 活動名稱｜單位：與標題同色同字重 */
 .py-row.py-extra{display:none;}
 .py-group.show-all .py-row.py-extra{display:grid;}
 .py-more{
@@ -897,8 +897,8 @@ function renderPastActivities(items) {
           '<div class="py-row' + (i >= ROWS_PER_YEAR ? ' py-extra' : '') + '">' +
             '<span class="py-date">' + escHTML(r.date_display) + '</span>' +
             '<span class="py-text">' +
-              (r.partner ? '<span class="py-partner">' + escHTML(r.partner) + '</span>' : '') +
               escHTML(r.title) +
+              (r.partner ? '<span class="py-partner">｜' + escHTML(r.partner) + '</span>' : '') +
             '</span>' +
           '</div>').join('') +
         (byYear[y].length > ROWS_PER_YEAR
