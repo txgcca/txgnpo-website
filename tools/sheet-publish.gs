@@ -17,7 +17,7 @@
  */
 
 // ★ 草稿 Sheet 的檔案 ID：草稿網址中 /d/ 和 /edit 之間那一串
-const DRAFT_SHEET_ID = '';
+const DRAFT_SHEET_ID = '1ctDmgblaCWrGacgPP1nFl4uBbCgD0hKrQ8WYFQ3MR0U';
 
 const BACKUP_FOLDER_NAME = '網站正式版備份';
 const KEEP_BACKUPS = 30;
