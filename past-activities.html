@@ -154,7 +154,7 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
   /* width 由 JS equalizeChronBadges() 統一設定 */
 }
 .chron-title-cell { font-size: 14px; color: var(--ink); line-height: 1.5; }
-.chron-partner { margin-right: 8px; }   /* 單位名稱與標題同色、同字重 */
+.chron-partner { }   /* 活動名稱｜單位：與標題同色同字重 */
 .chron-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
 /* 更多按鈕 */
@@ -493,7 +493,7 @@ function renderChronRow(r) {
       <div class="chron-date-cell">${r.date_display}</div>
       <span class="chron-cat ${CAT_CLASS[r.category] || 'b-navy'}">${r.category}</span>
       <div>
-        <div class="chron-title-cell">${r.partner ? `<span class="chron-partner">${r.partner}</span>` : ''}${r.title}</div>
+        <div class="chron-title-cell">${r.title}${r.partner ? `<span class="chron-partner">｜${r.partner}</span>` : ''}</div>
         ${r.note ? `<div class="chron-note">${r.note}</div>` : ''}
       </div>
     </div>
