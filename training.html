@@ -833,9 +833,8 @@ function renderCalendar(calId) {
 
 /* ══ 過往活動（資料來源：完整活動紀錄）══════════════
    規則：
-   - 只顯示 category = 「課程活動」或「外部合作」
-   - 「外部合作」必須有填 partner 才顯示（未填 = 不公開）
-   - 顯示順序：月份 → 單位 → 標題
+   - 只顯示 category = 「課程活動」（其他標籤只出現在過往活動頁）
+   - partner 有填就顯示，格式：活動名稱｜單位
    - 最近 4 場：由新到舊
    - 歷年紀錄：年份由新到舊；年份打開後也由新到舊（12 月 → 1 月；同月份 Sheet 越下面越前面）
    - 同時只展開一個年份；每年先顯示前 3 筆，其餘按「查看其餘」展開；
@@ -851,12 +850,7 @@ function pickTrainingActivities(rows) {
   return rows
     .map((r, idx) => Object.assign({}, r, { _idx: idx }))
     .filter(r => /^\d{4}$/.test((r.year || '').trim()))
-    .filter(r => {
-      const cat = (r.category || '').trim();
-      if (cat === '課程活動') return true;
-      if (cat === '外部合作') return !!(r.partner || '').trim();
-      return false;
-    })
+    .filter(r => (r.category || '').trim() === '課程活動')
     .map(r => Object.assign(r, {
       year: parseInt(r.year, 10),
       month: parseInt(r.date_display, 10) || 0,
