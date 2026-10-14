@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="sheet-data.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>協會章程 — 臺中市韌民協會</title>
 
@@ -639,21 +640,8 @@ function setCache(sheetName, data) {
 }
 
 function fetchCSV(gid, sheetName) {
-  const cached = getCache(sheetName);
-  if (cached) return Promise.resolve(cached);
-
-  if (NOCACHE) {
-    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + sheetName);
-  } else {
-    console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + sheetName);
-  }
-
-  return fetch(csvUrl(gid))
-    .then(function(r) { return r.text(); })
-    .then(function(text) {
-      setCache(sheetName, text);
-      return text;
-    });
+  // 先顯示瀏覽器存的資料、背景更新（sheet-data.js）
+  return txgccaFetch(csvUrl(gid), getCacheKey(sheetName));
 }
 
 function parseCSV(text) {
@@ -699,46 +687,50 @@ function renderPageInfo() {
   removeSkeleton();
 }
 
-Promise.all([
-  fetchCSV('0', 'site'),            // 全站設定
-  fetchCSV('95921268', 'charter'),     // charter_page info
-]).then(function(results) {
-  var siteCSV    = results[0];
-  var charterCSV = results[1];
-  var siteData    = parseKV(parseCSV(siteCSV));
-  var charterData = parseKV(parseCSV(charterCSV));
+/* 背景抓到新內容時，sheet-data.js 會再呼叫一次 txgccaReload() */
+function txgccaReload() {
+  Promise.all([
+    fetchCSV('0', 'site'),            // 全站設定
+    fetchCSV('95921268', 'charter'),     // charter_page info
+  ]).then(function(results) {
+    var siteCSV    = results[0];
+    var charterCSV = results[1];
+    var siteData    = parseKV(parseCSV(siteCSV));
+    var charterData = parseKV(parseCSV(charterCSV));
 
-  // 用 sheet 值覆蓋 PAGE_INFO
-  if (charterData.kicker)    PAGE_INFO.kicker    = charterData.kicker;
-  if (charterData.pageTitle) PAGE_INFO.pageTitle = charterData.pageTitle;
-  if (charterData.intro)     PAGE_INFO.intro     = charterData.intro;
-  if (charterData.backLink)  PAGE_INFO.backLink  = charterData.backLink;
-  if (siteData.url_cta_join)      PAGE_INFO.joinLink = siteData.url_cta_join;
-  if (siteData.url_cta_calendar)  PAGE_INFO.calLink  = siteData.url_cta_calendar;
+    // 用 sheet 值覆蓋 PAGE_INFO
+    if (charterData.kicker)    PAGE_INFO.kicker    = charterData.kicker;
+    if (charterData.pageTitle) PAGE_INFO.pageTitle = charterData.pageTitle;
+    if (charterData.intro)     PAGE_INFO.intro     = charterData.intro;
+    if (charterData.backLink)  PAGE_INFO.backLink  = charterData.backLink;
+    if (siteData.url_cta_join)      PAGE_INFO.joinLink = siteData.url_cta_join;
+    if (siteData.url_cta_calendar)  PAGE_INFO.calLink  = siteData.url_cta_calendar;
 
-  renderPageInfo();
+    renderPageInfo();
 
-  // data-field 文字覆蓋（Footer CTA + 登記字號等）
-  document.querySelectorAll('[data-field]').forEach(function(el) {
-    var val = siteData[el.dataset.field];
-    if (val) {
-      if (el.tagName === 'IMG') {
-        el.src = val;
+    // data-field 文字覆蓋（Footer CTA + 登記字號等）
+    document.querySelectorAll('[data-field]').forEach(function(el) {
+      var val = siteData[el.dataset.field];
+      if (val) {
+        if (el.tagName === 'IMG') {
+          el.src = val;
+        }
+        else el.textContent = val;
       }
-      else el.textContent = val;
-    }
-  });
+    });
 
-  // data-href 連結覆蓋（社群連結 + CTA 按鈕）
-  document.querySelectorAll('[data-href]').forEach(function(el) {
-    var val = siteData[el.dataset.href];
-    if (val && val !== '#') el.href = val;
-  });
+    // data-href 連結覆蓋（社群連結 + CTA 按鈕）
+    document.querySelectorAll('[data-href]').forEach(function(el) {
+      var val = siteData[el.dataset.href];
+      if (val && val !== '#') el.href = val;
+    });
 
-}).catch(function(err) {
-  console.error('CSV fetch 失敗:', err);
-  renderPageInfo(); // fetch 失敗時仍用 PAGE_INFO 預設值渲染
-});
+  }).catch(function(err) {
+    console.error('CSV fetch 失敗:', err);
+    renderPageInfo(); // fetch 失敗時仍用 PAGE_INFO 預設值渲染
+  });
+}
+txgccaReload();
 
 /* 渲染章節與法條 */
 var container = document.getElementById('r-chapters');

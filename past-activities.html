@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="sheet-data.js"></script>
 <script src="text-wrap.js" defer></script>
 <script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -585,6 +586,7 @@ function renderAccordion(records) {
   const map   = groupByYear(records);
   const years = Object.keys(map).map(Number).sort((a, b) => b - a);  /* 新→舊 */
   const wrap  = document.getElementById('chron-accordion');
+  wrap.innerHTML = '';   // 重新顯示時（背景抓到新資料）先清空，避免重複
 
   /* 重置某個年份區塊的「展開更多」狀態，恢復只顯示前 N 筆 */
   function resetShowMore(block, yr) {
@@ -697,26 +699,8 @@ const NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
 function getCacheKey(name) { return 'txgcca_cache_' + name; }
 
 function cachedFetch(url, cacheName) {
-  if (!NO_CACHE) {
-    try {
-      var raw = localStorage.getItem(getCacheKey(cacheName));
-      if (raw) {
-        var cached = JSON.parse(raw);
-        var age = Date.now() - cached.timestamp;
-        if (age < CACHE_TTL) {
-          console.log('[TXGCCA] Cache HIT for "' + cacheName + '" (age: ' + Math.round(age / 60000) + ' min)');
-          return Promise.resolve(cached.data);
-        }
-      }
-    } catch (e) { /* 快取讀取失敗，繼續 fetch */ }
-  }
-
-  return fetch(url).then(function(r) { return r.text(); }).then(function(text) {
-    try {
-      localStorage.setItem(getCacheKey(cacheName), JSON.stringify({ timestamp: Date.now(), data: text }));
-    } catch (e) { /* localStorage 寫入失敗（私密模式等），靜默忽略 */ }
-    return text;
-  });
+  // 先顯示瀏覽器存的資料、背景更新（sheet-data.js）
+  return txgccaFetch(url, getCacheKey(cacheName));
 }
 
 /* 開發者模式 Console 訊息 */
@@ -797,67 +781,71 @@ function parseRowsBy(rows, filterFn) {
 /* ── 啟動 ── */
 renderPageInfo(PAGE_INFO);
 
-Promise.all([
-  cachedFetch(csvUrl('0'), 'site'),           // 全站設定
-  cachedFetch(csvUrl('1523016997'), 'events'),      // 大事記
-  cachedFetch(csvUrl('1168080937'), 'full_activities'),  // 完整活動紀錄
-]).then(function(results) {
-  var siteCSV = results[0];
-  var keyCSV  = results[1];
-  var chronCSV = results[2];
+/* 背景抓到新內容時，sheet-data.js 會再呼叫一次 txgccaReload() */
+function txgccaReload() {
+  Promise.all([
+    cachedFetch(csvUrl('0'), 'site'),           // 全站設定
+    cachedFetch(csvUrl('1523016997'), 'events'),      // 大事記
+    cachedFetch(csvUrl('1168080937'), 'full_activities'),  // 完整活動紀錄
+  ]).then(function(results) {
+    var siteCSV = results[0];
+    var keyCSV  = results[1];
+    var chronCSV = results[2];
 
-  // 全站設定
-  var siteData = parseKV(parseCSV(siteCSV));
+    // 全站設定
+    var siteData = parseKV(parseCSV(siteCSV));
 
-  // data-field 填入
-  document.querySelectorAll('[data-field]').forEach(function(el) {
-    var key = el.dataset.field;
-    if (siteData[key]) {
-      if (el.tagName === 'IMG') {
-        el.src = siteData[key];
+    // data-field 填入
+    document.querySelectorAll('[data-field]').forEach(function(el) {
+      var key = el.dataset.field;
+      if (siteData[key]) {
+        if (el.tagName === 'IMG') {
+          el.src = siteData[key];
+        }
+        else { el.textContent = siteData[key]; }
       }
-      else { el.textContent = siteData[key]; }
-    }
+    });
+
+    renderSiteConfig({
+      url_cta_join:       siteData.url_cta_join        || '#',
+      url_cta_calendar:   siteData.url_cta_calendar    || '#',
+    });
+
+    // data-href 社群連結
+    document.querySelectorAll('[data-href]').forEach(function(el) {
+      var val = siteData[el.dataset.href];
+      if (val && val !== '#') el.href = val;
+    });
+
+    // Footer 立案號碼
+    var reg = document.querySelector('.footer-reg');
+    if (reg && siteData.org_reg_1) reg.textContent = siteData.org_reg_1 + (siteData.org_reg_2 ? ' ｜ ' + siteData.org_reg_2 : '');
+
+
+    // 大事記（過往活動頁）
+    var keyEvents = pickKeyEvents(parseRowsBy(parseCSV(keyCSV), function() { return true; }), 'show_on_past', 6, '顯示在關鍵記事');
+    renderKeyEvents(keyEvents);
+
+    // 完整活動紀錄
+    var chronRecords = parseRowsBy(parseCSV(chronCSV), function(r) { return /^\d{4}$/.test(r.year); })
+      .map(function(r) { return Object.assign({}, r, { year: parseInt(r.year), category: (r.category || '').trim(), partner: (r.partner || '').trim() }); })
+      // 外部合作未填 partner = 不公開，整筆不顯示
+      .filter(function(r) { return !(r.category === '外部合作' && !r.partner); })
+      // 年份內由新到舊：月份 12 → 1；同月份 Sheet 越下面越前面
+      .map(function(r, i) { return Object.assign(r, { _idx: i, _month: parseInt(r.date_display, 10) || 0 }); })
+      .sort(function(a, b) { return (b.year - a.year) || (b._month - a._month) || (b._idx - a._idx); });
+    renderAccordion(chronRecords);
+
+    requestAnimationFrame(equalizeChronBadges);
+
+  }).catch(function(err) {
+    console.error('CSV fetch 失敗:', err);
+    renderSiteConfig({ url_cta_join:'#', url_cta_calendar:'#' });
+    renderKeyEvents([]);
+    renderAccordion([]);
   });
-
-  renderSiteConfig({
-    url_cta_join:       siteData.url_cta_join        || '#',
-    url_cta_calendar:   siteData.url_cta_calendar    || '#',
-  });
-
-  // data-href 社群連結
-  document.querySelectorAll('[data-href]').forEach(function(el) {
-    var val = siteData[el.dataset.href];
-    if (val && val !== '#') el.href = val;
-  });
-
-  // Footer 立案號碼
-  var reg = document.querySelector('.footer-reg');
-  if (reg && siteData.org_reg_1) reg.textContent = siteData.org_reg_1 + (siteData.org_reg_2 ? ' ｜ ' + siteData.org_reg_2 : '');
-
-
-  // 大事記（過往活動頁）
-  var keyEvents = pickKeyEvents(parseRowsBy(parseCSV(keyCSV), function() { return true; }), 'show_on_past', 6, '顯示在關鍵記事');
-  renderKeyEvents(keyEvents);
-
-  // 完整活動紀錄
-  var chronRecords = parseRowsBy(parseCSV(chronCSV), function(r) { return /^\d{4}$/.test(r.year); })
-    .map(function(r) { return Object.assign({}, r, { year: parseInt(r.year), category: (r.category || '').trim(), partner: (r.partner || '').trim() }); })
-    // 外部合作未填 partner = 不公開，整筆不顯示
-    .filter(function(r) { return !(r.category === '外部合作' && !r.partner); })
-    // 年份內由新到舊：月份 12 → 1；同月份 Sheet 越下面越前面
-    .map(function(r, i) { return Object.assign(r, { _idx: i, _month: parseInt(r.date_display, 10) || 0 }); })
-    .sort(function(a, b) { return (b.year - a.year) || (b._month - a._month) || (b._idx - a._idx); });
-  renderAccordion(chronRecords);
-
-  requestAnimationFrame(equalizeChronBadges);
-
-}).catch(function(err) {
-  console.error('CSV fetch 失敗:', err);
-  renderSiteConfig({ url_cta_join:'#', url_cta_calendar:'#' });
-  renderKeyEvents([]);
-  renderAccordion([]);
-});
+}
+txgccaReload();
 </script>
 
 <script>

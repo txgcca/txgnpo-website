@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="sheet-data.js"></script>
 <script src="text-wrap.js" defer></script>
 <script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -551,29 +552,8 @@ function setCachedCSV(sheetName, data) {
 }
 
 function fetchCSV(gid, sheetName, onUpdate) {
-  // 快取未過期：直接用
-  const cached = getCachedCSV(sheetName);
-  if (cached) return Promise.resolve(cached);
-
-  const network = fetch(csvUrl(gid))
-    .then(function(r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.text();
-    })
-    .then(function(text) {
-      setCachedCSV(sheetName, text);
-      return text;
-    });
-
-  // 快取已過期但還在：先顯示舊資料，背景更新，有變動再通知
-  const stale = NO_CACHE ? null : getStaleCSV(sheetName);
-  if (stale) {
-    network.then(function(text) {
-      if (text !== stale && onUpdate) onUpdate(text);
-    }).catch(function() { /* 網路失敗就繼續用舊資料 */ });
-    return Promise.resolve(stale);
-  }
-  return network;
+  // 先顯示瀏覽器存的資料、背景更新（sheet-data.js）；FAQ 有自己的 onUpdate，其餘交給 txgccaReload()
+  return txgccaFetch(csvUrl(gid), 'txgcca_cache_' + sheetName, onUpdate);
 }
 
 function getStaleCSV(sheetName) {
@@ -748,18 +728,22 @@ fetchCSV('100210601', 'faq', showFAQ)
   });
 
 // ── 全站設定 + 聯絡我們：平行載入（方案 D）──
-Promise.all([
-  fetchCSV('0', 'site'),              // 全站設定
-  fetchCSV('1224752276', 'contact')   // 聯絡我們
-]).then(function(results) {
-  // 合併兩個來源（聯絡我們欄位優先）
-  var allData = Object.assign({}, parseKV(parseCSV(results[0])), parseKV(parseCSV(results[1])));
-  applyFields(allData);
-  removeSkeleton();
-}).catch(function(err) {
-  console.error('CSV fetch 失敗:', err);
-  removeSkeleton(); // 即使失敗也移除 skeleton，顯示 fallback
-});
+/* 背景抓到新內容時，sheet-data.js 會再呼叫一次 txgccaReload() */
+function txgccaReload() {
+  Promise.all([
+    fetchCSV('0', 'site'),              // 全站設定
+    fetchCSV('1224752276', 'contact')   // 聯絡我們
+  ]).then(function(results) {
+    // 合併兩個來源（聯絡我們欄位優先）
+    var allData = Object.assign({}, parseKV(parseCSV(results[0])), parseKV(parseCSV(results[1])));
+    applyFields(allData);
+    removeSkeleton();
+  }).catch(function(err) {
+    console.error('CSV fetch 失敗:', err);
+    removeSkeleton(); // 即使失敗也移除 skeleton，顯示 fallback
+  });
+}
+txgccaReload();
 </script>
 
 <script>

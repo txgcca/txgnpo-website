@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="sheet-data.js"></script>
 <script src="text-wrap.js" defer></script>
 <script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -639,30 +640,8 @@ var CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時（毫秒）
 var NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
 
 function cachedFetch(cacheKey, url) {
-  if (!NO_CACHE) {
-    try {
-      var cached = localStorage.getItem(cacheKey);
-      if (cached) {
-        var parsed = JSON.parse(cached);
-        var age = Date.now() - parsed.timestamp;
-        if (age < CACHE_TTL) {
-          console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + cacheKey);
-          return Promise.resolve(parsed.data);
-        }
-      }
-    } catch (e) { /* localStorage 不可用或資料損壞，直接 fetch */ }
-  } else {
-    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + cacheKey);
-  }
-
-  // 沒有快取或已過期：從網路抓
-  return fetch(url).then(function(r) { return r.text(); }).then(function(text) {
-    try {
-      localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: text }));
-      if (!NO_CACHE) console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + cacheKey);
-    } catch (e) { /* localStorage 寫入失敗（容量滿等），靜默處理 */ }
-    return text;
-  });
+  // 先顯示瀏覽器存的資料、背景更新（sheet-data.js）
+  return txgccaFetch(url, cacheKey);
 }
 
 /* 開發者模式 Console 訊息 */
@@ -809,21 +788,25 @@ function renderTimeline(events) {
 }
 
 /* ══ 方案 D：Promise.all 平行載入 ════════════════ */
-Promise.all([
-  cachedFetch('txgcca_cache_site',   csvUrl('0')),           // 全站設定
-  cachedFetch('txgcca_cache_about',  csvUrl('486489436')),    // 關於臺中民團
-  cachedFetch('txgcca_cache_events', csvUrl('1523016997'))    // 大事記
-]).then(function(results) {
-  var csvSite   = results[0];
-  var csvAbout  = results[1];
-  var csvEvents = results[2];
+/* 背景抓到新內容時，sheet-data.js 會再呼叫一次 txgccaReload() */
+function txgccaReload() {
+  Promise.all([
+    cachedFetch('txgcca_cache_site',   csvUrl('0')),           // 全站設定
+    cachedFetch('txgcca_cache_about',  csvUrl('486489436')),    // 關於臺中民團
+    cachedFetch('txgcca_cache_events', csvUrl('1523016997'))    // 大事記
+  ]).then(function(results) {
+    var csvSite   = results[0];
+    var csvAbout  = results[1];
+    var csvEvents = results[2];
 
-  var cfg = Object.assign({}, parseKV(parseCSV(csvSite)), parseKV(parseCSV(csvAbout)));
-  applyFields(cfg);
-  renderTimeline(parseRowsBy(parseCSV(csvEvents)));
-}).catch(function(err) {
-  console.warn('[TXGCCA] CSV fetch error:', err);
-});
+    var cfg = Object.assign({}, parseKV(parseCSV(csvSite)), parseKV(parseCSV(csvAbout)));
+    applyFields(cfg);
+    renderTimeline(parseRowsBy(parseCSV(csvEvents)));
+  }).catch(function(err) {
+    console.warn('[TXGCCA] CSV fetch error:', err);
+  });
+}
+txgccaReload();
 </script>
 
 <script>
