@@ -79,7 +79,7 @@ function publishDraft() {
     ui.alert('發布完成',
       '已更新 ' + count + ' 張工作表。\n\n' +
       '・網站約 5 分鐘內更新\n' +
-      '・訪客的瀏覽器若有快取，最慢 6 小時內會看到新內容\n' +
+      '・訪客打開網頁就會看到新內容，若網頁開著就重新整即可\n' +
       '・備份檔：' + backup.getName(), ui.ButtonSet.OK);
   } finally {
     lock.releaseLock();
