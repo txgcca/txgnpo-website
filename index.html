@@ -1157,9 +1157,7 @@ var BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal
 function renderTimeline(events) {
   var wrap = document.getElementById('tl-scroll');
   if (!wrap) return;
-  var items = events
-    .filter(function(r) { return r.show_on_home === '是'; })
-    .slice(0, 4);
+  var items = pickKeyEvents(events, 'show_on_home', 4, '顯示在首頁');
   wrap.innerHTML = items.map(function(e, i) {
     var color = e.badge_color || 'teal';
     return '<div class="tl-item fade-in" style="transition-delay:' + (i*0.05) + 's">' +
@@ -1173,6 +1171,26 @@ function renderTimeline(events) {
     '</div>';
   }).join('');
   wrap.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
+}
+
+/* ══ 大事記挑選規則（首頁 / 關於臺中韌民 / 過往活動 共用同一套）══
+   - 只取「顯示在本頁」欄填「是」的事件
+   - 依日期由舊到新排序（不受 Sheet 列的順序影響；同月份依 Sheet 先後）
+   - 超過上限時只顯示最早的幾筆，並在預覽模式（?preview=1）提醒
+═══════════════════════════════════════════════════════════════ */
+function pickKeyEvents(rows, field, limit, label) {
+  var picked = rows
+    .map(function(r, i) {
+      var m = String(r.date || '').match(/^(\d{4})(?:\D+(\d{1,2}))?/);
+      return Object.assign({}, r, { _y: m ? +m[1] : 0, _m: m && m[2] ? +m[2] : 0, _i: i });
+    })
+    .filter(function(r) { return r._y && String(r[field] || '').trim() === '是'; })
+    .sort(function(a, b) { return (a._y - b._y) || (a._m - b._m) || (a._i - b._i); });
+  if (picked.length > limit && window.txgccaPreviewWarn) {
+    window.txgccaPreviewWarn('大事記「' + label + '」勾了 ' + picked.length + ' 筆「是」，網站只會顯示最早的 ' + limit + ' 筆（' +
+      picked.slice(limit).map(function(r) { return r.date + ' ' + r.title; }).join('、') + ' 不會出現）');
+  }
+  return picked.slice(0, limit);
 }
 
 function parseKeyEvents(rows) {

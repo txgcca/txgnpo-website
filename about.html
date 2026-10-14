@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>關於我們 — 臺中市韌民協會</title>
+<title>關於臺中韌民 — 臺中市韌民協會</title>
 
 <!-- Favicon -->
 <link rel="icon" href="favicon.ico">
@@ -13,7 +14,7 @@
 
 <!-- SEO Meta -->
 <meta name="description" content="認識臺中市韌民協會的成立故事、三大核心價值與組織架構。">
-<meta property="og:title" content="關於我們 — 臺中市韌民協會">
+<meta property="og:title" content="關於臺中韌民 — 臺中市韌民協會">
 <meta property="og:description" content="認識臺中市韌民協會的成立故事、三大核心價值與組織架構。">
 <meta property="og:image" content="https://txgcca.org.tw/og-image.png">
 <meta property="og:url" content="https://txgcca.org.tw/about.html">
@@ -99,6 +100,8 @@ section { padding: 72px 40px; }
 .tl-scroll { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
 .tl-scroll::-webkit-scrollbar { display: none; }
 .tl-item { flex-shrink: 0; width: 220px; padding-right: 36px; position: relative; }
+/* 一般筆電以上（≥1180px）：6 筆平均分配寬度，一次全部看得到，不用橫向捲動 */
+@media (min-width: 1180px) { .tl-item { flex: 1 1 0; width: auto; min-width: 0; padding-right: 28px; } }
 .tl-dot-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
 .tl-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
 .tl-date { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
@@ -712,6 +715,26 @@ function parseKV(rows) {
   return cfg;
 }
 
+/* ══ 大事記挑選規則（首頁 / 關於臺中韌民 / 過往活動 共用同一套）══
+   - 只取「顯示在本頁」欄填「是」的事件
+   - 依日期由舊到新排序（不受 Sheet 列的順序影響；同月份依 Sheet 先後）
+   - 超過上限時只顯示最早的幾筆，並在預覽模式（?preview=1）提醒
+═══════════════════════════════════════════════════════════════ */
+function pickKeyEvents(rows, field, limit, label) {
+  var picked = rows
+    .map(function(r, i) {
+      var m = String(r.date || '').match(/^(\d{4})(?:\D+(\d{1,2}))?/);
+      return Object.assign({}, r, { _y: m ? +m[1] : 0, _m: m && m[2] ? +m[2] : 0, _i: i });
+    })
+    .filter(function(r) { return r._y && String(r[field] || '').trim() === '是'; })
+    .sort(function(a, b) { return (a._y - b._y) || (a._m - b._m) || (a._i - b._i); });
+  if (picked.length > limit && window.txgccaPreviewWarn) {
+    window.txgccaPreviewWarn('大事記「' + label + '」勾了 ' + picked.length + ' 筆「是」，網站只會顯示最早的 ' + limit + ' 筆（' +
+      picked.slice(limit).map(function(r) { return r.date + ' ' + r.title; }).join('、') + ' 不會出現）');
+  }
+  return picked.slice(0, limit);
+}
+
 function parseRowsBy(rows) {
   return rows.filter(function(r) { return /^\d{4}/.test(r.date || ''); });
 }
@@ -767,7 +790,7 @@ var BADGE_BG  = { navy:'rgba(0,55,100,.15)', orange:'rgba(255,105,33,.15)', teal
 var BADGE_CLR = { navy:'var(--navy)', orange:'var(--orange-d)', teal:'var(--teal-d)' };
 
 function renderTimeline(events) {
-  var items = events.filter(function(e) { return e.show_on_about === '是'; }).slice(0, 6);
+  var items = pickKeyEvents(events, 'show_on_about', 6, '顯示在關於臺中韌民');
   var wrap = document.getElementById('tl-scroll');
   if (!wrap) return;
   wrap.innerHTML = items.length ? items.map(function(e) {

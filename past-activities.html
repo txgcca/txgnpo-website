@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>過往活動 — 臺中市韌民協會</title>
 
@@ -76,6 +77,12 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 40
 /* ── 卡片 ── */
 .act-card { background: var(--white); border-radius: 6px; overflow: hidden; border: 1px solid var(--rule); box-shadow: 0 2px 8px rgba(0,55,100,.04); transition: transform .2s, box-shadow .2s; opacity: 0; transform: translateY(16px); }
 .act-card.show { opacity: 1; transform: none; }
+.key-pager { display: none; align-items: center; justify-content: space-between; margin-top: 14px; }
+.key-dots { display: flex; gap: 6px; }
+.key-dot { width: 6px; height: 6px; border-radius: 99px; border: 0; padding: 0; background: rgba(0,55,100,.2); cursor: pointer; transition: width .2s, background .2s; }
+.key-dot.on { width: 18px; background: var(--orange); }
+.key-count { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.key-count b { color: var(--ink); font-weight: 700; }
 .act-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,55,100,.1); }
 .act-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform .4s; }
 .act-card:hover .act-img { transform: scale(1.04); }
@@ -245,7 +252,13 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
   .page-sub { max-width: 100%; }
   .key-section, .chron-section, .back-bar, .footer-cta { padding-left: 20px; padding-right: 20px; }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .key-grid { grid-template-columns: 1fr; }
+  /* 手機：關鍵記事改左右滑，露出下一張＋頁碼點點 */
+  .key-grid { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+              margin: 0 -20px; padding: 0 20px 6px; scroll-padding-left: 20px; -webkit-overflow-scrolling: touch; }
+  .key-grid::-webkit-scrollbar { display: none; }
+  .key-grid .act-card { flex: 0 0 82%; scroll-snap-align: start; }
+  .key-grid .act-card:hover { transform: none; box-shadow: 0 2px 8px rgba(0,55,100,.04); }
+  .key-pager { display: flex; }
   .chron-row { grid-template-columns: 80px 1fr; }
   .chron-cat { display: none; }
   .footer-cta { flex-direction: column; align-items: flex-start; padding: 40px 20px; gap: 24px; }
@@ -263,7 +276,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
 
   【頁面文字】PAGE_INFO 物件：修改標題、說明短文、區塊名稱、按鈕文字與連結
 
-  【① 關鍵記事卡片】KEY_EVENTS 陣列（最多 6 筆，對應大事紀 Sheet show_on_past = 是）
+  【① 關鍵記事卡片】最多 6 筆，對應大事紀 Sheet show_on_past = 是，依日期由舊到新（手機版左右滑）
   每筆欄位：
     date        : 顯示日期（如 "2023 年 7 月"）
     title       : 活動標題
@@ -294,7 +307,7 @@ const PAGE_INFO = {
   page_subtitle: "從 2023 年的自主訓練小群體，到獲得政府立案的社團法人，每一場活動都是我們推廣民防自救理念的足跡。",
   section_key:   "關鍵記事",
   section_chron: "完整編年記錄",
-  back_text:     "返回「關於我們」",
+  back_text:     "返回「關於臺中韌民」",
   back_url:      "about.html",
 };
 </script>
@@ -334,7 +347,7 @@ const PAGE_INFO = {
   <div class="breadcrumb">
     <a class="bc-link" href="index.html">首頁</a>
     <span class="bc-sep">›</span>
-    <a class="bc-link" href="about.html">關於我們</a>
+    <a class="bc-link" href="about.html">關於臺中韌民</a>
     <span class="bc-sep">›</span>
     <span class="bc-current" id="pi-breadcrumb"></span>
   </div>
@@ -349,6 +362,7 @@ const PAGE_INFO = {
     <div class="section-rule"></div>
   </div>
   <div class="key-grid" id="key-grid"></div>
+  <div class="key-pager" id="key-pager" aria-hidden="true"><div class="key-dots" id="key-dots"></div><div class="key-count" id="key-count"></div></div>
 </section>
 
 <!-- ② 編年記錄 -->
@@ -473,6 +487,40 @@ function renderKeyEvents(events) {
     entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); } });
   }, { threshold: 0.1 });
   grid.querySelectorAll('.act-card').forEach(el => io.observe(el));
+  setupKeyPager(grid, events.length);
+}
+
+/* 手機版左右滑的頁碼與點點（桌機、平板不顯示） */
+function setupKeyPager(grid, n) {
+  const dots = document.getElementById('key-dots');
+  const count = document.getElementById('key-count');
+  const pager = document.getElementById('key-pager');
+  if (!dots || !count) return;
+  if (n < 2) { pager.style.visibility = 'hidden'; return; }
+  pager.style.visibility = '';
+  dots.innerHTML = Array.from({ length: n }, (_, i) => `<button class="key-dot" type="button" tabindex="-1" data-i="${i}"></button>`).join('');
+  const cards = grid.querySelectorAll('.act-card');
+  function current() {
+    const max = grid.scrollWidth - grid.clientWidth;
+    if (max > 0 && grid.scrollLeft >= max - 4) return n - 1;      // 滑到底就是最後一張
+    const step = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : grid.clientWidth;
+    return Math.max(0, Math.min(n - 1, Math.round(grid.scrollLeft / step)));
+  }
+  function update() {
+    const i = current();
+    dots.querySelectorAll('.key-dot').forEach((d, j) => d.classList.toggle('on', j === i));
+    count.innerHTML = `<b>${i + 1}</b> / ${n}`;
+  }
+  let raf = 0;
+  if (!grid._pagerBound) {
+    grid.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+    grid._pagerBound = true;
+  }
+  dots.onclick = e => {
+    const b = e.target.closest('.key-dot'); if (!b) return;
+    const c = cards[+b.dataset.i]; if (c) grid.scrollTo({ left: c.offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
+  };
+  update();
 }
 
 /* ═══════════════════════════════
@@ -711,6 +759,26 @@ function parseKV(rows) {
   return obj;
 }
 
+/* ══ 大事記挑選規則（首頁 / 關於臺中韌民 / 過往活動 共用同一套）══
+   - 只取「顯示在本頁」欄填「是」的事件
+   - 依日期由舊到新排序（不受 Sheet 列的順序影響；同月份依 Sheet 先後）
+   - 超過上限時只顯示最早的幾筆，並在預覽模式（?preview=1）提醒
+═══════════════════════════════════════════════════════════════ */
+function pickKeyEvents(rows, field, limit, label) {
+  var picked = rows
+    .map(function(r, i) {
+      var m = String(r.date || '').match(/^(\d{4})(?:\D+(\d{1,2}))?/);
+      return Object.assign({}, r, { _y: m ? +m[1] : 0, _m: m && m[2] ? +m[2] : 0, _i: i });
+    })
+    .filter(function(r) { return r._y && String(r[field] || '').trim() === '是'; })
+    .sort(function(a, b) { return (a._y - b._y) || (a._m - b._m) || (a._i - b._i); });
+  if (picked.length > limit && window.txgccaPreviewWarn) {
+    window.txgccaPreviewWarn('大事記「' + label + '」勾了 ' + picked.length + ' 筆「是」，網站只會顯示最早的 ' + limit + ' 筆（' +
+      picked.slice(limit).map(function(r) { return r.date + ' ' + r.title; }).join('、') + ' 不會出現）');
+  }
+  return picked.slice(0, limit);
+}
+
 function parseRowsBy(rows, filterFn) {
   var headers = rows[0];
   return rows.slice(1)
@@ -765,7 +833,7 @@ Promise.all([
 
 
   // 大事記（過往活動頁）
-  var keyEvents = parseRowsBy(parseCSV(keyCSV), function(r) { return r.show_on_past === '是'; }).slice(0, 6);
+  var keyEvents = pickKeyEvents(parseRowsBy(parseCSV(keyCSV), function() { return true; }), 'show_on_past', 6, '顯示在關鍵記事');
   renderKeyEvents(keyEvents);
 
   // 完整活動紀錄
