@@ -63,13 +63,49 @@
     }
   }
 
+  /* 合作單位名稱：每個單位當成一整塊，不在名稱中間斷行
+     （斷詞詞庫認不得「台灣中社」「產學研發展協會」這類專有名詞）
+     - 多個單位以「、」「，」分開時，只在分隔符號後面換行
+     - 開頭的「｜」跟著第一個單位走，不會單獨留在上一行行尾
+     - 單一名稱超過 16 個字時不強制整塊，避免手機上超出畫面 */
+  var PARTNER = '.chron-partner, .py-partner, .past-card-partner';
+  var ORG_MAX = 16;
+  function processPartner(p) {
+    var text = p.textContent;
+    if (!text.trim()) return;
+    var parts = text.split(/([、，,])/);
+    p.textContent = '';
+    var last = null;
+    parts.forEach(function (t) {
+      if (!t) return;
+      if (/^[、，,]$/.test(t)) {
+        if (last) last.textContent += t; else p.appendChild(document.createTextNode(t));
+        p.appendChild(document.createElement('wbr'));
+        return;
+      }
+      var u = document.createElement('span');
+      u.className = 'tw-org';
+      u.textContent = t;
+      if (t.replace(/^[｜|\s]+/, '').length <= ORG_MAX) u.style.whiteSpace = 'nowrap';
+      p.appendChild(u);
+      last = u;
+    });
+  }
+
   function processEl(el) {
     var key = el.textContent;
     if (el.__twKey === key) return;          // 內容沒變就不重做
+    // 1. 合作單位：整塊處理
+    var partners = el.matches(PARTNER) ? [el] : Array.prototype.slice.call(el.querySelectorAll(PARTNER));
+    partners.forEach(processPartner);
+    // 2. 其他文字：依詞斷行（略過已整塊處理的單位名稱；超過 16 字的長名稱仍依詞斷行）
     var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), nodes = [], n;
-    while ((n = walker.nextNode())) nodes.push(n);
+    while ((n = walker.nextNode())) {
+      var org = n.parentNode.closest ? n.parentNode.closest('.tw-org') : null;
+      if (!org || org.style.whiteSpace !== 'nowrap') nodes.push(n);
+    }
     nodes.forEach(processText);
-    // 「活動名稱｜單位」：在｜前面優先換行
+    // 3. 「活動名稱｜單位」：在｜前面優先換行
     el.querySelectorAll('.chron-partner, .py-partner').forEach(function (p) {
       if (p.previousSibling && p.previousSibling.nodeName !== 'WBR') p.parentNode.insertBefore(document.createElement('wbr'), p);
     });
