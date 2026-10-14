@@ -17,8 +17,21 @@
   var DRAFT_ID = '2PACX-1vQr1aCA70mc4zUOG1vC-SuFDBVAAQvxkkmoo0wn59GmE680PjlW0lIR6I_b2O95XizC_H-Rf-lbCG1q';   // ← 草稿 Sheet 的發布 ID（尚未設定時，預覽模式仍讀正式資料）
 
   var params = new URLSearchParams(window.location.search);
+
+  /* 給各頁面用的「預覽提醒」：只在預覽模式顯示在橘色提示列，一般訪客看不到 */
+  var warnings = [], warnBox = null;
+  window.txgccaPreviewWarn = function () {};
   if (!params.has('preview')) return;
   window.TXGCCA_PREVIEW = true;
+  window.txgccaPreviewWarn = function (msg) {
+    if (warnings.indexOf(msg) !== -1) return;
+    warnings.push(msg);
+    if (warnBox) renderWarnings();
+  };
+  function renderWarnings() {
+    warnBox.innerHTML = warnings.map(function (m) { return '⚠ ' + m.replace(/[<>&]/g, ''); }).join('<br>');
+    warnBox.style.display = warnings.length ? 'block' : 'none';
+  }
 
   /* 1. 資料來源：正式 Sheet → 草稿 Sheet */
   if (DRAFT_ID) {
@@ -50,6 +63,10 @@
       ? '預覽模式・尚未發布｜這裡顯示的是草稿 Sheet 的內容，修改後約 5 分鐘才會反映　' +
         '<a href="' + window.location.pathname + '" style="color:#fff;text-decoration:underline;margin-left:8px;">回到正式網站</a>'
       : '預覽模式｜尚未設定草稿 Sheet，目前顯示的仍是正式內容';
+    warnBox = document.createElement('div');
+    warnBox.style.cssText = 'display:none;margin-top:6px;font-weight:500;font-size:12.5px;line-height:1.6;';
+    bar.appendChild(warnBox);
+    renderWarnings();
     document.body.insertBefore(bar, document.body.firstChild);
 
     document.querySelectorAll('a[href]').forEach(function (a) {
