@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="sheet-data.js"></script>
 <script src="text-wrap.js" defer></script>
 <script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -433,21 +434,8 @@ function setCache(sheetName, data) {
 }
 
 function fetchCSV(gid, sheetName) {
-  const cached = getCache(sheetName);
-  if (cached) return Promise.resolve(cached);
-
-  if (NOCACHE) {
-    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + sheetName);
-  } else {
-    console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + sheetName);
-  }
-
-  return fetch(csvUrl(gid))
-    .then(function(r) { return r.text(); })
-    .then(function(text) {
-      setCache(sheetName, text);
-      return text;
-    });
+  // 先顯示瀏覽器存的資料、背景更新（sheet-data.js）
+  return txgccaFetch(csvUrl(gid), getCacheKey(sheetName));
 }
 
 /* ── CSV 解析工具 ── */
@@ -582,24 +570,28 @@ function scrollRow(id, dir) {
 }
 
 /* ── 主載入流程 ── */
-Promise.all([
-  fetchCSV('0',          'site'),
-  fetchCSV('72860620',   'learning_map'),
-  fetchCSV('1324424215', 'learning_map_videos'),
-  fetchCSV('1850033102', 'learning_map_books'),
-  fetchCSV('1756528444', 'learning_map_podcasts'),
-]).then(([siteCSV, mapCSV, videoCSV, bookCSV, podCSV]) => {
-  const siteData = parseKV(parseCSV(siteCSV));
-  const mapData  = parseKV(parseCSV(mapCSV));
-  applyFields(Object.assign({}, siteData, mapData));
+/* 背景抓到新內容時，sheet-data.js 會再呼叫一次 txgccaReload() */
+function txgccaReload() {
+  Promise.all([
+    fetchCSV('0',          'site'),
+    fetchCSV('72860620',   'learning_map'),
+    fetchCSV('1324424215', 'learning_map_videos'),
+    fetchCSV('1850033102', 'learning_map_books'),
+    fetchCSV('1756528444', 'learning_map_podcasts'),
+  ]).then(([siteCSV, mapCSV, videoCSV, bookCSV, podCSV]) => {
+    const siteData = parseKV(parseCSV(siteCSV));
+    const mapData  = parseKV(parseCSV(mapCSV));
+    applyFields(Object.assign({}, siteData, mapData));
 
-  renderVideos(parseRows(parseCSV(videoCSV)));
-  renderBooks(parseRows(parseCSV(bookCSV)));
-  renderPodcasts(parseRows(parseCSV(podCSV)));
+    renderVideos(parseRows(parseCSV(videoCSV)));
+    renderBooks(parseRows(parseCSV(bookCSV)));
+    renderPodcasts(parseRows(parseCSV(podCSV)));
 
-}).catch(err => {
-  console.error('[TXGCCA] CSV fetch 失敗:', err);
-});
+  }).catch(err => {
+    console.error('[TXGCCA] CSV fetch 失敗:', err);
+  });
+}
+txgccaReload();
 
 /* ── 滾動漸入動畫 ── */
 const io = new IntersectionObserver(entries => {

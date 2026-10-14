@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- 預覽模式：網址加 ?preview=1 改讀草稿 Sheet（說明見 preview.js）-->
 <script src="preview.js"></script>
+<script src="sheet-data.js"></script>
 <script src="text-wrap.js" defer></script>
 <script src="align-title.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -791,30 +792,8 @@ const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 小時（毫秒）
 const NO_CACHE = new URLSearchParams(window.location.search).has('nocache');
 
 function cachedFetch(cacheKey, url) {
-  if (!NO_CACHE) {
-    try {
-      const cached = localStorage.getItem(cacheKey);
-      if (cached) {
-        const { timestamp, data } = JSON.parse(cached);
-        const age = Date.now() - timestamp;
-        if (age < CACHE_TTL) {
-          console.log('[TXGCCA] Cache mode: ENABLED (age: ' + Math.round(age / 60000) + ' minutes) — ' + cacheKey);
-          return Promise.resolve(data);
-        }
-      }
-    } catch (e) { /* localStorage 不可用或資料損壞，直接 fetch */ }
-  } else {
-    console.log('[TXGCCA] Cache mode: BYPASSED (?nocache=1 detected) — ' + cacheKey);
-  }
-
-  // 沒有快取或已過期：從網路抓
-  return fetch(url).then(r => r.text()).then(text => {
-    try {
-      localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: text }));
-      if (!NO_CACHE) console.log('[TXGCCA] Cache mode: INITIAL FETCH — ' + cacheKey);
-    } catch (e) { /* localStorage 寫入失敗（容量滿等），靜默處理 */ }
-    return text;
-  });
+  // 先顯示瀏覽器存的資料、背景更新（sheet-data.js）
+  return txgccaFetch(url, cacheKey);
 }
 
 /* ══ 行事曆 embed 渲染 ════════════════════════════ */
@@ -937,26 +916,30 @@ function renderPastActivities(items) {
    - 文字、行事曆：只等「全站設定＋自訓與課程活動」
    - 過往活動：只等「完整活動紀錄」
 ═══════════════════════════════════════════════════ */
-Promise.all([
-  cachedFetch('txgcca_cache_site',     csvUrl('0')),           // 全站設定
-  cachedFetch('txgcca_cache_training', csvUrl('2135537779')),   // 自訓與課程活動
-]).then(([siteCSV, trainingCSV]) => {
-  const allData = Object.assign({}, parseKV(parseCSV(siteCSV)), parseKV(parseCSV(trainingCSV)));
-  applyFields(allData);
-  renderCalendar(allData.calendar_embed_id);
-}).catch(err => {
-  console.error('[TXGCCA] 文字資料載入失敗，使用 HTML 預設文字:', err);
-});
-
-cachedFetch('txgcca_cache_full_activities', csvUrl('1168080937'))   // 完整活動紀錄
-  .then(activityCSV => {
-    renderPastActivities(pickTrainingActivities(parseRowsBy(parseCSV(activityCSV), () => true)));
-  })
-  .catch(err => {
-    console.error('[TXGCCA] 活動紀錄載入失敗:', err);
-    const grid = document.getElementById('past-activities-grid');
-    if (grid) grid.innerHTML = '<p class="past-empty">暫時無法載入活動紀錄，請稍後再試。</p>';
+/* 背景抓到新內容時，sheet-data.js 會再呼叫一次 txgccaReload() */
+function txgccaReload() {
+  Promise.all([
+    cachedFetch('txgcca_cache_site',     csvUrl('0')),           // 全站設定
+    cachedFetch('txgcca_cache_training', csvUrl('2135537779')),   // 自訓與課程活動
+  ]).then(([siteCSV, trainingCSV]) => {
+    const allData = Object.assign({}, parseKV(parseCSV(siteCSV)), parseKV(parseCSV(trainingCSV)));
+    applyFields(allData);
+    renderCalendar(allData.calendar_embed_id);
+  }).catch(err => {
+    console.error('[TXGCCA] 文字資料載入失敗，使用 HTML 預設文字:', err);
   });
+
+  cachedFetch('txgcca_cache_full_activities', csvUrl('1168080937'))   // 完整活動紀錄
+    .then(activityCSV => {
+      renderPastActivities(pickTrainingActivities(parseRowsBy(parseCSV(activityCSV), () => true)));
+    })
+    .catch(err => {
+      console.error('[TXGCCA] 活動紀錄載入失敗:', err);
+      const grid = document.getElementById('past-activities-grid');
+      if (grid) grid.innerHTML = '<p class="past-empty">暫時無法載入活動紀錄，請稍後再試。</p>';
+    });
+}
+txgccaReload();
 </script>
 
 <script>
