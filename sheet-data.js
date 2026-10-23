@@ -68,3 +68,41 @@
     }, 250);
   };
 })();
+
+/* ════════════════════════════════════════════════════════════
+   資安防護：Sheet 內容一律當「純文字」與「安全連結」處理（全站共用）
+
+   Sheet 是任何有編輯權限的人都能改的地方。為了避免有人（不小心或故意）
+   在 Sheet 貼進一段網頁程式碼，讓它在訪客的瀏覽器裡執行：
+
+   - escHTML(文字)：把 < > & " ' 轉成無害的符號，畫面看起來一樣，但不會被當成程式
+   - safeUrl(網址)：只接受 https:// http:// webcal:// mailto: tel: 和站內路徑，
+                    其他（例如 javascript:）一律換成 #
+   - cssUrl(網址)：給背景圖用，先過 safeUrl，再把會打斷 CSS 的符號編碼
+   - ytId(ID)：YouTube 影片 ID 只留英數字、- 和 _
+
+   ★ 之後新增任何「把 Sheet 資料放進頁面」的程式，都要經過這幾個工具
+════════════════════════════════════════════════════════════ */
+function escHTML(t) {
+  return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function safeUrl(u) {
+  var v = String(u == null ? '' : u).trim();
+  if (!v) return '';
+  /* 瀏覽器判斷網址開頭時會忽略空白與控制字元（例如 java&#9;script:），檢查前先拿掉 */
+  var probe = v.replace(/[\u0000- \u007f]/g, '');
+  var scheme = probe.match(/^([a-z][a-z0-9+.\-]*):/i);
+  if (!scheme) return v;   // 站內路徑、#錨點
+  return /^(https?|webcal|mailto|tel)$/i.test(scheme[1]) ? v : '#';
+}
+
+function cssUrl(u) {
+  return safeUrl(u).replace(/["'()\\\s]/g, function (c) { return encodeURIComponent(c); });
+}
+
+function ytId(id) {
+  return String(id == null ? '' : id).replace(/[^\w-]/g, '');
+}

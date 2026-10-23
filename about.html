@@ -735,7 +735,7 @@ function applyFields(cfg) {
   });
   document.querySelectorAll('[data-href]').forEach(function(el) {
     var v = cfg[el.dataset.href];
-    if (v) el.href = v;
+    if (v) el.href = safeUrl(v);
   });
   document.querySelectorAll('[data-mailto]').forEach(function(el) {
     var v = cfg[el.dataset.mailto];
@@ -750,7 +750,7 @@ function applyFields(cfg) {
     el.style.transition = 'opacity .5s ease';
     var img = new Image();
     img.onload = function() {
-      el.style.backgroundImage = "url('" + v + "')";
+      el.style.backgroundImage = "url('" + cssUrl(v) + "')";
       el.style.opacity = '1';
       var ph = el.querySelector('.photo-ph');
       if (ph) ph.style.display = 'none';
@@ -758,7 +758,7 @@ function applyFields(cfg) {
     img.onerror = function() {
       el.style.opacity = '1';
     };
-    img.src = v;
+    img.src = safeUrl(v);
   });
   var reg = document.querySelector('.footer-reg');
   if (reg && cfg.org_reg_1) reg.textContent = cfg.org_reg_1 + (cfg.org_reg_2 ? ' ｜ ' + cfg.org_reg_2 : '');
@@ -778,11 +778,11 @@ function renderTimeline(events) {
     return '<div class="tl-item">' +
       '<div class="tl-dot-row">' +
         '<div class="tl-dot" style="background:' + (DOT_COLOR[color] || 'var(--teal)') + '"></div>' +
-        '<span class="tl-date">' + e.date + '</span>' +
+        '<span class="tl-date">' + escHTML(e.date) + '</span>' +
       '</div>' +
-      '<div class="tl-item-title">' + e.title + '</div>' +
-      '<div class="tl-item-desc">' + e.description + '</div>' +
-      (e.badge ? '<span class="tl-badge" style="background:' + (BADGE_BG[color]||BADGE_BG.teal) + ';color:' + (BADGE_CLR[color]||BADGE_CLR.teal) + '">' + e.badge + '</span>' : '') +
+      '<div class="tl-item-title">' + escHTML(e.title) + '</div>' +
+      '<div class="tl-item-desc">' + escHTML(e.description) + '</div>' +
+      (e.badge ? '<span class="tl-badge" style="background:' + (BADGE_BG[color]||BADGE_BG.teal) + ';color:' + (BADGE_CLR[color]||BADGE_CLR.teal) + '">' + escHTML(e.badge) + '</span>' : '') +
     '</div>';
   }).join('') : '';
 }

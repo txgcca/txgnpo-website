@@ -491,7 +491,7 @@ function applyFields(data) {
   });
   document.querySelectorAll('[data-href]').forEach(el => {
     const key = el.dataset.href;
-    if (data[key] && data[key] !== '#') el.href = data[key];
+    if (data[key] && data[key] !== '#') el.href = safeUrl(data[key]);
   });
   const reg = document.querySelector('.footer-reg');
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
@@ -511,21 +511,21 @@ const sorted = arr => arr.filter(x => x.visible === 'TRUE' || x.visible === true
 function renderVideos(data) {
   document.getElementById('film-track').innerHTML = sorted(data).map(v => {
     const st = getStyle(v.type);
-    const btnTxt = v.linkText || `前往 ${v.platform} 觀看 ↗`;
+    const btnTxt = escHTML(v.linkText || `前往 ${v.platform} 觀看 ↗`);
     if (v.type === 'youtube') return `
       <div class="res-card"><div class="card-top-bar ${st.bar}"></div>
-        <div class="yt-cover"><iframe src="https://www.youtube.com/embed/${v.yutubeeld}" title="${v.title}"
+        <div class="yt-cover"><iframe src="https://www.youtube.com/embed/${ytId(v.yutubeeld)}" title="${escHTML(v.title)}"
           allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
-        <div class="card-body"><span class="platform-badge ${st.badge}">${v.platform}</span>
-          <div class="card-title">${v.title}</div><div class="card-desc">${v.desc}</div></div></div>`;
+        <div class="card-body"><span class="platform-badge ${st.badge}">${escHTML(v.platform)}</span>
+          <div class="card-title">${escHTML(v.title)}</div><div class="card-desc">${escHTML(v.desc)}</div></div></div>`;
     const cover = v.coverUrl
-      ? `<img class="card-cover-area" src="${v.coverUrl}" alt="${v.title}">`
-      : `<div class="card-cover-area"><div class="cover-ph-icon">${v.coverEmoji||'🎬'}</div></div>`;
+      ? `<img class="card-cover-area" src="${escHTML(safeUrl(v.coverUrl))}" alt="${escHTML(v.title)}">`
+      : `<div class="card-cover-area"><div class="cover-ph-icon">${escHTML(v.coverEmoji||'🎬')}</div></div>`;
     return `
       <div class="res-card"><div class="card-top-bar ${st.bar}"></div>${cover}
-        <div class="card-body"><span class="platform-badge ${st.badge}">${v.platform}</span>
-          <div class="card-title">${v.title}</div><div class="card-desc">${v.desc}</div>
-          <a class="card-btn ${st.btn}" href="${v.link}" target="_blank">${btnTxt}</a></div></div>`;
+        <div class="card-body"><span class="platform-badge ${st.badge}">${escHTML(v.platform)}</span>
+          <div class="card-title">${escHTML(v.title)}</div><div class="card-desc">${escHTML(v.desc)}</div>
+          <a class="card-btn ${st.btn}" href="${escHTML(safeUrl(v.link))}" target="_blank" rel="noopener">${btnTxt}</a></div></div>`;
   }).join('') || '<div style="padding:24px;color:var(--muted);font-size:13px;">暫無影片推薦。</div>';
 }
 
@@ -533,16 +533,16 @@ function renderBooks(data) {
   document.getElementById('book-track').innerHTML = sorted(data).map(b => {
     const al = [b.author, b.publisher].filter(Boolean).join(' · ');
     const thumbStyle = b.coverUrl
-      ? `style="background-image:url('${b.coverUrl}');background-size:cover;background-position:center;padding:0;"`
+      ? `style="background-image:url('${escHTML(cssUrl(b.coverUrl))}');background-size:cover;background-position:center;padding:0;"`
       : '';
-    const thumb = b.coverUrl ? '' : `<div style="font-size:32px;">${b.coverEmoji||'📖'}</div>`;
-    const btn = (b.link && b.link !== '#') ? `<a class="card-btn btn-ghost" style="font-size:12px;padding:8px 14px" href="${b.link}" target="_blank">購書連結 ↗</a>` : '';
+    const thumb = b.coverUrl ? '' : `<div style="font-size:32px;">${escHTML(b.coverEmoji||'📖')}</div>`;
+    const btn = (b.link && b.link !== '#') ? `<a class="card-btn btn-ghost" style="font-size:12px;padding:8px 14px" href="${escHTML(safeUrl(b.link))}" target="_blank" rel="noopener">購書連結 ↗</a>` : '';
     return `
       <div class="res-card"><div class="card-top-bar bar-book"></div>
         <div class="book-card-body"><div class="book-thumb" ${thumbStyle}>${thumb}</div>
           <div class="book-text"><span class="platform-badge badge-book">書籍</span>
-            <div class="card-title">${b.title}</div>
-            <div class="card-desc">${al?al+'<br>':''}${b.desc}</div>${btn}</div></div></div>`;
+            <div class="card-title">${escHTML(b.title)}</div>
+            <div class="card-desc">${al?escHTML(al)+'<br>':''}${escHTML(b.desc)}</div>${btn}</div></div></div>`;
   }).join('') || '<div style="padding:24px;color:var(--muted);font-size:13px;">暫無書籍推薦。</div>';
 }
 
@@ -550,16 +550,16 @@ function renderPodcasts(data) {
   document.getElementById('pod-track').innerHTML = sorted(data).map(p => {
     const bc = POD_BADGE[p.platform] || 'badge-podcast';
     const thumb = p.coverUrl
-      ? `<div class="podcast-thumb"><img src="${p.coverUrl}" alt="${p.title}"></div>`
-      : `<div class="podcast-thumb">${p.coverEmoji||'🎙'}</div>`;
-    const host = p.host ? `<div class="podcast-host">${p.host}</div>` : '';
+      ? `<div class="podcast-thumb"><img src="${escHTML(safeUrl(p.coverUrl))}" alt="${escHTML(p.title)}"></div>`
+      : `<div class="podcast-thumb">${escHTML(p.coverEmoji||'🎙')}</div>`;
+    const host = p.host ? `<div class="podcast-host">${escHTML(p.host)}</div>` : '';
     return `
       <div class="podcast-card">${thumb}
         <div class="podcast-info">
-          <span class="platform-badge ${bc}" style="margin-bottom:6px">${p.platform}</span>
-          <div class="podcast-title">${p.title}</div>${host}
-          <div class="podcast-meta">${p.meta}</div></div>
-        <a class="podcast-link-btn" href="${p.link}" target="_blank">收聽 ↗</a></div>`;
+          <span class="platform-badge ${bc}" style="margin-bottom:6px">${escHTML(p.platform)}</span>
+          <div class="podcast-title">${escHTML(p.title)}</div>${host}
+          <div class="podcast-meta">${escHTML(p.meta)}</div></div>
+        <a class="podcast-link-btn" href="${escHTML(safeUrl(p.link))}" target="_blank" rel="noopener">收聽 ↗</a></div>`;
   }).join('') || '<div style="padding:24px;color:var(--muted);font-size:13px;">暫無 Podcast 推薦。</div>';
 }
 
