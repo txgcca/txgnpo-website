@@ -1085,7 +1085,7 @@ function applyFields(data) {
   });
   document.querySelectorAll('[data-href]').forEach(function(el) {
     var val = data[el.dataset.href];
-    if (val && val !== '#') el.href = val;
+    if (val && val !== '#') el.href = safeUrl(val);
   });
   document.querySelectorAll('[data-dot]').forEach(function(el) {
     var val = data[el.dataset.dot];
@@ -1149,11 +1149,11 @@ function renderTimeline(events) {
     return '<div class="tl-item fade-in" style="transition-delay:' + (i*0.05) + 's">' +
       '<div class="tl-dot-row">' +
         '<div class="tl-dot" style="background:' + (DOT_COLOR[color]||'var(--teal)') + '"></div>' +
-        '<span class="tl-date">' + e.date + '</span>' +
+        '<span class="tl-date">' + escHTML(e.date) + '</span>' +
       '</div>' +
-      '<div class="tl-item-title">' + e.title + '</div>' +
-      '<div class="tl-item-desc">' + e.description + '</div>' +
-      (e.badge ? '<span class="tl-badge" style="background:' + (BADGE_BG[color]||BADGE_BG.teal) + ';color:' + (BADGE_CLR[color]||BADGE_CLR.teal) + '">' + e.badge + '</span>' : '') +
+      '<div class="tl-item-title">' + escHTML(e.title) + '</div>' +
+      '<div class="tl-item-desc">' + escHTML(e.description) + '</div>' +
+      (e.badge ? '<span class="tl-badge" style="background:' + (BADGE_BG[color]||BADGE_BG.teal) + ';color:' + (BADGE_CLR[color]||BADGE_CLR.teal) + '">' + escHTML(e.badge) + '</span>' : '') +
     '</div>';
   }).join('');
   wrap.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });

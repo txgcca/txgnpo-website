@@ -680,10 +680,10 @@ function removeSkeleton() {
 function renderPageInfo() {
   document.getElementById('r-kicker').textContent = PAGE_INFO.kicker;
   document.getElementById('r-title').textContent  = PAGE_INFO.pageTitle;
-  document.getElementById('r-intro').innerHTML    = '<strong>' + PAGE_INFO.pageTitle + '</strong>' + PAGE_INFO.intro.replace(/^臺中市韌民協會章程/, '');
-  document.getElementById('r-back').href  = PAGE_INFO.backLink;
-  document.getElementById('r-join').href  = PAGE_INFO.joinLink;
-  document.getElementById('r-cal').href   = PAGE_INFO.calLink;
+  document.getElementById('r-intro').innerHTML    = '<strong>' + escHTML(PAGE_INFO.pageTitle) + '</strong>' + escHTML(PAGE_INFO.intro.replace(/^臺中市韌民協會章程/, ''));
+  document.getElementById('r-back').href  = safeUrl(PAGE_INFO.backLink);
+  document.getElementById('r-join').href  = safeUrl(PAGE_INFO.joinLink);
+  document.getElementById('r-cal').href   = safeUrl(PAGE_INFO.calLink);
   removeSkeleton();
 }
 
@@ -722,7 +722,7 @@ function txgccaReload() {
     // data-href 連結覆蓋（社群連結 + CTA 按鈕）
     document.querySelectorAll('[data-href]').forEach(function(el) {
       var val = siteData[el.dataset.href];
-      if (val && val !== '#') el.href = val;
+      if (val && val !== '#') el.href = safeUrl(val);
     });
 
   }).catch(function(err) {

@@ -627,7 +627,7 @@ function applyFields(data) {
   });
   document.querySelectorAll('[data-href]').forEach(function(el) {
     var key = el.dataset.href;
-    if (data[key] && data[key] !== '#') el.href = data[key];
+    if (data[key] && data[key] !== '#') el.href = safeUrl(data[key]);
   });
   document.querySelectorAll('[data-mailto]').forEach(function(el) {
     var key = el.dataset.mailto;
@@ -666,12 +666,12 @@ function renderFAQ(items) {
     el.className = 'faq-item';
     el.innerHTML =
       '<div class="faq-q" onclick="toggleFAQ(this)">' +
-        '<span class="faq-cat ' + item.catClass + '">' + item.cat + '</span>' +
-        '<span class="faq-q-text">' + item.q + '</span>' +
+        '<span class="faq-cat ' + escHTML(item.catClass) + '">' + escHTML(item.cat) + '</span>' +
+        '<span class="faq-q-text">' + escHTML(item.q) + '</span>' +
         '<span class="faq-chevron">▼</span>' +
       '</div>' +
       '<div class="faq-a">' +
-        '<div class="faq-a-inner">' + item.a + '</div>' +
+        '<div class="faq-a-inner">' + escHTML(item.a) + '</div>' +
       '</div>';
     list.appendChild(el);
   });

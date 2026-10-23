@@ -824,7 +824,7 @@ function applyFields(data) {
   /* data-href 連結替換 */
   document.querySelectorAll('[data-href]').forEach(function(el) {
     var key = el.dataset.href;
-    if (data[key] && data[key] !== '#') el.href = data[key];
+    if (data[key] && data[key] !== '#') el.href = safeUrl(data[key]);
   });
 
   /* 頁尾法人編號 */
@@ -856,24 +856,24 @@ function buildFeatCard(item, isMain, delay) {
       ? '<div class="media-badge badge-video">▶ 影片</div>'
       : '<div class="media-badge badge-text">📄 文字</div>';
   var videoHtml = isVideo && item.youtubeId
-    ? '<div class="video-wrap"><iframe src="https://www.youtube.com/embed/' + item.youtubeId + '"'
-      + ' title="' + item.outlet + ' 報導"'
+    ? '<div class="video-wrap"><iframe src="https://www.youtube.com/embed/' + ytId(item.youtubeId) + '"'
+      + ' title="' + escHTML(item.outlet) + ' 報導"'
       + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"'
       + ' allowfullscreen></iframe></div>' : '';
   var desc = item.featured_desc || item.excerpt;
-  var descHtml = desc ? '<div class="feat-desc">' + desc + '</div>' : '';
+  var descHtml = desc ? '<div class="feat-desc">' + escHTML(desc) + '</div>' : '';
   var linkText = isVideo ? '觀看報導 ↗' : '閱讀全文 ↗';
   return ''
     + '<div class="feat-card ' + (isMain ? 'main-card' : '') + ' fade-in" style="transition-delay:' + delay + 's">'
     +   videoHtml
     +   '<div class="feat-body">'
     +     badgeHtml
-    +     '<div class="feat-outlet">' + item.outlet + '</div>'
-    +     '<div class="feat-title">' + item.title + '</div>'
+    +     '<div class="feat-outlet">' + escHTML(item.outlet) + '</div>'
+    +     '<div class="feat-title">' + escHTML(item.title) + '</div>'
     +     descHtml
     +     '<div class="feat-footer">'
-    +       '<span class="feat-date">' + formatDateFeatured(item.date) + '</span>'
-    +       '<a class="feat-link" href="' + item.link + '" target="_blank">' + linkText + '</a>'
+    +       '<span class="feat-date">' + escHTML(formatDateFeatured(item.date)) + '</span>'
+    +       '<a class="feat-link" href="' + escHTML(safeUrl(item.link)) + '" target="_blank" rel="noopener">' + linkText + '</a>'
     +     '</div>'
     +   '</div>'
     + '</div>';
@@ -889,18 +889,18 @@ function buildReportRow(item) {
   return ''
     + '<div class="report-row">'
     +   '<div class="row-accent ' + accentClass(item) + '"></div>'
-    +   '<div class="row-date">' + formatDateDisplay(item.date) + '</div>'
+    +   '<div class="row-date">' + escHTML(formatDateDisplay(item.date)) + '</div>'
     +   '<div class="row-outlet-wrap">'
-    +     '<div class="row-outlet">' + item.outlet + '</div>'
-    +     '<div class="row-country">' + item.country + '</div>'
+    +     '<div class="row-outlet">' + escHTML(item.outlet) + '</div>'
+    +     '<div class="row-country">' + escHTML(item.country) + '</div>'
     +   '</div>'
     +   '<div class="row-content">'
-    +     '<div class="row-title">' + item.title + '</div>'
-    +     '<div class="row-excerpt">' + item.excerpt + '</div>'
+    +     '<div class="row-title">' + escHTML(item.title) + '</div>'
+    +     '<div class="row-excerpt">' + escHTML(item.excerpt) + '</div>'
     +   '</div>'
     +   '<div class="row-right">'
     +     pillHtml
-    +     '<a class="row-link" href="' + item.link + '" target="_blank">' + linkText + '</a>'
+    +     '<a class="row-link" href="' + escHTML(safeUrl(item.link)) + '" target="_blank" rel="noopener">' + linkText + '</a>'
     +   '</div>'
     + '</div>';
 }
@@ -931,7 +931,7 @@ function renderMedia(reports) {
     return ''
       + '<div class="year-group fade-in' + (isOpen ? ' open' : '') + '" style="transition-delay:' + (yi * 0.05) + 's">'
       +   '<div class="year-label">'
-      +     '<span class="year-num">' + year + '</span>'
+      +     '<span class="year-num">' + escHTML(year) + '</span>'
       +     '<span class="year-count">' + count + ' 篇</span>'
       +     '<span class="year-line"></span>'
       +     '<svg class="year-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'

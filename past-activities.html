@@ -442,15 +442,15 @@ function renderPageInfo(p) {
   document.getElementById('pi-section-key').textContent   = p.section_key;
   document.getElementById('pi-section-chron').textContent = p.section_chron;
   document.getElementById('pi-back-text').textContent     = p.back_text;
-  document.getElementById('pi-back-link').href            = p.back_url;
+  document.getElementById('pi-back-link').href            = safeUrl(p.back_url);
 }
 
 function renderSiteConfig(s) {
   /* Footer CTA 按鈕連結 */
   var btnP = document.getElementById('pi-cta-primary');
-  if (btnP && s.url_cta_join) btnP.href = s.url_cta_join;
+  if (btnP && s.url_cta_join) btnP.href = safeUrl(s.url_cta_join);
   var btnS = document.getElementById('pi-cta-secondary');
-  if (btnS && s.url_cta_calendar) btnS.href = s.url_cta_calendar;
+  if (btnS && s.url_cta_calendar) btnS.href = safeUrl(s.url_cta_calendar);
 }
 
 /* ═══════════════════════════════
@@ -473,17 +473,17 @@ function renderKeyEvents(events) {
     <div class="act-card" style="transition-delay:${(i % 3) * 0.07}s">
       <div class="act-img-wrap">
         ${keyEventImgSrc(e.image_url)
-          ? `<img class="act-img" src="${keyEventImgSrc(e.image_url)}" alt="${e.title}" loading="lazy"
+          ? `<img class="act-img" src="${escHTML(safeUrl(keyEventImgSrc(e.image_url)))}" alt="${escHTML(e.title)}" loading="lazy"
                 onerror="this.outerHTML='<div class=&quot;act-img-fallback&quot;>TXGCCA</div>'">`
           : `<div class="act-img-fallback">TXGCCA</div>`}
       </div>
       <div class="act-body">
         <div class="act-meta">
-          <span class="act-date">${e.date}</span>
-          ${e.badge ? `<span class="act-badge ${BADGE_CLASS[e.badge_color] || 'b-navy'}">${e.badge}</span>` : ''}
+          <span class="act-date">${escHTML(e.date)}</span>
+          ${e.badge ? `<span class="act-badge ${BADGE_CLASS[e.badge_color] || 'b-navy'}">${escHTML(e.badge)}</span>` : ''}
         </div>
-        <div class="act-title">${e.title}</div>
-        <div class="act-desc">${e.description}</div>
+        <div class="act-title">${escHTML(e.title)}</div>
+        <div class="act-desc">${escHTML(e.description)}</div>
       </div>
     </div>
   `).join('');
@@ -543,11 +543,11 @@ function groupByYear(records) {
 function renderChronRow(r) {
   return `
     <div class="chron-row">
-      <div class="chron-date-cell">${r.date_display}</div>
-      <span class="chron-cat ${CAT_CLASS[r.category] || 'b-navy'}">${r.category}</span>
+      <div class="chron-date-cell">${escHTML(r.date_display)}</div>
+      <span class="chron-cat ${CAT_CLASS[r.category] || 'b-navy'}">${escHTML(r.category)}</span>
       <div>
-        <div class="chron-title-cell">${r.title}${r.partner ? `<span class="chron-partner">｜${r.partner}</span>` : ''}</div>
-        ${r.note ? `<div class="chron-note">${r.note}</div>` : ''}
+        <div class="chron-title-cell">${escHTML(r.title)}${r.partner ? `<span class="chron-partner">｜${escHTML(r.partner)}</span>` : ''}</div>
+        ${r.note ? `<div class="chron-note">${escHTML(r.note)}</div>` : ''}
       </div>
     </div>
   `;
@@ -814,7 +814,7 @@ function txgccaReload() {
     // data-href 社群連結
     document.querySelectorAll('[data-href]').forEach(function(el) {
       var val = siteData[el.dataset.href];
-      if (val && val !== '#') el.href = val;
+      if (val && val !== '#') el.href = safeUrl(val);
     });
 
     // Footer 立案號碼

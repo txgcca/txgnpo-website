@@ -781,7 +781,7 @@ function applyFields(data) {
   });
   document.querySelectorAll('[data-href]').forEach(el => {
     const val = data[el.dataset.href];
-    if (val && val !== '#') el.href = val;
+    if (val && val !== '#') el.href = safeUrl(val);
   });
   const reg = document.querySelector('.footer-reg');
   if (reg && data.org_reg_1) reg.textContent = data.org_reg_1 + (data.org_reg_2 ? ' ｜ ' + data.org_reg_2 : '');
@@ -821,9 +821,7 @@ function renderCalendar(calId) {
    - 同時只展開一個年份；每年先顯示前 3 筆，其餘按「查看其餘」展開；
      年份收合後再打開，回到只顯示前 3 筆
 ═══════════════════════════════════════════════════ */
-function escHTML(t) {
-  return String(t || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+/* escHTML 改由 sheet-data.js 全站共用 */
 
 const ROWS_PER_YEAR = 3;   // 每個年份打開後先顯示的筆數
 
