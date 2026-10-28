@@ -846,6 +846,24 @@ function formatDateFeatured(dateStr) {
   return y && m ? y + ' 年 ' + parseInt(m) + ' 月' : dateStr;
 }
 
+/* ── YouTube 播放器：可指定開始／結束時間（Sheet 欄位 youtube_start / youtube_end，選填）
+   時間可寫「2:07」「1:02:05」或秒數「127」；沒填就從頭播放 ── */
+function ytSeconds(v) {
+  var t = String(v == null ? '' : v).trim().replace(/：/g, ':');
+  if (!t) return 0;
+  if (/^\d+$/.test(t)) return parseInt(t, 10);
+  if (!/^\d+(:\d{1,2}){1,2}$/.test(t)) return 0;          // 格式不對就當作沒填
+  return t.split(':').reduce(function(sum, n) { return sum * 60 + parseInt(n, 10); }, 0);
+}
+function ytEmbedUrl(item) {
+  var start = ytSeconds(item.youtube_start);
+  var end   = ytSeconds(item.youtube_end);
+  var q = [];
+  if (start > 0) q.push('start=' + start);
+  if (end > start) q.push('end=' + end);
+  return 'https://www.youtube.com/embed/' + ytId(item.youtubeId) + (q.length ? '?' + q.join('&') : '');
+}
+
 /* ── 精選報導區 ── */
 function buildFeatCard(item, isMain, delay) {
   var isVideo = item.type === 'video';
@@ -856,7 +874,7 @@ function buildFeatCard(item, isMain, delay) {
       ? '<div class="media-badge badge-video">▶ 影片</div>'
       : '<div class="media-badge badge-text">📄 文字</div>';
   var videoHtml = isVideo && item.youtubeId
-    ? '<div class="video-wrap"><iframe src="https://www.youtube.com/embed/' + ytId(item.youtubeId) + '"'
+    ? '<div class="video-wrap"><iframe src="' + ytEmbedUrl(item) + '"'
       + ' title="' + escHTML(item.outlet) + ' 報導"'
       + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"'
       + ' allowfullscreen></iframe></div>' : '';
