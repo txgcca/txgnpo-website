@@ -678,8 +678,9 @@ function parseCSV(text) {
   }
   if (field || row.length) { row.push(field); rows.push(row); }
   if (!rows.length) return [];
-  var hdrs = rows[0];
-  return rows.slice(1).map(function(r) {
+  var h = txgccaHeaderIndex(rows);   // 英文欄名列（大事記可能不在第 1 列）；設定類工作表仍是第 1 列
+  var hdrs = rows[h];
+  return rows.slice(h + 1).map(function(r) {
     var o = {};
     hdrs.forEach(function(h, idx) { o[h.trim()] = (r[idx] || '').trim(); });
     return o;

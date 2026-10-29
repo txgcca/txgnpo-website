@@ -103,6 +103,22 @@ function cssUrl(u) {
   return safeUrl(u).replace(/["'()\\\s]/g, function (c) { return encodeURIComponent(c); });
 }
 
+/* ════════════════════════════════════════════════════════════
+   找出 Sheet 的「英文欄名列」在第幾列（從 0 開始）
+
+   清單型工作表的上方可能有說明列、中文欄名列，英文欄名不一定在第 1 列。
+   這裡找第一個「A 欄是 id / date / year / category」的列當作欄名列；
+   找不到就當作第 1 列（舊排法）。調整說明列的位置，網站不會壞。
+════════════════════════════════════════════════════════════ */
+var TXGCCA_HEADER_KEYS = ['id', 'date', 'year', 'category'];
+function txgccaHeaderIndex(rows) {
+  for (var i = 0; i < Math.min(rows.length, 10); i++) {
+    var first = String((rows[i] && rows[i][0]) || '').trim();
+    if (TXGCCA_HEADER_KEYS.indexOf(first) !== -1) return i;
+  }
+  return 0;
+}
+
 function ytId(id) {
   return String(id == null ? '' : id).replace(/[^\w-]/g, '');
 }
