@@ -928,7 +928,9 @@ function renderMedia(reports) {
   /* 精選報導 */
   var featured = reports
     .filter(function(r) { return r.featured === 'TRUE'; })
-    .sort(function(a, b) { return Number(a.featured_order) - Number(b.featured_order); });
+    /* 依 Sheet 的 feature_order 排序：1=主卡、2=右上、3=右下；沒填數字的排最後，同順序依 Sheet 先後 */
+    .map(function(r, i) { var n = parseInt(r.feature_order, 10); return Object.assign({ _ord: isNaN(n) ? 999 : n, _i: i }, r); })
+    .sort(function(a, b) { return (a._ord - b._ord) || (a._i - b._i); });
   var grid = document.getElementById('featured-grid');
   grid.innerHTML = featured.map(function(item, i) { return buildFeatCard(item, i === 0, i * 0.08); }).join('');
 
