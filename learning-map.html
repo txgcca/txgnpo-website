@@ -469,8 +469,9 @@ function parseKV(rows) {
 }
 
 function parseRows(rows) {
-  const headers = rows[0];
-  return rows.slice(1)
+  const h = txgccaHeaderIndex(rows);   // 英文欄名列（不一定是第 1 列）
+  const headers = rows[h];
+  return rows.slice(h + 1)
     .filter(row => row[0] && /^[a-z]+-\d+/.test(row[0]))
     .map(row => {
       const obj = {};
