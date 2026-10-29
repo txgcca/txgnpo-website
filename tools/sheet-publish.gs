@@ -11,6 +11,7 @@
  *   3. 把「目前的正式 Sheet」整份複製到雲端硬碟「網站正式版備份」資料夾（只保留最近 30 份）
  *   4. 把草稿每張工作表的內容覆蓋到正式 Sheet 同名的工作表
  *   5. 若中途出錯：已覆蓋的工作表自動從剛才的備份還原，不會停在一半
+ *   ※ DRAFT_ONLY_SHEETS 清單裡的工作表（例如「同步待審核」）只留在草稿，發布時完全略過
  *
  * 注意：
  *   - 只覆蓋「內容」，不會刪除或重建正式 Sheet 的工作表，所以網站讀取用的 gid 不會變
@@ -20,6 +21,10 @@
 
 // ★ 草稿 Sheet 的檔案 ID：草稿網址中 /d/ 和 /edit 之間那一串
 const DRAFT_SHEET_ID = '1ctDmgblaCWrGacgPP1nFl4uBbCgD0hKrQ8WYFQ3MR0U';
+
+// ★ 只留在草稿的工作表（內部作業用，網站不讀）：發布時完全略過，不檢查、不複製，正式版也不需要有
+//   以後草稿若再新增內部用的工作表，把名稱加進這份清單即可
+const DRAFT_ONLY_SHEETS = ['同步待審核'];
 
 const BACKUP_FOLDER_NAME = '網站正式版備份';
 
@@ -46,7 +51,7 @@ function publishDraft() {
   const draft = SpreadsheetApp.openById(DRAFT_SHEET_ID);
 
   // 1. 結構檢查：草稿的每張工作表，正式版都必須有同名工作表
-  const missing = draft.getSheets()
+  const missing = publishableSheets_(draft)
     .map(function (s) { return s.getName(); })
     .filter(function (name) { return !live.getSheetByName(name); });
   if (missing.length) {
@@ -81,7 +86,7 @@ function publishDraft() {
     const done = [];
     let current = '';
     try {
-      draft.getSheets().forEach(function (ds) {
+      publishableSheets_(draft).forEach(function (ds) {
         current = ds.getName();
         writeSheet_(live.getSheetByName(current), ds.getDataRange().getValues());
         SpreadsheetApp.flush();                             // 每張寫完就確認，錯誤會停在這一張
@@ -107,6 +112,11 @@ function publishDraft() {
   }
 }
 
+/** 草稿中要發布的工作表（排除 DRAFT_ONLY_SHEETS） */
+function publishableSheets_(draft) {
+  return draft.getSheets().filter(function (s) { return DRAFT_ONLY_SHEETS.indexOf(s.getName()) === -1; });
+}
+
 /** 找英文欄名列（從 0 開始）；找不到回傳 -1 */
 function headerRow_(values) {
   for (let i = 0; i < Math.min(values.length, 10); i++) {
@@ -125,7 +135,7 @@ function trimRow_(row) {
 /** 比對每張工作表的英文欄名列；回傳問題清單（空陣列 = 全部一致） */
 function checkStructure_(draft, live) {
   const problems = [];
-  draft.getSheets().forEach(function (ds) {
+  publishableSheets_(draft).forEach(function (ds) {
     const name = ds.getName();
     const ls = live.getSheetByName(name);
     const dv = ds.getDataRange().getValues();
