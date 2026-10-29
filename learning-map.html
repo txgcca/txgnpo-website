@@ -152,12 +152,13 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 va
 .bar-default { background: var(--teal); }
 .bar-book { background: var(--teal); }
 .card-cover-area { width: 100%; aspect-ratio: 16/9; background: var(--off-white); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-.card-cover-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-cover-area img, img.card-cover-area { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cover-ph-icon { font-size: 28px; opacity: .4; }
 .yt-cover { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; flex-shrink: 0; position: relative; }
 .yt-cover iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 .book-card-body { display: flex; flex-direction: row; flex: 1; overflow: hidden; }
-.book-thumb { width: 130px; flex-shrink: 0; background: linear-gradient(160deg,var(--navy-l),var(--navy-d)); display: flex; align-items: center; justify-content: center; font-size: 32px; padding: 16px; background-size: cover; background-position: center; }
+.book-thumb { width: 130px; aspect-ratio: 2 / 3; align-self: flex-start; flex-shrink: 0; overflow: hidden; background: linear-gradient(160deg,var(--navy-l),var(--navy-d)); display: flex; align-items: center; justify-content: center; font-size: 32px; }   /* 書封固定 2:3，不被文字長度撐變形 */
+.book-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .book-text { flex: 1; padding: 18px 16px; display: flex; flex-direction: column; overflow: hidden; }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
 .platform-badge { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 99px; font-size: 10px; font-weight: 700; letter-spacing: .05em; margin-bottom: 10px; align-self: flex-start; flex-shrink: 0; }
@@ -184,8 +185,8 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 va
 /* Podcast card */
 .podcast-card { flex: 0 0 calc(50% - 47px); min-width: 280px; background: var(--white); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; display: flex; align-items: stretch; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .podcast-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,55,100,.09); border-color: rgba(0,55,100,.2); }
-.podcast-thumb { width: 80px; flex-shrink: 0; background: linear-gradient(135deg,#7c3aed,#4c1d95); display: flex; align-items: center; justify-content: center; font-size: 28px; }
-.podcast-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.podcast-thumb { width: 80px; aspect-ratio: 1 / 1; align-self: center; margin-left: 12px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: linear-gradient(135deg,#7c3aed,#4c1d95); display: flex; align-items: center; justify-content: center; font-size: 28px; }   /* Podcast 封面固定正方形 */
+.podcast-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .podcast-info { flex: 1; padding: 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
 .podcast-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .podcast-host { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
@@ -251,7 +252,7 @@ footer { background: var(--navy-d); padding: 28px var(--px); display: flex; alig
   .map-h2 { font-size: 24px; }
   .res-h2 { font-size: 24px; }
   .nw-title { font-size: 20px; }
-  .book-thumb { width: 160px; font-size: 26px; }
+  .book-thumb { width: 120px; font-size: 26px; }
   .res-card, .podcast-card { flex: 0 0 85vw; }
 }
 </style>
@@ -504,10 +505,34 @@ const PLATFORM_STYLE = {
   youtube: {bar:'bar-youtube', badge:'badge-youtube', btn:''           },
   default: {bar:'bar-default', badge:'badge-default', btn:'btn-default'},
 };
-const POD_BADGE = {'Spotify':'badge-spotify','Apple Podcasts':'badge-apple','SoundOn':'badge-soundon','YouTube':'badge-youtube'};
+const POD_BADGE = {'spotify':'badge-spotify','apple podcasts':'badge-apple','apple podcast':'badge-apple','apple poadcast':'badge-apple','soundon':'badge-soundon','youtube':'badge-youtube'};
 const getStyle = t => PLATFORM_STYLE[t] || PLATFORM_STYLE['default'];
 const sorted = arr => arr.filter(x => x.visible === 'TRUE' || x.visible === true || x.visible === 'true')
-                         .sort((a,b) => Number(a.sortorder) - Number(b.sortorder));
+                         .map((x, i) => Object.assign({ _i: i }, x))
+                         .sort((a,b) => (sortNum(a) - sortNum(b)) || (a._i - b._i));   // 依 Sheet 的 sortOrder；沒填的排最後
+function sortNum(x) { const n = parseInt(x.sortOrder, 10); return isNaN(n) ? 9999 : n; }
+
+/* ══ 封面圖：coverUrl 可填三種 ══════════════════════════════
+   1. 一般圖片網址（例如「自動抓封面」抓到的官方圖）
+   2. Google 雲端「共用連結」→ 自動轉成圖片網址，並依類型取適當大小
+      （雲端檔案要設成「知道連結的任何人都能檢視」）
+   3. 只填檔名（例如 the-days.jpg）→ 讀 repo 的 images/learning-map/
+   載入失敗時自動換回 emoji 佔位圖
+═══════════════════════════════════════════════════════════ */
+function coverSrc(v, width) {
+  const u = String(v || '').trim();
+  if (!u) return '';
+  const drive = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=|thumbnail\?id=)([\w-]{10,})/);
+  if (drive) return 'https://drive.google.com/thumbnail?id=' + drive[1] + '&sz=w' + width;
+  if (/^[\w.-]+\.(jpe?g|png|webp|gif)$/i.test(u)) return 'images/learning-map/' + u;
+  return safeUrl(u);
+}
+function coverImg(v, width, alt, cls, fallback) {
+  const src = coverSrc(v, width);
+  if (!src || src === '#') return '';
+  return `<img${cls ? ` class="${cls}"` : ''} src="${escHTML(src)}" alt="${escHTML(alt)}" loading="lazy" decoding="async"
+    onerror="this.outerHTML=this.dataset.fb" data-fb="${escHTML(fallback)}">`;
+}
 
 function renderVideos(data) {
   document.getElementById('film-track').innerHTML = sorted(data).map(v => {
@@ -515,13 +540,12 @@ function renderVideos(data) {
     const btnTxt = escHTML(v.linkText || `前往 ${v.platform} 觀看 ↗`);
     if (v.type === 'youtube') return `
       <div class="res-card"><div class="card-top-bar ${st.bar}"></div>
-        <div class="yt-cover"><iframe src="https://www.youtube.com/embed/${ytId(v.yutubeeld)}" title="${escHTML(v.title)}"
+        <div class="yt-cover"><iframe src="https://www.youtube.com/embed/${ytId(v.youtubeId)}" title="${escHTML(v.title)}" loading="lazy"
           allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
         <div class="card-body"><span class="platform-badge ${st.badge}">${escHTML(v.platform)}</span>
           <div class="card-title">${escHTML(v.title)}</div><div class="card-desc">${escHTML(v.desc)}</div></div></div>`;
-    const cover = v.coverUrl
-      ? `<img class="card-cover-area" src="${escHTML(safeUrl(v.coverUrl))}" alt="${escHTML(v.title)}">`
-      : `<div class="card-cover-area"><div class="cover-ph-icon">${escHTML(v.coverEmoji||'🎬')}</div></div>`;
+    const ph = `<div class="card-cover-area"><div class="cover-ph-icon">${escHTML(v.coverEmoji||'🎬')}</div></div>`;
+    const cover = coverImg(v.coverUrl, 1280, v.title, 'card-cover-area', ph) || ph;
     return `
       <div class="res-card"><div class="card-top-bar ${st.bar}"></div>${cover}
         <div class="card-body"><span class="platform-badge ${st.badge}">${escHTML(v.platform)}</span>
@@ -533,14 +557,12 @@ function renderVideos(data) {
 function renderBooks(data) {
   document.getElementById('book-track').innerHTML = sorted(data).map(b => {
     const al = [b.author, b.publisher].filter(Boolean).join(' · ');
-    const thumbStyle = b.coverUrl
-      ? `style="background-image:url('${escHTML(cssUrl(b.coverUrl))}');background-size:cover;background-position:center;padding:0;"`
-      : '';
-    const thumb = b.coverUrl ? '' : `<div style="font-size:32px;">${escHTML(b.coverEmoji||'📖')}</div>`;
+    const ph = `<div>${escHTML(b.coverEmoji||'📖')}</div>`;
+    const thumb = coverImg(b.coverUrl, 400, b.title, '', ph) || ph;
     const btn = (b.link && b.link !== '#') ? `<a class="card-btn btn-ghost" style="font-size:12px;padding:8px 14px" href="${escHTML(safeUrl(b.link))}" target="_blank" rel="noopener">購書連結 ↗</a>` : '';
     return `
       <div class="res-card"><div class="card-top-bar bar-book"></div>
-        <div class="book-card-body"><div class="book-thumb" ${thumbStyle}>${thumb}</div>
+        <div class="book-card-body"><div class="book-thumb">${thumb}</div>
           <div class="book-text"><span class="platform-badge badge-book">書籍</span>
             <div class="card-title">${escHTML(b.title)}</div>
             <div class="card-desc">${al?escHTML(al)+'<br>':''}${escHTML(b.desc)}</div>${btn}</div></div></div>`;
@@ -549,10 +571,9 @@ function renderBooks(data) {
 
 function renderPodcasts(data) {
   document.getElementById('pod-track').innerHTML = sorted(data).map(p => {
-    const bc = POD_BADGE[p.platform] || 'badge-podcast';
-    const thumb = p.coverUrl
-      ? `<div class="podcast-thumb"><img src="${escHTML(safeUrl(p.coverUrl))}" alt="${escHTML(p.title)}"></div>`
-      : `<div class="podcast-thumb">${escHTML(p.coverEmoji||'🎙')}</div>`;
+    const bc = POD_BADGE[String(p.platform || '').trim().toLowerCase()] || 'badge-podcast';
+    const ph = escHTML(p.emoji || p.coverEmoji || '🎙');
+    const thumb = `<div class="podcast-thumb">${coverImg(p.coverUrl, 400, p.title, '', ph) || ph}</div>`;
     const host = p.host ? `<div class="podcast-host">${escHTML(p.host)}</div>` : '';
     return `
       <div class="podcast-card">${thumb}

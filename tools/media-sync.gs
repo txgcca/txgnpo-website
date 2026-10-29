@@ -41,6 +41,8 @@ function onOpen() {
     .addSeparator()
     .addItem('開啟每月自動同步（每月 1 日早上）', 'installMonthlyTrigger')
     .addToUi();
+  // 同一個 Apps Script 專案只能有一個 onOpen，其他工具的選單在這裡一起加
+  if (typeof addCoverMenu_ === 'function') addCoverMenu_();
 }
 
 /* ══ 選單：立即同步 ══════════════════════════════════════════ */
