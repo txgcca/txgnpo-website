@@ -152,7 +152,8 @@ nav { background: var(--navy); display: flex; align-items: center; padding: 0 va
 .bar-default { background: var(--teal); }
 .bar-book { background: var(--teal); }
 .card-cover-area { width: 100%; aspect-ratio: 16/9; background: var(--off-white); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-.card-cover-area img, img.card-cover-area { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-cover-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
+img.card-cover-area { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; flex-shrink: 0; }   /* 圖片本身當封面：固定 16:9，不可撐滿卡片 */
 .cover-ph-icon { font-size: 28px; opacity: .4; }
 .yt-cover { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; flex-shrink: 0; position: relative; }
 .yt-cover iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
