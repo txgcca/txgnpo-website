@@ -15,7 +15,13 @@
  */
 
 const COVER_SHEETS = ['學習地圖_影片推薦', '學習地圖_書籍推薦', '學習地圖_podcast推薦'];
-const CRAWLER_UA = 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)';  // 多數網站會對這個身分回傳分享圖
+// 讀取網頁時使用的「身分」，依序嘗試，抓到分享圖就停
+const CRAWLER_UAS = [
+  'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',   // Facebook 連結預覽
+  'Twitterbot/1.0',                                                               // X（Twitter）連結預覽
+  'Mozilla/5.0 (compatible; Linespider/1.1; +https://lin.ee/4dwXkTH)',            // LINE 連結預覽
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'  // 一般瀏覽器
+];
 
 function addCoverMenu_() {
   SpreadsheetApp.getUi()
@@ -83,16 +89,32 @@ function coverFromLink_(link) {
     }
   }
 
-  // 一般網頁：讀官方分享圖（og:image / twitter:image）
-  const res = UrlFetchApp.fetch(link, {
-    muteHttpExceptions: true, followRedirects: true,
-    headers: { 'User-Agent': CRAWLER_UA, 'Accept-Language': 'zh-TW,zh;q=0.9,en;q=0.8' }
-  });
+  // 一般網頁：讀官方分享圖（og:image / twitter:image）；換不同網址寫法 × 不同身分重試
+  const urls = [link];
+  const nf = link.match(/netflix\.com\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?title\/(\d+)/i);
+  if (nf) urls.push('https://www.netflix.com/tw/title/' + nf[1], 'https://www.netflix.com/title/' + nf[1]);
+  for (let u = 0; u < urls.length; u++) {
+    for (let a = 0; a < CRAWLER_UAS.length; a++) {
+      const img = ogImage_(urls[u], CRAWLER_UAS[a]);
+      if (img) return img;
+    }
+  }
+  return '';
+}
+
+/** 用指定身分讀一次網頁，回傳分享圖網址（沒有就回傳空字串） */
+function ogImage_(url, ua) {
+  let res;
+  try {
+    res = UrlFetchApp.fetch(url, {
+      muteHttpExceptions: true, followRedirects: true,
+      headers: { 'User-Agent': ua, 'Accept-Language': 'zh-TW,zh;q=0.9,en;q=0.8' }
+    });
+  } catch (e) { return ''; }
   if (res.getResponseCode() >= 400) return '';
   const html = res.getContentText().slice(0, 300000);
   const img = metaContent_(html, 'og:image:secure_url') || metaContent_(html, 'og:image') || metaContent_(html, 'twitter:image');
-  if (!img) return '';
-  return absoluteUrl_(img.replace(/&amp;/g, '&'), link);
+  return img ? absoluteUrl_(img.replace(/&amp;/g, '&'), url) : '';
 }
 
 /** 從 HTML 找 <meta property|name="key" content="..."> （屬性順序不限） */
