@@ -925,6 +925,8 @@ function buildReportRow(item) {
 }
 
 function renderMedia(reports) {
+  /* visible 欄填 FALSE 的報導不上網站（空白或 TRUE 都會顯示）；精選、列表、篇數都只算要顯示的 */
+  reports = reports.filter(function(r) { return String(r.visible || '').trim().toUpperCase() !== 'FALSE'; });
   /* 精選報導 */
   var featured = reports
     .filter(function(r) { return r.featured === 'TRUE'; })

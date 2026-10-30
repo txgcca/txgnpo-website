@@ -28,7 +28,7 @@ const SOURCE_TAB = '工作表1';               // 清冊的工作表名稱；找
 const TARGET_TAB = '媒體報導';
 const REVIEW_TAB = '同步待審核';
 const SYNC_COLS = ['date', 'outlet', 'country', 'title', 'link'];   // 由清冊帶過來的欄位
-const NEW_ROW_DEFAULTS = { featured: 'FALSE' };                     // 新報導的預設值
+const NEW_ROW_DEFAULTS = { visible: 'FALSE', featured: 'FALSE' };  // 新報導預設「不上網站」，確認後再把 visible 改成 TRUE
 const TIMEZONE = 'Asia/Taipei';
 
 const REVIEW_HEADER = ['套用', '報導', '標題', '欄位', '媒體報導目前的值', '清冊的新值', '說明', '_key'];
@@ -255,7 +255,7 @@ function writeReviewRows_(sheet, items) {
 
 function summaryText_(r) {
   const lines = [];
-  lines.push('新增 ' + r.added.length + ' 筆' + (r.added.length ? '（請到「媒體報導」補 region、type、說明等欄位）' : ''));
+  lines.push('新增 ' + r.added.length + ' 筆' + (r.added.length ? '（預設不上網站：請到「媒體報導」確認內容、補 region、type 等欄位，要上網站的把 visible 改成 TRUE）' : ''));
   r.added.forEach(function (a) { lines.push('  ・' + a); });
   lines.push('自動補上空白格 ' + r.fills.length + ' 格');
   const reviewable = r.review.filter(function (x) { return x[0] === false; }).length;
