@@ -126,7 +126,7 @@ Sheet 載入的文字會自動處理，不需要手動加空白或換行。活�
 ## 媒體採訪清冊 → 媒體報導 同步（tools/media-sync.gs）
 
 成員在「媒體採訪清冊」（另一個帳號的雲端）登記報導；草稿 Sheet 每月 1 日自動同步到「媒體報導」分頁，也可按選單「媒體同步 → 立即同步媒體清冊」。
-- 只帶 date、outlet、country、title、link；新報導 visible 預設 FALSE（不上網站）；其他欄位（visible、featured、region、type、說明、YouTube 等）在媒體報導分頁自己補
+- 只帶 date、outlet、country、region、title、type、link；新報導 visible 預設 FALSE（不上網站）；其他欄位（visible、featured、說明、YouTube 等）在媒體報導分頁自己補
 - 用報導連結比對（忽略 fbclid、utm 等追蹤碼）；新報導自動編號 media-xx 加在最下面
 - 空白格直接補上；兩邊不同的值列到「同步待審核」分頁，勾選後按「套用勾選的變更」才寫入
 - 清冊的空白不會覆蓋；清冊刪掉的報導不會被刪除，只會提醒

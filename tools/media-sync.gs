@@ -8,7 +8,8 @@
  *   - 開啟每月自動同步（只需要按一次）
  *
  * 同步規則：
- *   - 只帶 5 欄：date、outlet、country、title、link（其他欄位由媒體分頁自己管理，同步不碰）
+ *   - 只帶 7 欄：date、outlet、country、region、title、type、link（其他欄位由媒體分頁自己管理，同步不碰）
+ *     region 填 international / domestic；type 填 video / text（網頁靠這些代碼顯示標籤）
  *   - 用「報導連結」辨認同一篇報導；比對時忽略網址的追蹤碼（fbclid、utm_…、si 等）
  *   - 新報導：加到媒體報導最下面，自動編號 media-xx，featured 預設 FALSE，其他欄位留空待補
  *   - 媒體報導那格是空的、清冊有值：直接填入
@@ -27,7 +28,7 @@ const SOURCE_SHEET_ID = '14ETqupvkxToPPgoNnv-2nJMKUlC5Ga1I8ezxRqnF4_w';
 const SOURCE_TAB = '工作表1';               // 清冊的工作表名稱；找不到時用第一張
 const TARGET_TAB = '媒體報導';
 const REVIEW_TAB = '同步待審核';
-const SYNC_COLS = ['date', 'outlet', 'country', 'title', 'link'];   // 由清冊帶過來的欄位
+const SYNC_COLS = ['date', 'outlet', 'country', 'region', 'title', 'type', 'link'];   // 由清冊帶過來的欄位
 const NEW_ROW_DEFAULTS = { visible: 'FALSE', featured: 'FALSE' };  // 新報導預設「不上網站」，確認後再把 visible 改成 TRUE
 const TIMEZONE = 'Asia/Taipei';
 
@@ -255,7 +256,7 @@ function writeReviewRows_(sheet, items) {
 
 function summaryText_(r) {
   const lines = [];
-  lines.push('新增 ' + r.added.length + ' 筆' + (r.added.length ? '（預設不上網站：請到「媒體報導」確認內容、補 region、type 等欄位，要上網站的把 visible 改成 TRUE）' : ''));
+  lines.push('新增 ' + r.added.length + ' 筆' + (r.added.length ? '（預設不上網站：請到「媒體報導」確認內容、補說明等欄位，要上網站的把 visible 改成 TRUE）' : ''));
   r.added.forEach(function (a) { lines.push('  ・' + a); });
   lines.push('自動補上空白格 ' + r.fills.length + ' 格');
   const reviewable = r.review.filter(function (x) { return x[0] === false; }).length;
