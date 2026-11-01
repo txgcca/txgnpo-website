@@ -20,7 +20,8 @@
  */
 
 // ★ 草稿 Sheet 的檔案 ID：草稿網址中 /d/ 和 /edit 之間那一串
-const DRAFT_SHEET_ID = '1ctDmgblaCWrGacgPP1nFl4uBbCgD0hKrQ8WYFQ3MR0U';
+//   基於資安考量，實際 ID 不放在公開的 GitHub 上，安裝時請自行貼上（ID 另行記錄在協會內部）
+const DRAFT_SHEET_ID = '';
 
 // ★ 只留在草稿的工作表（內部作業用，網站不讀）：發布時完全略過，不檢查、不複製，正式版也不需要有
 //   以後草稿若再新增內部用的工作表，把名稱加進這份清單即可

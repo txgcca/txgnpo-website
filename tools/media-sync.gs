@@ -24,7 +24,8 @@
  */
 
 // ★ 媒體採訪清冊的檔案 ID：清冊網址中 /d/ 和 /edit 之間那一串
-const SOURCE_SHEET_ID = '14ETqupvkxToPPgoNnv-2nJMKUlC5Ga1I8ezxRqnF4_w';
+//   基於資安考量，實際 ID 不放在公開的 GitHub 上，安裝時請自行貼上（ID 另行記錄在協會內部）
+const SOURCE_SHEET_ID = '';
 const SOURCE_TAB = '工作表1';               // 清冊的工作表名稱；找不到時用第一張
 const TARGET_TAB = '媒體報導';
 const REVIEW_TAB = '同步待審核';
@@ -84,6 +85,7 @@ function runSync_() {
     const book = SpreadsheetApp.getActive();
     const target = book.getSheetByName(TARGET_TAB);
     if (!target) throw new Error('找不到「' + TARGET_TAB + '」工作表');
+    if (!SOURCE_SHEET_ID) throw new Error('尚未設定媒體清冊：請在 Apps Script 的 SOURCE_SHEET_ID 填入清冊的檔案 ID');
     const srcBook = SpreadsheetApp.openById(SOURCE_SHEET_ID);
     const source = srcBook.getSheetByName(SOURCE_TAB) || srcBook.getSheets()[0];
 
