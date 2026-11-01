@@ -2,7 +2,7 @@
    預覽模式（草稿 Sheet）
 
    用法：任何頁面網址後面加上 ?preview=1
-         例如 https://txgcca.org.tw/media.html?preview=1
+         例如 https://www.txgcca.org.tw/media.html?preview=1
 
    - 預覽模式改讀「草稿 Sheet」，正式網站仍讀「正式 Sheet」
    - 預覽模式不讀、也不寫瀏覽器快取，避免草稿內容跑進正式網站
