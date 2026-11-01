@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>找不到頁面 — 臺中市韌民協會</title>
+<!-- ★ 這頁會出現在「任何不存在的網址」底下，所以圖片、連結一律用 / 開頭的絕對路徑 -->
+<script>
+/* ══ 舊 Google Sites 網址 → 新頁面 ══════════════════════
+   舊網站的網址有人分享過、印在海報上，換站後自動轉到新頁面。
+   要新增：在下面加一行  '舊網址路徑': '新頁面檔名'
+════════════════════════════════════════════════════ */
+var OLD_URLS = {
+  '/home':                   '/',
+  '/關於臺中韌民':            '/about.html',
+  '/關於臺中韌民/協會章程':    '/charter.html',
+  '/過往活動':                '/past-activities.html',
+  '/參加自訓':                '/training.html',
+  '/自訓與課程活動':          '/training.html',
+  '/學習地圖':                '/learning-map.html',
+  '/媒體報導':                '/media.html',
+  '/聯絡我們':                '/contact.html'
+};
+(function () {
+  var p;
+  try { p = decodeURIComponent(location.pathname); } catch (e) { p = location.pathname; }
+  p = p.replace(/\/+$/, '') || '/';
+  var to = OLD_URLS[p] || OLD_URLS[p.toLowerCase()];
+  if (to) location.replace(to + location.search + location.hash);
+})();
+</script>
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #003764;
+  --navy-d:    #002548;
+  --navy-l:    #0a4a7c;
+  --orange:    #FF6921;
+  --orange-d:  #e05510;
+  --teal:      #2CD5C4;
+  --teal-d:    #1aada0;
+  --white:     #ffffff;
+  --off-white: #f7f6f3;
+  --ink:       #0d1f33;
+  --muted:     #5a6b7d;
+  --rule:      rgba(0,55,100,.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 40px; height: 58px; gap: 32px;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--white); font-size: 13px; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+}
+.nav-mark { height: 40px; width: auto; display: block; flex-shrink: 0; object-fit: contain; opacity: 1; transition: opacity .3s ease; }
+.nav-links { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+.nav-link {
+  color: rgba(255,255,255,.6); font-size: 13px; padding: 6px 12px; border-radius: 4px;
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+  transition: color .15s, background .15s;
+}
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
+.nav-link.active { color: var(--white); }
+
+.page-header {
+  background: var(--navy); padding: 52px 60px 44px;
+  border-bottom: 3px solid var(--orange);
+  position: relative; overflow: hidden;
+}
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.bc-link { font-size: 12px; color: rgba(255,255,255,.4); cursor: pointer; text-decoration: none; }
+.bc-sep  { font-size: 11px; color: rgba(255,255,255,.2); }
+.bc-current { font-size: 12px; color: var(--teal); font-weight: 500; }
+.page-h1 {
+  font-family: 'Oswald', sans-serif; font-size: 52px; font-weight: 700;
+  color: var(--white); line-height: 1; margin-bottom: 12px;
+}
+
+/* ── 手機漢堡選單 ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,.08); }
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  background: rgba(255,255,255,.7);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-drawer { display: none; flex-direction: column; background: var(--navy); padding: 8px 0; position: fixed; top: 56px; left: 0; right: 0; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+.nav-drawer.open { display: flex; }
+.nav-drawer .nav-link { padding: 12px 24px; border-radius: 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 98; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.nav-backdrop.open { display: block; }
+footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { color: rgba(255,255,255,.5); font-size: 12px; }
+.footer-brand-en { color: rgba(255,255,255,.35); font-size: 11px; margin-top: 2px; }
+.footer-reg { color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: .04em; margin-top: 4px; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 30px; height: 30px; border-radius: 4px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.85); text-decoration: none; transition: background .15s; }
+.social-btn:hover { background: rgba(255,255,255,.16); color: var(--white); }
+.social-btn .social-ico { width: 15px; height: 15px; fill: currentColor; display: block; }
+
+/* ── 404 ── */
+.nf-hero { background: var(--navy); padding: 72px 60px 64px; border-bottom: 3px solid var(--orange); position: relative; overflow: hidden; }
+.nf-code { font-family: 'Oswald', sans-serif; font-size: 120px; font-weight: 700; line-height: 1; color: rgba(255,255,255,.08); position: absolute; right: 48px; bottom: -14px; letter-spacing: .02em; pointer-events: none; }
+.nf-kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--teal); margin-bottom: 16px; }
+.nf-h1 { font-size: 40px; font-weight: 900; color: var(--white); line-height: 1.3; margin-bottom: 16px; }
+.nf-sub { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.9; max-width: 560px; }
+.nf-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 32px; background: var(--orange); color: var(--white); font-size: 14px; font-weight: 700; padding: 13px 26px; border-radius: 4px; text-decoration: none; transition: background .15s; }
+.nf-btn:hover { background: var(--orange-d); }
+.nf-links { padding: 56px 40px 72px; }
+.nf-links-h { font-size: 13px; font-weight: 700; letter-spacing: .12em; color: var(--muted); margin-bottom: 20px; }
+.nf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.nf-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 22px; border: 1px solid var(--rule); border-radius: 8px; text-decoration: none; color: var(--ink); background: var(--white); transition: border-color .15s, transform .15s, box-shadow .15s; }
+.nf-card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,55,100,.08); }
+.nf-card-t { font-size: 15px; font-weight: 700; }
+.nf-card-d { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.nf-arrow { color: var(--orange); font-weight: 700; flex-shrink: 0; }
+
+@media (max-width: 900px) { .nf-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 54px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nf-hero { padding: 48px 20px 44px; }
+  .nf-code { font-size: 80px; right: 16px; bottom: -10px; }
+  .nf-h1 { font-size: 28px; }
+  .nf-sub { font-size: 14px; }
+  .nf-links { padding: 40px 20px 56px; }
+  .nf-grid { grid-template-columns: 1fr; gap: 10px; }
+  .nf-card { padding: 16px 18px; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img class="nav-mark" src="/logo.png" width="40" height="40" alt="社團法人臺中市韌民協會 LOGO">
+    社團法人臺中市韌民協會
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/about.html">關於臺中韌民</a>
+    <a class="nav-link" href="/training.html">自訓與課程活動</a>
+    <a class="nav-link" href="/learning-map.html">學習地圖</a>
+    <a class="nav-link" href="/media.html">媒體報導</a>
+    <a class="nav-link" href="/contact.html">聯絡我們</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-link" href="/about.html">關於臺中韌民</a>
+  <a class="nav-link" href="/training.html">自訓與課程活動</a>
+  <a class="nav-link" href="/learning-map.html">學習地圖</a>
+  <a class="nav-link" href="/media.html">媒體報導</a>
+  <a class="nav-link" href="/contact.html">聯絡我們</a>
+</div>
+<div class="nav-backdrop" id="nav-backdrop"></div>
+
+<section class="nf-hero">
+  <div class="nf-code">404</div>
+  <div class="nf-kicker">PAGE NOT FOUND</div>
+  <h1 class="nf-h1">這個頁面已經搬家了</h1>
+  <p class="nf-sub">協會官網已全面改版，你要找的內容可能換了位置。<br>回到臺中韌民首頁看看，或從下面的入口繼續逛逛。</p>
+  <a class="nf-btn" href="/">臺中韌民 <span>→</span></a>
+</section>
+
+<section class="nf-links">
+  <div class="nf-links-h">你可能在找</div>
+  <div class="nf-grid">
+    <a class="nf-card" href="/"><div><div class="nf-card-t">首頁</div><div class="nf-card-d">從頭開始認識我們</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/about.html"><div><div class="nf-card-t">關於臺中韌民</div><div class="nf-card-d">協會介紹、大事記、組織架構</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/training.html"><div><div class="nf-card-t">自訓與課程活動</div><div class="nf-card-d">8 週自訓入門班、主題課程</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/past-activities.html"><div><div class="nf-card-t">過往活動</div><div class="nf-card-d">關鍵記事與完整活動紀錄</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/learning-map.html"><div><div class="nf-card-t">學習地圖</div><div class="nf-card-d">民防知識地圖與推薦資源</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/media.html"><div><div class="nf-card-t">媒體報導</div><div class="nf-card-d">國內外媒體採訪紀錄</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/charter.html"><div><div class="nf-card-t">協會章程</div><div class="nf-card-d">組織規範與會員權利義務</div></div><span class="nf-arrow">→</span></a>
+    <a class="nf-card" href="/contact.html"><div><div class="nf-card-t">聯絡我們</div><div class="nf-card-d">一般聯絡、合作邀約、媒體採訪</div></div><span class="nf-arrow">→</span></a>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">社團法人臺中市韌民協會</div>
+    <div class="footer-brand-en">Taichung City Citizen Corps Association</div>
+  </div>
+</footer>
+
+<script>
+var hamburger = document.getElementById('nav-hamburger');
+var drawer    = document.getElementById('nav-drawer');
+var backdrop  = document.getElementById('nav-backdrop');
+function openMenu() {
+  drawer.style.top = document.querySelector('nav').getBoundingClientRect().bottom + 'px';
+  drawer.classList.add('open'); backdrop.classList.add('open'); hamburger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  drawer.classList.remove('open'); backdrop.classList.remove('open'); hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', function () { drawer.classList.contains('open') ? closeMenu() : openMenu(); });
+backdrop.addEventListener('click', closeMenu);
+</script>
+</body>
+</html>

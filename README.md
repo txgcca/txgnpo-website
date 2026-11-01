@@ -79,7 +79,7 @@ Sheet「大事記」的 `show_on_home` / `show_on_about` / `show_on_past` 填「
 | **正式 Sheet** | 幹部 | 正式網站 |
 
 1. 志工在**草稿 Sheet** 修改內容
-2. 等約 5 分鐘，打開預覽網址確認，例如 `https://txgcca.org.tw/media.html?preview=1`
+2. 等約 5 分鐘，打開預覽網址確認，例如 `https://www.txgcca.org.tw/media.html?preview=1`
    （頁面頂端會出現橘色「預覽模式・尚未發布」提示；在預覽模式中點站內連結會維持預覽）
 3. 幹部確認後，在**正式 Sheet** 上方選單按「網站 → 發布草稿到正式網站」
    - 發布前會自動把目前正式版備份到雲端硬碟「網站正式版備份」資料夾（保留最近 30 份）
@@ -141,3 +141,8 @@ coverUrl 有填什麼就用什麼，空白則顯示 emoji。可填三種：
 
 草稿 Sheet 選單「學習地圖 → 自動抓封面」（tools/learning-map-covers.gs）：只填 coverUrl 空白的列，不覆蓋自製圖；YouTube 影片不需封面。
 sortOrder 決定顯示順序（數字小的在前，沒填排最後）。
+
+## 舊網址轉址（404.html）
+
+舊 Google Sites 的網址（例如 `/home`、`/關於臺中韌民`）會由 `404.html` 自動轉到新頁面；對照表在檔案開頭的 `OLD_URLS`，要新增就照格式加一行。
+對照不到的網址會顯示「這個頁面已經搬家了」與各頁入口。404 頁內的連結與圖片一律用 `/` 開頭的絕對路徑。

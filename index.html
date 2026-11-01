@@ -17,8 +17,9 @@
 <meta name="description" content="臺中市韌民協會，臺中在地民間防災自訓社群。2023 年起以每週常態自訓累積實戰經驗，2026 年推出 8 週自訓入門班，帶你有系統地建立災害應變能力。">
 <meta property="og:title" content="臺中市韌民協會">
 <meta property="og:description" content="臺中市韌民協會，臺中在地民間防災自訓社群。2023 年起以每週常態自訓累積實戰經驗，2026 年推出 8 週自訓入門班，帶你有系統地建立災害應變能力。">
-<meta property="og:image" content="https://txgcca.github.io/txgnpo-website/og-image.png">
-<meta property="og:url" content="https://txgcca.org.tw/">
+<meta property="og:image" content="https://www.txgcca.org.tw/og-image.png">
+<meta property="og:url" content="https://www.txgcca.org.tw/">
+<link rel="canonical" href="https://www.txgcca.org.tw/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -611,6 +612,8 @@ nav {
 }
 .counter { display: inline-block; }
 .stat-unit { font-size: 18px; font-weight: 500; color: var(--teal); white-space: nowrap; flex-shrink: 0; }
+.stat-unit.stat-plus { font-size: 34px; font-weight: 700; margin-left: -1px; }   /* 「+」放大加粗，與數字比例協調；仍比數字矮，不會撐高統計列 */
+@media (max-width: 768px) { .stat-unit.stat-plus { font-size: 22px; } }
 .stat-label { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 6px; letter-spacing: .04em; }
 
 /* ══════════════════════════════════════════
@@ -849,7 +852,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="stat-label" data-field="stat_1_label">自訓</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num"><span class="counter skeleton" id="stat-2-num">⬜</span><span class="stat-unit">+</span></div>
+    <div class="stat-num"><span class="counter skeleton" id="stat-2-num">⬜</span><span class="stat-unit stat-plus">+</span></div>
     <div class="stat-label" data-field="stat_2_label">活動場次</div>
   </div>
   <div class="stat-item">
@@ -857,7 +860,7 @@ footer { background: var(--navy-d); padding: 28px 40px; display: flex; align-ite
     <div class="stat-label" data-field="stat_3_label">累積參與人次</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num"><span class="counter skeleton" id="stat-4-num">⬜</span><span class="stat-unit"> 家</span></div>
+    <div class="stat-num"><span class="counter skeleton" id="stat-4-num">⬜</span><span class="stat-unit stat-plus">+</span></div>
     <div class="stat-label" data-field="stat_4_label">媒體採訪報導</div>
   </div>
 </div>
